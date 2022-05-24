@@ -25,7 +25,6 @@ let images ~target =
   $ Build.copy_file ~into:("images" |> into target)
 
 let static ~target =
-  let open Effect in
   let* () = css ~target in
   let* () = javascript ~target in
   let* () = fonts ~target in

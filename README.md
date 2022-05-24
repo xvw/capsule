@@ -31,4 +31,9 @@ correct spelling mistakes... For ease of use, I use `make` as a very
 _sophisticated orchestrator_. You can run the `make` command to build the binary
 that statically serves the site.
 
+## Up and running
+
+- `dune exec bin/capsule.exe -- build [--target=TARGET]` build the website into `TARGET`
+- `dune exec bin/capsule.exe -- watch [--target=TARGET] [--port=PORT]` build the website 
+  into `TARGET` and serve `TARGET` listening `PORT`.
 
