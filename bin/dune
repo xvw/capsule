@@ -2,11 +2,12 @@
  (name capsule)
  (promote (until-clean))
  (libraries
-   logs
-   cmdliner
-   preface
-   yocaml
-   yocaml_yaml
-   yocaml_markdown
-   yocaml_unix
-   yocaml_jingoo))
+  logs
+  cmdliner
+  preface
+  yocaml
+  yocaml_yaml
+  yocaml_markdown
+  yocaml_unix
+  yocaml_jingoo
+  lib))

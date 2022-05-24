@@ -1,2 +1,4 @@
 version = 0.21.0
 profile = default
+parse-docstrings
+break-separators = before
