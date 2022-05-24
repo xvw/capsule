@@ -10,3 +10,4 @@ val is_css : Filepath.t Preface.Predicate.t
 val is_javascript : Filepath.t Preface.Predicate.t
 val is_markdown : Filepath.t Preface.Predicate.t
 val is_image : Filepath.t Preface.Predicate.t
+val is_font : Filepath.t Preface.Predicate.t

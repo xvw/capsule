@@ -11,3 +11,10 @@ let is_image =
   || with_extension "jpg"
   || with_extension "jpeg"
   || with_extension "gif"
+
+let is_font =
+  with_extension "eot"
+  || with_extension "svg"
+  || with_extension "ttf"
+  || with_extension "woff"
+  || with_extension "woff2"
