@@ -1,9 +1,117 @@
+:root {
+    --layout-bg-color: #ffffff;
+    --layout-font-color: #111111;
+    --layout-bg-rev-color: #e2e2e2;
+    --layout-font-rev-color: #333333;
+    --serif-font: 'Inria Serif', serif;
+    --sans-serif-font: 'Libre Franklin', sans-serif;
+    --mono-font: 'Inconsolata', monospace;
+}
+
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-    font-family: monospace;
+    min-height: 100vh;
+    background-color: var(--layout-bg-color);
+    color: var(--layout-font-color);
+    font-family: var(--serif-font);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.8;
+}
+
+.container {
+    width: 100%;
+    max-width: 960px;
+    margin: auto;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    flex: 0;
+    background-color: var(--layout-bg-rev-color);
+    color: var(--layout-font-rev-color);
+}
+
+.header {
+    margin: 64px 0 72px 0;
+}
+
+.header h1 {
+    font-size: 285%;
+    text-transform: uppercase;
+    font-weight: 900;
+    font-family: var(--sans-serif-font);
+    margin: 0;
+}
+
+.header time {
+    font-family: var(--mono-font);
+    background-color: var(--layout-bg-rev-color);
+    color: var(--layout-font-rev-color);
+    padding: 4px;
+    margin-right: 8px;
+    font-size: 80%;
+    font-weight: 600;
+}
+
+.header time:last-child {
+    margin-right: 0;
+}
+
+
+.header time::before {
+    font-family: var(--sans-serif-font);
+}
+
+.published-at::before {
+    content:"publié le";
+}
+
+.updated-at::before {
+    content:"modifié le";
+}
+
+.table-of-contents {
+    margin: 32px 0 64px;
+}
+
+.table-of-contents ul {
+    padding-left: 32px;
+    list-style: square;
+}
+
+.table-of-contents ul:first-child {
+    padding-left: 0;
+    list-style: none;
+}
+
+article {
+    margin-bottom: 172px;
+}
+
+
+article h1,
+article h2,
+article h3,
+article h4,
+article h5,
+article h6 {
+    font-family: var(--sans-serif-font);
+    font-weight: 800;
+}
+
+code {
+    font-family: var(--mono-font);
 }

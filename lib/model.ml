@@ -48,12 +48,18 @@ module Page = struct
     ; tags : string list
     ; creation_date : Date.t
     ; update_date : Date.t option
+    ; toc : string option
+    ; display_toc : bool
   }
 
   let map_synopsis arr =
     let open Build in
     (fun meta -> (meta.synopsis, meta)) ^>> fst arr >>^ fun (synopsis, m) ->
     { m with synopsis }
+
+  let inject_toc =
+    Build.arrow (fun (meta, (toc, content)) ->
+        ({ meta with toc = Some toc }, content))
 
   let from (type a) (module Meta : Metadata.VALIDABLE with type t = a)
       metadata_object =
@@ -65,8 +71,10 @@ module Page = struct
       and+ synopsis = Meta.(required_assoc string) "synopsis" assoc
       and+ indexed =
         Meta.(optional_assoc_or ~default:true boolean) "indexed" assoc
+      and+ display_toc =
+        Meta.(optional_assoc_or ~default:true boolean) "toc" assoc
       and+ creation_date = Meta.(required_assoc date) "creation_date" assoc
-      and+ update_date = Meta.(optional_assoc date) "creation_date" assoc
+      and+ update_date = Meta.(optional_assoc date) "update_date" assoc
       and+ tags =
         Meta.(optional_assoc_or ~default:[] (list_of string)) "tags" assoc
       and+ breadcrumb =
@@ -82,6 +90,8 @@ module Page = struct
       ; creation_date
       ; update_date
       ; tags = List.map String.trim tags
+      ; toc = None
+      ; display_toc
       }
     in
     Meta.object_and validation metadata_object
@@ -103,9 +113,12 @@ module Page = struct
       ; creation_date
       ; update_date
       ; tags
+      ; toc
+      ; display_toc
       } =
     let open Lang in
     let date x = object_ $ Metadata.Date.inject (module Lang) x in
+    let has_toc = Option.is_some toc in
     [
       ("title", string title)
     ; ("description", string description)
@@ -118,8 +131,11 @@ module Page = struct
     ; ("has_breadcrumb", boolean $ is_empty_list breadcrumb)
     ; ("has_tags", boolean $ is_empty_list breadcrumb)
     ; ("has_update_date", boolean $ Option.is_some update_date)
+    ; ("has_toc", boolean has_toc)
+    ; ("display_toc", boolean (display_toc && has_toc))
     ; ("html_title", string title)
     ; ("html_meta_description", string description)
     ; ("html_meta_keywords", string $ String.concat ", " ("capsule" :: tags))
+    ; ("toc", Option.fold ~none:null ~some:string toc)
     ]
 end

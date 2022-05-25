@@ -19,6 +19,7 @@ module Page : sig
   type t
 
   val map_synopsis : (string, string) Build.t -> (t, t) Build.t
+  val inject_toc : (t * (string * string), t * string) Build.t
 
   include Metadata.READABLE with type t := t
   include Metadata.INJECTABLE with type t := t

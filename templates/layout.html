@@ -8,9 +8,15 @@
     <meta name="description" content="{{ html_meta_description }}">
     <meta name="keywords" content="{{ html_meta_keywords }}">
     <meta name="author" content="Xavier Van de Woestyne">
-    <link href="/css/default.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/hl.css">
+    <link rel="stylesheet" href="/css/default.css">
   </head>
   <body>
-    {%- autoescape false -%}{{ body }}{%- endautoescape -%}
+    <main class="container">
+      {%- autoescape false -%}{{ body }}{%- endautoescape -%}
+    </main>
+    <script src="/js/hl.js"></script>
+    <script>hljs.highlightAll();</script>
   </body>
 </html>

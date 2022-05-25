@@ -1,16 +1,25 @@
-<h1>{{ title }}</h1>
-<time datetime="{{ creation_date.canonical }}">
-  {{ creation_date.canonical }}
-</time>
-
+<section class="header">
+  <h1>{{ title }}</h1>
+  <time class="published-at" datetime="{{ creation_date.canonical }}">
+    {{ creation_date.canonical }}
+  </time>
+  {%- if has_update_date -%}
+  <time class="updated-at" datetime="{{ update_date.canonical }}">
+    {{ update_date.canonical }}
+  </time>
+  {%- endif -%}
+</section>
 
 <section>
   {%- autoescape false -%}{{ synopsis }}{%- endautoescape -%}
 </section>
 
+{%- if display_toc -%}
+<section class="table-of-contents">
+  {%- autoescape false -%}{{ toc }}{%- endautoescape -%}
+</section>
+{%- endif -%}
 
-<main>
-  <article>
-    {%- autoescape false -%}{{ body }}{%- endautoescape -%}
-  </article>
-</main>
+<article>
+  {%- autoescape false -%}{{ body }}{%- endautoescape -%}
+</article>
