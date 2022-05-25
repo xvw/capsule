@@ -1,3 +1,4 @@
+open Util
 open Yocaml
 
 module Link = struct
@@ -28,6 +29,8 @@ module Link = struct
     ; ("href", string href)
     ; ("title", Option.fold ~none:null ~some:string title)
     ; ("description", Option.fold ~none:null ~some:string description)
+    ; ("has_title", boolean $ Option.is_some title)
+    ; ("has_description", boolean $ Option.is_some description)
     ]
 
   let inject_list (type a) (module Lang : Key_value.DESCRIBABLE with type t = a)
@@ -47,6 +50,11 @@ module Page = struct
     ; update_date : Date.t option
   }
 
+  let map_synopsis arr =
+    let open Build in
+    (fun meta -> (meta.synopsis, meta)) ^>> fst arr >>^ fun (synopsis, m) ->
+    { m with synopsis }
+
   let from (type a) (module Meta : Metadata.VALIDABLE with type t = a)
       metadata_object =
     let date = Metadata.Date.from (module Meta) in
@@ -55,7 +63,8 @@ module Page = struct
       let+ title = Meta.(required_assoc string) "title" assoc
       and+ description = Meta.(required_assoc string) "description" assoc
       and+ synopsis = Meta.(required_assoc string) "synopsis" assoc
-      and+ indexed = Meta.(required_assoc boolean) "indexed" assoc
+      and+ indexed =
+        Meta.(optional_assoc_or ~default:true boolean) "indexed" assoc
       and+ creation_date = Meta.(required_assoc date) "creation_date" assoc
       and+ update_date = Meta.(optional_assoc date) "creation_date" assoc
       and+ tags =
@@ -106,5 +115,11 @@ module Page = struct
     ; ("creation_date", date creation_date)
     ; ("update_date", Option.fold ~none:null ~some:date update_date)
     ; ("breadcrumb", list $ Link.inject_list (module Lang) breadcrumb)
+    ; ("has_breadcrumb", boolean $ is_empty_list breadcrumb)
+    ; ("has_tags", boolean $ is_empty_list breadcrumb)
+    ; ("has_update_date", boolean $ Option.is_some update_date)
+    ; ("html_title", string title)
+    ; ("html_meta_description", string description)
+    ; ("html_meta_keywords", string $ String.concat ", " ("capsule" :: tags))
     ]
 end

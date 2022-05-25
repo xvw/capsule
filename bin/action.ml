@@ -2,6 +2,7 @@ open Yocaml
 
 let program target =
   let* () = Lib.Rule.static ~target in
+  let* () = Lib.Rule.pages ~target in
   return ()
 
 let build target = Yocaml_unix.execute $ program target

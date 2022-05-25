@@ -1,3 +1,3 @@
 (library
  (name lib)
- (libraries preface yocaml))
+ (libraries preface yocaml yocaml_jingoo yocaml_markdown yocaml_yaml))

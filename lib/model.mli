@@ -18,6 +18,8 @@ end
 module Page : sig
   type t
 
+  val map_synopsis : (string, string) Build.t -> (t, t) Build.t
+
   include Metadata.READABLE with type t := t
   include Metadata.INJECTABLE with type t := t
 end

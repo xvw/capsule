@@ -26,3 +26,8 @@ val fonts : target:Filepath.t -> unit Effect.t
 val images : target:Filepath.t -> unit Effect.t
 (** [Rule.images] this is the rule that moves the images files into the target:
     [target/images]. *)
+
+(** {1 Static rules} *)
+
+val pages : target:Filepath.t -> unit Effect.t
+(** [Rule.pages] this is the rule that produces static pages. *)
