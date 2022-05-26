@@ -1,4 +1,18 @@
 <section class="header">
+  {%- if has_breadcrumb -%}
+  <nav class="breadcrumb">
+    <ol>
+      <li>
+        <a href="/">Accueil</a>
+      </li>
+      {%- for link in breadcrumb -%}
+      <li>
+        <a href="{{ link.href }}">{{ link.name }}</a>
+      </li>
+      {%- endfor -%}
+    </ol>
+  </nav>
+  {%- endif -%}
   <h1>{{ title }}</h1>
   <time class="published-at" datetime="{{ creation_date.canonical }}">
     {{ creation_date.canonical }}
@@ -9,6 +23,7 @@
   </time>
   {%- endif -%}
 </section>
+
 
 <section>
   {%- autoescape false -%}{{ synopsis }}{%- endautoescape -%}

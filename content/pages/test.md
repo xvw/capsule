@@ -11,6 +11,11 @@ tags:
   - examples 
   - test
   - capsule
+breadcrumb:
+  - name: google
+    href: https://google.fr
+  - name: github
+    href: https://github.com
 ---
 
 # Qu'est-ce que le `Lorem Ipsum`?

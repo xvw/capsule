@@ -97,6 +97,36 @@ footer {
     list-style: none;
 }
 
+.breadcrumb {
+    padding: 0;
+    line-height: 0;
+    font-family: var(--sans-serif-font);
+    font-size: 80%;
+}
+
+.breadcrumb > ol {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.breadcrumb > ol > li {
+    display: inline-block;
+}
+
+.breadcrumb > ol > li > a::after {
+    display: inline-block;
+    content: ">";
+    padding: 0 8px;
+}
+
+.breadcrumb > ol > li:last-child > a::after {
+    display: none;
+    content: "";
+    padding: 0;
+}
+
+
+
 article {
     margin-bottom: 172px;
 }
