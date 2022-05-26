@@ -50,22 +50,18 @@ let base_page file =
   >>> fst (Model.Page.map_synopsis M.string_to_html)
   >>> Model.Page.inject_toc
   >>> T.apply_as_template (module Model.Page) "templates/page.html"
+  >>> T.apply_as_template (module Model.Page) "templates/indexes.html"
+  >>> T.apply_as_template (module Model.Page) "templates/layout.html"
+  >>^ Stdlib.snd
 
 let pages ~target =
   process_files $ [ "content/pages" ] $ File.is_markdown $ fun page_file ->
   let open Build in
   let file_target = Target.for_page ~target page_file in
-  create_file file_target
-    (base_page page_file
-    >>> T.apply_as_template (module Model.Page) "templates/layout.html"
-    >>^ Stdlib.snd)
+  create_file $ file_target $ base_page page_file
 
 let indexes ~target =
   process_files $ [ "content/" ] $ File.is_markdown $ fun index_file ->
   let open Build in
   let file_target = Target.for_index ~target index_file in
-  create_file file_target
-    (base_page index_file
-    >>> T.apply_as_template (module Model.Page) "templates/indexes.html"
-    >>> T.apply_as_template (module Model.Page) "templates/layout.html"
-    >>^ Stdlib.snd)
+  create_file $ file_target $ base_page index_file

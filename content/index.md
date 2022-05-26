@@ -10,54 +10,16 @@ synopsis:
   Peut-être qu'un jour, elle sera décrivable comme **une encyclopédie maladroite
   et _capharnaümesque_** (mais c'est probablement fantasmer sur ma fréquence d'écriture).
 tags: 
-  - examples 
-  - test
+  - index 
   - capsule
 toc: false
 indexes:
   - name: Programmation
     synopsis:
-      J'aime bien programmer.
+      Notes plus-ou-moins organisées relatives à la programmation
     links:
-      - name: google
-        href: https://github.com
-      - name: github
-        href: https://google.com
-        
-  - name: Programmation2
-    synopsis:
-      J'aime bien programmer.
-    links:
-      - name: google
-        href: https://github.com
-      - name: github
-        href: https://google.com
-      - name: github
-        href: https://google.com
-      - name: github
-        href: https://google.com
-      - name: github
-        href: https://google.com
-      - name: google
-        href: https://github.com
-      - name: github
-        href: https://google.com
-      - name: github
-        href: https://google.com
-      - name: github
-        href: https://google.com
-      - name: github
-        href: https://google.com
-      - name: google
-        href: https://github.com
-      - name: github
-        href: https://google.com
-      - name: github
-        href: https://google.com
-      - name: github
-        href: https://google.com
-      - name: github
-        href: https://google.com
+      - name: Types & co
+        href: /capsule/types.html
 ---
 
 Vous me trouverez sur [Twitter](https://twitter.com/vdwxv), sur

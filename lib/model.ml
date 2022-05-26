@@ -62,6 +62,7 @@ module Index = struct
       ("name", string name)
     ; ("synopsis", string synopsis)
     ; ("links", list $ Link.inject_list (module Lang) links)
+    ; ("anchor", string $ poor_slug name)
     ]
 
   let inject_list (type a) (module Lang : Key_value.DESCRIBABLE with type t = a)
