@@ -23,7 +23,7 @@ depends: [
   "logs" {>= "0.7.0" }
   "cmdliner" { >= "1.0.0"}
   "omd" { >= "2.0.0~alpha2" }
-  "preface" { >= "0.1.0"}
+  "preface" { = "0.1.0"}
   "yocaml" {pinned}
   "yocaml_unix" {pinned}
   "yocaml_yaml" {pinned}

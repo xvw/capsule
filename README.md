@@ -22,7 +22,7 @@ on OPAM**, which is very **sad**), by running these commands:
 
 ```shellsession
 opam install yocaml
-opam install yocaml_unix yocaml_yaml yocaml_markdown yocaml_jingoo
+opam install yocaml_unix yocaml_yaml yocaml_jingoo
 ```
 
 If everything went well, which I don't doubt for a second, the project should be

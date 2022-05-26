@@ -8,9 +8,5 @@
   logs.fmt
   cmdliner
   preface
-  yocaml
-  yocaml_yaml
-  yocaml_markdown
   yocaml_unix
-  yocaml_jingoo
   lib))
