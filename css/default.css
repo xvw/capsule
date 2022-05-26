@@ -47,8 +47,24 @@ main {
 
 footer {
     flex: 0;
-    background-color: var(--layout-bg-rev-color);
-    color: var(--layout-font-rev-color);
+    background-color: var(--layout-font-color);
+    color: var(--layout-bg-color);
+    padding: 32px 0;
+    font-family: var(--sans-serif-font);
+    text-align: right;
+}
+
+footer p {
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+}
+
+footer a {
+    color: #ffffff;
+    font-weight: 900;
+    text-decoration: none;
+    font-family: var(--mono-font);
 }
 
 .header {
