@@ -1,5 +1,5 @@
 :root {
-    --layout-bg-color: #ffffff;
+    --layout-bg-color: #fffffff;
     --layout-font-color: #111111;
     --layout-bg-rev-color: #e2e2e2;
     --layout-font-rev-color: #333333;
@@ -90,6 +90,7 @@ footer {
 .table-of-contents ul {
     padding-left: 32px;
     list-style: square;
+
 }
 
 .table-of-contents ul:first-child {
@@ -98,10 +99,9 @@ footer {
 }
 
 .breadcrumb {
-    padding: 0;
+    padding-top: 0;
     line-height: 0;
-    font-family: var(--sans-serif-font);
-    font-size: 80%;
+    font-family: var(--mono-font);
 }
 
 .breadcrumb > ol {
@@ -113,22 +113,21 @@ footer {
     display: inline-block;
 }
 
+.breadcrumb > ol > li > a {
+    text-decoration: none;
+}
+
 .breadcrumb > ol > li > a::after {
     display: inline-block;
     content: "/";
     padding: 0 8px;
 }
 
-.breadcrumb > ol > li:last-child > a::after {
-    display: none;
-    content: "";
-    padding: 0;
-}
-
 
 
 article {
     margin-bottom: 172px;
+    font-size: 100%;
 }
 
 
@@ -139,8 +138,35 @@ article h4,
 article h5,
 article h6 {
     font-family: var(--sans-serif-font);
-    font-weight: 800;
+    font-weight: 700;
 }
+
+article h1 {
+    font-size: 240%;
+    margin: 64px 0 32px 0;
+}
+
+article h2 {
+    font-size: 200%;
+    margin: 42px 0 24px 0;
+}
+
+article h3 {
+    font-size: 160%;
+    margin: 32px 0 18px 0;
+}
+
+article h4 {
+    font-size: 130%;
+    margin: 28px 0 14px 0;
+}
+
+article h5 {
+    font-size: 110%;
+    margin: 24px 0 12px 0;
+}
+
+
 
 code {
     font-family: var(--mono-font);
