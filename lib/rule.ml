@@ -29,8 +29,14 @@ let images ~target =
   $ File.is_image
   $ Build.copy_file ~into:(Target.images ~target)
 
+let hljs ~target =
+  let open Build in
+  let file_target = "hl.js" |> into (Target.javascript ~target) in
+  create_file file_target (binary_update >>^ fun () -> Hljs.script)
+
 let static ~target =
   let* () = css ~target in
+  let* () = hljs ~target in
   let* () = javascript ~target in
   let* () = fonts ~target in
   let* () = images ~target in

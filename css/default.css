@@ -115,7 +115,7 @@ footer {
 
 .breadcrumb > ol > li > a::after {
     display: inline-block;
-    content: ">";
+    content: "/";
     padding: 0 8px;
 }
 
