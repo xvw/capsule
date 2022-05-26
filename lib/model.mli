@@ -13,6 +13,11 @@ module Link : sig
   type t
 end
 
+(** An index is a [name] with a [synopsis] and a collection of [links]. *)
+module Index : sig
+  type t
+end
+
 (** A page is the atom of the application. The only relationship it has with the
     rest of the elements is built via the breadcrumb. *)
 module Page : sig

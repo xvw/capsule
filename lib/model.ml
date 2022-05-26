@@ -38,6 +38,37 @@ module Link = struct
     List.map (fun l -> Lang.object_ $ inject (module Lang) l)
 end
 
+module Index = struct
+  type t = { name : string; synopsis : string; links : Link.t list }
+
+  let from (type a) (module Meta : Metadata.VALIDABLE with type t = a)
+      metadata_object =
+    let validation assoc =
+      let open Validate.Applicative in
+      let+ name = Meta.(required_assoc string) "name" assoc
+      and+ synopsis = Meta.(required_assoc string) "synopsis" assoc
+      and+ links =
+        Meta.(optional_assoc_or ~default:[] (list_of $ Link.from (module Meta)))
+          "links" assoc
+      in
+      { name; synopsis; links }
+    in
+    Meta.object_and validation metadata_object
+
+  let inject (type a) (module Lang : Key_value.DESCRIBABLE with type t = a)
+      { name; synopsis; links } =
+    let open Lang in
+    [
+      ("name", string name)
+    ; ("synopsis", string synopsis)
+    ; ("links", list $ Link.inject_list (module Lang) links)
+    ]
+
+  let inject_list (type a) (module Lang : Key_value.DESCRIBABLE with type t = a)
+      =
+    List.map (fun l -> Lang.object_ $ inject (module Lang) l)
+end
+
 module Page = struct
   type t = {
       title : string
@@ -46,10 +77,11 @@ module Page = struct
     ; synopsis : string
     ; indexed : bool
     ; tags : string list
-    ; creation_date : Date.t
+    ; creation_date : Date.t option
     ; update_date : Date.t option
     ; toc : string option
     ; display_toc : bool
+    ; indexes : Index.t list
   }
 
   let map_synopsis arr =
@@ -73,13 +105,17 @@ module Page = struct
         Meta.(optional_assoc_or ~default:true boolean) "indexed" assoc
       and+ display_toc =
         Meta.(optional_assoc_or ~default:true boolean) "toc" assoc
-      and+ creation_date = Meta.(required_assoc date) "creation_date" assoc
+      and+ creation_date = Meta.(optional_assoc date) "creation_date" assoc
       and+ update_date = Meta.(optional_assoc date) "update_date" assoc
       and+ tags =
         Meta.(optional_assoc_or ~default:[] (list_of string)) "tags" assoc
       and+ breadcrumb =
         Meta.(optional_assoc_or ~default:[] (list_of $ Link.from (module Meta)))
           "breadcrumb" assoc
+      and+ indexes =
+        Meta.(
+          optional_assoc_or ~default:[] (list_of $ Index.from (module Meta)))
+          "indexes" assoc
       in
       {
         title
@@ -92,6 +128,7 @@ module Page = struct
       ; tags = List.map String.trim tags
       ; toc = None
       ; display_toc
+      ; indexes
       }
     in
     Meta.object_and validation metadata_object
@@ -115,6 +152,7 @@ module Page = struct
       ; tags
       ; toc
       ; display_toc
+      ; indexes
       } =
     let open Lang in
     let date x = object_ $ Metadata.Date.inject (module Lang) x in
@@ -125,11 +163,14 @@ module Page = struct
     ; ("synopsis", string synopsis)
     ; ("indexed", boolean indexed)
     ; ("tags", list $ List.map string tags)
-    ; ("creation_date", date creation_date)
+    ; ("creation_date", Option.fold ~none:null ~some:date creation_date)
     ; ("update_date", Option.fold ~none:null ~some:date update_date)
     ; ("breadcrumb", list $ Link.inject_list (module Lang) breadcrumb)
+    ; ("indexes", list $ Index.inject_list (module Lang) indexes)
+    ; ("has_indexes", boolean $ is_not_empty_list indexes)
     ; ("has_breadcrumb", boolean $ is_not_empty_list breadcrumb)
     ; ("has_tags", boolean $ is_not_empty_list tags)
+    ; ("has_creation_date", boolean $ Option.is_some creation_date)
     ; ("has_update_date", boolean $ Option.is_some update_date)
     ; ("has_toc", boolean has_toc)
     ; ("display_toc", boolean (display_toc && has_toc))

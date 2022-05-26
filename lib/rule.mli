@@ -31,3 +31,6 @@ val images : target:Filepath.t -> unit Effect.t
 
 val pages : target:Filepath.t -> unit Effect.t
 (** [Rule.pages] this is the rule that produces static pages. *)
+
+val indexes : target:Filepath.t -> unit Effect.t
+(** [Rule.indexes] this is the rule that produces static indexes. *)

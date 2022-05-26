@@ -1,5 +1,5 @@
 :root {
-    --layout-bg-color: #fffffff;
+    --layout-bg-color: #f9f9f9;
     --layout-font-color: #111111;
     --layout-bg-rev-color: #e2e2e2;
     --layout-font-rev-color: #333333;
@@ -28,6 +28,12 @@ body {
     line-height: 1.8;
 }
 
+hr {
+    margin: 64px 0 42px 0;
+    border: 0px solid transparent;
+    border-bottom: 1px solid var(--layout-bg-rev-color);
+}
+
 .container {
     width: 100%;
     max-width: 960px;
@@ -36,6 +42,7 @@ body {
 
 main {
     flex: 1;
+    padding-bottom: 172px;
 }
 
 footer {
@@ -123,10 +130,7 @@ footer {
     padding: 0 8px;
 }
 
-
-
 article {
-    margin-bottom: 172px;
     font-size: 100%;
 }
 
@@ -165,6 +169,54 @@ article h5 {
     font-size: 110%;
     margin: 24px 0 12px 0;
 }
+
+
+.indexes > div {
+    margin: 32px 0;
+    border-bottom: 1px solid var(--layout-bg-rev-color);
+}
+
+.indexes > div:first-child {
+    margin-top:64px;
+    padding-top: 32px;
+    border-top: 1px solid var(--layout-bg-rev-color);
+}
+
+.indexes > div > h1 {
+    margin: 0;
+    font-family: var(--sans-serif-font);
+}
+
+.indexes > div > p {
+    margin: 0;
+}
+
+
+.indexes > div > nav > ol {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.indexes > div > nav > ol > li {
+    display: inline-block;
+}
+
+.indexes > div > nav > ol > li > a {
+    text-decoration: none;
+}
+
+.indexes > div > nav > ol > li > a::after {
+    display: inline-block;
+    content: "/";
+    padding: 0 8px;
+}
+
+.indexes > div > nav > ol > li:last-child > a::after {
+    display: inline-block;
+    content: "";
+    padding: 0 8px;
+}
+
 
 
 

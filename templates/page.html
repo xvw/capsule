@@ -1,5 +1,4 @@
 <section class="header">
-  {%- if has_breadcrumb -%}
   <nav class="breadcrumb">
     <ol>
       <li>
@@ -12,11 +11,13 @@
       {%- endfor -%}
     </ol>
   </nav>
-  {%- endif -%}
+
   <h1>{{ title }}</h1>
+  {%- if has_creation_date -%}
   <time class="published-at" datetime="{{ creation_date.canonical }}">
     {{ creation_date.canonical }}
   </time>
+  {%- endif -%}
   {%- if has_update_date -%}
   <time class="updated-at" datetime="{{ update_date.canonical }}">
     {{ update_date.canonical }}
