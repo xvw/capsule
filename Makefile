@@ -11,3 +11,6 @@ lint:
 
 check-lint:
 	dune build @fmt
+
+utop:
+	dune utop

@@ -18,10 +18,10 @@ indexes:
     synopsis:
       Notes plus-ou-moins organisées relatives à la programmation
     links:
-      - name: Types & co
-        href: /capsule/types.html
+      - name: Bribes & Encodages
+        href: /capsule/tricks.html
 ---
 
 Vous me trouverez sur [Twitter](https://twitter.com/vdwxv), sur
 [Mastodon](https://merveilles.town/@xvw), sur [Github](https://github.com/xvw) et dans la
-vraie vie, à **Nantes**.
+vraie vie, à **Nantes**, parfois à **Bruxelles** et de temps en temps **Paris**.

@@ -6,6 +6,7 @@
     --serif-font: 'Inria Serif', serif;
     --sans-serif-font: 'Libre Franklin', sans-serif;
     --mono-font: 'Inconsolata', monospace;
+    --regular-link-color: #626262;
 }
 
 *,
@@ -27,6 +28,19 @@ body {
     font-weight: 400;
     line-height: 1.4;
 }
+
+
+main p a {
+    text-decoration: none;
+    color: var(--regular-link-color);
+    font-weight: 200;
+    border-bottom: 1px dotted var(--regular-link-color);
+}
+
+/* main p a:visited::after { */
+/*     content:"*"; */
+/*     border-bottom: 2px dotted red; */
+/* } */
 
 hr {
     margin: 64px 0 42px 0;
@@ -139,6 +153,7 @@ footer a {
 
 .breadcrumb > ol > li > a {
     text-decoration: none;
+    color: var(--regular-link-color);
 }
 
 .breadcrumb > ol > li > a::after {
@@ -163,28 +178,28 @@ article h6 {
 }
 
 article h1 {
-    font-size: 240%;
-    margin: 64px 0 32px 0;
+    font-size: 220%;
+    margin: 72px 0 32px 0;
 }
 
 article h2 {
-    font-size: 200%;
-    margin: 42px 0 24px 0;
+    font-size: 180%;
+    margin: 64px 0 24px 0;
 }
 
 article h3 {
-    font-size: 160%;
-    margin: 32px 0 18px 0;
+    font-size: 130%;
+    margin: 54px 0 18px 0;
 }
 
 article h4 {
-    font-size: 130%;
-    margin: 28px 0 14px 0;
+    font-size: 110%;
+    margin: 42px 0 14px 0;
 }
 
 article h5 {
-    font-size: 110%;
-    margin: 24px 0 12px 0;
+    font-size: 100%;
+    margin: 30px 0 12px 0;
 }
 
 
@@ -216,22 +231,27 @@ article h5 {
 
 .indexes > div > nav > ol > li {
     display: inline-block;
+    margin: 4px 0 4px 4px;
+}
+
+.indexes > div > nav > ol > li:first-child {
+    margin-left: 0;
 }
 
 .indexes > div > nav > ol > li > a {
     text-decoration: none;
+    color: var(--regular-link-color);
+    border-bottom: 1px dotted var(--regular-link-color);
 }
 
-.indexes > div > nav > ol > li > a::after {
-    display: inline-block;
+.indexes > div > nav > ol > li::after {
     content: "/";
-    padding: 0 8px;
+    margin: 0 8px;
+    border-bottom: none;
 }
 
-.indexes > div > nav > ol > li:last-child > a::after {
-    display: inline-block;
-    content: "";
-    padding: 0 8px;
+.indexes > div > nav > ol > li:last-child:after {
+    display: none;
 }
 
 
