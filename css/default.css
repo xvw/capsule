@@ -6,7 +6,7 @@
     --serif-font: 'Inria Serif', serif;
     --sans-serif-font: 'Libre Franklin', sans-serif;
     --mono-font: 'Inconsolata', monospace;
-    --regular-link-color: #626262;
+    --regular-link-color: #424242;
 }
 
 *,
@@ -37,10 +37,10 @@ main p a {
     border-bottom: 1px dotted var(--regular-link-color);
 }
 
-/* main p a:visited::after { */
-/*     content:"*"; */
-/*     border-bottom: 2px dotted red; */
-/* } */
+main .table-of-contents a {
+    color: var(--regular-link-color);
+    text-decoration: unerline;
+}
 
 hr {
     margin: 64px 0 42px 0;
@@ -166,7 +166,6 @@ article {
     font-size: 100%;
 }
 
-
 article h1,
 article h2,
 article h3,
@@ -205,6 +204,7 @@ article h5 {
 
 .indexes > div {
     margin: 32px 0;
+    padding-bottom: 12px;
     border-bottom: 1px solid var(--layout-bg-rev-color);
 }
 

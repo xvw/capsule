@@ -16,4 +16,7 @@ indexes:
   - name: OCaml
     synopsis: 
       Bribes et encodages utilisant le langage OCaml.
+    links:
+      - name: Méthodes gardées
+        href: /capsule/pages/oop-refl.html
 ---

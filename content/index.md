@@ -24,4 +24,4 @@ indexes:
 
 Vous me trouverez sur [Twitter](https://twitter.com/vdwxv), sur
 [Mastodon](https://merveilles.town/@xvw), sur [Github](https://github.com/xvw) et dans la
-vraie vie, à **Nantes**, parfois à **Bruxelles** et de temps en temps **Paris**.
+vraie vie, à **Nantes**, parfois à **Bruxelles** et de temps en temps à **Paris**.
