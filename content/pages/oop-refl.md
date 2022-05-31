@@ -2,7 +2,7 @@
 title: Méthodes gardées
 creation_date: 2022-05-29
 description: 
-  Implémentation de 'guarded methods' en utilisant des témoins d'égalités
+  Implémentation de "méthodes gardées" en utilisant des témoins d'égalités
   de types.
 synopsis:
   Les **méthodes gardées** permettent d'attacher des **contraintes** 
@@ -23,15 +23,17 @@ breadcrumb:
 ---
 
 Les _défenseurs_ de la **programmation orientée objets** défendent souvent cette
-dernière en affirmant que "_la manière normale de raisonner l'ensemble des
-objets du métier_" et qu'elle permet de modèliser efficacement l'ensemble des
-structures de données de manière uniforme. Pourtant, beaucoup de critiques sont
-parfois formulées à l'encontre de cette approche ("_beaucoup_" est à prendre
-avec des pincettes car l'OOP est encore et toujours l'approche la plus populaire
-aujourd'hui). Dans les critiques formulées, nous allons nous intéresser tout
-particulièrement à **l'absence de méthodes gardées**, qui n'est pas,
-objectivement, reliée à l'orienté objets, car il serait envisageable de les
-intégrer, mais qui manque dans beaucoup de langages OOP populaires.
+dernière en affirmant que c'est "_la manière normale de raisonner (sur)
+l'ensemble des objets du métier_" et qu'elle permet de modèliser efficacement
+l'ensemble des structures de données de manière uniforme. Pourtant, beaucoup de
+critiques sont parfois formulées à l'encontre de cette approche ("_beaucoup_"
+est à prendre avec des pincettes car l'OOP est encore et toujours l'approche la
+plus populaire aujourd'hui, du moins selon leur représentation sur
+[Github](https://github.com) ou [StackOverflow](https://stackoverflow.com/)).
+Dans les critiques formulées, nous allons nous intéresser tout particulièrement
+à **l'absence de méthodes gardées**, qui n'est pas, objectivement, reliée à
+l'orienté objets, car il serait envisageable de les intégrer, mais qui manque
+dans beaucoup de langages OOP populaires.
 
 
 ## Présentation du problème
@@ -104,9 +106,9 @@ fun <A> MyList<MyList<A>>.flatten() = ...
 
 Même si la solution semble proche de la perfection, elle impose tout de même la
 définition de la méthodes **en dehors de la classe** ce qui pourrait
-potentiellement impliquer de devoir potentiellement rendre certaines membres de
-la classe _publiques_ en vue d'être exploitable par une extension. Cependant
-elles permettent tout de même **de garder l'approche systèmatique de l'envoi de
+potentiellement impliquer de devoir rendre certaines membres de la classe
+_publiques_ en vue d'être exploitable par une extension. Cependant elles
+permettent tout de même **de garder l'approche systèmatique de l'envoi de
 messages tout en offrant la possibilité de qualifier plus finement le
 receveur**.
 
@@ -137,9 +139,10 @@ classe** semble suffire), on corrige tous les soucis révélés précédemment:
 - on bénéficie toujours des membres disponnibles (donc on n'échappe pas de
   représentations)
   
-Même si les méthodes gardées semblent être nécéssaires, je ne connais 
+Même si les méthodes gardées semblent être nécéssaires, je ne connais
 malheureusement pas de langages _mainstream_ qui permettent leur définition.
-Voila qui est très triste. Heureusement, en OCaml, il est possible des _encoder_.
+Voila qui est très triste. Heureusement, en OCaml, il est possible de les
+_encoder_.
 
 
 ### La symétrie OOP/FP : théorie et pratique
@@ -165,7 +168,7 @@ classique :
 ```ocaml
 type 'a list = ...
 let rec length : 'a list -> int = ...
-let rec concat : 'a list -> 'a list = ...
+let rec concat : 'a list -> 'a list -> 'a list = ...
 
 let rec flatten : 'a list list -> 'a list = function
   | [] -> []
@@ -188,7 +191,7 @@ end
 Il propose donc cette syntaxe, qui implique une garde sur la méthode `flatten`:
 
 ```ocaml
-method flatten : 'b list with 'a = 'b list
+method flatten : 'b olist with 'a = 'b olist
 ```
 
 Cette syntaxe permet de décrire une méthode gardée et pourrait se généraliser de
@@ -206,7 +209,7 @@ une méthode `sum` si les habitants de la liste sont des entiers:
 class type ['a] olist = object
   method length : int
   method concat : 'a olist -> 'a olist
-  method flatten : 'b list with 'a = 'b list
+  method flatten : 'b olist with 'a = 'b olist
   method sum : int with 'a = int
 end
 ```
@@ -271,7 +274,7 @@ Reprenons notre exemple qui fournit une API objet à une liste. Voici son interf
 
 ```ocaml
 class type ['a] obj_list = 
-  object ('self')
+  object ('self)
     method length : int
     method append : 'a list -> 'a obj_list
     method uncons : ('a * 'self) option
@@ -306,7 +309,7 @@ let my_list (list : 'a list) =
     method append x = {<l = List.append l x>}
     method uncons = match l with [] -> None | x :: xs -> Some (x, {<l = xs>})
     
-    method flatten = assert false
+    method flatten = ???
   end
 ```
 
