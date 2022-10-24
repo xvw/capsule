@@ -341,7 +341,7 @@ notre paramètre de type à être `int`. Pour cela, il suffit de prendre
 
 ```ocaml
 class type ['a] obj_list = 
-  object ('self')
+  object ('self)
     method length : int
     method append : 'a list -> 'a obj_list
     method uncons : ('a * 'self) option
