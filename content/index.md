@@ -22,6 +22,6 @@ indexes:
         href: /capsule/tricks.html
 ---
 
-Vous me trouverez sur [Twitter](https://twitter.com/vdwxv), sur
-[Mastodon](https://merveilles.town/@xvw), sur [Github](https://github.com/xvw) et dans la
-vraie vie, à **Nantes**, parfois à **Bruxelles** et de temps en temps à **Paris**.
+Vous me trouverez sur [Mastodon](https://merveilles.town/@xvw), sur
+[Github](https://github.com/xvw) et dans la vraie vie, à **Nantes**, parfois à
+**Bruxelles** et de temps en temps à **Paris**.
