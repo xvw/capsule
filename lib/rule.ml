@@ -29,6 +29,12 @@ let images ~target =
   $ File.is_image
   $ Build.copy_file ~into:(Target.images ~target)
 
+let favicon ~target =
+  process_files
+  $ [ "favicon" ]
+  $ File.is_related_to_favicon
+  $ Build.copy_file ~into:(Target.capsule ~target)
+
 let hljs ~target =
   let open Build in
   let file_target = "hl.js" |> into (Target.javascript ~target) in
@@ -40,6 +46,7 @@ let static ~target =
   let* () = javascript ~target in
   let* () = fonts ~target in
   let* () = images ~target in
+  let* () = favicon ~target in
   return ()
 
 let base_page file =

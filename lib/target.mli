@@ -2,6 +2,9 @@
 
 open Yocaml
 
+val capsule : target:Filepath.t -> Filepath.t
+(** The root of the project. *)
+
 (** {1 Subfolders for artifacts}
 
     These functions only return paths to subdirectories of the target. *)
