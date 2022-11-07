@@ -3,12 +3,12 @@ title: Bars
 description: Bars et cafés que j'aime fréquenter
 synopsis:
   J'ai une certaine affection pour les bars, et ce pour plusieurs raisons. Premièrement, j'aime
-  les boissons (alcoolisées ou non), ensuite j'aime les ambiances. Les bars forment leurs
-  personnalités (et leur agréabilité) sur la propagation d'ambiances et de public différents.
+  les boissons (alcoolisées ou non), ensuite j'aime les ambiances. Les bars forment leur
+  personnalité (et leur agréabilité) sur la propagation d'ambiances et sur leur public.
   En plus, j'apprécie énormément l'observation de la réfraction de la lumière sur les différentes
-  aspérités d'un verre, ça me permet de canaliser mon attention, et probablement de faciliter
-  ma réflexion. Comme j'en arpente beaucoup, voici une liste des établissements qui me plaisent,
-  ordonnés par ville.
+  aspérités d'un verre (ou sur le métal d'un _shaker_), ça me permet de canaliser mon attention,
+  et probablement de faciliter ma réflexion. Comme j'en arpente beaucoup, voici une liste
+  des établissements qui me plaisent, ordonnés par ville.
 tags:
   - bar
   - café

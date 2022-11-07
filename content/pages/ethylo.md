@@ -28,8 +28,8 @@ breadcrumb:
 > c'est la même chose), j'ai rencontré Romain en 2009. À l'époque, nous étions
 > étudiants, dans une école d'informatique de gestion et nous étions aussi,
 > _approximativement_ voisins, nous étions
-> [fringuants](/capsule/images/romain-xavier.jpg) On peut dire que nos
-> expérimentations mixologiques ont commencées rapidement... mais avec bien peu
+> [fringants](/capsule/images/romain-xavier.jpg) On peut dire que nos
+> expérimentations mixologiques ont commencé rapidement... mais avec bien peu
 > d'ambition (géneralement deux ingrédients). Rapidement, la lourdeur de la
 > formation nous fit nous réorienter. Je me dirigeai vers l'informatique théorique
 > (pourquoi exécuter un programme quand on peut le _typer_), en France, et Romain
@@ -46,8 +46,8 @@ breadcrumb:
 Logé en face du [parc Josaphat](https://fr.wikipedia.org/wiki/Parc_Josaphat), à
 Schaerbeek (dans un quartier que j'affectionne énormément) se trouve
 **l'Ethylo**. Un petit bar, _cosy_, _Art déco_, à l'éclairage tamisé, mais
-chaleureux, notamment grâce à du subtiles ponctuations lumineuses introduisant
-une ambiance orangée. Dès notre arrivée, nous sommes accueilli avec des cartes
+chaleureux, notamment grâce à des subtiles ponctuations lumineuses introduisant
+une ambiance orangée. Dès notre arrivée, nous sommes accueillis avec des cartes
 et un verre d'eau aromatisé.
 
 Bien qu'il soit possible d'y commander des classiques, savemment maitrisés,
@@ -67,7 +67,7 @@ somme, aller à l'Ethylo, c'est garantir que l'on sera surpris, parce que rien
 n'est laissé au hasard. Des préparations maitrisées, des conceptions originales
 et dépaysantes, un _dressage_ pertinent, en rapport avec le thème, un service de
 qualité tout en ayant la possibilité de se reposer sur des cocktails plus
-classiques, l'Ethylo est, indéniablement, une valeur sure.
+classiques, l'Ethylo est, indéniablement, une valeur sûre.
 
 En complément des cocktails classiques et des créations, l'Ethylo offre une
 sélection de bières brassées par des passionnés ([La
@@ -89,7 +89,7 @@ sur les clients qu'il n'aime pas (moi, par exemple).
 Je terminerai en soulignant le soin apporté à la communication, alors que
 déguster un cocktail de l'Ethylo est un plaisir, les photos présentées sur
 [Instagram](https://www.instagram.com/ethylo_cocktailbar/) leur rend hommage.
-L'exercice de la photographie y est maitrisée et chacun des cliché capture, de
+L'exercice de la photographie y est maitrisé et chacun des cliché capture, de
 mon point de vue, l'essence du lieu.
 
 Pour conclure, l'Ethylo s'inscrit dans une nouvelle mouvance du bar à cocktails
@@ -99,5 +99,5 @@ l'utilisation de [Verjus](https://fr.wikipedia.org/wiki/Verjus), dans la mesure
 du possible, pour apporter de l'acidité sans devoir faire traverser la terre
 entière à des citrons), de l'originalité, du fun, le tout dans une ambiance
 feutrée et agréable. Si vous êtes de passage à Bruxelles, par pitié,
-laissez-vous tenter ! Certains diront que je ne suis pas objectif... mais, "_Qui
-bene amat bene castigat_".
+laissez-vous tenter ! Certains diront que je ne suis pas objectif...
+mais _que serait l'amitié sans la sincérité !_
