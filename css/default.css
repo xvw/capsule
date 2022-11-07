@@ -135,17 +135,19 @@ footer a {
 
 .breadcrumb {
   padding-top: 0;
-  line-height: 0;
   font-family: var(--mono-font);
 }
 
 .breadcrumb > ol {
   list-style-type: none;
   padding-left: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .breadcrumb > ol > li {
-  display: inline-block;
+  word-break: keep-all;
 }
 
 .breadcrumb > ol > li > a {
