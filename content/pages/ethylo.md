@@ -71,10 +71,11 @@ classiques, l'Ethylo est, indéniablement, une valeur sure.
 
 En complément des cocktails classiques et des créations, l'Ethylo offre une
 sélection de bières brassées par des passionnés ([La
-senne](https://www.brasseriedelasenne.be/?lang=fr), et
-[Drogenbos](https://drogenbos.beer/)), une petite sélection de vins et de la
-petite restauration. Un houmous à tomber par terre, des planches (charcuteries,
-fromages et mixtes) riches et savoureuse et une sélection de saucissons.
+senne](https://www.brasseriedelasenne.be/?lang=fr), et [La
+mule](https://brasseriedelamule.wixsite.com/mon-site)), une petite sélection de
+vins et de la petite restauration. Un houmous à tomber par terre, des planches
+(charcuteries, fromages et mixtes) riches et savoureuse et une sélection de
+saucissons.
 
 La direction de l'Ethylo forme un triangle dont chacun des sommets assure le bon
 fonctionnement d'une thématique. Romain assure le pôle créativité, construisant
