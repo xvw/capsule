@@ -36,6 +36,9 @@ module Link = struct
   let inject_list (type a) (module Lang : Key_value.DESCRIBABLE with type t = a)
       =
     List.map (fun l -> Lang.object_ $ inject (module Lang) l)
+
+  let compare { name = name_a; _ } { name = name_b; _ } =
+    String.compare name_a name_b
 end
 
 module Index = struct
@@ -47,11 +50,17 @@ module Index = struct
       let open Validate.Applicative in
       let+ name = Meta.(required_assoc string) "name" assoc
       and+ synopsis = Meta.(required_assoc string) "synopsis" assoc
+      and+ sort = Meta.(optional_assoc_or ~default:false boolean) "sort" assoc
       and+ links =
         Meta.(optional_assoc_or ~default:[] (list_of $ Link.from (module Meta)))
           "links" assoc
       in
-      { name; synopsis; links }
+
+      {
+        name
+      ; synopsis
+      ; links = (if sort then List.sort Link.compare links else links)
+      }
     in
     Meta.object_and validation metadata_object
 

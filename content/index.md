@@ -9,17 +9,24 @@ synopsis:
   organisés me servant à prendre des notes sur différents sujets qui m'intéressent.
   Peut-être qu'un jour, elle sera décrivable comme **une encyclopédie maladroite
   et _capharnaümesque_** (mais c'est probablement fantasmer sur ma fréquence d'écriture).
-tags: 
-  - index 
+tags:
+  - index
   - capsule
 toc: false
 indexes:
   - name: Programmation
-    synopsis:
-      Notes plus-ou-moins organisées relatives à la programmation
+    synopsis: Notes plus-ou-moins organisées relatives à la programmation.
     links:
       - name: Bribes & Encodages
         href: /capsule/tricks.html
+  - name: Adresses
+    synopsis:
+      Comme il est compliqué d'être productif quand on est monomaniaque, j'essaie de
+      diversifier mes sujets de rédactions en documentant les adresses que j'apprécie
+      dans les quelques villes que je visite.
+    links:
+      - name: Bars et cafés
+        href: /capsule/bars.html
 ---
 
 Vous me trouverez sur [Mastodon](https://merveilles.town/@xvw), sur
