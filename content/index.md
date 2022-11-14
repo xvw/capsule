@@ -18,7 +18,7 @@ indexes:
     synopsis: Notes plus-ou-moins organisées relatives à la programmation.
     links:
       - name: Bribes & Encodages
-        href: /capsule/tricks.html
+        href: /tricks.html
   - name: Adresses
     synopsis:
       Comme il est compliqué d'être productif quand on est monomaniaque, j'essaie de
@@ -26,7 +26,7 @@ indexes:
       dans les quelques villes que je visite.
     links:
       - name: Bars et cafés
-        href: /capsule/bars.html
+        href: /bars.html
 ---
 
 Vous me trouverez sur [Mastodon](https://merveilles.town/@xvw), sur

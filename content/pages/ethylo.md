@@ -19,16 +19,16 @@ tags:
   - schaerbeek
 breadcrumb:
   - name: Bars et cafés
-    href: /capsule/bars.html
+    href: /bars.html
   - name: Bruxelles
-    href: /capsule/bars.html#index-bruxelles
+    href: /bars.html#index-bruxelles
 ---
 
 > Comme toute rencontre démarre souvent de zéro (ou de _rien_, pour certains,
 > c'est la même chose), j'ai rencontré Romain en 2009. À l'époque, nous étions
 > étudiants, dans une école d'informatique de gestion et nous étions aussi,
 > _approximativement_ voisins, nous étions
-> [fringants](/capsule/images/romain-xavier.jpg) On peut dire que nos
+> [fringants](/images/romain-xavier.jpg) On peut dire que nos
 > expérimentations mixologiques ont commencé rapidement... mais avec bien peu
 > d'ambition (géneralement deux ingrédients). Rapidement, la lourdeur de la
 > formation nous fit nous réorienter. Je me dirigeai vers l'informatique théorique

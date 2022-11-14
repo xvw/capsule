@@ -1,6 +1,6 @@
 open Yocaml
 
-let capsule ~target = "capsule" |> into target
+let capsule ~target = target
 let md_to_html file = basename $ replace_extension file "html"
 let css ~target = "css" |> into (capsule ~target)
 let javascript ~target = "js" |> into (capsule ~target)

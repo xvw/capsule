@@ -24,5 +24,5 @@ indexes:
       fréquenter à Bruxelles !
     links:
       - name: Ethylo
-        href: /capsule/pages/ethylo.html
+        href: /pages/ethylo.html
 ---

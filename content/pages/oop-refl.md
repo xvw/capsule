@@ -1,15 +1,14 @@
 ---
 title: Méthodes gardées
 creation_date: 2022-05-29
-description: 
+description:
   Implémentation de "méthodes gardées" en utilisant des témoins d'égalités
   de types.
-synopsis:
-  Les **méthodes gardées** permettent d'attacher des **contraintes** 
-  au receveur (`self`) **uniquement pour certaines méthodes**, permettant 
-  donc de n'appeler ces méthodes que si le receveur satisfait ces contraintes 
-  (ces _guards_). [OCaml](https://ocaml.org) ne permet pas, syntaxiquement, 
-  de définir _directement_ ce genre de méthodes. Dans cette note, nous allons 
+synopsis: Les **méthodes gardées** permettent d'attacher des **contraintes**
+  au receveur (`self`) **uniquement pour certaines méthodes**, permettant
+  donc de n'appeler ces méthodes que si le receveur satisfait ces contraintes
+  (ces _guards_). [OCaml](https://ocaml.org) ne permet pas, syntaxiquement,
+  de définir _directement_ ce genre de méthodes. Dans cette note, nous allons
   voir comment les encoder en utilisant un **témoin d'égalité de type**.
 tags:
   - programmation
@@ -19,7 +18,7 @@ tags:
   - gadt
 breadcrumb:
   - name: Bribes & Encodages
-    href: /capsule/tricks.html#index-ocaml
+    href: /tricks.html#index-ocaml
 ---
 
 Les _défenseurs_ de la **programmation orientée objets** défendent souvent cette
@@ -34,7 +33,6 @@ Dans les critiques formulées, nous allons nous intéresser tout particulièreme
 à **l'absence de méthodes gardées**, qui n'est pas, objectivement, reliée à
 l'orienté objets, car il serait envisageable de les intégrer, mais qui manque
 dans beaucoup de langages OOP populaires.
-
 
 ## Présentation du problème
 
@@ -51,7 +49,7 @@ On rend `MyClass` générique en admettant que la variable de type `T` est un
 sous-type de `S`. Le problème est que la contrainte agit **sur toute la
 classe**. Pourtant, parfois, nous voudrions pouvoir n'avoir des contraintes
 que **sur certaines méthodes**. Par exemple, admettons que nous ayons une
-classe `MyList` décrivant une liste: 
+classe `MyList` décrivant une liste:
 
 ```java
 class MyList<A> extends ArrayList<A> {
@@ -60,6 +58,7 @@ class MyList<A> extends ArrayList<A> {
    }
 }
 ```
+
 Comment décrire une méthode `flatten` qui pour une liste `[[1, 2, 3], [4, 5]]`
 produirait la liste `[1, 2, 3, 4, 5]` ? Si on place la contrainte au niveau
 de la classe on force notre liste à être "_tout le temps une liste de liste_"
@@ -138,12 +137,11 @@ classe** semble suffire), on corrige tous les soucis révélés précédemment:
 - on ne casse pas l'envoi de messages réguliers
 - on bénéficie toujours des membres disponnibles (donc on n'échappe pas de
   représentations)
-  
+
 Même si les méthodes gardées semblent être nécéssaires, je ne connais
 malheureusement pas de langages _mainstream_ qui permettent leur définition.
 Voila qui est très triste. Heureusement, en OCaml, il est possible de les
 _encoder_.
-
 
 ### La symétrie OOP/FP : théorie et pratique
 
@@ -152,7 +150,7 @@ populaires j'ai découvert leur existence assez récemment, en lisant les
 [transparents](http://gallium.inria.fr/~scherer/doc/oo-fp-symmetry-bob-2020.org)
 de la présentation "_[The Object-Oriented/Functional-Programming symmetry: theory
 and practice ](https://www.youtube.com/watch?v=TrameN7BTCQ)_" de [Gabriel
-Scherer](http://gallium.inria.fr/~scherer/). 
+Scherer](http://gallium.inria.fr/~scherer/).
 
 Je recommande cette présentation qui présente une **symétrie** entre les outils
 de la programmation fonctionnelle statiquement typée et la programmation
@@ -163,7 +161,7 @@ Malheureusement non couvertes pendant la présentation (_le temps est souvent
 l'ennemi d'un présentateur_), toute une section est dédiée aux méthodes gardées
 dans les transparents. L'exemple original propose une observation symétrique
 entre l'implémentation de la fonction `flatten` dans un style fonctionnel
-classique : 
+classique :
 
 ```ocaml
 type 'a list = ...
@@ -197,8 +195,8 @@ method flatten : 'b olist with 'a = 'b olist
 Cette syntaxe permet de décrire une méthode gardée et pourrait se généraliser de
 cette manière : `method method_name : return_type with generic_type = other_type`.
 Un peu à la manière des **substitution** dans les modules, on pourrait décrire
-des contraintes sur plusieurs génériques au moyen de `and`. Par exemple : 
-`method foo : string with 'a = string and  b = int` pour une classe paramétrée
+des contraintes sur plusieurs génériques au moyen de `and`. Par exemple :
+`method foo : string with 'a = string and b = int` pour une classe paramétrée
 par deux types : `class ['a, 'b] t`.
 
 En complément, cette syntaxe permettrait aussi de définir des comportements spécifiques
@@ -229,7 +227,7 @@ au moyen de quelques petits outils.
 > de batterie midi, donc en cherchant son pseudonyme sur _Google_, j'ai tout de
 > suite eu, dans les suggestions: `octachron ocaml`.)
 
-Notre objectif est de permettre d'ajouter une contrainte à certaines méthodes pour 
+Notre objectif est de permettre d'ajouter une contrainte à certaines méthodes pour
 ne les rendres accessibles que si le type du receveur la satisfait. Sans passer par
 de la modification syntaxique du langage, modeliser une contrainte peut **consister
 à donner un paramètre additionnel qui l'enforce**. En d'autres mots, on voudrait
@@ -243,14 +241,14 @@ dans le langage, il existe une manière assez directe de définir un témoins
 d'égalité de types:
 
 ```ocaml
-type (_, _) eq = 
+type (_, _) eq =
   | Refl : ('a, 'a) eq
 ```
 
 Le type `eq`, qui n'a qu'un seul constructeur: `Refl`, et permet de représenter
 des égalité de types **non connues par le _type-checker_**. Comme on ne peut que
 construire des valeurs `Refl` qui associent deux types égaux, l'instanciation
-de `Refl` dans un _scope_ garantit qu'ils sont équivalent. Par exemple : 
+de `Refl` dans un _scope_ garantit qu'ils sont équivalent. Par exemple :
 
 ```ocaml
 type other_int = int
@@ -266,14 +264,14 @@ un type ou encore quand la représentation du type est cachée par l'abstraction
 
 L'objectif de cette note n'est pas de nous étendre sur `eq` donc ne retenons que
 le fait que si on peut construire une valeur `Refl`, on peut avoir une garantie
-que deux types _syntaxiquement différents_ sont en fait égaux. 
+que deux types _syntaxiquement différents_ sont en fait égaux.
 
 ### Contraindre avec `eq`
 
 Reprenons notre exemple qui fournit une API objet à une liste. Voici son interface:
 
 ```ocaml
-class type ['a] obj_list = 
+class type ['a] obj_list =
   object ('self)
     method length : int
     method append : 'a list -> 'a obj_list
@@ -284,8 +282,7 @@ class type ['a] obj_list =
 
 Pour donner un type à `flatten`, ou voudrait imposer que `'a` (le paramètre de
 type de la classe `obj_list`) soit une liste. En d'autre mot, nous voudrions
-**une preuve que `'a` est de type `'b list`**. Soit garantir que `'a` et `'b
-list`, bien que syntaxiquement différents, soient égaux. Rien de plus simple, 
+**une preuve que `'a` est de type `'b list`**. Soit garantir que `'a` et `'b list`, bien que syntaxiquement différents, soient égaux. Rien de plus simple,
 il suffit de demander d'en fournir une valeur de type `('a, 'b list) eq`:
 
 ```ocaml
@@ -294,7 +291,7 @@ method flatten : ('a, 'b list) eq -> 'b list
 
 Maintenant que nous avons une interface qui décrit une liste avec une méthode
 `flatten` qui contraint le receveur à être `une liste de quelque chose`,
-implémentons concrètement une classe qui implémente `obj_list`. 
+implémentons concrètement une classe qui implémente `obj_list`.
 
 #### Implémentation de l'interface `obj_list`
 
@@ -308,13 +305,13 @@ let my_list (list : 'a list) =
     method length = List.length l
     method append x = {<l = List.append l x>}
     method uncons = match l with [] -> None | x :: xs -> Some (x, {<l = xs>})
-    
+
     method flatten = ???
   end
 ```
 
 Maintenant, intéressons-nous à `flatten`. On va récursivement parcourir
-la liste en concaténant chaque élément au précédent. Par exemple : 
+la liste en concaténant chaque élément au précédent. Par exemple :
 `[[1]; [2]; [3]]` donnera `[1] @ [2]; [3]`. Au delà des annotations un
 peu bruyante, toute l'astuce réside dans l'instanciation de `Refl` pour
 nous fournir une évidence sur le fait que `'a = 'b list`.
@@ -336,11 +333,11 @@ method flatten : 'b. ('a, 'b list) eq -> 'b list =
 Maintenant que nous sommes capable de contraindre certaines méthodes, essayons
 d'ajouter une méthode `sum` qui produit la somme d'une liste d'entiers !
 Premièrement ajoutons `sum` à notre interface. Cette fois, on veut contraindre
-notre paramètre de type à être `int`. Pour cela, il suffit de prendre 
+notre paramètre de type à être `int`. Pour cela, il suffit de prendre
 `('a, int) eq` comme témoin d'égalité:
 
 ```ocaml
-class type ['a] obj_list = 
+class type ['a] obj_list =
   object ('self)
     method length : int
     method append : 'a list -> 'a obj_list
@@ -355,7 +352,7 @@ de la fonction `fold_left`.
 
 ```ocaml
 method sum : ('a, int) eq -> int =
-  let aux : type a. a list -> (a, int) eq -> int = fun list Refl -> 
+  let aux : type a. a list -> (a, int) eq -> int = fun list Refl ->
     List.fold_left (fun acc x -> acc + x) 0 list
   in aux l
 ```
@@ -405,8 +402,8 @@ fournit _implicitement_, allégant ainsi l'appel, n'obligeant pas l'utilisateur 
 fournir manuellement `Refl`.
 
 Même si l'encodage est un peu lourd, et que l'on pourrait imaginer un support
-natif dans le langage pour simplifier la définition de méthode gardée, 
+natif dans le langage pour simplifier la définition de méthode gardée,
 **manipuler explicitement un témoin d'égalité de type permet de les encoder**.
-Est-ce utile ? Comme la programmation OOP est rarement encouragée en OCaml, 
+Est-ce utile ? Comme la programmation OOP est rarement encouragée en OCaml,
 _probablement pas_, mais c'était tout de même amusant de présenter un cas
 d'usages concret et pratique à l'utilisation de témoins d'égalités !
