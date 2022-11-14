@@ -27,5 +27,6 @@ jobs:
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: ./www/capsule
-          publish_branch: gh-pages
+          external_repository: xvw/xvw.github.io
+          publish_branch: master
           enable_jekyll: false
