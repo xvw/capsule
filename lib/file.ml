@@ -21,3 +21,5 @@ let is_font =
 
 let is_related_to_favicon =
   with_extension "png" || with_extension "ico" || with_extension "manifest"
+
+let all _ = true
