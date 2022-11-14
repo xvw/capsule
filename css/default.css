@@ -29,6 +29,14 @@ body {
   line-height: 1.4;
 }
 
+.warning {
+  padding: 8px;
+  background-color: var(--layout-font-rev-color);
+  color: var(--layout-bg-color);
+  font-size: 75%;
+  font-family: var(--sans-serif-font);
+}
+
 main p a {
   text-decoration: none;
   color: var(--regular-link-color);
@@ -73,6 +81,7 @@ footer p {
   line-height: 1.2;
 }
 
+.warning a,
 footer a {
   color: #ffffff;
   font-weight: 900;
