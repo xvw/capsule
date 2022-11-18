@@ -37,6 +37,7 @@ body {
   font-family: var(--sans-serif-font);
 }
 
+.address-meta a,
 main p a {
   text-decoration: none;
   color: var(--regular-link-color);
@@ -168,6 +169,31 @@ footer a {
   display: inline-block;
   content: "/";
   padding: 0 8px;
+}
+
+.address-meta {
+  margin-top: 72px;
+  font-family: var(--sans-serif-font);
+}
+
+.address-meta > .kv > div {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 6px;
+}
+
+.address-meta > .kv > div > div {
+  padding: 4px 8px;
+}
+
+.address-meta > .kv > div > div:first-child {
+  background-color: var(--layout-bg-rev-color);
+  font-family: var(--mono-font);
+  flex: 1;
+}
+
+.address-meta > .kv > div > div:last-child {
+  flex: 3;
 }
 
 article {

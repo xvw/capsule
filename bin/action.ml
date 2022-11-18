@@ -4,6 +4,7 @@ let program target =
   let* () = Lib.Rule.static ~target in
   let* () = Lib.Rule.indexes ~target in
   let* () = Lib.Rule.pages ~target in
+  let* () = Lib.Rule.addresses ~target in
   return ()
 
 let build target = Yocaml_unix.execute $ program target

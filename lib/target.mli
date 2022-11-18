@@ -27,6 +27,9 @@ val pages : target:Filepath.t -> Filepath.t
 val indexes : target:Filepath.t -> Filepath.t
 (** [Target.indexes ~target] is the subfolder that contains indexes files. *)
 
+val addresses : target:Filepath.t -> Filepath.t
+(** [Target.addresses ~target] is the subfolder that contains addresses files. *)
+
 (** {1 Direct target for artifact}
 
     These functions give the target path for a specific file. *)
@@ -34,6 +37,10 @@ val indexes : target:Filepath.t -> Filepath.t
 val for_page : target:Filepath.t -> string -> Filepath.t
 (** [Target.for_page ~target "a_page.md"] will returns the path of the page
     (with the extension changed in favor of [.html]). *)
+
+val for_address : target:Filepath.t -> string -> Filepath.t
+(** [Target.for_address ~target "a_page.md"] will returns the path of the
+    address (with the extension changed in favor of [.html]). *)
 
 val for_index : target:Filepath.t -> string -> Filepath.t
 (** [Target.for_index ~target "a_page.md"] will returns the path of the index

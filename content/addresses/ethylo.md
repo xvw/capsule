@@ -1,6 +1,10 @@
 ---
 title: Ethylo
 creation_date: 2022-11-07
+country: Belgique
+city: Bruxelles
+zipcode: "1030"
+address: Rue Josse Impens 2
 description:
   Ethylo est un bar à cocktails de qualité, situé à Schaerbeek, à proximité du parc
   Josaphat.
@@ -22,6 +26,17 @@ breadcrumb:
     href: /bars.html
   - name: Bruxelles
     href: /bars.html#index-bruxelles
+indexes:
+  - name: Liens
+    synopsis: Liens liés à l'Ethylo
+    links:
+      - name: Site web
+        href: https://ethylococktailbar.be/
+      - name: Instagram
+        href: https://www.instagram.com/ethylo_cocktailbar/
+additional_fields:
+  - key: Téléphone
+    value: +32 2 307 37 31
 ---
 
 > Comme toute rencontre démarre souvent de zéro (ou de _rien_, pour certains,

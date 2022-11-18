@@ -1,6 +1,29 @@
 open Util
 open Yocaml
 
+module KVMap = struct
+  type t = { key : string; value : string }
+
+  let from (type a) (module Meta : Metadata.VALIDABLE with type t = a)
+      metadata_object =
+    let validation assoc =
+      let open Validate.Applicative in
+      let+ key = Meta.(required_assoc string) "key" assoc
+      and+ value = Meta.(required_assoc string) "value" assoc in
+      { key; value }
+    in
+    Meta.object_and validation metadata_object
+
+  let inject (type a) (module Lang : Key_value.DESCRIBABLE with type t = a)
+      { key; value } =
+    let open Lang in
+    [ ("key", string key); ("value", string value) ]
+
+  let inject_list (type a) (module Lang : Key_value.DESCRIBABLE with type t = a)
+      =
+    List.map (fun l -> Lang.object_ $ inject (module Lang) l)
+end
+
 module Link = struct
   type t = {
       name : string
@@ -103,45 +126,45 @@ module Page = struct
     Build.arrow (fun (meta, (toc, content)) ->
         ({ meta with toc = Some toc }, content))
 
+  let validate (type a) (module Meta : Metadata.VALIDABLE with type t = a) assoc
+      =
+    let date = Metadata.Date.from (module Meta) in
+    let open Validate.Applicative in
+    let+ title = Meta.(required_assoc string) "title" assoc
+    and+ description = Meta.(required_assoc string) "description" assoc
+    and+ synopsis = Meta.(required_assoc string) "synopsis" assoc
+    and+ indexed =
+      Meta.(optional_assoc_or ~default:true boolean) "indexed" assoc
+    and+ display_toc =
+      Meta.(optional_assoc_or ~default:true boolean) "toc" assoc
+    and+ creation_date = Meta.(optional_assoc date) "creation_date" assoc
+    and+ update_date = Meta.(optional_assoc date) "update_date" assoc
+    and+ tags =
+      Meta.(optional_assoc_or ~default:[] (list_of string)) "tags" assoc
+    and+ breadcrumb =
+      Meta.(optional_assoc_or ~default:[] (list_of $ Link.from (module Meta)))
+        "breadcrumb" assoc
+    and+ indexes =
+      Meta.(optional_assoc_or ~default:[] (list_of $ Index.from (module Meta)))
+        "indexes" assoc
+    in
+    {
+      title
+    ; description
+    ; breadcrumb
+    ; synopsis
+    ; indexed
+    ; creation_date
+    ; update_date
+    ; tags = List.map String.trim tags
+    ; toc = None
+    ; display_toc
+    ; indexes
+    }
+
   let from (type a) (module Meta : Metadata.VALIDABLE with type t = a)
       metadata_object =
-    let date = Metadata.Date.from (module Meta) in
-    let validation assoc =
-      let open Validate.Applicative in
-      let+ title = Meta.(required_assoc string) "title" assoc
-      and+ description = Meta.(required_assoc string) "description" assoc
-      and+ synopsis = Meta.(required_assoc string) "synopsis" assoc
-      and+ indexed =
-        Meta.(optional_assoc_or ~default:true boolean) "indexed" assoc
-      and+ display_toc =
-        Meta.(optional_assoc_or ~default:true boolean) "toc" assoc
-      and+ creation_date = Meta.(optional_assoc date) "creation_date" assoc
-      and+ update_date = Meta.(optional_assoc date) "update_date" assoc
-      and+ tags =
-        Meta.(optional_assoc_or ~default:[] (list_of string)) "tags" assoc
-      and+ breadcrumb =
-        Meta.(optional_assoc_or ~default:[] (list_of $ Link.from (module Meta)))
-          "breadcrumb" assoc
-      and+ indexes =
-        Meta.(
-          optional_assoc_or ~default:[] (list_of $ Index.from (module Meta)))
-          "indexes" assoc
-      in
-      {
-        title
-      ; description
-      ; breadcrumb
-      ; synopsis
-      ; indexed
-      ; creation_date
-      ; update_date
-      ; tags = List.map String.trim tags
-      ; toc = None
-      ; display_toc
-      ; indexes
-      }
-    in
-    Meta.object_and validation metadata_object
+    Meta.object_and (validate (module Meta)) metadata_object
 
   let from_string (module Meta : Metadata.VALIDABLE) = function
     | None -> Error.(to_validate $ Required_metadata [ "Page" ])
@@ -189,4 +212,105 @@ module Page = struct
     ; ("html_meta_keywords", string $ String.concat ", " ("capsule" :: tags))
     ; ("toc", Option.fold ~none:null ~some:string toc)
     ]
+end
+
+module type ATTACH_PAGE = sig
+  type t
+
+  val get_page : t -> Page.t
+  val set_page : Page.t -> t -> t
+end
+
+module type WITH_PAGE = sig
+  type t
+
+  val map_synopsis : (string, string) Build.t -> (t, t) Build.t
+end
+
+module Attach_page (P : ATTACH_PAGE) = struct
+  let map_synopsis arr =
+    let open Build in
+    (fun meta -> (P.get_page meta, meta)) ^>> fst (Page.map_synopsis arr)
+    >>^ fun (new_page, meta) -> P.set_page new_page meta
+end
+
+module Address = struct
+  type t = {
+      page : Page.t
+    ; country : string
+    ; city : string
+    ; zipcode : string
+    ; address : string
+    ; additional_fields : KVMap.t list
+    ; nominatim_address : string
+  }
+
+  let nominatim_address country city zipcode address =
+    let address = poor_slug ~space:"+" address
+    and country = poor_slug ~space:"+" country
+    and city = poor_slug ~space:"+" city in
+    Format.asprintf "street=%s&city=%s&country=%s&postalcode=%s" address city
+      country zipcode
+
+  include Attach_page (struct
+    type nonrec t = t
+
+    let get_page { page; _ } = page
+    let set_page page address = { address with page }
+  end)
+
+  let validate (type a) (module Meta : Metadata.VALIDABLE with type t = a) assoc
+      =
+    let open Validate.Applicative in
+    let+ page = Page.validate (module Meta) assoc
+    and+ country = Meta.(required_assoc string) "country" assoc
+    and+ city = Meta.(required_assoc string) "city" assoc
+    and+ zipcode = Meta.(required_assoc string) "zipcode" assoc
+    and+ address = Meta.(required_assoc string) "address" assoc
+    and+ additional_fields =
+      Meta.(optional_assoc_or ~default:[] (list_of $ KVMap.from (module Meta)))
+        "additional_fields" assoc
+    in
+    {
+      page
+    ; country
+    ; city
+    ; zipcode
+    ; address
+    ; additional_fields
+    ; nominatim_address = nominatim_address country city zipcode address
+    }
+
+  let from (type a) (module Meta : Metadata.VALIDABLE with type t = a)
+      metadata_object =
+    Meta.object_and (validate (module Meta)) metadata_object
+
+  let from_string (module Meta : Metadata.VALIDABLE) = function
+    | None -> Error.(to_validate $ Required_metadata [ "Address" ])
+    | Some str ->
+        let open Validate.Monad in
+        let* metadata = Meta.from_string str in
+        from (module Meta) metadata
+
+  let inject (type a) (module Lang : Key_value.DESCRIBABLE with type t = a)
+      {
+        page
+      ; country
+      ; city
+      ; zipcode
+      ; address
+      ; additional_fields
+      ; nominatim_address
+      } =
+    Page.inject (module Lang) page
+    @ Lang.
+        [
+          ("country", string country)
+        ; ("city", string city)
+        ; ("zipcode", string zipcode)
+        ; ("address", string address)
+        ; ( "additional_fields"
+          , list $ KVMap.inject_list (module Lang) additional_fields )
+        ; ("nominatim_address", string nominatim_address)
+        ]
 end

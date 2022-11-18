@@ -34,3 +34,6 @@ val pages : target:Filepath.t -> unit Effect.t
 
 val indexes : target:Filepath.t -> unit Effect.t
 (** [Rule.indexes] this is the rule that produces static indexes. *)
+
+val addresses : target:Filepath.t -> unit Effect.t
+(** [Rule.indexes] this is the rule that produces static addresses. *)

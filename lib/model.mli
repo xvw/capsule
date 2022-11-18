@@ -2,6 +2,11 @@
 
 open Yocaml
 
+(** Represents a K/V entry in order to add flexible metadata to a field*)
+module KVMap : sig
+  type t
+end
+
 (** Several types of documents can be attached to links. [Link] describes a
     simple link. A link is characterized by:
 
@@ -26,6 +31,23 @@ module Page : sig
   val map_synopsis : (string, string) Build.t -> (t, t) Build.t
   val inject_toc : (t * (string * string), t * string) Build.t
 
+  include Metadata.READABLE with type t := t
+  include Metadata.INJECTABLE with type t := t
+end
+
+(** Represents a model attached to a page. *)
+module type WITH_PAGE = sig
+  type t
+
+  val map_synopsis : (string, string) Build.t -> (t, t) Build.t
+end
+
+(** An address is a page with additional metadata related to the address of the
+    project. *)
+module Address : sig
+  type t
+
+  include WITH_PAGE with type t := t
   include Metadata.READABLE with type t := t
   include Metadata.INJECTABLE with type t := t
 end
