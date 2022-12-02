@@ -23,6 +23,8 @@ indexes:
       il m'arrive encore très souvent de m'y rendre. Voici une sélection des bars que j'aime
       fréquenter à Bruxelles !
     links:
+      - name: Le Wappers
+        href: /addresses/wappers.html
       - name: Ethylo
         href: /addresses/ethylo.html
 ---
