@@ -86,11 +86,10 @@ en proposant un service de restauration ! J'avoue ne pas vraiment savoir quand
 on peut parler de _restauration_ ou de _petite restauration_, ce que je sais,
 par contre, c'est que le Wappers possède une carte de plats permettant de
 mutualiser le lieu, on peut y prendre l'apéro, manger, et continuer le
-_post-apéro_. On peut y déguster des croques-monsieurs revisités et des
-_spaghetti_ à la belge. Il est assez courant, en Belgique, de trouver des
-_spaghetti_ "_à la belge_" car la Belgique a été, depuis le 18ème siècle, le
-théâtre de multiples vagues migratoires italiennes, que l'on appelle [La
-Diaspora Italienne en
+_post-apéro_. On peut y déguster des _spaghetti_ à la belge. Il est assez
+courant, en Belgique, de trouver des _spaghetti_ "_à la belge_" car la Belgique
+a été, depuis le 18ème siècle, le théâtre de multiples vagues migratoires
+italiennes, que l'on appelle [La Diaspora Italienne en
 Belgique](https://fr.wikipedia.org/wiki/Italiens_en_Belgique), enrichissant la
 culture (incluant la gastronomie) belge de teintes italiennes ! Donc n'ayez
 aucune crainte de venir au Wappers le ventre vide, vous y trouverez de quoi
@@ -98,6 +97,7 @@ _survivre_, en vous régalant avec des portions généreuses.
 
 Je terminerai en soulignant la sympathie du service, des habitués et la capacité
 que le Wappers à de se renouveler au fils des mois, des années, organisant des
-concerts, des animations, devenant, le temps d'une saison, rotisserie, adaptant
-la carte aux demandes. Le Wappers est un bar que j'apprécie beaucoup et que je
-recommande !
+concerts, des animations, devenant, le temps d'une saison, rotisserie,
+expérimentant les croques-monsieurs, adaptant la carte aux demandes (en ce
+moment, vous pouvez y manger des huîtres). Le Wappers est un bar que j'apprécie
+beaucoup et que je recommande !
