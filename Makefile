@@ -1,7 +1,7 @@
 .PHONY: all clean lint clean check-lint utop hell
 
 all: hell
-	dune build
+	dune build --profile release
 
 clean:
 	dune clean
