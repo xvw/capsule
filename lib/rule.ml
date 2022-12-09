@@ -13,7 +13,7 @@ let css ~target =
 
 let javascript ~target =
   process_files
-  $ [ "js" ]
+  $ [ "js"; "hell/_build" ]
   $ File.is_javascript
   $ Build.copy_file ~into:(Target.javascript ~target)
 
@@ -41,14 +41,8 @@ let config ~target =
   $ File.all
   $ Build.copy_file ~into:(Target.capsule ~target)
 
-let hljs ~target =
-  let open Build in
-  let file_target = "hl.js" |> into (Target.javascript ~target) in
-  create_file file_target (binary_update >>^ fun () -> Hljs.script)
-
 let static ~target =
   let* () = css ~target in
-  let* () = hljs ~target in
   let* () = javascript ~target in
   let* () = fonts ~target in
   let* () = images ~target in

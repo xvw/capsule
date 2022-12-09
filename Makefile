@@ -1,6 +1,6 @@
-.PHONY: all clean
+.PHONY: all clean lint clean check-lint utop hell
 
-all:
+all: hell
 	dune build
 
 clean:
@@ -14,3 +14,6 @@ check-lint:
 
 utop:
 	dune utop
+
+hell:
+	(cd hell; npm install; npm run build)
