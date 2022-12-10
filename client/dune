@@ -6,4 +6,5 @@
     lwt
     js_of_ocaml-lwt
     js_of_ocaml-tyxml)
+  (modules_without_implementation bindings)
   (preprocess (pps js_of_ocaml-ppx)))
