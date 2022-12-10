@@ -6,6 +6,7 @@ open Yocaml
 
     Predicate on file names. *)
 
+val is_html : Filepath.t Preface.Predicate.t
 val is_css : Filepath.t Preface.Predicate.t
 val is_javascript : Filepath.t Preface.Predicate.t
 val is_markdown : Filepath.t Preface.Predicate.t
