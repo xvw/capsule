@@ -42,12 +42,23 @@ module type WITH_PAGE = sig
   val map_synopsis : (string, string) Build.t -> (t, t) Build.t
 end
 
-(** An address is a page with additional metadata related to the address of the
-    project. *)
+(** An address is a page with additional metadata related to an address. *)
 module Address : sig
   type t
 
   include WITH_PAGE with type t := t
   include Metadata.READABLE with type t := t
   include Metadata.INJECTABLE with type t := t
+end
+
+(** A Dapp is a page with additional metadata related to a DApp manifest. *)
+module Dapp : sig
+  type t
+
+  include WITH_PAGE with type t := t
+  include Metadata.READABLE with type t := t
+  include Metadata.INJECTABLE with type t := t
+
+  val join_files : (string * (t * string), t * string) Build.t
+  val map_manifest : (string, string) Build.t -> (t, t) Build.t
 end

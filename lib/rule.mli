@@ -41,3 +41,6 @@ val indexes : target:Filepath.t -> unit Effect.t
 
 val addresses : target:Filepath.t -> unit Effect.t
 (** [Rule.indexes] this is the rule that produces static addresses. *)
+
+val dapps : target:Filepath.t -> unit Effect.t
+(** [Rule.indexes] this is the rule that produces static page as a DApp vessel. *)

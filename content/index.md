@@ -14,11 +14,15 @@ tags:
   - capsule
 toc: false
 indexes:
-  - name: Programmation
-    synopsis: Notes plus-ou-moins organisées relatives à la programmation.
+  - name: Technologies
+    synopsis:
+      Notes et projets plus-ou-moins organisées relatives à la technologie
+      (incluant la programmation)
     links:
       - name: Bribes & Encodages
         href: /tricks.html
+      - name: Catalogue de dApps
+        href: /dapps.html
   - name: Adresses
     synopsis:
       Comme il est compliqué d'être productif quand on est monomaniaque, j'essaie de

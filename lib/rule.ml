@@ -3,6 +3,10 @@ module Y = Yocaml_yaml
 module M = Markdown
 module T = Yocaml_jingoo
 
+let process_directories path predicate effect =
+  let effects = Yocaml.Effect.collect_child_directories path predicate in
+  Yocaml.Effect.sequence effects (fun x () -> effect x) (return ())
+
 let binary_update = Build.watch Sys.argv.(0)
 
 let css ~target =
@@ -85,6 +89,23 @@ let addresses ~target =
     >>> T.apply_as_template (module Model.Address) "templates/layout.html"
     >>^ Stdlib.snd)
 
+let dapps ~target =
+  process_directories [ "content/dapps" ] $ File.all $ fun folder ->
+  let open Build in
+  let file_target = Target.for_dapp ~target folder in
+  let app_file = "app.html" |> into folder in
+  let manifest_file = "manifest.md" |> into folder in
+  create_file file_target
+    (binary_update
+    >>> (read_file app_file
+        &&& Y.read_file_with_metadata (module Model.Dapp) manifest_file)
+    >>> Model.Dapp.join_files
+    >>> fst (Model.Dapp.map_manifest M.string_to_html)
+    >>> T.apply_as_template (module Model.Dapp) "templates/dapp.html"
+    >>> T.apply_as_template (module Model.Dapp) "templates/page-header.html"
+    >>> T.apply_as_template (module Model.Dapp) "templates/layout.html"
+    >>^ Stdlib.snd)
+
 let pages ~target =
   process_files $ [ "content/pages" ] $ File.is_markdown $ fun page_file ->
   let open Build in
@@ -92,7 +113,7 @@ let pages ~target =
   create_file $ file_target $ base_page page_file
 
 let indexes ~target =
-  process_files $ [ "content/" ] $ File.is_markdown $ fun index_file ->
+  process_files $ [ "content" ] $ File.is_markdown $ fun index_file ->
   let open Build in
   let file_target = Target.for_index ~target index_file in
   create_file $ file_target $ base_page index_file

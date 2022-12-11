@@ -314,3 +314,48 @@ module Address = struct
         ; ("nominatim_address", string nominatim_address)
         ]
 end
+
+module Dapp = struct
+  type t = { page : Page.t; addresses : Link.t list; manifest : string }
+
+  include Attach_page (struct
+    type nonrec t = t
+
+    let get_page { page; _ } = page
+    let set_page page dapp = { dapp with page }
+  end)
+
+  let validate (type a) (module Meta : Metadata.VALIDABLE with type t = a) assoc
+      =
+    let open Validate.Applicative in
+    let+ page = Page.validate (module Meta) assoc
+    and+ addresses =
+      Meta.(optional_assoc_or ~default:[] (list_of $ Link.from (module Meta)))
+        "addresses" assoc
+    in
+    { page; addresses; manifest = "" }
+
+  let from (type a) (module Meta : Metadata.VALIDABLE with type t = a)
+      metadata_object =
+    Meta.object_and (validate (module Meta)) metadata_object
+
+  let from_string (module Meta : Metadata.VALIDABLE) = function
+    | None -> Error.(to_validate $ Required_metadata [ "Dapp" ])
+    | Some str ->
+        let open Validate.Monad in
+        let* metadata = Meta.from_string str in
+        from (module Meta) metadata
+
+  let inject (type a) (module Lang : Key_value.DESCRIBABLE with type t = a)
+      { page; addresses } =
+    Page.inject (module Lang) page
+    @ Lang.[ ("addresses", list $ Link.inject_list (module Lang) addresses) ]
+
+  let join_files =
+    Build.arrow (fun (html, (dapp, manifest)) -> ({ dapp with manifest }, html))
+
+  let map_manifest arr =
+    let open Build in
+    (fun meta -> (meta.manifest, meta)) ^>> fst arr >>^ fun (manifest, m) ->
+    { m with manifest }
+end

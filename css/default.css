@@ -251,6 +251,10 @@ article blockquote {
   border-top: 1px solid var(--layout-bg-rev-color);
 }
 
+.indexes > div:last-child {
+  border-bottom: 0px solid transparent;
+}
+
 .indexes > div > h1 {
   margin: 0;
   font-family: var(--sans-serif-font);
@@ -258,6 +262,7 @@ article blockquote {
 
 .indexes > div > p {
   margin: 0;
+  font-weight: 100;
 }
 
 .indexes > div > nav > ol {
