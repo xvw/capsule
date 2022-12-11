@@ -92,15 +92,18 @@ let addresses ~target =
 let dapps ~target =
   process_directories [ "content/dapps" ] $ File.all $ fun folder ->
   let open Build in
+  let folder = Filepath.basename folder in
   let file_target = Target.for_dapp ~target folder in
-  let app_file = "app.html" |> into folder in
-  let manifest_file = "manifest.md" |> into folder in
+  let app_file = "app.html" |> into folder |> into "content/dapps" in
+  let manifest_file = "manifest.md" |> into folder |> into "content/dapps" in
   create_file file_target
     (binary_update
     >>> (read_file app_file
         &&& Y.read_file_with_metadata (module Model.Dapp) manifest_file)
     >>> Model.Dapp.join_files
-    >>> fst (Model.Dapp.map_manifest M.string_to_html)
+    >>> fst
+          (Model.Dapp.map_manifest M.string_to_html
+          >>> Model.Dapp.map_synopsis M.string_to_html)
     >>> T.apply_as_template (module Model.Dapp) "templates/dapp.html"
     >>> T.apply_as_template (module Model.Dapp) "templates/page-header.html"
     >>> T.apply_as_template (module Model.Dapp) "templates/layout.html"

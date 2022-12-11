@@ -1,10 +1,9 @@
 (executable
-  (name capsule_client)
-  (js_of_ocaml (flags :standard --opt 3))
-  (modes js)
-  (libraries
-    lwt
-    js_of_ocaml-lwt
-    js_of_ocaml-tyxml)
-  (modules_without_implementation bindings)
-  (preprocess (pps js_of_ocaml-ppx)))
+ (name capsule_client)
+ (js_of_ocaml
+  (flags :standard --opt 3))
+ (modes js)
+ (libraries lwt js_of_ocaml-lwt js_of_ocaml-tyxml)
+ (modules_without_implementation bindings)
+ (preprocess
+  (pps js_of_ocaml-ppx)))

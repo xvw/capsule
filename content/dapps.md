@@ -21,6 +21,9 @@ indexes:
       de technologies, pour prendre conscience de ce que fait la concurrence, il est
       fort probable que je m'en restreigne à Tezos, par confort et pour des raisons
       idéologiques.
+    links:
+      - name: Stimulo
+        href: /dapps/stimulo/
 ---
 
 > Une **dApp** (pour _"Application décentralisée"_) peut être grossièrement

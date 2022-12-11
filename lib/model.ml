@@ -347,9 +347,13 @@ module Dapp = struct
         from (module Meta) metadata
 
   let inject (type a) (module Lang : Key_value.DESCRIBABLE with type t = a)
-      { page; addresses } =
+      { page; addresses; manifest } =
     Page.inject (module Lang) page
-    @ Lang.[ ("addresses", list $ Link.inject_list (module Lang) addresses) ]
+    @ Lang.
+        [
+          ("addresses", list $ Link.inject_list (module Lang) addresses)
+        ; ("manifest", string manifest)
+        ]
 
   let join_files =
     Build.arrow (fun (html, (dapp, manifest)) -> ({ dapp with manifest }, html))
