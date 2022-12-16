@@ -17,13 +17,13 @@ indexes:
   - name: Sur Tezos
     sort: true
     synopsis:
-      Même si, dans un monde idéal, je développerai des applications sur un maximum
+      Même si, dans un futur idéal, je développerai des applications sur un maximum
       de technologies, pour prendre conscience de ce que fait la concurrence, il est
       fort probable que je m'en restreigne à Tezos, par confort et pour des raisons
       idéologiques.
     links:
-      - name: Stimulo
-        href: /dapps/stimulo/
+      - name: Transfer
+        href: /dapps/transfer/
 ---
 
 > Une **dApp** (pour _"Application décentralisée"_) peut être grossièrement

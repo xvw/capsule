@@ -26,7 +26,8 @@ depends: [
   "js_of_ocaml-compiler" {>= "4.1.0"}
   "js_of_ocaml-ppx" {>= "4.1.0"}
   "js_of_ocaml-lwt" {>= "4.1.0"}
-  "js_of_ocaml-tyxml" {>= "4.1.0"}
+  "promise_jsoo"
+  "ocaml-vdom"
   "preface" { >= "1.0.0"}
   "yocaml" {pinned}
   "yocaml_unix" {pinned}

@@ -19,6 +19,11 @@ let () =
         let _ = self##.internal##.suspending##push f in
         ()
 
+      val dapps =
+        object%js
+          val transfer = Dapp_transfer.entrypoint
+        end
+
       method mount =
         let suspension =
           self##.internal##.suspending

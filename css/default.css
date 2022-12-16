@@ -299,6 +299,31 @@ code {
   font-family: var(--mono-font);
 }
 
+.dark-dapp {
+  background-color: var(--layout-font-rev-color);
+  color: var(--layout-bg-rev-color);
+  padding: 8px;
+  font-family: var(--mono-font);
+  margin: 64px 0;
+}
+
+.dapp-large-container {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dark-dapp button.connect-wallet {
+  border: 0px solid transparent;
+  background-color: var(--layout-bg-rev-color);
+  font-family: var(--mono-font);
+  font-weight: 400;
+  font-size: 80%;
+  cursor: pointer;
+}
+
 @media all and (max-width: 960px) {
   .container {
     padding: 20px;

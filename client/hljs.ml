@@ -1,6 +1,6 @@
 open Js_of_ocaml
 
-type t = Bindings.hljs Js.t
+type t = Bindings.Hljs.hljs Js.t
 
 let get () : t = Js.Unsafe.global##.hljs
 
