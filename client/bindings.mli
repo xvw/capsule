@@ -47,7 +47,7 @@ module Beacon : sig
   class type permissionResponse =
     object
       inherit baseMessage
-      method appMetadata : appMetadata t readonly_prop
+      method appMetadata : appMetadata t Optdef.t readonly_prop
       method network : network t readonly_prop
       method publicKey : js_string t readonly_prop
       method scopes : js_string t js_array t readonly_prop

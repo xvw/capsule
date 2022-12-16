@@ -112,10 +112,10 @@ end
 module AppMetadata = struct
   type t = { icon : string option; name : string; sender_id : string }
 
-  let from_js obj =
-    let icon = obj##.icon |> Js.Optdef.to_option |> Option.map Js.to_string
-    and name = Js.to_string obj##.name
-    and sender_id = Js.to_string obj##.senderId in
+  let from_js obj_a =
+    let icon = obj_a##.icon |> Js.Optdef.to_option |> Option.map Js.to_string
+    and name = Js.to_string obj_a##.name
+    and sender_id = Js.to_string obj_a##.senderId in
     { icon; name; sender_id }
 end
 
@@ -126,10 +126,11 @@ module Network = struct
     ; type_ : NetworkType.t
   }
 
-  let from_js obj =
-    let name = obj##.name |> Js.Optdef.to_option |> Option.map Js.to_string
-    and rpc_url = obj##.rpcUrl |> Js.Optdef.to_option |> Option.map Js.to_string
-    and type_ = obj##._type |> Js.to_string |> NetworkType.from_string in
+  let from_js obj_b =
+    let name = obj_b##.name |> Js.Optdef.to_option |> Option.map Js.to_string
+    and rpc_url =
+      obj_b##.rpcUrl |> Js.Optdef.to_option |> Option.map Js.to_string
+    and type_ = obj_b##._type |> Js.to_string |> NetworkType.from_string in
     { name; rpc_url; type_ }
 
   let to_js { name; rpc_url; type_ } : Bindings.Beacon.network Js.t =
@@ -143,19 +144,19 @@ end
 module Threshold = struct
   type t = { amount : string; timeframe : string }
 
-  let from_js obj =
-    let amount = Js.to_string obj##.amount
-    and timeframe = Js.to_string obj##.timeframe in
+  let from_js obj_c =
+    let amount = Js.to_string obj_c##.amount
+    and timeframe = Js.to_string obj_c##.timeframe in
     { amount; timeframe }
 end
 
 module AccountInfo = struct
   type t = { identifier : string; address : string; public_key : string }
 
-  let from_js obj =
-    let identifier = Js.to_string obj##.accountIdentifier
-    and address = Js.to_string obj##.address
-    and public_key = Js.to_string obj##.publicKey in
+  let from_js obj_d =
+    let identifier = Js.to_string obj_d##.accountIdentifier
+    and address = Js.to_string obj_d##.address
+    and public_key = Js.to_string obj_d##.publicKey in
     { identifier; address; public_key }
 end
 
@@ -164,24 +165,27 @@ module PermissionResponse = struct
       id : string
     ; sender_id : string
     ; version : string
-    ; app_metadata : AppMetadata.t
+    ; app_metadata : AppMetadata.t option
     ; network : Network.t
     ; public_key : string
     ; scopes : PermissionScope.t list
   }
 
-  let from_js obj =
-    let id = Js.to_string obj##.id
-    and sender_id = Js.to_string obj##.senderId
-    and version = Js.to_string obj##.version
-    and app_metadata = AppMetadata.from_js obj##.appMetadata
-    and network = Network.from_js obj##.network
-    and public_key = Js.to_string obj##.publicKey
+  let from_js obj_e =
+    let id = Js.to_string obj_e##.id
+    and sender_id = Js.to_string obj_e##.senderId
+    and version = Js.to_string obj_e##.version
+    and app_metadata =
+      obj_e##.appMetadata
+      |> Js.Optdef.to_option
+      |> Option.map AppMetadata.from_js
+    and network = Network.from_js obj_e##.network
+    and public_key = Js.to_string obj_e##.publicKey
     and scopes =
       Util.js_array_to_list
         (fun x ->
           x |> Js.to_string |> PermissionScope.from_string |> Option.to_list)
-        obj##.scopes
+        obj_e##.scopes
       |> List.flatten
     in
     { id; sender_id; version; app_metadata; network; public_key; scopes }
@@ -194,10 +198,10 @@ module PermissionResponseOutput = struct
     ; address : string
   }
 
-  let from_js obj =
-    let response = PermissionResponse.from_js obj
-    and account_info = AccountInfo.from_js obj##.accountInfo
-    and address = Js.to_string obj##.address in
+  let from_js obj_f =
+    let response = PermissionResponse.from_js obj_f
+    and account_info = AccountInfo.from_js obj_f##.accountInfo
+    and address = Js.to_string obj_f##.address in
     { response; account_info; address }
 end
 

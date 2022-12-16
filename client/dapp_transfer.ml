@@ -1,18 +1,24 @@
 open Js_of_ocaml
 
 type 'message Vdom.Cmd.t +=
-  | (* | Beacon_get_active_account_cmd of { *)
-    (*       when_done : Beacon.AccountInfo.t option -> 'message *)
-    (*   } *)
-      Beacon_request_permissions_cmd of {
-        when_done : Beacon.PermissionResponseOutput.t -> 'message
-    }
+  | Sync_wallet_cmd of { callback : Beacon.AccountInfo.t -> 'message }
 
-(* let beacon_get_active_account ~when_done = *)
-(*   Beacon_get_active_account_cmd { when_done } *)
+let sync_wallet ~callback = Sync_wallet_cmd { callback }
 
-let beacon_request_permissions ~when_done =
-  Beacon_request_permissions_cmd { when_done }
+let retreive_or_connect client ctx callback () =
+  let open Lwt.Syntax in
+  let* potential_active_account = Beacon.DAppClient.get_active_account client in
+  let+ active_info =
+    match potential_active_account with
+    | Some active_info -> Lwt.return active_info
+    | None ->
+        let+ Beacon.PermissionResponseOutput.{ account_info; _ } =
+          Beacon.DAppClient.request_permissions client
+        in
+
+        account_info
+  in
+  Vdom_blit.Cmd.send_msg ctx (callback active_info)
 
 let register client =
   let open Vdom_blit in
@@ -20,24 +26,8 @@ let register client =
     {
       Cmd.f =
         (fun ctx -> function
-          (* | Beacon_get_active_account_cmd { when_done } -> *)
-          (*     let _ = *)
-          (*       let open Lwt.Syntax in *)
-          (*       let+ active_account = *)
-          (*         Beacon.DAppClient.get_active_account client *)
-          (*       in *)
-          (*       Vdom_blit.Cmd.send_msg ctx (when_done active_account) *)
-          (*     in *)
-          (*     true *)
-          | Beacon_request_permissions_cmd { when_done } ->
-              let () =
-                Lwt.async (fun () ->
-                    let open Lwt.Syntax in
-                    let+ result =
-                      Beacon.DAppClient.request_permissions client
-                    in
-                    Vdom_blit.Cmd.send_msg ctx (when_done result))
-              in
+          | Sync_wallet_cmd { callback } ->
+              let () = Lwt.async (retreive_or_connect client ctx callback) in
               true
           | _ -> false)
     }
@@ -52,11 +42,7 @@ let update state = function
       Vdom.return state
         ~c:
           [
-            beacon_request_permissions
-              ~when_done:(fun
-                           Beacon.PermissionResponseOutput.{ account_info; _ }
-                         ->
-                let () = Console.log "test" in
+            sync_wallet ~callback:(fun account_info ->
                 Wallet_connected account_info)
           ]
   | Wallet_connected account_info -> Vdom.return @@ Synced { account_info }
@@ -75,7 +61,12 @@ let view =
           ; type_button
           ]
         []
-  | Synced _ -> txt_span "synced"
+  | Synced { account_info } ->
+      let x =
+        Beacon.AccountInfo.(
+          account_info.address ^ " - " ^ account_info.identifier)
+      in
+      txt_span @@ "synced " ^ x
 
 let app = Vdom.app ~init ~view ~update ()
 

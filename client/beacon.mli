@@ -81,7 +81,7 @@ module PermissionResponse : sig
       id : string
     ; sender_id : string
     ; version : string
-    ; app_metadata : AppMetadata.t
+    ; app_metadata : AppMetadata.t option
     ; network : Network.t
     ; public_key : string
     ; scopes : PermissionScope.t list
