@@ -16,6 +16,8 @@ end
 (** {1 BeaconWallet} *)
 
 module Beacon : sig
+  type scopes = js_string t js_array t
+
   class type baseMessage =
     object
       method id : js_string t readonly_prop
@@ -50,7 +52,7 @@ module Beacon : sig
       method appMetadata : appMetadata t Optdef.t readonly_prop
       method network : network t readonly_prop
       method publicKey : js_string t readonly_prop
-      method scopes : js_string t js_array t readonly_prop
+      method scopes : scopes readonly_prop
     end
 
   class type accountInfo =
@@ -58,12 +60,17 @@ module Beacon : sig
       method accountIdentifier : js_string t readonly_prop
       method address : js_string t readonly_prop
       method publicKey : js_string t readonly_prop
+      method scopes : scopes readonly_prop
+      method connectedAt : int readonly_prop
+      method network : network t readonly_prop
+      method senderId : js_string t readonly_prop
+      method threshold : threshold t Optdef.t readonly_prop
     end
 
   class type requestPermissionInput =
     object
       method network : network t Optdef.t readonly_prop
-      method scopes : js_string t js_array t Optdef.t readonly_prop
+      method scopes : scopes Optdef.t readonly_prop
     end
 
   class type permissionResponseOutput =
@@ -71,6 +78,15 @@ module Beacon : sig
       inherit permissionResponse
       method accountInfo : accountInfo t readonly_prop
       method address : js_string t readonly_prop
+    end
+
+  class type blockExplorer =
+    object
+      method getAddressLink :
+        js_string t -> network t -> js_string t promise meth
+
+      method getTransactionLink :
+        js_string t -> network t -> js_string t promise meth
     end
 
   class type dAppClientOptions =
@@ -85,10 +101,12 @@ module Beacon : sig
   class type dAppClient =
     object
       inherit dAppClientOptions
+      method blockExplorer : blockExplorer t readonly_prop
 
       method requestPermissions :
         requestPermissionInput t -> permissionResponseOutput t promise meth
 
       method getActiveAccount : accountInfo t Optdef.t promise meth
+      method clearActiveAccount : unit promise meth
     end
 end

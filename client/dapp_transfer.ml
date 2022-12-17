@@ -2,8 +2,10 @@ open Js_of_ocaml
 
 type 'message Vdom.Cmd.t +=
   | Sync_wallet_cmd of { callback : Beacon.AccountInfo.t -> 'message }
+  | Unsync_wallet_cmd of { callback : unit -> 'message }
 
 let sync_wallet ~callback = Sync_wallet_cmd { callback }
+let unsync_wallet ~callback = Unsync_wallet_cmd { callback }
 
 let retreive_or_connect client ctx callback () =
   let open Lwt.Syntax in
@@ -20,6 +22,11 @@ let retreive_or_connect client ctx callback () =
   in
   Vdom_blit.Cmd.send_msg ctx (callback active_info)
 
+let disconnect_wallet client ctx callback () =
+  let open Lwt.Syntax in
+  let+ () = Beacon.DAppClient.disconnect_wallet client in
+  Vdom_blit.Cmd.send_msg ctx (callback ())
+
 let register client =
   let open Vdom_blit in
   let handler =
@@ -28,13 +35,23 @@ let register client =
         (fun ctx -> function
           | Sync_wallet_cmd { callback } ->
               let () = Lwt.async (retreive_or_connect client ctx callback) in
+
+              true
+          | Unsync_wallet_cmd { callback } ->
+              let () = Lwt.async (disconnect_wallet client ctx callback) in
+
               true
           | _ -> false)
     }
   in
   register @@ cmd handler
 
-type message = Connect_wallet | Wallet_connected of Beacon.AccountInfo.t
+type message =
+  | Connect_wallet
+  | Disconnect_wallet
+  | Wallet_connected of Beacon.AccountInfo.t
+  | Wallet_disconnected
+
 type model = Not_synced | Synced of { account_info : Beacon.AccountInfo.t }
 
 let update state = function
@@ -45,28 +62,35 @@ let update state = function
             sync_wallet ~callback:(fun account_info ->
                 Wallet_connected account_info)
           ]
+  | Disconnect_wallet ->
+      Vdom.return state
+        ~c:[ unsync_wallet ~callback:(fun () -> Wallet_disconnected) ]
   | Wallet_connected account_info -> Vdom.return @@ Synced { account_info }
+  | Wallet_disconnected -> Vdom.return Not_synced
 
 let init = Vdom.return Not_synced
 
 let view =
   let open Vdom in
+  let open Vdom_ui in
   function
   | Not_synced ->
-      input
-        ~a:
-          [
-            onclick (fun _ -> Connect_wallet)
-          ; value "connect wallet"
-          ; type_button
-          ]
-        []
+      button ~a:[ onclick (fun _ -> Connect_wallet) ] [ text "connect wallet" ]
   | Synced { account_info } ->
       let x =
         Beacon.AccountInfo.(
           account_info.address ^ " - " ^ account_info.identifier)
       in
-      txt_span @@ "synced " ^ x
+      div ~a:[]
+        [
+          div [ txt_span @@ "synced " ^ x ]
+        ; div
+            [
+              button
+                ~a:[ onclick (fun _ -> Disconnect_wallet) ]
+                [ text "disconnect wallet" ]
+            ]
+        ]
 
 let app = Vdom.app ~init ~view ~update ()
 

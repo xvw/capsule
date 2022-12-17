@@ -107,6 +107,15 @@ module PermissionScope = struct
     | "sign" -> Some SIGN
     | "threshold" -> Some THRESHOLD
     | _ -> None
+
+  let from_js_array scopes =
+    Util.js_array_to_list
+      (fun x -> x |> Js.to_string |> from_string |> Option.to_list)
+      scopes
+    |> List.flatten
+
+  let to_js_array scopes =
+    Util.list_to_js_array (fun x -> x |> to_string |> Js.string) scopes
 end
 
 module AppMetadata = struct
@@ -151,13 +160,39 @@ module Threshold = struct
 end
 
 module AccountInfo = struct
-  type t = { identifier : string; address : string; public_key : string }
+  type t = {
+      identifier : string
+    ; address : string
+    ; public_key : string
+    ; scopes : PermissionScope.t list
+    ; connected_at : int
+    ; network : Network.t
+    ; sender_id : string
+    ; threshold : Threshold.t option
+  }
 
   let from_js obj_d =
     let identifier = Js.to_string obj_d##.accountIdentifier
     and address = Js.to_string obj_d##.address
-    and public_key = Js.to_string obj_d##.publicKey in
-    { identifier; address; public_key }
+    and public_key = Js.to_string obj_d##.publicKey
+    and scopes = PermissionScope.from_js_array obj_d##.scopes
+    and connected_at = obj_d##.connectedAt
+    and network = Network.from_js obj_d##.network
+    and sender_id = Js.to_string obj_d##.senderId
+    and threshold =
+      obj_d##.threshold |> Js.Optdef.to_option |> Option.map Threshold.from_js
+    in
+
+    {
+      identifier
+    ; address
+    ; public_key
+    ; scopes
+    ; connected_at
+    ; network
+    ; sender_id
+    ; threshold
+    }
 end
 
 module PermissionResponse = struct
@@ -181,13 +216,8 @@ module PermissionResponse = struct
       |> Option.map AppMetadata.from_js
     and network = Network.from_js obj_e##.network
     and public_key = Js.to_string obj_e##.publicKey
-    and scopes =
-      Util.js_array_to_list
-        (fun x ->
-          x |> Js.to_string |> PermissionScope.from_string |> Option.to_list)
-        obj_e##.scopes
-      |> List.flatten
-    in
+    and scopes = PermissionScope.from_js_array obj_e##.scopes in
+
     { id; sender_id; version; app_metadata; network; public_key; scopes }
 end
 
@@ -203,6 +233,23 @@ module PermissionResponseOutput = struct
     and account_info = AccountInfo.from_js obj_f##.accountInfo
     and address = Js.to_string obj_f##.address in
     { response; account_info; address }
+end
+
+module BlockExplorer = struct
+  type t = Bindings.Beacon.blockExplorer Js.t
+
+  let get_address_link explorer address network =
+    let address_js = Js.string address and network_js = Network.to_js network in
+    explorer##getAddressLink address_js network_js
+    |> Util.promise_to_lwt
+    |> Lwt.map Js.to_string
+
+  let get_transaction_link explorer transaction_id network =
+    let transaction_js = Js.string transaction_id
+    and network_js = Network.to_js network in
+    explorer##getTransactionLink transaction_js network_js
+    |> Util.promise_to_lwt
+    |> Lwt.map Js.to_string
 end
 
 module DAppClient = struct
@@ -242,11 +289,7 @@ module DAppClient = struct
         val network = network |> Option.map Network.to_js |> Js.Optdef.option
 
         val scopes =
-          scopes
-          |> Option.map
-               (Util.list_to_js_array (fun x ->
-                    x |> PermissionScope.to_string |> Js.string))
-          |> Js.Optdef.option
+          scopes |> Option.map PermissionScope.to_js_array |> Js.Optdef.option
       end
     in
     let open Lwt.Syntax in
@@ -257,4 +300,12 @@ module DAppClient = struct
     let open Lwt.Syntax in
     let+ active_account = client##getActiveAccount |> Util.promise_to_lwt in
     active_account |> Js.Optdef.to_option |> Option.map AccountInfo.from_js
+
+  let clear_active_account client =
+    let open Lwt.Syntax in
+    let+ () = client##clearActiveAccount |> Util.promise_to_lwt in
+    ()
+
+  let disconnect_wallet client = clear_active_account client
+  let get_block_explorer client = client##.blockExplorer
 end

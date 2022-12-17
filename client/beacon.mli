@@ -59,12 +59,6 @@ module Threshold : sig
   val from_js : Bindings.Beacon.threshold Js.t -> t
 end
 
-module AccountInfo : sig
-  type t = { identifier : string; address : string; public_key : string }
-
-  val from_js : Bindings.Beacon.accountInfo Js.t -> t
-end
-
 module Network : sig
   type t = {
       name : string option
@@ -74,6 +68,21 @@ module Network : sig
 
   val from_js : Bindings.Beacon.network Js.t -> t
   val to_js : t -> Bindings.Beacon.network Js.t
+end
+
+module AccountInfo : sig
+  type t = {
+      identifier : string
+    ; address : string
+    ; public_key : string
+    ; scopes : PermissionScope.t list
+    ; connected_at : int
+    ; network : Network.t
+    ; sender_id : string
+    ; threshold : Threshold.t option
+  }
+
+  val from_js : Bindings.Beacon.accountInfo Js.t -> t
 end
 
 module PermissionResponse : sig
@@ -100,6 +109,13 @@ module PermissionResponseOutput : sig
   val from_js : Bindings.Beacon.permissionResponseOutput Js.t -> t
 end
 
+module BlockExplorer : sig
+  type t
+
+  val get_address_link : t -> string -> Network.t -> string Lwt.t
+  val get_transaction_link : t -> string -> Network.t -> string Lwt.t
+end
+
 module DAppClient : sig
   type t
 
@@ -119,4 +135,7 @@ module DAppClient : sig
     -> PermissionResponseOutput.t Lwt.t
 
   val get_active_account : t -> AccountInfo.t option Lwt.t
+  val clear_active_account : t -> unit Lwt.t
+  val disconnect_wallet : t -> unit Lwt.t
+  val get_block_explorer : t -> BlockExplorer.t
 end

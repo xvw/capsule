@@ -1,11 +1,11 @@
 open Yocaml
 
 let program target =
-  let* () = Lib.Rule.static ~target in
-  let* () = Lib.Rule.indexes ~target in
-  let* () = Lib.Rule.pages ~target in
-  let* () = Lib.Rule.addresses ~target in
-  let* () = Lib.Rule.dapps ~target in
+  let* () = Generator.Rule.static ~target in
+  let* () = Generator.Rule.indexes ~target in
+  let* () = Generator.Rule.pages ~target in
+  let* () = Generator.Rule.addresses ~target in
+  let* () = Generator.Rule.dapps ~target in
   return ()
 
 let build target = Yocaml_unix.execute $ program target
