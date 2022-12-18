@@ -5,7 +5,7 @@ open Js_of_ocaml
 
 (** {1 Types} *)
 
-type t = Bindings.Hljs.hljs Js.t
+type t = Bindings.hljs Js.t
 
 (** {1 Functions} *)
 

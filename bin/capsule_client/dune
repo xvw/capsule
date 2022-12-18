@@ -3,7 +3,6 @@
  (js_of_ocaml
   (flags :standard --opt 3))
  (modes js)
- (libraries lwt js_of_ocaml-lwt ocaml-vdom promise_jsoo preface)
- (modules_without_implementation bindings)
+ (libraries lwt js_of_ocaml-lwt ocaml-vdom preface core_js beacon_js hljs_js)
  (preprocess
   (pps js_of_ocaml-ppx)))

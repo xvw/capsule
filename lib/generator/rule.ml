@@ -24,7 +24,7 @@ let javascript ~target =
 let client ~target =
   Build.copy_file ~new_name:"capsule.js"
     ~into:(Target.javascript ~target)
-    "_build/default/client/capsule_client.bc.js"
+    "_build/default/bin/capsule_client/capsule_client.bc.js"
 
 let fonts ~target =
   process_files

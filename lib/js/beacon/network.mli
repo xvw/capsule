@@ -6,5 +6,5 @@ type t = {
   ; type_ : Network_type.t
 }
 
-val from_js : Bindings.network Js.t -> t
+val from_js : #Bindings.network Js.t -> t
 val to_js : t -> Bindings.network Js.t

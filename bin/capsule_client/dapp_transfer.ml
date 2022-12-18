@@ -1,7 +1,7 @@
 open Js_of_ocaml
 
 type 'message Vdom.Cmd.t +=
-  | Sync_wallet_cmd of { callback : Beacon.AccountInfo.t -> 'message }
+  | Sync_wallet_cmd of { callback : Beacon_js.Account_info.t -> 'message }
   | Unsync_wallet_cmd of { callback : unit -> 'message }
 
 let sync_wallet ~callback = Sync_wallet_cmd { callback }
@@ -9,13 +9,15 @@ let unsync_wallet ~callback = Unsync_wallet_cmd { callback }
 
 let retreive_or_connect client ctx callback () =
   let open Lwt.Syntax in
-  let* potential_active_account = Beacon.DAppClient.get_active_account client in
+  let* potential_active_account =
+    Beacon_js.DApp_client.get_active_account client
+  in
   let+ active_info =
     match potential_active_account with
     | Some active_info -> Lwt.return active_info
     | None ->
-        let+ Beacon.PermissionResponseOutput.{ account_info; _ } =
-          Beacon.DAppClient.request_permissions client
+        let+ Beacon_js.Permission_response_output.{ account_info; _ } =
+          Beacon_js.DApp_client.request_permissions client
         in
 
         account_info
@@ -24,7 +26,7 @@ let retreive_or_connect client ctx callback () =
 
 let disconnect_wallet client ctx callback () =
   let open Lwt.Syntax in
-  let+ () = Beacon.DAppClient.disconnect_wallet client in
+  let+ () = Beacon_js.DApp_client.disconnect_wallet client in
   Vdom_blit.Cmd.send_msg ctx (callback ())
 
 let register client =
@@ -49,10 +51,12 @@ let register client =
 type message =
   | Connect_wallet
   | Disconnect_wallet
-  | Wallet_connected of Beacon.AccountInfo.t
+  | Wallet_connected of Beacon_js.Account_info.t
   | Wallet_disconnected
 
-type model = Not_synced | Synced of { account_info : Beacon.AccountInfo.t }
+type model =
+  | Not_synced
+  | Synced of { account_info : Beacon_js.Account_info.t }
 
 let update state = function
   | Connect_wallet ->
@@ -78,7 +82,7 @@ let view =
       button ~a:[ onclick (fun _ -> Connect_wallet) ] [ text "connect wallet" ]
   | Synced { account_info } ->
       let x =
-        Beacon.AccountInfo.(
+        Beacon_js.Account_info.(
           account_info.address ^ " - " ^ account_info.identifier)
       in
       div ~a:[]
@@ -100,7 +104,7 @@ let mount container_id =
       let () = Console.(message error "Unable to find root node") in
       Lwt.return_unit
   | Some root ->
-      let client = Beacon.DAppClient.make ~name:"transfer" () in
+      let client = Beacon_js.DApp_client.make ~name:"transfer" () in
       let () = Js_browser.Element.remove_all_children root in
       let () = register client in
       let () =

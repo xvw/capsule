@@ -12,7 +12,7 @@ let () =
     object%js (self)
       val internal =
         object%js
-          val suspending = Js.array [| Hljs.mount |]
+          val suspending = Js.array [| Hljs_js.mount |]
         end
 
       method suspend f =
