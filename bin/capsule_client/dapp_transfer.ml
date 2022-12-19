@@ -1,4 +1,5 @@
 open Js_of_ocaml
+open Core_js
 
 type 'message Vdom.Cmd.t +=
   | Sync_wallet_cmd of { callback : Beacon_js.Account_info.t -> 'message }
@@ -72,8 +73,6 @@ let update state = function
   | Wallet_connected account_info -> Vdom.return @@ Synced { account_info }
   | Wallet_disconnected -> Vdom.return Not_synced
 
-let init = Vdom.return Not_synced
-
 let view =
   let open Vdom in
   let open Vdom_ui in
@@ -96,17 +95,24 @@ let view =
             ]
         ]
 
-let app = Vdom.app ~init ~view ~update ()
-
 let mount container_id =
   match Js_browser.(Document.(get_element_by_id document container_id)) with
   | None ->
       let () = Console.(message error "Unable to find root node") in
       Lwt.return_unit
   | Some root ->
+      let open Lwt.Syntax in
       let client = Beacon_js.DApp_client.make ~name:"transfer" () in
-      let () = Js_browser.Element.remove_all_children root in
+      let* init =
+        let+ account = Beacon_js.DApp_client.get_active_account client in
+        Option.fold
+          (fun () -> Vdom.return Not_synced)
+          (fun account_info -> Vdom.return @@ Synced { account_info })
+          account
+      in
+      let app = Vdom.app ~init ~view ~update () in
       let () = register client in
+      let () = Js_browser.Element.remove_all_children root in
       let () =
         Vdom_blit.run app
         |> Vdom_blit.dom
