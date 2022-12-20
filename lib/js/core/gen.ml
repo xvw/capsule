@@ -152,3 +152,63 @@ module Preface_optional (R : Interfaces.OPTIONAL_REQ) = struct
   include
     Preface_infix (Functor) (Applicative) (Alternative) (Selective) (Monad)
 end
+
+module Storage (R : Interfaces.STORAGE_REQ) = struct
+  exception Not_supported
+  exception Not_found
+
+  module Storage_map = Map.Make (String)
+
+  type key = string
+  type value = string
+
+  let is_supported () =
+    Js.Optdef.case R.storage (fun () -> false) (fun _ -> true)
+
+  let storage =
+    Js.Optdef.case R.storage (fun () -> raise Not_supported) (fun x -> x)
+
+  let length () = storage##.length
+
+  let get key =
+    storage##getItem (Js.string key)
+    |> Js.Opt.to_option
+    |> Option.map Js.to_string
+
+  let set key value = storage##setItem (Js.string key) (Js.string value)
+  let remove key = storage##removeItem (Js.string key)
+
+  let update f key =
+    let value = get key in
+    let final_value = f value in
+    let () =
+      match final_value with None -> remove key | Some x -> set key x
+    in
+    final_value
+
+  let clear () = storage##clear
+  let key i = storage##key i |> Js.Opt.to_option |> Option.map Js.to_string
+
+  let at i =
+    match key i with
+    | None -> None
+    | Some k -> Option.map (fun value -> (k, value)) (get k)
+
+  let filter predicate =
+    let len = length () in
+    let map = Storage_map.empty in
+    let rec aux acc i =
+      if i < len then
+        match at i with
+        | None -> raise Not_found
+        | Some (key, value) ->
+            let new_map =
+              if predicate key value then Storage_map.add key value acc else acc
+            in
+            aux new_map (i + 1)
+      else acc
+    in
+    aux map 0
+
+  let to_map () = filter (fun _ _ -> true)
+end

@@ -24,4 +24,12 @@ type +'a or_undefined = 'a Undefinedable.t
 (** {1 Dealing with the JS Console} *)
 
 module Console = Console
+
+(** {1 Dealing with storages} *)
+
+module Storage : sig
+  module Local = Local_storage
+  module Session = Session_storage
+end
+
 include module type of Util

@@ -59,3 +59,30 @@ module type OPTIONAL = sig
   include LET_SYNTAX with type 'a t := 'a t
   include module type of Infix with type 'a t := 'a t
 end
+
+module type STORAGE_REQ = sig
+  val storage :
+    Js_of_ocaml.Dom_html.storage Js_of_ocaml.Js.t Js_of_ocaml.Js.optdef
+end
+
+module type STORAGE = sig
+  type key = string
+  type value = string
+
+  exception Not_supported
+  exception Not_found
+
+  module Storage_map : Map.S with type key = key
+
+  val is_supported : unit -> bool
+  val length : unit -> int
+  val get : key -> value option
+  val set : key -> value -> unit
+  val remove : key -> unit
+  val update : (value option -> value option) -> key -> value option
+  val clear : unit -> unit
+  val key : int -> key option
+  val at : int -> (key * value) option
+  val to_map : unit -> value Storage_map.t
+  val filter : (key -> value -> bool) -> value Storage_map.t
+end

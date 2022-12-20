@@ -31,3 +31,7 @@ end
 (** Builds the full OPTIONAL api with minimal requirements. *)
 module Preface_optional (R : Interfaces.OPTIONAL_REQ) :
   Interfaces.OPTIONAL with type 'a t = 'a R.t
+
+(** Dealing with storage. *)
+
+module Storage (R : Interfaces.STORAGE_REQ) : Interfaces.STORAGE
