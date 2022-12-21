@@ -28,6 +28,7 @@ depends: [
   "js_of_ocaml-lwt" {>= "4.1.0"}
   "promise_jsoo"
   "ocaml-vdom"
+  "data-encoding"
   "preface" { >= "1.0.0"}
   "yocaml" {pinned}
   "yocaml_unix" {pinned}

@@ -1,31 +1,47 @@
-type 'a fragment = { to_string : 'a -> string; repr : string }
+type 'a fragment =
+  | Record of { to_string : 'a -> string; repr : string }
+  | Mod of (module Interfaces.PATH_FRAGMENT with type t = 'a)
 
-type (_, _) t =
-  | Eop : ('a, 'a) t
-  | Const : string * ('a, 'b) t -> ('a, 'b) t
-  | Var : 'a fragment * ('b, 'c) t -> ('a -> 'b, 'c) t
+let fragment repr to_string = Record { to_string; repr }
 
-let eop = Eop
-let ( ~: ) path = path eop
-let const constant tail = Const (constant, tail)
-let k = const
-let mk_fragment to_string repr = { to_string; repr }
-let mk_var tail fragment = Var (fragment, tail)
-let string tail = mk_var tail @@ mk_fragment (fun x -> x) "string"
-let int tail = mk_var tail @@ mk_fragment string_of_int "int"
-let ( / ) l r tail = l (r tail)
-let ( & ) l r = l () / r
-(* let rr () = string / k "foo" / k "bar" / int / int / string *)
-(* let ss () = ~:(rr & (k "baz" / int / string)) *)
+let fragment_module (type a)
+    (module F : Interfaces.PATH_FRAGMENT with type t = a) =
+  Mod (module F)
 
-let sprintf_with handler path =
-  let rec aux : type a b. (string list -> b) -> (a, b) t -> a =
-   fun resume -> function
-    | Eop -> resume []
-    | Const (x, tail) -> aux (fun xs -> resume (x :: xs)) tail
-    | Var ({ to_string; _ }, tail) ->
-        fun x -> aux (fun xs -> resume (to_string x :: xs)) tail
+let fragment_to_string (type a) (fragment : a fragment) value =
+  match fragment with
+  | Record { to_string; _ } -> to_string value
+  | Mod (module M : Interfaces.PATH_FRAGMENT with type t = a) -> M.path value
+
+let string = fragment ":string" (fun x -> x)
+let int = fragment ":int" string_of_int
+let chain_id = fragment_module (module Chain_id)
+let block_id = fragment_module (module Block_id)
+let contract_id = fragment_module (module Contract_id)
+
+type ('a, 'b) t =
+  | Root : ('a, 'a) t
+  | Const : ('a, 'b) t * string -> ('a, 'b) t
+  | Hole : ('b, 'a -> 'c) t * 'a fragment -> ('b, 'c) t
+
+let root = Root
+let const p s = Const (p, s)
+let hole p h = Hole (p, h)
+let ( / ) p s = const p s
+let ( /: ) p h = hole p h
+let ( ~/ ) s = const root s
+let ( ~/: ) h = hole root h
+let ( ~: ) f = f ()
+
+let sprintf_with =
+  let rec aux : type a b. (string -> b) -> (a, b) t -> a =
+   fun k -> function
+    | Root -> k ""
+    | Const (tail, x) -> aux (fun xs -> k (xs ^ "/" ^ x)) tail
+    | Hole (tail, fragment) ->
+        let to_string = fragment_to_string fragment in
+        aux (fun xs x -> k (xs ^ "/" ^ to_string x)) tail
   in
-  aux (fun result -> handler ("/" ^ String.concat "/" result ^ "")) (path ())
+  aux
 
 let sprintf path = sprintf_with (fun x -> x) path
