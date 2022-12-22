@@ -1,4 +1,0 @@
-(library
-  (name tezos)
-  (modules_without_implementation interfaces)
-  (libraries preface data-encoding))

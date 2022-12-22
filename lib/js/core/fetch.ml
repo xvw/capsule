@@ -140,3 +140,8 @@ let fetch ?headers ?body ?mode ?cache ?credentials ?redirect ?referrer
       ?referrer_policy ?integrity ?keep_alive ~method_ ()
   in
   fetch_handler (Js.string target) init |> Util.as_lwt
+
+let get = fetch ~method_:`GET ?body:None
+let post = fetch ~method_:`POST
+let patch = fetch ~method_:`PATCH
+let delete = fetch ~method_:`DELETE

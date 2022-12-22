@@ -77,3 +77,58 @@ val fetch :
   -> method_:method_
   -> string
   -> Response.t Lwt.t
+
+val get :
+     ?headers:headers
+  -> ?mode:mode
+  -> ?cache:cache
+  -> ?credentials:credentials
+  -> ?redirect:redirect
+  -> ?referrer:referrer
+  -> ?referrer_policy:referrer_policy
+  -> ?integrity:string
+  -> ?keep_alive:bool
+  -> string
+  -> Response.t Lwt.t
+
+val post :
+     ?headers:headers
+  -> ?body:request_body
+  -> ?mode:mode
+  -> ?cache:cache
+  -> ?credentials:credentials
+  -> ?redirect:redirect
+  -> ?referrer:referrer
+  -> ?referrer_policy:referrer_policy
+  -> ?integrity:string
+  -> ?keep_alive:bool
+  -> string
+  -> Response.t Lwt.t
+
+val patch :
+     ?headers:headers
+  -> ?body:request_body
+  -> ?mode:mode
+  -> ?cache:cache
+  -> ?credentials:credentials
+  -> ?redirect:redirect
+  -> ?referrer:referrer
+  -> ?referrer_policy:referrer_policy
+  -> ?integrity:string
+  -> ?keep_alive:bool
+  -> string
+  -> Response.t Lwt.t
+
+val delete :
+     ?headers:headers
+  -> ?body:request_body
+  -> ?mode:mode
+  -> ?cache:cache
+  -> ?credentials:credentials
+  -> ?redirect:redirect
+  -> ?referrer:referrer
+  -> ?referrer_policy:referrer_policy
+  -> ?integrity:string
+  -> ?keep_alive:bool
+  -> string
+  -> Response.t Lwt.t

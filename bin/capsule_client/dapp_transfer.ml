@@ -1,8 +1,21 @@
 open Js_of_ocaml
 open Core_js
 
+let get_balance address =
+  let open Tezos_js in
+  (RPC.make_call_on_head ~network:Network.Nodes.Mainnet.marigold
+     ~entrypoint:RPC.get_balance)
+    (Contract_id.from_string address)
+
+let relaxed_get_balance address =
+  let open Lwt.Syntax in
+  let+ x = get_balance address in
+  Result.fold ~ok:(fun x -> x) ~error:(fun _ -> Z.zero) x
+
 type 'message Vdom.Cmd.t +=
-  | Sync_wallet_cmd of { callback : Beacon_js.Account_info.t -> 'message }
+  | Sync_wallet_cmd of {
+        callback : Beacon_js.Account_info.t -> (Z.t, string) result -> 'message
+    }
   | Unsync_wallet_cmd of { callback : unit -> 'message }
 
 let sync_wallet ~callback = Sync_wallet_cmd { callback }
@@ -13,7 +26,7 @@ let retreive_or_connect client ctx callback () =
   let* potential_active_account =
     Beacon_js.DApp_client.get_active_account client
   in
-  let+ active_info =
+  let* active_info =
     match potential_active_account with
     | Some active_info -> Lwt.return active_info
     | None ->
@@ -23,7 +36,9 @@ let retreive_or_connect client ctx callback () =
 
         account_info
   in
-  Vdom_blit.Cmd.send_msg ctx (callback active_info)
+
+  let+ potential_balance = get_balance active_info.address in
+  Vdom_blit.Cmd.send_msg ctx (callback active_info potential_balance)
 
 let disconnect_wallet client ctx callback () =
   let open Lwt.Syntax in
@@ -52,25 +67,32 @@ let register client =
 type message =
   | Connect_wallet
   | Disconnect_wallet
-  | Wallet_connected of Beacon_js.Account_info.t
+  | Wallet_connected of {
+        account_info : Beacon_js.Account_info.t
+      ; balance : Z.t
+    }
   | Wallet_disconnected
 
 type model =
   | Not_synced
-  | Synced of { account_info : Beacon_js.Account_info.t }
+  | Synced of { account_info : Beacon_js.Account_info.t; balance : Z.t }
 
 let update state = function
   | Connect_wallet ->
       Vdom.return state
         ~c:
           [
-            sync_wallet ~callback:(fun account_info ->
-                Wallet_connected account_info)
+            sync_wallet ~callback:(fun account_info -> function
+              | Error err ->
+                  let () = Console.(message error) err in
+                  Disconnect_wallet
+              | Ok balance -> Wallet_connected { account_info; balance })
           ]
   | Disconnect_wallet ->
       Vdom.return state
         ~c:[ unsync_wallet ~callback:(fun () -> Wallet_disconnected) ]
-  | Wallet_connected account_info -> Vdom.return @@ Synced { account_info }
+  | Wallet_connected { account_info; balance } ->
+      Vdom.return @@ Synced { account_info; balance }
   | Wallet_disconnected -> Vdom.return Not_synced
 
 let view =
@@ -79,10 +101,10 @@ let view =
   function
   | Not_synced ->
       button ~a:[ onclick (fun _ -> Connect_wallet) ] [ text "connect wallet" ]
-  | Synced { account_info } ->
+  | Synced { account_info; balance } ->
       let x =
         Beacon_js.Account_info.(
-          account_info.address ^ " - " ^ account_info.identifier)
+          account_info.address ^ " - " ^ Z.to_string balance ^ "mutez")
       in
       div ~a:[]
         [
@@ -104,10 +126,14 @@ let mount container_id =
       let open Lwt.Syntax in
       let client = Beacon_js.DApp_client.make ~name:"transfer" () in
       let* init =
-        let+ account = Beacon_js.DApp_client.get_active_account client in
+        let* account = Beacon_js.DApp_client.get_active_account client in
         Option.fold
-          (fun () -> Vdom.return Not_synced)
-          (fun account_info -> Vdom.return @@ Synced { account_info })
+          (fun () -> Lwt.return @@ Vdom.return Not_synced)
+          (fun account_info ->
+            let+ balance =
+              relaxed_get_balance account_info.Beacon_js.Account_info.address
+            in
+            Vdom.return @@ Synced { account_info; balance })
           account
       in
       let app = Vdom.app ~init ~view ~update () in

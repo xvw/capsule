@@ -26,3 +26,5 @@ val delete :
 val sprintf_with : (string -> 'b) -> (_, _, 'a, 'b) t -> 'a
 val sprintf : (_, _, 'a, string) t -> 'a
 val make_url : Network.t -> ('a, 'b, 'c, string) t -> 'c
+val method_of : ('meth, _, _, _) t -> 'meth
+val encoding_of : (_, 'encoding, _, _) t -> 'encoding Data_encoding.t

@@ -15,3 +15,6 @@ let sprintf { path; _ } = Path.sprintf @@ path ()
 
 let make_url network entrypoint =
   sprintf_with (fun path -> Network.base_path network ^ "/" ^ path) entrypoint
+
+let method_of { meth; _ } = meth
+let encoding_of { encoding; _ } = encoding
