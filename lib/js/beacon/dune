@@ -1,6 +1,6 @@
 (library
   (name beacon_js)
-  (libraries preface lwt js_of_ocaml-lwt promise_jsoo core_js)
+  (libraries preface lwt js_of_ocaml-lwt promise_jsoo tezos core_js)
   (modules_without_implementation bindings)
   (modes byte)
   (preprocess (pps js_of_ocaml-ppx)))

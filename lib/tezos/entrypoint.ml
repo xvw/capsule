@@ -12,3 +12,6 @@ let patch ~path encoding = make ~method_:`PATCH ~path encoding
 let delete ~path encoding = make ~method_:`DELETE ~path encoding
 let sprintf_with handler { path; _ } = Path.sprintf_with handler @@ path ()
 let sprintf { path; _ } = Path.sprintf @@ path ()
+
+let make_url network entrypoint =
+  sprintf_with (fun path -> Network.base_path network ^ "/" ^ path) entrypoint

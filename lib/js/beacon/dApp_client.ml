@@ -13,7 +13,7 @@ let make ?icon_url ?app_url ?matrix_nodes ?preferred_network ~name () =
       val appUrl = Js.string <$> from_option app_url
 
       val preferredNetwork =
-        Js.string % Network_type.to_string <$> from_option preferred_network
+        Js.string % Tezos.Network.to_string <$> from_option preferred_network
 
       val matrixNodes = list_to_js_array Js.string <$> from_option matrix_nodes
     end

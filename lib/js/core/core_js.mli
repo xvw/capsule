@@ -2,8 +2,9 @@
     application development with OCaml. It is a kind of small standard library
     with usual functions. *)
 
-(** {1 Common interfaces and types} *)
+(** {1 Common interfaces, bindings and types} *)
 
+module Core_bindings = Bindings
 module Interfaces = Interfaces
 module Aliases = Aliases
 
@@ -24,6 +25,13 @@ type +'a or_undefined = 'a Undefinedable.t
 (** {1 Dealing with the JS Console} *)
 
 module Console = Console
+
+(** {1 Common Js Objects} *)
+
+module Headers = Headers
+module Form_data = Form_data
+module Url_search_params = Url_search_params
+module Fetch = Fetch
 
 (** {1 Dealing with storages} *)
 

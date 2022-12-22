@@ -25,3 +25,4 @@ val delete :
 
 val sprintf_with : (string -> 'b) -> (_, _, 'a, 'b) t -> 'a
 val sprintf : (_, _, 'a, string) t -> 'a
+val make_url : Network.t -> ('a, 'b, 'c, string) t -> 'c

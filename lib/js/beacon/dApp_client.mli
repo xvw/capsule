@@ -4,7 +4,7 @@ val make :
      ?icon_url:string
   -> ?app_url:string
   -> ?matrix_nodes:string list
-  -> ?preferred_network:Network_type.t
+  -> ?preferred_network:Network.type_
   -> name:string
   -> unit
   -> t

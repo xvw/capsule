@@ -1,3 +1,4 @@
+module Core_bindings = Bindings
 module Aliases = Aliases
 module Interfaces = Interfaces
 module Option = Option_stubs
@@ -13,4 +14,8 @@ module Storage = struct
   module Session = Session_storage
 end
 
+module Headers = Headers
+module Form_data = Form_data
+module Url_search_params = Url_search_params
+module Fetch = Fetch
 include Util
