@@ -59,6 +59,7 @@ module Response : sig
   val type_ : t -> string
   val url : t -> string
   val text : t -> string Lwt.t
+  val read_body : t -> (bool * string) Lwt.t
 end
 
 (** {1 Fetch} *)

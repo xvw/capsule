@@ -38,6 +38,18 @@ val is_reachable_head :
            Entrypoint.t)
   -> 'b
 
+val make_stream :
+     network:Network.t
+  -> entrypoint:
+       (   unit
+        -> ( [< `DELETE | `GET | `PATCH | `POST ]
+           , 'a
+           , 'b
+           , (unit, ([> error ] as 'err)) result Lwt.t )
+           Entrypoint.t)
+  -> on_chunk:('a -> (unit, 'err) result Lwt.t)
+  -> 'b
+
 (** {1 RPC Directory} *)
 
 val get_balance :

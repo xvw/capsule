@@ -19,6 +19,33 @@ let make_fetch entrypoint url =
   | `PATCH -> Fetch.patch url
   | `DELETE -> Fetch.delete url
 
+let make_stream ~network ~entrypoint ~on_chunk =
+  let entrypoint = entrypoint () in
+  Entrypoint.sprintf_with
+    (fun path ->
+      let open Lwt_util in
+      let url = Network.base_path network ^ path in
+      let* response = make_fetch entrypoint url in
+      let rpc_encoding = Entrypoint.encoding_of entrypoint in
+      if Fetch.Response.ok response then
+        let rec read () =
+          let* is_done, json_txt = Fetch.Response.read_body response in
+          if not is_done then
+            let*? obj =
+              json_txt
+              |> Data_encoding.Json.from_string
+              |> Result.map @@ Data_encoding.Json.destruct rpc_encoding
+              |> Result.map_error (fun message -> `Json_error message)
+              |> return
+            in
+            let*? () = on_chunk obj in
+            read ()
+          else return_ok ()
+        in
+        read ()
+      else return_error @@ `Http_error (Fetch.Response.status response))
+    entrypoint
+
 let make_call ~network ~entrypoint =
   let entrypoint = entrypoint () in
   Entrypoint.sprintf_with

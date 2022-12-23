@@ -125,6 +125,15 @@ module Response = struct
     let open Lwt.Syntax in
     let+ txt = resp##text |> Util.as_lwt in
     Js.to_string txt
+
+  let get_reader resp = resp##.body##getReader
+
+  let read_body resp =
+    let reader = get_reader resp in
+    let open Lwt.Syntax in
+    let+ result = reader##read |> Util.as_lwt in
+    let decoder = Text_decoder.make () in
+    (result##.done_ |> Js.to_bool, Text_decoder.decode decoder result##.value)
 end
 
 let fetch_handler (s : Js.js_string Js.t) (init : Bindings.fetch_init Js.t) :
