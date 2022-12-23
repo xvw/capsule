@@ -13,6 +13,10 @@ type 'message Vdom.Cmd.t +=
         address : string
       ; callback : string -> bool -> 'message
     }
+  | Stream_head_cmd of {
+        address : string
+      ; callback : Tezos_js.Tez.t -> Tezos_js.Monitored_head.t -> 'message
+    }
 
 type message =
   | Connect_wallet
@@ -24,11 +28,13 @@ type message =
   | Wallet_disconnected
   | Input_address_form of string
   | Address_checked of string * bool
+  | New_head of { balance : Tezos_js.Tez.t; head : Tezos_js.Monitored_head.t }
 
 type synced_state = {
     account_info : Beacon_js.Account_info.t
   ; balance : Tezos_js.Tez.t
   ; form_address_state : string * bool
+  ; head : Tezos_js.Monitored_head.t option
 }
 
 type model = Not_synced | Synced of synced_state
@@ -50,6 +56,9 @@ let relaxed_get_balance client address =
 
 let sync_wallet ~callback = Sync_wallet_cmd { callback }
 let unsync_wallet ~callback = Unsync_wallet_cmd { callback }
+
+let watch_head ~callback ~account () =
+  Stream_head_cmd { callback; address = account.Beacon_js.Account_info.address }
 
 let check_input_address ~callback ~address =
   Check_address_cmd { address; callback }
@@ -88,6 +97,13 @@ let check_address client ctx address callback () =
   in
   Vdom_blit.Cmd.send_msg ctx (callback address is_reachable)
 
+let stream_head client ctx address callback () =
+  Beacon_js.Client.rpc_stream ~client ~entrypoint:Tezos_js.RPC.monitor_heads
+    ~on_chunk:(fun head ->
+      let open Lwt_util in
+      let+? balance = get_balance client address in
+      Vdom_blit.Cmd.send_msg ctx (callback balance head))
+
 let register client =
   let open Vdom_blit in
   let handler =
@@ -102,6 +118,14 @@ let register client =
               true
           | Check_address_cmd { address; callback } ->
               let () = Lwt.async (check_address client ctx address callback) in
+              true
+          | Stream_head_cmd { address; callback } ->
+              let () =
+                Lwt.async (fun () ->
+                    let open Lwt_util in
+                    let* _ = stream_head client ctx address callback () in
+                    Lwt.return_unit)
+              in
               true
           | _ -> false)
     }
@@ -123,7 +147,13 @@ let update_not_sync model = function
           ]
   | Wallet_connected { account_info; balance } ->
       Vdom.return
-      @@ Synced { account_info; balance; form_address_state = ("", false) }
+      @@ Synced
+           {
+             account_info
+           ; balance
+           ; form_address_state = ("", false)
+           ; head = None
+           }
   | _ -> Vdom.return model
 
 let update_sync model state = function
@@ -143,6 +173,8 @@ let update_sync model state = function
           ]
   | Address_checked (value, is_valid) ->
       Vdom.return (Synced { state with form_address_state = (value, is_valid) })
+  | New_head { balance; head } ->
+      Vdom.return (Synced { state with balance; head = Some head })
   | _ -> Vdom.return model
 
 let update model message =
@@ -183,7 +215,7 @@ let transfer_input_section inputed_address is_valid_address =
     ; div [ text (if is_valid_address then "✔" else "✖") ]
     ]
 
-let bottom_section account_info =
+let bottom_section account_info head =
   let open Vdom in
   let open Vdom_ui in
   let open Beacon_js.Account_info in
@@ -193,9 +225,19 @@ let bottom_section account_info =
       div
         ~a:[ class_ "network" ]
         [ text (Tezos_js.Network.to_string account_info.network.type_) ]
+    ; div
+        ~a:[ class_ "tezos-head" ]
+        [
+          text
+            (Option.fold
+               (fun () -> "loading")
+               (fun x ->
+                 Tezos_js.Address.to_short_string x.Tezos_js.Monitored_head.hash)
+               head)
+        ]
     ]
 
-let sync_view account_info balance (inputed_address, is_valid_address) =
+let sync_view account_info balance head (inputed_address, is_valid_address) =
   let open Vdom_ui in
   div
     [
@@ -203,13 +245,13 @@ let sync_view account_info balance (inputed_address, is_valid_address) =
         (fun _ -> Disconnect_wallet)
         account_info.Beacon_js.Account_info.address balance
     ; transfer_input_section inputed_address is_valid_address
-    ; bottom_section account_info
+    ; bottom_section account_info head
     ]
 
 let view = function
   | Not_synced -> not_sync_view
-  | Synced { account_info; balance; form_address_state } ->
-      sync_view account_info balance form_address_state
+  | Synced { account_info; balance; form_address_state; head } ->
+      sync_view account_info balance head form_address_state
 
 let mount container_id =
   match Js_browser.(Document.(get_element_by_id document container_id)) with
@@ -232,8 +274,19 @@ let mount container_id =
                 account_info.Beacon_js.Account_info.address
             in
             Vdom.return
+              ~c:
+                [
+                  watch_head ~account:account_info
+                    ~callback:(fun balance head -> New_head { balance; head })
+                    ()
+                ]
             @@ Synced
-                 { account_info; balance; form_address_state = ("", false) })
+                 {
+                   account_info
+                 ; balance
+                 ; form_address_state = ("", false)
+                 ; head = None
+                 })
           account
       in
 

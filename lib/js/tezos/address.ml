@@ -8,3 +8,5 @@ let pp ppf address =
   let offset = len - 4 in
   let first = String.sub address 0 8 and last = String.sub address offset 4 in
   Format.fprintf ppf "%s..%s" first last
+
+let to_short_string = Format.asprintf "%a" pp

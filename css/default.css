@@ -391,10 +391,17 @@ code {
   font-size: 86%;
   padding: 4px 0px;
   color: #111;
+  display: flex;
+  flex-direction: row;
 }
 
 .standard-dapp .bottom .network {
   font-weight: 600;
+}
+
+.standard-dapp .bottom .tezos-head {
+  font-family: var(--mono-font);
+  margin-left: 10px;
 }
 
 @media all and (max-width: 960px) {
