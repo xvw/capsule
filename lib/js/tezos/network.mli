@@ -31,4 +31,9 @@ module Nodes : sig
     val tezos_foundation : t
     val teztools : t
   end
+
+  module Ghostnet : sig
+    val make : name:string -> rpc_url:string -> t
+    val marigold : t
+  end
 end

@@ -31,7 +31,7 @@ let make_call ~network ~entrypoint =
       |> Result.map @@ Data_encoding.Json.destruct rpc_encoding)
     entrypoint
 
-let make_call_on_head ~network ~entrypoint =
+let make_call_head ~network ~entrypoint =
   make_call ~network ~entrypoint Chain_id.main Block_id.head
 
 let get_balance () = Entrypoint.get ~path:Directory.get_balance Data_encoding.z

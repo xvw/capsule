@@ -1,15 +1,14 @@
 open Js_of_ocaml
 open Core_js
 
-let get_balance address =
+let get_balance client address =
   let open Tezos_js in
-  (RPC.make_call_on_head ~network:Network.Nodes.Mainnet.marigold
-     ~entrypoint:RPC.get_balance)
+  (Beacon_js.Client.rpc_call_head ~client ~entrypoint:RPC.get_balance)
     (Contract_id.from_string address)
 
-let relaxed_get_balance address =
+let relaxed_get_balance client address =
   let open Lwt.Syntax in
-  let+ x = get_balance address in
+  let+ x = get_balance client address in
   Result.fold ~ok:(fun x -> x) ~error:(fun _ -> Z.zero) x
 
 type 'message Vdom.Cmd.t +=
@@ -21,28 +20,26 @@ type 'message Vdom.Cmd.t +=
 let sync_wallet ~callback = Sync_wallet_cmd { callback }
 let unsync_wallet ~callback = Unsync_wallet_cmd { callback }
 
-let retreive_or_connect client ctx callback () =
+let retrieve_or_connect client ctx callback () =
   let open Lwt.Syntax in
-  let* potential_active_account =
-    Beacon_js.DApp_client.get_active_account client
-  in
+  let* potential_active_account = Beacon_js.Client.get_active_account client in
   let* active_info =
     match potential_active_account with
     | Some active_info -> Lwt.return active_info
     | None ->
         let+ Beacon_js.Permission_response_output.{ account_info; _ } =
-          Beacon_js.DApp_client.request_permissions client
+          Beacon_js.Client.request_permissions client
         in
 
         account_info
   in
 
-  let+ potential_balance = get_balance active_info.address in
+  let+ potential_balance = get_balance client active_info.address in
   Vdom_blit.Cmd.send_msg ctx (callback active_info potential_balance)
 
 let disconnect_wallet client ctx callback () =
   let open Lwt.Syntax in
-  let+ () = Beacon_js.DApp_client.disconnect_wallet client in
+  let+ () = Beacon_js.Client.disconnect_client client in
   Vdom_blit.Cmd.send_msg ctx (callback ())
 
 let register client =
@@ -52,7 +49,7 @@ let register client =
       Cmd.f =
         (fun ctx -> function
           | Sync_wallet_cmd { callback } ->
-              let () = Lwt.async (retreive_or_connect client ctx callback) in
+              let () = Lwt.async (retrieve_or_connect client ctx callback) in
 
               true
           | Unsync_wallet_cmd { callback } ->
@@ -72,14 +69,19 @@ type message =
       ; balance : Z.t
     }
   | Wallet_disconnected
+  | Input_address_form of string
 
-type model =
-  | Not_synced
-  | Synced of { account_info : Beacon_js.Account_info.t; balance : Z.t }
+type synced_state = {
+    account_info : Beacon_js.Account_info.t
+  ; balance : Tezos_js.Tez.t
+  ; form_address_state : string
+}
 
-let update state = function
+type model = Not_synced | Synced of synced_state
+
+let update_not_sync model = function
   | Connect_wallet ->
-      Vdom.return state
+      Vdom.return model
         ~c:
           [
             sync_wallet ~callback:(fun account_info -> function
@@ -88,33 +90,52 @@ let update state = function
                   Disconnect_wallet
               | Ok balance -> Wallet_connected { account_info; balance })
           ]
-  | Disconnect_wallet ->
-      Vdom.return state
-        ~c:[ unsync_wallet ~callback:(fun () -> Wallet_disconnected) ]
   | Wallet_connected { account_info; balance } ->
-      Vdom.return @@ Synced { account_info; balance }
+      Vdom.return
+      @@ Synced
+           {
+             account_info
+           ; balance = Tezos_js.Tez.of_mutez balance
+           ; form_address_state = ""
+           }
+  | _ -> Vdom.return model
+
+let update_sync model state = function
+  | Disconnect_wallet ->
+      Vdom.return model
+        ~c:[ unsync_wallet ~callback:(fun () -> Wallet_disconnected) ]
   | Wallet_disconnected -> Vdom.return Not_synced
+  | Input_address_form value ->
+      Vdom.return (Synced { state with form_address_state = value })
+  | _ -> Vdom.return model
+
+let update model message =
+  match model with
+  | Not_synced -> update_not_sync model message
+  | Synced state -> update_sync model state message
 
 let view =
   let open Vdom in
   let open Vdom_ui in
   function
   | Not_synced ->
-      button ~a:[ onclick (fun _ -> Connect_wallet) ] [ text "connect wallet" ]
-  | Synced { account_info; balance } ->
-      let x =
-        Beacon_js.Account_info.(
-          account_info.address ^ " - " ^ Z.to_string balance ^ "mutez")
-      in
-      div ~a:[]
+      button
+        ~a:[ onclick (fun _ -> Connect_wallet); class_ "connection-button" ]
+        [ text "connect wallet" ]
+  | Synced { account_info; balance; form_address_state } ->
+      let address = account_info.address and balance = balance in
+      div
         [
-          div [ txt_span @@ "synced " ^ x ]
-        ; div
-            [
-              button
-                ~a:[ onclick (fun _ -> Disconnect_wallet) ]
-                [ text "disconnect wallet" ]
-            ]
+          connected_badge (fun _ -> Disconnect_wallet) address balance
+        ; input
+            ~a:
+              [
+                type_ "text"
+              ; placeholder "addresse désirée"
+              ; value form_address_state
+              ; oninput (fun input_value -> Input_address_form input_value)
+              ]
+            []
         ]
 
 let mount container_id =
@@ -124,16 +145,26 @@ let mount container_id =
       Lwt.return_unit
   | Some root ->
       let open Lwt.Syntax in
-      let client = Beacon_js.DApp_client.make ~name:"transfer" () in
+      let client =
+        Beacon_js.Client.make ~network:Tezos_js.Network.Nodes.Ghostnet.marigold
+          ~name:"transfer" ()
+      in
       let* init =
-        let* account = Beacon_js.DApp_client.get_active_account client in
+        let* account = Beacon_js.Client.get_active_account client in
         Option.fold
           (fun () -> Lwt.return @@ Vdom.return Not_synced)
           (fun account_info ->
             let+ balance =
-              relaxed_get_balance account_info.Beacon_js.Account_info.address
+              relaxed_get_balance client
+                account_info.Beacon_js.Account_info.address
             in
-            Vdom.return @@ Synced { account_info; balance })
+            Vdom.return
+            @@ Synced
+                 {
+                   account_info
+                 ; balance = Tezos_js.Tez.of_mutez balance
+                 ; form_address_state = ""
+                 })
           account
       in
       let app = Vdom.app ~init ~view ~update () in

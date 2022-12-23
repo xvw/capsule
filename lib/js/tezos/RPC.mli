@@ -9,7 +9,7 @@ val make_call :
         -> ('meth, 'encoding, 'b, ('encoding, string) result Lwt.t) Entrypoint.t)
   -> 'b
 
-val make_call_on_head :
+val make_call_head :
      network:Network.t
   -> entrypoint:
        (   unit

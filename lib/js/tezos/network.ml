@@ -62,4 +62,10 @@ module Nodes = struct
     let teztools = make "TezTools" "eu01-node.teztools.net"
     let make ~name ~rpc_url = make name rpc_url
   end
+
+  module Ghostnet = struct
+    let make name = make GHOSTNET (name ^ " ghostnet")
+    let marigold = make "marigold" "ghostnet.tezos.marigold.dev/"
+    let make ~name ~rpc_url = make name rpc_url
+  end
 end

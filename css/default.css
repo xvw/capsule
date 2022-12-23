@@ -299,29 +299,50 @@ code {
   font-family: var(--mono-font);
 }
 
-.dark-dapp {
-  background-color: var(--layout-font-rev-color);
-  color: var(--layout-bg-rev-color);
-  padding: 8px;
-  font-family: var(--mono-font);
-  margin: 64px 0;
+.standard-dapp {
+  font-family: var(--sans-serif-font);
 }
 
-.dapp-large-container {
-  height: 200px;
+.standard-dapp .connected-badge {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
+  border: 2px solid var(--layout-font-color);
 }
 
-.dark-dapp button.connect-wallet {
-  border: 0px solid transparent;
-  background-color: var(--layout-bg-rev-color);
+.standard-dapp .connected-badge > div {
+  padding: 4px 8px;
   font-family: var(--mono-font);
-  font-weight: 400;
-  font-size: 80%;
-  cursor: pointer;
+}
+
+.standard-dapp .connected-badge > .address {
+  flex: 1;
+}
+
+.standard-dapp .connected-badge > .tez {
+  border-right: 2px solid var(--layout-font-color);
+}
+
+.standard-dapp .connected-badge > .tez::after {
+  content: "ꜩ";
+  maring-left: 4px;
+  font-family: var(--mono-font);
+}
+
+.standard-dapp .connected-badge > .disconnection {
+  background-color: var(--layout-font-color);
+}
+
+.standard-dapp .connection-button {
+  background-color: var(--layout-font-color);
+  border: 0px solid transparent;
+  color: #fff;
+  padding: 4px 8px;
+}
+
+.standard-dapp .connected-badge > .disconnection button {
+  background-color: transparent;
+  border: 0px solid transparent;
+  color: #fff;
 }
 
 @media all and (max-width: 960px) {
@@ -335,5 +356,17 @@ code {
 
   footer {
     text-align: center;
+  }
+
+  .standard-dapp .connected-badge {
+    flex-direction: column;
+  }
+
+  .standard-dapp .connected-badge > .tez {
+    border-right: 0px solid var(--layout-font-color);
+  }
+
+  .standard-dapp .connected-badge > .address {
+    overflow: auto;
   }
 }

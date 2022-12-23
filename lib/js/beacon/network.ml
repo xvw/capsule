@@ -18,3 +18,6 @@ let to_js { name; rpc_url; type_ } =
     val rpcUrl = Js.string <$> from_option rpc_url
     val _type = type_ |> Js.string % Tezos_js.Network.to_string
   end
+
+let from_tezos_network Tezos_js.Network.{ name; rpc_url; type_ } =
+  { name = Some name; rpc_url = Some rpc_url; type_ }
