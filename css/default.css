@@ -307,6 +307,7 @@ code {
   display: flex;
   flex-direction: row;
   border: 2px solid var(--layout-font-color);
+  border-bottom: 0px solid transparent;
 }
 
 .standard-dapp .connected-badge > div {
@@ -345,6 +346,33 @@ code {
   color: #fff;
 }
 
+.standard-dapp .transfer-fill-address {
+  border: 2px solid var(--layout-font-color);
+  border: px solid transparent;
+  color: #111;
+  padding: 4px 8px;
+  display: flex;
+  flex-direction: rows;
+}
+
+.standard-dapp .transfer-fill-address > div {
+}
+
+.standard-dapp .transfer-fill-address .transfer-input-address {
+  flex: 1;
+}
+
+.standard-dapp .transfer-fill-address .transfer-input-address > input {
+  width: 100%;
+  background-color: transparent;
+  border: 0px solid transparent;
+  font-family: var(--mono-font);
+}
+
+.standard-dapp .transfer-fill-address .transfer-input-address > input:focus {
+  outline: none;
+}
+
 @media all and (max-width: 960px) {
   .container {
     padding: 20px;
@@ -364,6 +392,7 @@ code {
 
   .standard-dapp .connected-badge > .tez {
     border-right: 0px solid var(--layout-font-color);
+    border-bottom: 2px solid var(--layout-font-color);
   }
 
   .standard-dapp .connected-badge > .address {

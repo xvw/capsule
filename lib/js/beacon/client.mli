@@ -23,7 +23,7 @@ val rpc_call :
         -> ( 'meth
            , 'encoding
            , 'b
-           , ('encoding, string) result Lwt.t )
+           , ('encoding, Tezos_js.RPC.error) result Lwt.t )
            Tezos_js.Entrypoint.t)
   -> 'b
 
@@ -34,6 +34,23 @@ val rpc_call_head :
         -> ( 'meth
            , 'encoding
            , Tezos_js.Chain_id.t -> Tezos_js.Block_id.t -> 'b
-           , ('encoding, string) result Lwt.t )
+           , ('encoding, Tezos_js.RPC.error) result Lwt.t )
+           Tezos_js.Entrypoint.t)
+  -> 'b
+
+val rpc_reachable_call :
+     client:t
+  -> entrypoint:
+       (unit -> ('meth, 'encoding, 'b, bool Lwt.t) Tezos_js.Entrypoint.t)
+  -> 'b
+
+val rpc_reachable_call_head :
+     client:t
+  -> entrypoint:
+       (   unit
+        -> ( 'meth
+           , 'encoding
+           , Tezos_js.Chain_id.t -> Tezos_js.Block_id.t -> 'b
+           , bool Lwt.t )
            Tezos_js.Entrypoint.t)
   -> 'b

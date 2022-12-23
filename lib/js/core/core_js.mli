@@ -40,4 +40,5 @@ module Storage : sig
   module Session = Session_storage
 end
 
+module Lwt_util = Lwt_util
 include module type of Util

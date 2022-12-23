@@ -29,3 +29,9 @@ let rpc_call ~client:{ network; _ } ~entrypoint =
 
 let rpc_call_head ~client:{ network; _ } ~entrypoint =
   Tezos_js.RPC.make_call_head ~network ~entrypoint
+
+let rpc_reachable_call ~client:{ network; _ } ~entrypoint =
+  Tezos_js.RPC.is_reachable ~network ~entrypoint
+
+let rpc_reachable_call_head ~client:{ network; _ } ~entrypoint =
+  Tezos_js.RPC.is_reachable_head ~network ~entrypoint

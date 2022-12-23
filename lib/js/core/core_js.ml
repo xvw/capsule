@@ -18,4 +18,6 @@ module Headers = Headers
 module Form_data = Form_data
 module Url_search_params = Url_search_params
 module Fetch = Fetch
+module Lwt_util = Lwt_util
+module Util = Util
 include Util

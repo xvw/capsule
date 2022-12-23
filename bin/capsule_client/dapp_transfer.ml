@@ -1,9 +1,46 @@
 open Js_of_ocaml
 open Core_js
 
+type 'message Vdom.Cmd.t +=
+  | Sync_wallet_cmd of {
+        callback :
+             Beacon_js.Account_info.t
+          -> (Z.t, Tezos_js.RPC.error) result
+          -> 'message
+    }
+  | Unsync_wallet_cmd of { callback : unit -> 'message }
+  | Check_address_cmd of {
+        address : string
+      ; callback : string -> bool -> 'message
+    }
+
+type message =
+  | Connect_wallet
+  | Disconnect_wallet
+  | Wallet_connected of {
+        account_info : Beacon_js.Account_info.t
+      ; balance : Z.t
+    }
+  | Wallet_disconnected
+  | Input_address_form of string
+  | Address_checked of string * bool
+
+type synced_state = {
+    account_info : Beacon_js.Account_info.t
+  ; balance : Tezos_js.Tez.t
+  ; form_address_state : string * bool
+}
+
+type model = Not_synced | Synced of synced_state
+
 let get_balance client address =
   let open Tezos_js in
   (Beacon_js.Client.rpc_call_head ~client ~entrypoint:RPC.get_balance)
+    (Contract_id.from_string address)
+
+let reach_contract client address =
+  let open Tezos_js in
+  Beacon_js.Client.rpc_reachable_call_head ~client ~entrypoint:RPC.get_balance
     (Contract_id.from_string address)
 
 let relaxed_get_balance client address =
@@ -11,14 +48,11 @@ let relaxed_get_balance client address =
   let+ x = get_balance client address in
   Result.fold ~ok:(fun x -> x) ~error:(fun _ -> Z.zero) x
 
-type 'message Vdom.Cmd.t +=
-  | Sync_wallet_cmd of {
-        callback : Beacon_js.Account_info.t -> (Z.t, string) result -> 'message
-    }
-  | Unsync_wallet_cmd of { callback : unit -> 'message }
-
 let sync_wallet ~callback = Sync_wallet_cmd { callback }
 let unsync_wallet ~callback = Unsync_wallet_cmd { callback }
+
+let check_input_address ~callback ~address =
+  Check_address_cmd { address; callback }
 
 let retrieve_or_connect client ctx callback () =
   let open Lwt.Syntax in
@@ -42,6 +76,18 @@ let disconnect_wallet client ctx callback () =
   let+ () = Beacon_js.Client.disconnect_client client in
   Vdom_blit.Cmd.send_msg ctx (callback ())
 
+let check_address client ctx address callback () =
+  let len = String.length address in
+  let open Lwt.Syntax in
+  let+ is_reachable =
+    if len = 36 then
+      match String.sub address 0 3 with
+      | "tz1" | "KT1" -> reach_contract client address
+      | _ -> Lwt.return_false
+    else Lwt.return_false
+  in
+  Vdom_blit.Cmd.send_msg ctx (callback address is_reachable)
+
 let register client =
   let open Vdom_blit in
   let handler =
@@ -50,34 +96,17 @@ let register client =
         (fun ctx -> function
           | Sync_wallet_cmd { callback } ->
               let () = Lwt.async (retrieve_or_connect client ctx callback) in
-
               true
           | Unsync_wallet_cmd { callback } ->
               let () = Lwt.async (disconnect_wallet client ctx callback) in
-
+              true
+          | Check_address_cmd { address; callback } ->
+              let () = Lwt.async (check_address client ctx address callback) in
               true
           | _ -> false)
     }
   in
   register @@ cmd handler
-
-type message =
-  | Connect_wallet
-  | Disconnect_wallet
-  | Wallet_connected of {
-        account_info : Beacon_js.Account_info.t
-      ; balance : Z.t
-    }
-  | Wallet_disconnected
-  | Input_address_form of string
-
-type synced_state = {
-    account_info : Beacon_js.Account_info.t
-  ; balance : Tezos_js.Tez.t
-  ; form_address_state : string
-}
-
-type model = Not_synced | Synced of synced_state
 
 let update_not_sync model = function
   | Connect_wallet ->
@@ -86,7 +115,9 @@ let update_not_sync model = function
           [
             sync_wallet ~callback:(fun account_info -> function
               | Error err ->
-                  let () = Console.(message error) err in
+                  let () =
+                    Console.(message error) (Tezos_js.Error.to_string err)
+                  in
                   Disconnect_wallet
               | Ok balance -> Wallet_connected { account_info; balance })
           ]
@@ -96,7 +127,7 @@ let update_not_sync model = function
            {
              account_info
            ; balance = Tezos_js.Tez.of_mutez balance
-           ; form_address_state = ""
+           ; form_address_state = ("", false)
            }
   | _ -> Vdom.return model
 
@@ -106,7 +137,17 @@ let update_sync model state = function
         ~c:[ unsync_wallet ~callback:(fun () -> Wallet_disconnected) ]
   | Wallet_disconnected -> Vdom.return Not_synced
   | Input_address_form value ->
-      Vdom.return (Synced { state with form_address_state = value })
+      Vdom.return
+        (Synced { state with form_address_state = (value, false) })
+        ~c:
+          [
+            check_input_address
+              ~callback:(fun value is_valid ->
+                Address_checked (value, is_valid))
+              ~address:value
+          ]
+  | Address_checked (value, is_valid) ->
+      Vdom.return (Synced { state with form_address_state = (value, is_valid) })
   | _ -> Vdom.return model
 
 let update model message =
@@ -122,20 +163,32 @@ let view =
       button
         ~a:[ onclick (fun _ -> Connect_wallet); class_ "connection-button" ]
         [ text "connect wallet" ]
-  | Synced { account_info; balance; form_address_state } ->
+  | Synced
+      { account_info; balance; form_address_state = address_written, is_valid }
+    ->
       let address = account_info.address and balance = balance in
       div
         [
           connected_badge (fun _ -> Disconnect_wallet) address balance
-        ; input
-            ~a:
-              [
-                type_ "text"
-              ; placeholder "addresse désirée"
-              ; value form_address_state
-              ; oninput (fun input_value -> Input_address_form input_value)
-              ]
-            []
+        ; div
+            ~a:[ class_ "transfer-fill-address" ]
+            [
+              div
+                ~a:[ class_ "transfer-input-address" ]
+                [
+                  input
+                    ~a:
+                      [
+                        type_ "text"
+                      ; placeholder "addresse désirée"
+                      ; value address_written
+                      ; oninput (fun input_value ->
+                            Input_address_form input_value)
+                      ]
+                    []
+                ]
+            ; div [ text (if is_valid then "✔" else "✖") ]
+            ]
         ]
 
 let mount container_id =
@@ -163,7 +216,7 @@ let mount container_id =
                  {
                    account_info
                  ; balance = Tezos_js.Tez.of_mutez balance
-                 ; form_address_state = ""
+                 ; form_address_state = ("", false)
                  })
           account
       in
