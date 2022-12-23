@@ -8,6 +8,7 @@ module Directory = struct
   let get_context () = ~:get_block / "context"
   let get_contract () = ~:get_context /: contract_id
   let get_balance () = ~:get_contract / "balance"
+  let monitor_heads () = ~/"monitor" / "heads" / "main"
 end
 
 open Core_js
@@ -28,13 +29,24 @@ let make_stream ~network ~entrypoint ~on_chunk =
       let* response = make_fetch entrypoint url in
       let rpc_encoding = Entrypoint.encoding_of entrypoint in
       if Fetch.Response.ok response then
+        let reader = Fetch.Response.get_reader response in
         let rec read () =
-          let* is_done, json_txt = Fetch.Response.read_body response in
+          let* is_done, json_txt = Fetch.Response.read_body reader in
           if not is_done then
             let*? obj =
               json_txt
               |> Data_encoding.Json.from_string
-              |> Result.map @@ Data_encoding.Json.destruct rpc_encoding
+              |> (flip Result.bind) (fun x ->
+                     try Ok (Data_encoding.Json.destruct rpc_encoding x)
+                     with exn ->
+                       let () =
+                         Console.(message log)
+                           (Format.asprintf "%a"
+                              (Data_encoding.Json.print_error
+                                 ?print_unknown:None)
+                              exn)
+                       in
+                       assert false)
               |> Result.map_error (fun message -> `Json_error message)
               |> return
             in
@@ -79,4 +91,7 @@ let is_reachable ~network ~entrypoint =
 let is_reachable_head ~network ~entrypoint =
   is_reachable ~network ~entrypoint Chain_id.main Block_id.head
 
-let get_balance () = Entrypoint.get ~path:Directory.get_balance Data_encoding.z
+let get_balance () = Entrypoint.get ~path:Directory.get_balance Tez.encoding
+
+let monitor_heads () =
+  Entrypoint.get ~path:Directory.monitor_heads Monitored_head.encoding

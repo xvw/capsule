@@ -55,9 +55,9 @@ val make_stream :
 val get_balance :
      unit
   -> ( [ `GET ]
-     , Z.t
+     , Tez.t
      , Chain_id.t -> Block_id.t -> Contract_id.t -> 'a
      , 'a )
      Entrypoint.t
-(** Description of the RPC that get balance for a contract (KT address) or an
-    individual (TZ address). *)
+
+val monitor_heads : unit -> ([ `GET ], Monitored_head.t, 'a, 'a) Entrypoint.t

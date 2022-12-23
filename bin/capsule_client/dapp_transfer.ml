@@ -5,7 +5,7 @@ type 'message Vdom.Cmd.t +=
   | Sync_wallet_cmd of {
         callback :
              Beacon_js.Account_info.t
-          -> (Z.t, Tezos_js.RPC.error) result
+          -> (Tezos_js.Tez.t, Tezos_js.RPC.error) result
           -> 'message
     }
   | Unsync_wallet_cmd of { callback : unit -> 'message }
@@ -19,7 +19,7 @@ type message =
   | Disconnect_wallet
   | Wallet_connected of {
         account_info : Beacon_js.Account_info.t
-      ; balance : Z.t
+      ; balance : Tezos_js.Tez.t
     }
   | Wallet_disconnected
   | Input_address_form of string
@@ -46,7 +46,7 @@ let reach_contract client address =
 let relaxed_get_balance client address =
   let open Lwt.Syntax in
   let+ x = get_balance client address in
-  Result.fold ~ok:(fun x -> x) ~error:(fun _ -> Z.zero) x
+  Result.fold ~ok:(fun x -> x) ~error:(fun _ -> Tezos_js.Tez.zero) x
 
 let sync_wallet ~callback = Sync_wallet_cmd { callback }
 let unsync_wallet ~callback = Unsync_wallet_cmd { callback }
@@ -123,12 +123,7 @@ let update_not_sync model = function
           ]
   | Wallet_connected { account_info; balance } ->
       Vdom.return
-      @@ Synced
-           {
-             account_info
-           ; balance = Tezos_js.Tez.of_mutez balance
-           ; form_address_state = ("", false)
-           }
+      @@ Synced { account_info; balance; form_address_state = ("", false) }
   | _ -> Vdom.return model
 
 let update_sync model state = function
@@ -155,41 +150,66 @@ let update model message =
   | Not_synced -> update_not_sync model message
   | Synced state -> update_sync model state message
 
-let view =
+let not_sync_view =
   let open Vdom in
   let open Vdom_ui in
-  function
-  | Not_synced ->
+  div
+    ~a:[ class_ "not-connected" ]
+    [
       button
         ~a:[ onclick (fun _ -> Connect_wallet); class_ "connection-button" ]
         [ text "connect wallet" ]
-  | Synced
-      { account_info; balance; form_address_state = address_written, is_valid }
-    ->
-      let address = account_info.address and balance = balance in
+    ]
+
+let transfer_input_section inputed_address is_valid_address =
+  let open Vdom in
+  let open Vdom_ui in
+  div
+    ~a:[ class_ "transfer-fill-address" ]
+    [
       div
+        ~a:[ class_ "transfer-input-address" ]
         [
-          connected_badge (fun _ -> Disconnect_wallet) address balance
-        ; div
-            ~a:[ class_ "transfer-fill-address" ]
-            [
-              div
-                ~a:[ class_ "transfer-input-address" ]
-                [
-                  input
-                    ~a:
-                      [
-                        type_ "text"
-                      ; placeholder "addresse désirée"
-                      ; value address_written
-                      ; oninput (fun input_value ->
-                            Input_address_form input_value)
-                      ]
-                    []
-                ]
-            ; div [ text (if is_valid then "✔" else "✖") ]
-            ]
+          input
+            ~a:
+              [
+                type_ "text"
+              ; placeholder "addresse du bénéficiaire"
+              ; value inputed_address
+              ; oninput (fun input_value -> Input_address_form input_value)
+              ]
+            []
         ]
+    ; div [ text (if is_valid_address then "✔" else "✖") ]
+    ]
+
+let bottom_section account_info =
+  let open Vdom in
+  let open Vdom_ui in
+  let open Beacon_js.Account_info in
+  div
+    ~a:[ class_ "bottom" ]
+    [
+      div
+        ~a:[ class_ "network" ]
+        [ text (Tezos_js.Network.to_string account_info.network.type_) ]
+    ]
+
+let sync_view account_info balance (inputed_address, is_valid_address) =
+  let open Vdom_ui in
+  div
+    [
+      connected_badge
+        (fun _ -> Disconnect_wallet)
+        account_info.Beacon_js.Account_info.address balance
+    ; transfer_input_section inputed_address is_valid_address
+    ; bottom_section account_info
+    ]
+
+let view = function
+  | Not_synced -> not_sync_view
+  | Synced { account_info; balance; form_address_state } ->
+      sync_view account_info balance form_address_state
 
 let mount container_id =
   match Js_browser.(Document.(get_element_by_id document container_id)) with
@@ -199,7 +219,7 @@ let mount container_id =
   | Some root ->
       let open Lwt.Syntax in
       let client =
-        Beacon_js.Client.make ~network:Tezos_js.Network.Nodes.Ghostnet.marigold
+        Beacon_js.Client.make ~network:Tezos_js.Network.Nodes.Ghostnet.ecadlabs
           ~name:"transfer" ()
       in
       let* init =
@@ -213,13 +233,10 @@ let mount container_id =
             in
             Vdom.return
             @@ Synced
-                 {
-                   account_info
-                 ; balance = Tezos_js.Tez.of_mutez balance
-                 ; form_address_state = ("", false)
-                 })
+                 { account_info; balance; form_address_state = ("", false) })
           account
       in
+
       let app = Vdom.app ~init ~view ~update () in
       let () = register client in
       let () = Js_browser.Element.remove_all_children root in

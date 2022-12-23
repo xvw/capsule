@@ -35,5 +35,6 @@ module Nodes : sig
   module Ghostnet : sig
     val make : name:string -> rpc_url:string -> t
     val marigold : t
+    val ecadlabs : t
   end
 end

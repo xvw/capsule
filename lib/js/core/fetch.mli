@@ -59,7 +59,13 @@ module Response : sig
   val type_ : t -> string
   val url : t -> string
   val text : t -> string Lwt.t
-  val read_body : t -> (bool * string) Lwt.t
+
+  val get_reader :
+    t -> Typed_array.int8Array Js.t Bindings.readable_stream_default Js.t
+
+  val read_body :
+       Typed_array.int8Array Js.t Bindings.readable_stream_default Js.t
+    -> (bool * string) Lwt.t
 end
 
 (** {1 Fetch} *)

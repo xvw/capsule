@@ -35,3 +35,6 @@ let rpc_reachable_call ~client:{ network; _ } ~entrypoint =
 
 let rpc_reachable_call_head ~client:{ network; _ } ~entrypoint =
   Tezos_js.RPC.is_reachable_head ~network ~entrypoint
+
+let rpc_stream ~client:{ network; _ } ~entrypoint ~on_chunk =
+  Tezos_js.RPC.make_stream ~network ~entrypoint ~on_chunk

@@ -128,8 +128,7 @@ module Response = struct
 
   let get_reader resp = resp##.body##getReader
 
-  let read_body resp =
-    let reader = get_reader resp in
+  let read_body reader =
     let open Lwt.Syntax in
     let+ result = reader##read |> Util.as_lwt in
     let decoder = Text_decoder.make () in

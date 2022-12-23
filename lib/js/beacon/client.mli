@@ -54,3 +54,15 @@ val rpc_reachable_call_head :
            , bool Lwt.t )
            Tezos_js.Entrypoint.t)
   -> 'b
+
+val rpc_stream :
+     client:t
+  -> entrypoint:
+       (   unit
+        -> ( [< `DELETE | `GET | `PATCH | `POST ]
+           , 'a
+           , 'b
+           , (unit, ([> Tezos_js.RPC.error ] as 'err)) result Lwt.t )
+           Tezos_js.Entrypoint.t)
+  -> on_chunk:('a -> (unit, 'err) result Lwt.t)
+  -> 'b

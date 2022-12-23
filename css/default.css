@@ -299,8 +299,21 @@ code {
   font-family: var(--mono-font);
 }
 
+.dapp {
+  margin: 64px 0;
+}
+
 .standard-dapp {
   font-family: var(--sans-serif-font);
+}
+
+.standard-dapp button {
+  cursor: pointer;
+}
+
+.standard-dapp .not-connected {
+  display: flex;
+  justify-content: center;
 }
 
 .standard-dapp .connected-badge {
@@ -367,10 +380,21 @@ code {
   background-color: transparent;
   border: 0px solid transparent;
   font-family: var(--mono-font);
+  font-size: 120%;
 }
 
 .standard-dapp .transfer-fill-address .transfer-input-address > input:focus {
   outline: none;
+}
+
+.standard-dapp .bottom {
+  font-size: 86%;
+  padding: 4px 0px;
+  color: #111;
+}
+
+.standard-dapp .bottom .network {
+  font-weight: 600;
 }
 
 @media all and (max-width: 960px) {
