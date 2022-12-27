@@ -1,4 +1,4 @@
-type error = [ `Json_error of string | `Http_error of int ]
+type error = [ `Json_error of string | `Json_exn of exn | `Http_error of int ]
 
 module Directory = struct
   open Path
@@ -36,18 +36,10 @@ let make_stream ~network ~entrypoint ~on_chunk =
             let*? obj =
               json_txt
               |> Data_encoding.Json.from_string
+              |> Result.map_error (fun message -> `Json_error message)
               |> (flip Result.bind) (fun x ->
                      try Ok (Data_encoding.Json.destruct rpc_encoding x)
-                     with exn ->
-                       let () =
-                         Console.(message log)
-                           (Format.asprintf "%a"
-                              (Data_encoding.Json.print_error
-                                 ?print_unknown:None)
-                              exn)
-                       in
-                       assert false)
-              |> Result.map_error (fun message -> `Json_error message)
+                     with exn -> Error (`Json_exn exn))
               |> return
             in
             let*? () = on_chunk obj in

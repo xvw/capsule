@@ -1,6 +1,6 @@
 (** RPC entrypoint description. *)
 
-type error = [ `Json_error of string | `Http_error of int ]
+type error = [ `Json_error of string | `Json_exn of exn | `Http_error of int ]
 
 (** {1 Call an RPC entrypoint} *)
 
