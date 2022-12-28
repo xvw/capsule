@@ -3,6 +3,7 @@ module Aliases = Aliases
 module Interfaces = Interfaces
 module Option = Option_stubs
 module Nullable = Nullable_stubs
+module Result = Result_stubs
 module Undefinedable = Undefinedable_stubs
 module Console = Console
 

@@ -13,6 +13,7 @@ module Aliases = Aliases
 module Option = Option_stubs
 module Nullable = Nullable_stubs
 module Undefinedable = Undefinedable_stubs
+module Result = Result_stubs
 
 type +'a or_null = 'a Nullable.t
 (** A shortcut for defining value that can be null, so [int or_null] is

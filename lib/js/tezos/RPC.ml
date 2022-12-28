@@ -37,7 +37,7 @@ let make_stream ~network ~entrypoint ~on_chunk =
               json_txt
               |> Data_encoding.Json.from_string
               |> Result.map_error (fun message -> `Json_error message)
-              |> (flip Result.bind) (fun x ->
+              |> Result.bind (fun x ->
                      try Ok (Data_encoding.Json.destruct rpc_encoding x)
                      with exn -> Error (`Json_exn exn))
               |> return

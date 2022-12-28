@@ -1,1 +1,1 @@
-val to_string : [< RPC.error ] -> string
+val to_string : [< RPC.error | Address.error ] -> string

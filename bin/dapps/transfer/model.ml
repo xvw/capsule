@@ -3,7 +3,7 @@ open Core_js
 type synced_state = {
     account_info : Beacon_js.Account_info.t
   ; balance : Tezos_js.Tez.t
-  ; address_form : string
+  ; address_form : string * bool
 }
 
 type state = Not_sync | Sync of synced_state
@@ -19,7 +19,10 @@ let update_not_sync model = function
           ]
   | Messages.Beacon_synced { account_info; balance } ->
       Vdom.return
-        { model with state = Sync { account_info; balance; address_form = "" } }
+        {
+          model with
+          state = Sync { account_info; balance; address_form = ("", false) }
+        }
   | _ -> Vdom.return model
 
 let update_sync model state = function
@@ -27,8 +30,8 @@ let update_sync model state = function
       Vdom.return model ~c:[ Commands.beacon_unsync Messages.beacon_unsynced ]
   | Messages.Beacon_unsynced -> Vdom.return { model with state = Not_sync }
   | Messages.Input_address_form value ->
-      Vdom.return
-        { model with state = Sync { state with address_form = value } }
+      let address_form = (value, Tezos_js.Address.is_valid value) in
+      Vdom.return { model with state = Sync { state with address_form } }
   | _ -> Vdom.return model
 
 let update model = function
@@ -55,5 +58,5 @@ let init client =
       Vdom.return
         {
           error = None
-        ; state = Sync { account_info; balance; address_form = "" }
+        ; state = Sync { account_info; balance; address_form = ("", false) }
         }

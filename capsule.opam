@@ -29,6 +29,7 @@ depends: [
   "promise_jsoo"
   "ocaml-vdom"
   "data-encoding"
+  "tezos-base58"
   "preface" { >= "1.0.0"}
   "yocaml" {pinned}
   "yocaml_unix" {pinned}

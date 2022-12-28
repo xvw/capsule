@@ -1,7 +1,7 @@
 type synced_state = {
     account_info : Beacon_js.Account_info.t
   ; balance : Tezos_js.Tez.t
-  ; address_form : string
+  ; address_form : string * bool
 }
 
 type state = Not_sync | Sync of synced_state

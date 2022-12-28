@@ -43,7 +43,7 @@ let bottom_section account_info =
         [ text (Tezos_js.Network.to_string account_info.network.type_) ]
     ]
 
-let transfer_input_section inputed_address =
+let transfer_input_section (inputed_address, is_valid_address) =
   let open Vdom in
   let open Vdom_html in
   div
@@ -62,6 +62,7 @@ let transfer_input_section inputed_address =
               ]
             []
         ]
+    ; div [ text (if is_valid_address then "✔" else "✖") ]
     ]
 
 let sync_view state =
