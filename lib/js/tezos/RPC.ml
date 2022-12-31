@@ -1,5 +1,9 @@
 type error = [ `Json_error of string | `Json_exn of exn | `Http_error of int ]
 
+type retention_policy =
+  | Raise of (exn -> (unit, error) result Lwt.t)
+  | Restart of float
+
 module Directory = struct
   open Path
 
@@ -20,34 +24,45 @@ let make_fetch entrypoint url =
   | `PATCH -> Fetch.patch url
   | `DELETE -> Fetch.delete url
 
-let make_stream ~network ~entrypoint ~on_chunk =
+let make_stream ?(retention_policy = Restart 1.) ~network ~entrypoint ~on_chunk
+    =
   let entrypoint = entrypoint () in
   Entrypoint.sprintf_with
     (fun path ->
       let open Lwt_util in
       let url = Network.base_path network ^ path in
-      let* response = make_fetch entrypoint url in
-      let rpc_encoding = Entrypoint.encoding_of entrypoint in
-      if Fetch.Response.ok response then
-        let reader = Fetch.Response.get_reader response in
-        let rec read () =
-          let* is_done, json_txt = Fetch.Response.read_body reader in
-          if not is_done then
-            let*? obj =
-              json_txt
-              |> Data_encoding.Json.from_string
-              |> Result.map_error (fun message -> `Json_error message)
-              |> Result.bind (fun x ->
-                     try Ok (Data_encoding.Json.destruct rpc_encoding x)
-                     with exn -> Error (`Json_exn exn))
-              |> return
+      let rec loop () =
+        let* response = make_fetch entrypoint url in
+        let rpc_encoding = Entrypoint.encoding_of entrypoint in
+        if Fetch.Response.ok response then
+          let reader = Fetch.Response.get_reader response in
+          try
+            let rec read () =
+              let* is_done, json_txt = Fetch.Response.read_body reader in
+              if not is_done then
+                let*? obj =
+                  json_txt
+                  |> Data_encoding.Json.from_string
+                  |> Result.map_error (fun message -> `Json_error message)
+                  |> Result.bind (fun x ->
+                         try Ok (Data_encoding.Json.destruct rpc_encoding x)
+                         with exn -> Error (`Json_exn exn))
+                  |> return
+                in
+                let*? () = on_chunk obj in
+                read ()
+              else return_ok ()
             in
-            let*? () = on_chunk obj in
             read ()
-          else return_ok ()
-        in
-        read ()
-      else return_error @@ `Http_error (Fetch.Response.status response))
+          with exn -> (
+            match retention_policy with
+            | Raise handler -> handler exn
+            | Restart delay ->
+                let* () = Js_of_ocaml_lwt.Lwt_js.sleep delay in
+                loop ())
+        else return_error @@ `Http_error (Fetch.Response.status response)
+      in
+      loop ())
     entrypoint
 
 let make_call ~network ~entrypoint =

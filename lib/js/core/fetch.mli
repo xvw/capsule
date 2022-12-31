@@ -66,6 +66,9 @@ module Response : sig
   val read_body :
        Typed_array.int8Array Js.t Bindings.readable_stream_default Js.t
     -> (bool * string) Lwt.t
+
+  val release_lock :
+    Typed_array.int8Array Js.t Bindings.readable_stream_default Js.t -> unit
 end
 
 (** {1 Fetch} *)

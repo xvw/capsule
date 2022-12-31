@@ -2,6 +2,10 @@
 
 type error = [ `Json_error of string | `Json_exn of exn | `Http_error of int ]
 
+type retention_policy =
+  | Raise of (exn -> (unit, error) result Lwt.t)
+  | Restart of float
+
 (** {1 Call an RPC entrypoint} *)
 
 val make_call :
@@ -39,15 +43,16 @@ val is_reachable_head :
   -> 'b
 
 val make_stream :
-     network:Network.t
+     ?retention_policy:retention_policy
+  -> network:Network.t
   -> entrypoint:
        (   unit
         -> ( [< `DELETE | `GET | `PATCH | `POST ]
            , 'a
            , 'b
-           , (unit, ([> error ] as 'err)) result Lwt.t )
+           , (unit, error) result Lwt.t )
            Entrypoint.t)
-  -> on_chunk:('a -> (unit, 'err) result Lwt.t)
+  -> on_chunk:('a -> (unit, error) result Lwt.t)
   -> 'b
 
 (** {1 RPC Directory} *)

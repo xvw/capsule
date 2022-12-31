@@ -133,6 +133,8 @@ module Response = struct
     let+ result = reader##read |> Util.as_lwt in
     let decoder = Text_decoder.make () in
     (result##.done_ |> Js.to_bool, Text_decoder.decode decoder result##.value)
+
+  let release_lock reader = reader##releaseLock
 end
 
 let fetch_handler (s : Js.js_string Js.t) (init : Bindings.fetch_init Js.t) :
