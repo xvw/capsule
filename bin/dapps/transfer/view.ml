@@ -1,3 +1,5 @@
+open Core_js
+
 let error_section = function
   | None -> []
   | Some x ->
@@ -31,7 +33,7 @@ let connected_badge handler address balance =
         [ button ~a:[ onclick handler ] [ text "Déconnexion" ] ]
     ]
 
-let bottom_section account_info =
+let bottom_section account_info head =
   let open Vdom in
   let open Vdom_html in
   let open Beacon_js.Account_info in
@@ -41,6 +43,16 @@ let bottom_section account_info =
       div
         ~a:[ class_ "network" ]
         [ text (Tezos_js.Network.to_string account_info.network.type_) ]
+    ; div
+        ~a:[ class_ "tezos-head" ]
+        [
+          text
+            (Option.fold
+               (fun () -> "Récupèration de la tête de la chaine...")
+               (fun x ->
+                 Tezos_js.Address.to_short_string x.Tezos_js.Monitored_head.hash)
+               head)
+        ]
     ]
 
 let transfer_input_section (inputed_address, is_valid_address) =
@@ -69,12 +81,13 @@ let sync_view state =
   let open Vdom_html in
   let account_info = state.Model.account_info
   and balance = state.balance
-  and input_address = state.address_form in
+  and input_address = state.address_form
+  and head = state.head in
   div
     [
       connected_badge Messages.beacon_unsync account_info.address balance
     ; transfer_input_section input_address
-    ; bottom_section account_info
+    ; bottom_section account_info head
     ]
 
 let state_view = function

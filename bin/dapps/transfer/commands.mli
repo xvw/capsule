@@ -5,6 +5,11 @@ val beacon_sync :
 
 val beacon_unsync : (unit -> 'message) -> 'message Vdom.Cmd.t
 
+val stream_head :
+     Tezos_js.Address.t
+  -> (Tezos_js.Tez.t -> Tezos_js.Monitored_head.t -> 'message)
+  -> 'message Vdom.Cmd.t
+
 val get_balance :
      Beacon_js.Client.t
   -> Tezos_js.Address.t

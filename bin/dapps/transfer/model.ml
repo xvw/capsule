@@ -4,6 +4,7 @@ type synced_state = {
     account_info : Beacon_js.Account_info.t
   ; balance : Tezos_js.Tez.t
   ; address_form : string * bool
+  ; head : Tezos_js.Monitored_head.t option
 }
 
 type state = Not_sync | Sync of synced_state
@@ -21,7 +22,9 @@ let update_not_sync model = function
       Vdom.return
         {
           model with
-          state = Sync { account_info; balance; address_form = ("", false) }
+          state =
+            Sync
+              { account_info; balance; address_form = ("", false); head = None }
         }
   | _ -> Vdom.return model
 
@@ -32,6 +35,9 @@ let update_sync model state = function
   | Messages.Input_address_form value ->
       let address_form = (value, Tezos_js.Address.is_valid value) in
       Vdom.return { model with state = Sync { state with address_form } }
+  | Messages.New_head { balance; head } ->
+      Vdom.return
+        { model with state = Sync { state with balance; head = Some head } }
   | _ -> Vdom.return model
 
 let update model = function
@@ -56,7 +62,10 @@ let init client =
       let address = account_info.address in
       let+ balance = relaxed_get_balance client address in
       Vdom.return
+        ~c:[ Commands.stream_head address Messages.new_head ]
         {
           error = None
-        ; state = Sync { account_info; balance; address_form = ("", false) }
+        ; state =
+            Sync
+              { account_info; balance; address_form = ("", false); head = None }
         }

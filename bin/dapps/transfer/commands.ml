@@ -6,9 +6,14 @@ type 'message Vdom.Cmd.t +=
       ; on_failure : Tezos_js.RPC.error -> 'message
     }
   | Beacon_unsync of { on_success : unit -> 'message }
+  | Stream_head of {
+        address : string
+      ; on_success : Tezos_js.Tez.t -> Tezos_js.Monitored_head.t -> 'message
+    }
 
 let beacon_sync on_success on_failure = Beacon_sync { on_success; on_failure }
 let beacon_unsync on_success = Beacon_unsync { on_success }
+let stream_head address on_success = Stream_head { address; on_success }
 
 let get_balance client address =
   let open Tezos_js in
@@ -38,6 +43,17 @@ let perform_beacon_unsync client ctx on_success () =
   let+ () = Beacon_js.Client.disconnect_client client in
   Vdom_blit.Cmd.send_msg ctx (on_success ())
 
+let perform_stream_head client ctx address on_success () =
+  let open Lwt_util in
+  let* _ =
+    Beacon_js.Client.rpc_stream ?retention_policy:None ~client
+      ~entrypoint:Tezos_js.RPC.monitor_heads ~on_chunk:(fun head ->
+        let open Lwt_util in
+        let+? balance = get_balance client address in
+        Vdom_blit.Cmd.send_msg ctx (on_success balance head))
+  in
+  return ()
+
 let register client =
   let open Vdom_blit in
   let handler =
@@ -56,6 +72,13 @@ let register client =
               let () =
                 Lwt.dont_wait
                   (perform_beacon_unsync client ctx on_success)
+                  Console.error
+              in
+              true
+          | Stream_head { address; on_success } ->
+              let () =
+                Lwt.dont_wait
+                  (perform_stream_head client ctx address on_success)
                   Console.error
               in
               true
