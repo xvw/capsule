@@ -19,7 +19,9 @@ let update_not_sync model = function
               (Messages.save_error % Tezos_js.Error.to_string)
           ]
   | Messages.Beacon_synced { account_info; balance } ->
+      let address = account_info.address in
       Vdom.return
+        ~c:[ Commands.stream_head address Messages.new_head ]
         {
           model with
           state =

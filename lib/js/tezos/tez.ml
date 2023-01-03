@@ -3,6 +3,7 @@ type t = Z.t
 let zMillion = Z.of_int64 1_000_000L
 let to_z amount = amount
 let of_mutez amount = amount
+let of_nanotez amount = Z.div (Z.of_int 1000) amount |> of_mutez
 let zero = Z.zero
 
 let pp ppf tez =
