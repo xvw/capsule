@@ -2,7 +2,11 @@ open Core_js
 
 type 'message Vdom.Cmd.t +=
   | Beacon_sync of {
-        on_success : Beacon_js.Account_info.t -> Tezos_js.Tez.t -> 'message
+        on_success :
+             cost_per_byte:Tezos_js.Tez.t
+          -> Beacon_js.Account_info.t
+          -> Tezos_js.Tez.t
+          -> 'message
       ; on_failure : Tezos_js.RPC.error -> 'message
     }
   | Beacon_unsync of { on_success : unit -> 'message }
@@ -20,6 +24,11 @@ let get_balance client address =
   Beacon_js.Client.rpc_call_head ~client ~entrypoint:RPC.get_balance
     (Contract_id.from_string address)
 
+let get_parametric_constants client =
+  let open Tezos_js in
+  Beacon_js.Client.rpc_call_head ~client
+    ~entrypoint:RPC.get_parametric_constants
+
 let perform_beacon_sync client ctx on_success on_failure () =
   let open Lwt_util in
   let* potential_active_account = Beacon_js.Client.get_active_account client in
@@ -33,9 +42,14 @@ let perform_beacon_sync client ctx on_success on_failure () =
         in
         account_info
   in
-  let+ potential_balance = get_balance client active_info.address in
-  match potential_balance with
-  | Ok balance -> Vdom_blit.Cmd.send_msg ctx (on_success active_info balance)
+  let+ result =
+    let*? consts = get_parametric_constants client in
+    let+? potential_balance = get_balance client active_info.address in
+    (potential_balance, Tezos_js.Constants.cost_per_byte consts)
+  in
+  match result with
+  | Ok (balance, cost_per_byte) ->
+      Vdom_blit.Cmd.send_msg ctx (on_success ~cost_per_byte active_info balance)
   | Error err -> Vdom_blit.Cmd.send_msg ctx (on_failure err)
 
 let perform_beacon_unsync client ctx on_success () =

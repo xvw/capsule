@@ -4,6 +4,7 @@ type t =
   | Beacon_synced of {
         account_info : Beacon_js.Account_info.t
       ; balance : Tezos_js.Tez.t
+      ; cost_per_byte : Tezos_js.Tez.t
     }
   | Beacon_unsynced
   | Input_address_form of string
@@ -12,7 +13,10 @@ type t =
 
 let beacon_sync _ = Beacon_sync
 let beacon_unsync _ = Beacon_unsync
-let beacon_synced account_info balance = Beacon_synced { account_info; balance }
+
+let beacon_synced ~cost_per_byte account_info balance =
+  Beacon_synced { account_info; balance; cost_per_byte }
+
 let beacon_unsynced () = Beacon_unsynced
 let input_address_form input_value = Input_address_form input_value
 let new_head balance head = New_head { balance; head }

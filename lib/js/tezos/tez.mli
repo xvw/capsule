@@ -1,5 +1,6 @@
 type t
 
+val to_z : t -> Z.t
 val of_mutez : Z.t -> t
 val of_nanotez : Z.t -> t
 val zero : t

@@ -8,7 +8,7 @@ let zero = Z.zero
 
 let pp ppf tez =
   let left = Z.div tez zMillion and right = Z.rem tez zMillion in
-  Format.fprintf ppf "%a.%a" Z.pp_print left Z.pp_print right
+  Format.fprintf ppf "%a.%06Li" Z.pp_print left (Z.to_int64 right)
 
 let to_string tez = Format.asprintf "%a" pp tez
 
