@@ -13,6 +13,7 @@ module Directory = struct
   let get_contract () = ~:get_context /: contract_id
   let get_balance () = ~:get_contract / "balance"
   let get_parametric_constants () = ~:get_context / "constants" / "parametric"
+  let get_manager_key () = ~:get_contract / "manager_key"
   let monitor_heads () = ~/"monitor" / "heads" / "main"
 end
 
@@ -103,6 +104,9 @@ let get_balance () = Entrypoint.get ~path:Directory.get_balance Tez.encoding
 
 let get_parametric_constants () =
   Entrypoint.get ~path:Directory.get_parametric_constants Constants.encoding
+
+let get_manager_key () =
+  Entrypoint.get ~path:Directory.get_manager_key Data_encoding.(option string)
 
 let monitor_heads () =
   Entrypoint.get ~path:Directory.monitor_heads Monitored_head.encoding

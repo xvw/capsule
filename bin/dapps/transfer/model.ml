@@ -1,15 +1,31 @@
 open Core_js
 
+type address_form =
+  | Invalid of string
+  | Unknown of Tezos_js.Address.t
+  | Revealed of Tezos_js.Address.t
+
 type synced_state = {
     account_info : Beacon_js.Account_info.t
   ; balance : Tezos_js.Tez.t
-  ; address_form : string * bool
+  ; address_form : address_form
   ; cost_per_byte : Tezos_js.Tez.t
   ; head : Tezos_js.Monitored_head.t option
 }
 
 type state = Not_sync | Sync of synced_state
 type t = { error : string option; state : state }
+
+let fill_address_form address is_valid is_revealed =
+  if not is_valid then Invalid address
+  else if not is_revealed then Unknown address
+  else Revealed address
+
+let get_address { address_form; _ } =
+  match address_form with
+  | Invalid x -> (x, false)
+  | Unknown x -> (x, true)
+  | Revealed x -> (x, true)
 
 let update_not_sync model = function
   | Messages.Beacon_sync ->
@@ -30,7 +46,7 @@ let update_not_sync model = function
               {
                 account_info
               ; balance
-              ; address_form = ("", false)
+              ; address_form = Invalid ""
               ; head = None
               ; cost_per_byte
               }
@@ -42,7 +58,16 @@ let update_sync model state = function
       Vdom.return model ~c:[ Commands.beacon_unsync Messages.beacon_unsynced ]
   | Messages.Beacon_unsynced -> Vdom.return { model with state = Not_sync }
   | Messages.Input_address_form value ->
-      let address_form = (value, Tezos_js.Address.is_valid value) in
+      Vdom.return
+        { model with state = Sync { state with address_form = Invalid value } }
+        ~c:
+          [
+            Commands.validated_address value (Messages.validated_address value)
+          ]
+  | Messages.Validated_address result ->
+      let address_form =
+        fill_address_form result.address result.is_valid result.is_revealed
+      in
       Vdom.return { model with state = Sync { state with address_form } }
   | Messages.New_head { balance; head } ->
       Vdom.return
@@ -88,7 +113,7 @@ let init client =
               {
                 account_info
               ; balance
-              ; address_form = ("", false)
+              ; address_form = Invalid ""
               ; head = None
               ; cost_per_byte
               }

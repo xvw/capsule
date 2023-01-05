@@ -8,6 +8,11 @@ val beacon_sync :
 
 val beacon_unsync : (unit -> 'message) -> 'message Vdom.Cmd.t
 
+val validated_address :
+     string
+  -> ((bool, Tezos_js.Address.error) result -> 'message)
+  -> 'message Vdom.Cmd.t
+
 val stream_head :
      Tezos_js.Address.t
   -> (Tezos_js.Tez.t -> Tezos_js.Monitored_head.t -> 'message)

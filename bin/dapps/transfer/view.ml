@@ -55,9 +55,10 @@ let bottom_section account_info head =
         ]
     ]
 
-let transfer_input_section (inputed_address, is_valid_address) =
+let transfer_input_section state =
   let open Vdom in
   let open Vdom_html in
+  let inputed_address, is_valid_address = Model.get_address state in
   div
     ~a:[ class_ "transfer-fill-address" ]
     [
@@ -81,12 +82,11 @@ let sync_view state =
   let open Vdom_html in
   let account_info = state.Model.account_info
   and balance = state.balance
-  and input_address = state.address_form
   and head = state.head in
   div
     [
       connected_badge Messages.beacon_unsync account_info.address balance
-    ; transfer_input_section input_address
+    ; transfer_input_section state
     ; bottom_section account_info head
     ]
 

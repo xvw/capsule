@@ -10,6 +10,10 @@ type 'message Vdom.Cmd.t +=
       ; on_failure : Tezos_js.RPC.error -> 'message
     }
   | Beacon_unsync of { on_success : unit -> 'message }
+  | Validate_address of {
+        address : string
+      ; on_success : (bool, Tezos_js.Address.error) result -> 'message
+    }
   | Stream_head of {
         address : string
       ; on_success : Tezos_js.Tez.t -> Tezos_js.Monitored_head.t -> 'message
@@ -18,6 +22,9 @@ type 'message Vdom.Cmd.t +=
 let beacon_sync on_success on_failure = Beacon_sync { on_success; on_failure }
 let beacon_unsync on_success = Beacon_unsync { on_success }
 let stream_head address on_success = Stream_head { address; on_success }
+
+let validated_address address on_success =
+  Validate_address { address; on_success }
 
 let get_balance client address =
   let open Tezos_js in
@@ -28,6 +35,15 @@ let get_parametric_constants client =
   let open Tezos_js in
   Beacon_js.Client.rpc_call_head ~client
     ~entrypoint:RPC.get_parametric_constants
+
+let is_a_revealed_address client address =
+  let open Tezos_js in
+  let open Lwt_util in
+  let+ result =
+    Beacon_js.Client.rpc_call_head ~client ~entrypoint:RPC.get_manager_key
+      (Contract_id.from_string address)
+  in
+  match result with Ok (Some _) -> true | _ -> false
 
 let perform_beacon_sync client ctx on_success on_failure () =
   let open Lwt_util in
@@ -68,6 +84,18 @@ let perform_stream_head client ctx address on_success () =
   in
   return ()
 
+let perform_address_reveal client ctx address on_success () =
+  let open Lwt_util in
+  let address = Tezos_js.Address.validate address in
+  let+ result =
+    Core_js.Result.fold
+      ~ok:(fun address ->
+        let* x = is_a_revealed_address client address in
+        return_ok x)
+      ~error:return_error address
+  in
+  Vdom_blit.Cmd.send_msg ctx (on_success result)
+
 let register client =
   let open Vdom_blit in
   let handler =
@@ -86,6 +114,13 @@ let register client =
               let () =
                 Lwt.dont_wait
                   (perform_beacon_unsync client ctx on_success)
+                  Console.error
+              in
+              true
+          | Validate_address { address; on_success } ->
+              let () =
+                Lwt.dont_wait
+                  (perform_address_reveal client ctx address on_success)
                   Console.error
               in
               true

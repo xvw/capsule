@@ -65,6 +65,14 @@ val get_balance :
      , 'a )
      Entrypoint.t
 
+val get_manager_key :
+     unit
+  -> ( [ `GET ]
+     , string option
+     , Chain_id.t -> Block_id.t -> Contract_id.t -> 'a
+     , 'a )
+     Entrypoint.t
+
 val get_parametric_constants :
      unit
   -> ([ `GET ], Constants.t, Chain_id.t -> Block_id.t -> 'a, 'a) Entrypoint.t

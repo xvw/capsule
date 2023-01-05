@@ -1,16 +1,10 @@
-let minimal_fees = Tez.of_mutez (Z.of_int 100)
-let minimal_fees_per_gas_unit = Tez.of_nanotez (Z.of_int 100)
-let minimal_fees_per_byte = Tez.of_mutez Z.one
+(* open Core_js *)
 
-type config = {
-    minimal_fees : Tez.t
-  ; minimal_fees_per_gas_unit : Tez.t
-  ; minimal_fees_per_byte : Tez.t
-}
+type t = Transfer of { source : Address.t; target : Address.t }
 
-let make_config ~minimal_fees ~minimal_fees_per_gas_unit ~minimal_fees_per_byte
-    =
-  { minimal_fees; minimal_fees_per_byte; minimal_fees_per_gas_unit }
-
-let default_config =
-  make_config ~minimal_fees ~minimal_fees_per_gas_unit ~minimal_fees_per_byte
+(* let estimate ~cost_per_byte = function *)
+(*   | Transfer { source; target } -> *)
+(*       let open Result.Syntax in *)
+(*       let* source = Address.validate source in *)
+(*       let+ target = Address.validate target in *)
+(*       (source, target) *)
