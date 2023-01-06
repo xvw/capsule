@@ -9,7 +9,7 @@ type synced_state = {
     account_info : Beacon_js.Account_info.t
   ; balance : Tezos_js.Tez.t
   ; address_form : address_form
-  ; cost_per_byte : Tezos_js.Tez.t
+  ; constants : Tezos_js.Constants.t
   ; head : Tezos_js.Monitored_head.t option
 }
 
@@ -35,7 +35,7 @@ let update_not_sync model = function
             Commands.beacon_sync Messages.beacon_synced
               (Messages.save_error % Tezos_js.Error.to_string)
           ]
-  | Messages.Beacon_synced { account_info; balance; cost_per_byte } ->
+  | Messages.Beacon_synced { account_info; balance; constants } ->
       let address = account_info.address in
       Vdom.return
         ~c:[ Commands.stream_head address Messages.new_head ]
@@ -48,7 +48,7 @@ let update_not_sync model = function
               ; balance
               ; address_form = Invalid ""
               ; head = None
-              ; cost_per_byte
+              ; constants
               }
         }
   | _ -> Vdom.return model
@@ -87,13 +87,10 @@ let relaxed_get_balance client address =
   let+ x = Commands.get_balance client address in
   Result.fold ~ok:(fun x -> x) ~error:(fun _ -> Tezos_js.Tez.zero) x
 
-let relaxed_get_cost_per_byte client =
+let relaxed_get_parametric_constants client =
   let open Lwt_util in
   let+ x = Commands.get_parametric_constants client in
-  Result.fold
-    ~ok:(fun x -> Tezos_js.Constants.cost_per_byte x)
-    ~error:(fun _ -> Tezos_js.Tez.of_mutez @@ Z.of_int 250)
-    x
+  Result.fold ~ok:(fun x -> x) ~error:(fun _ -> Tezos_js.Constants.default) x
 
 let init client =
   let open Lwt_util in
@@ -102,7 +99,7 @@ let init client =
   | None -> return @@ Vdom.return { error = None; state = Not_sync }
   | Some account_info ->
       let address = account_info.address in
-      let* cost_per_byte = relaxed_get_cost_per_byte client in
+      let* constants = relaxed_get_parametric_constants client in
       let+ balance = relaxed_get_balance client address in
       Vdom.return
         ~c:[ Commands.stream_head address Messages.new_head ]
@@ -115,6 +112,6 @@ let init client =
               ; balance
               ; address_form = Invalid ""
               ; head = None
-              ; cost_per_byte
+              ; constants
               }
         }

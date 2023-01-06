@@ -38,3 +38,16 @@ let from_string value =
   | "origination" -> Some ORIGINATION
   | "delegation" -> Some DELEGATION
   | _ -> None
+
+let tag = function
+  | ENDORSEMENT -> 21
+  | SEED_NONCE_REVELATION -> 1
+  | DOUBLE_ENDORSEMENT_EVIDENCE -> 2
+  | DOUBLE_BAKING_EVIDENCE -> 3
+  | ACTIVATE_ACCOUNT -> 4
+  | PROPOSALS -> 5
+  | BALLOT -> 6
+  | REVEAL -> 107
+  | TRANSACTION -> 108
+  | ORIGINATION -> 109
+  | DELEGATION -> 110

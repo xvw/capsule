@@ -1,5 +1,5 @@
 val beacon_sync :
-     (   cost_per_byte:Tezos_js.Tez.t
+     (   constants:Tezos_js.Constants.t
       -> Beacon_js.Account_info.t
       -> Tezos_js.Tez.t
       -> 'message)

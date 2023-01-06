@@ -3,7 +3,7 @@ open Core_js
 type 'message Vdom.Cmd.t +=
   | Beacon_sync of {
         on_success :
-             cost_per_byte:Tezos_js.Tez.t
+             constants:Tezos_js.Constants.t
           -> Beacon_js.Account_info.t
           -> Tezos_js.Tez.t
           -> 'message
@@ -61,11 +61,11 @@ let perform_beacon_sync client ctx on_success on_failure () =
   let+ result =
     let*? consts = get_parametric_constants client in
     let+? potential_balance = get_balance client active_info.address in
-    (potential_balance, Tezos_js.Constants.cost_per_byte consts)
+    (potential_balance, consts)
   in
   match result with
-  | Ok (balance, cost_per_byte) ->
-      Vdom_blit.Cmd.send_msg ctx (on_success ~cost_per_byte active_info balance)
+  | Ok (balance, constants) ->
+      Vdom_blit.Cmd.send_msg ctx (on_success ~constants active_info balance)
   | Error err -> Vdom_blit.Cmd.send_msg ctx (on_failure err)
 
 let perform_beacon_unsync client ctx on_success () =

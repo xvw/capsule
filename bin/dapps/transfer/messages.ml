@@ -4,7 +4,7 @@ type t =
   | Beacon_synced of {
         account_info : Beacon_js.Account_info.t
       ; balance : Tezos_js.Tez.t
-      ; cost_per_byte : Tezos_js.Tez.t
+      ; constants : Tezos_js.Constants.t
     }
   | Beacon_unsynced
   | Input_address_form of string
@@ -19,8 +19,8 @@ type t =
 let beacon_sync _ = Beacon_sync
 let beacon_unsync _ = Beacon_unsync
 
-let beacon_synced ~cost_per_byte account_info balance =
-  Beacon_synced { account_info; balance; cost_per_byte }
+let beacon_synced ~constants account_info balance =
+  Beacon_synced { account_info; balance; constants }
 
 let validated_address address result =
   let is_valid, is_revealed =

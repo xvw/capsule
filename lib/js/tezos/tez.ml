@@ -15,3 +15,7 @@ let to_string tez = Format.asprintf "%a" pp tez
 let encoding =
   let open Data_encoding in
   conv to_z of_mutez z
+
+let max x y = Z.max x y
+let plus = Z.add
+let ( + ) = plus
