@@ -361,14 +361,10 @@ code {
 
 .standard-dapp .transfer-fill-address {
   border: 2px solid var(--layout-font-color);
-  border: px solid transparent;
   color: #111;
   padding: 4px 8px;
   display: flex;
   flex-direction: rows;
-}
-
-.standard-dapp .transfer-fill-address > div {
 }
 
 .standard-dapp .transfer-fill-address .transfer-input-address {
@@ -385,6 +381,70 @@ code {
 
 .standard-dapp .transfer-fill-address .transfer-input-address > input:focus {
   outline: none;
+}
+
+.standard-dapp .transfer-fill-amount {
+  border: 2px solid var(--layout-font-color);
+  border-top: 0px solid transparent;
+  color: #111;
+  padding: 4px 8px;
+  display: flex;
+  flex-direction: rows;
+}
+
+.standard-dapp .transfer-fill-amount .transfer-input-amount {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+.standard-dapp .transfer-fill-amount .transfer-input-amount > input {
+  background-color: transparent;
+  border: 0px solid transparent;
+  font-family: var(--mono-font);
+  font-size: 120%;
+  flex: 1;
+  text-align: right;
+}
+
+.standard-dapp .transfer-fill-amount .transfer-input-amount::after {
+  content: "ꜩ";
+  margin: 0 12px;
+  font-weight: 700;
+}
+
+.standard-dapp .transfer-fill-amount .transfer-input-amount > input:focus {
+  outline: none;
+}
+
+.standard-dapp .transfer-fill-amount .transfer-input-base-fee {
+  display: flex;
+  flex-direction: row;
+}
+
+.standard-dapp .transfer-fill-amount .transfer-input-base-fee > div {
+  margin: 0 6px;
+  color: #666;
+}
+
+.standard-dapp
+  .transfer-fill-amount
+  .transfer-input-base-fee
+  > div:first-child {
+  margin: 0 0;
+}
+
+.standard-dapp .transfer-fill-amount .transfer-input-base-fee > div > label {
+  font-family: var(--mono-font);
+}
+
+.standard-dapp
+  .transfer-fill-amount
+  .transfer-input-base-fee
+  > div
+  > label::after {
+  content: "ꜩ";
+  font-family: var(--mono-font);
 }
 
 .standard-dapp .bottom {
@@ -428,5 +488,19 @@ code {
 
   .standard-dapp .connected-badge > .address {
     overflow: auto;
+  }
+
+  .standard-dapp .transfer-fill-amount {
+    flex-direction: column;
+    overflow: auto;
+  }
+
+  .standard-dapp .transfer-fill-amount .transfer-input-base-fee {
+    flex-direction: column;
+  }
+
+  .standard-dapp .transfer-fill-amount .transfer-input-base-fee > div {
+    display: flex;
+    flex-direction: row-reverse;
   }
 }

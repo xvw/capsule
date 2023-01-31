@@ -57,6 +57,9 @@ let make_stream ?(retention_policy = Restart 1.) ~network ~entrypoint ~on_chunk
             in
             read ()
           with exn -> (
+            let () = Console.(message log) "trapped exception" in
+            let () = Console.error exn in
+
             match retention_policy with
             | Raise handler -> handler exn
             | Restart delay ->

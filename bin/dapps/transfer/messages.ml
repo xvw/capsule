@@ -8,6 +8,7 @@ type t =
     }
   | Beacon_unsynced
   | Input_address_form of string
+  | Input_amount_form of string
   | Validated_address of {
         address : string
       ; is_valid : bool
@@ -30,5 +31,6 @@ let validated_address address result =
 
 let beacon_unsynced () = Beacon_unsynced
 let input_address_form input_value = Input_address_form input_value
+let input_amount_form input_value = Input_amount_form input_value
 let new_head balance head = New_head { balance; head }
 let save_error error = Save_error error

@@ -55,6 +55,82 @@ let bottom_section account_info head =
         ]
     ]
 
+let amount_input_section balance (amount_value, _amount_tez, amount_valid) =
+  let open Vdom in
+  let open Vdom_html in
+  let minimal_fee = Tezos_js.Tez.(to_string @@ of_int 100) in
+  let fast_fee = Tezos_js.Tez.(to_string @@ of_int 150) in
+  let rocket_fee = Tezos_js.Tez.(to_string @@ of_int 200) in
+  let () =
+    Console.log
+      (if amount_valid then Js_of_ocaml.Js.string "true"
+      else Js_of_ocaml.Js.string "false")
+  in
+  div
+    ~a:[ class_ "transfer-fill-amount" ]
+    [
+      div
+        ~a:[ class_ "transfer-input-amount" ]
+        [
+          tez_input
+            ~min:Tezos_js.Tez.(of_int_in_tez 1)
+            ~max:balance
+            ~step:Tezos_js.Tez.(of_int_in_tez 1)
+            ~a:
+              [
+                placeholder "Montant du transfert"
+              ; value amount_value
+              ; oninput Messages.input_amount_form
+              ]
+            ()
+        ]
+    ; div
+        ~a:[ class_ "transfer-input-base-fee" ]
+        [
+          div
+            [
+              input
+                ~a:
+                  [
+                    type_ "radio"
+                  ; id "fee-minimal"
+                  ; value minimal_fee
+                  ; name "base-fee"
+                  ; checked
+                  ]
+                []
+            ; label ~a:[ for_ "fee-minimal" ] [ text minimal_fee ]
+            ]
+        ; div
+            [
+              input
+                ~a:
+                  [
+                    type_ "radio"
+                  ; id "fee-fast"
+                  ; value fast_fee
+                  ; name "base-fee"
+                  ]
+                []
+            ; label ~a:[ for_ "fee-fast" ] [ text fast_fee ]
+            ]
+        ; div
+            [
+              input
+                ~a:
+                  [
+                    type_ "radio"
+                  ; id "fee-rocket"
+                  ; value rocket_fee
+                  ; name "base-fee"
+                  ]
+                []
+            ; label ~a:[ for_ "fee-rocket" ] [ text rocket_fee ]
+            ]
+        ]
+    ; div [ text (if amount_valid then "✔" else "✖") ]
+    ]
+
 let transfer_input_section state =
   let open Vdom in
   let open Vdom_html in
@@ -82,11 +158,13 @@ let sync_view state =
   let open Vdom_html in
   let account_info = state.Model.account_info
   and balance = state.balance
+  and amount_form = state.amount_form
   and head = state.head in
   div
     [
       connected_badge Messages.beacon_unsync account_info.address balance
     ; transfer_input_section state
+    ; amount_input_section balance amount_form
     ; bottom_section account_info head
     ]
 

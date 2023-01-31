@@ -9,6 +9,7 @@ type synced_state = {
     account_info : Beacon_js.Account_info.t
   ; balance : Tezos_js.Tez.t
   ; address_form : address_form
+  ; amount_form : string * Tezos_js.Tez.t option * bool
   ; constants : Tezos_js.Constants.t
   ; head : Tezos_js.Monitored_head.t option
 }
@@ -27,6 +28,17 @@ let get_address { address_form; _ } =
   | Unknown x -> (x, true)
   | Revealed x -> (x, true)
 
+let init_sync account_info balance constants =
+  Sync
+    {
+      account_info
+    ; balance
+    ; address_form = Invalid ""
+    ; amount_form = ("", None, false)
+    ; head = None
+    ; constants
+    }
+
 let update_not_sync model = function
   | Messages.Beacon_sync ->
       Vdom.return model
@@ -39,18 +51,7 @@ let update_not_sync model = function
       let address = account_info.address in
       Vdom.return
         ~c:[ Commands.stream_head address Messages.new_head ]
-        {
-          model with
-          state =
-            Sync
-              {
-                account_info
-              ; balance
-              ; address_form = Invalid ""
-              ; head = None
-              ; constants
-              }
-        }
+        { model with state = init_sync account_info balance constants }
   | _ -> Vdom.return model
 
 let update_sync model state = function
@@ -64,6 +65,20 @@ let update_sync model state = function
           [
             Commands.validated_address value (Messages.validated_address value)
           ]
+  | Messages.Input_amount_form value ->
+      let amount = Tezos_js.Tez.of_string_in_tez value in
+      let flag = match amount with None -> false | Some _ -> true in
+      let () =
+        Console.(message log)
+          (Tezos_js.Tez.to_string
+          @@ Option.value ~default:Tezos_js.Tez.zero amount)
+      in
+      let () = Console.log amount in
+      Vdom.return
+        {
+          model with
+          state = Sync { state with amount_form = (value, amount, flag) }
+        }
   | Messages.Validated_address result ->
       let address_form =
         fill_address_form result.address result.is_valid result.is_revealed
@@ -103,15 +118,4 @@ let init client =
       let+ balance = relaxed_get_balance client address in
       Vdom.return
         ~c:[ Commands.stream_head address Messages.new_head ]
-        {
-          error = None
-        ; state =
-            Sync
-              {
-                account_info
-              ; balance
-              ; address_form = Invalid ""
-              ; head = None
-              ; constants
-              }
-        }
+        { error = None; state = init_sync account_info balance constants }

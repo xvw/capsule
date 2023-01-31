@@ -19,6 +19,17 @@ let mount container_id =
       let () = Commands.register client in
       let () = Js_browser.Element.remove_all_children root in
       let () =
+        let open Tezos_js in
+        let input =
+          Estimation.make_input
+            ~base_fee:(Tez.of_mutez @@ Z.of_int 10000)
+            ~gas_limit:(Z.of_int 1101) ~storage_limit:Z.zero
+            ~operation_size:(Z.of_int 162) ()
+        in
+        let r = Estimation.compute input in
+        Console.(message log) (Format.asprintf "%a" Estimation.pp_output r)
+      in
+      let () =
         Vdom_blit.run app
         |> Vdom_blit.dom
         |> Js_browser.Element.append_child root

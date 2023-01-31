@@ -7,6 +7,7 @@ type synced_state = {
     account_info : Beacon_js.Account_info.t
   ; balance : Tezos_js.Tez.t
   ; address_form : address_form
+  ; amount_form : string * Tezos_js.Tez.t option * bool
   ; constants : Tezos_js.Constants.t
   ; head : Tezos_js.Monitored_head.t option
 }

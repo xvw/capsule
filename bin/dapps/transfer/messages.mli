@@ -8,6 +8,7 @@ type t =
     }
   | Beacon_unsynced
   | Input_address_form of string
+  | Input_amount_form of string
   | Validated_address of {
         address : string
       ; is_valid : bool
@@ -28,5 +29,6 @@ val validated_address : string -> (bool, 'a) result -> t
 val beacon_unsync : _ -> t
 val beacon_unsynced : unit -> t
 val input_address_form : string -> t
+val input_amount_form : string -> t
 val new_head : Tezos_js.Tez.t -> Tezos_js.Monitored_head.t -> t
 val save_error : string -> t
