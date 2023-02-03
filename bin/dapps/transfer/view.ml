@@ -58,24 +58,16 @@ let bottom_section account_info head =
 let amount_input_section balance (amount_value, _amount_tez, amount_valid) =
   let open Vdom in
   let open Vdom_html in
-  let minimal_fee = Tezos_js.Tez.(to_string @@ of_int 100) in
-  let fast_fee = Tezos_js.Tez.(to_string @@ of_int 150) in
-  let rocket_fee = Tezos_js.Tez.(to_string @@ of_int 200) in
-  let () =
-    Console.log
-      (if amount_valid then Js_of_ocaml.Js.string "true"
-      else Js_of_ocaml.Js.string "false")
-  in
+  let minimal_fee = Tezos_js.Tez.(to_string @@ Micro.from_int' 100) in
+  let fast_fee = Tezos_js.Tez.(to_string @@ Micro.from_int' 150) in
+  let rocket_fee = Tezos_js.Tez.(to_string @@ Micro.from_int' 200) in
   div
     ~a:[ class_ "transfer-fill-amount" ]
     [
       div
         ~a:[ class_ "transfer-input-amount" ]
         [
-          tez_input
-            ~min:Tezos_js.Tez.(of_int_in_tez 1)
-            ~max:balance
-            ~step:Tezos_js.Tez.(of_int_in_tez 1)
+          tez_input ~min:Tezos_js.Tez.one ~max:balance ~step:Tezos_js.Tez.one
             ~a:
               [
                 placeholder "Montant du transfert"

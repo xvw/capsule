@@ -22,7 +22,7 @@ let mount container_id =
         let open Tezos_js in
         let input =
           Estimation.make_input
-            ~base_fee:(Tez.of_mutez @@ Z.of_int 10000)
+            ~base_fee:(Tez.Micro.from_int' 10000)
             ~gas_limit:(Z.of_int 1101) ~storage_limit:Z.zero
             ~operation_size:(Z.of_int 162) ()
         in

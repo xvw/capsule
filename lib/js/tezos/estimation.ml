@@ -1,8 +1,8 @@
 let z_hundred = Z.of_int 100
-let default_minimal_fee = Tez.of_mutez z_hundred
-let default_minimal_fee_per_byte = Tez.of_mutez @@ Z.of_int 1
-let default_cost_per_byte = Tez.of_mutez @@ Z.of_int 250
-let default_minimal_fee_ber_gas = Tez.of_mutez @@ Z.of_float 0.1
+let default_minimal_fee = Tez.Micro.from_int' 100
+let default_minimal_fee_per_byte = Tez.Micro.from_int' 1
+let default_cost_per_byte = Tez.Micro.from_int' 250
+let default_minimal_fee_ber_gas = Tez.Nano.from_int' 100
 let default_gas_buffer = z_hundred
 
 type input = {
@@ -30,7 +30,7 @@ let make_input ?(base_fee = default_minimal_fee) ~gas_limit ~storage_limit
   { gas_limit; storage_limit; operation_size; base_fee }
 
 let compute_burn_fee ?(cost_per_byte = default_cost_per_byte) input =
-  Z.(Tez.to_z cost_per_byte * storage_limit input) |> Tez.of_mutez
+  Z.(Tez.to_z cost_per_byte * storage_limit input) |> Tez.Micro.from_z'
 
 let compute_operation_fee ?gas_buffer
     ?(fee_per_gas = default_minimal_fee_ber_gas)
@@ -45,14 +45,14 @@ let compute_minimal_fee ?(minimal_fee = default_minimal_fee) ?gas_buffer
   Z.(
     compute_operation_fee ?gas_buffer ?fee_per_gas ?fee_per_byte input
     + Tez.to_z minimal_fee)
-  |> Tez.of_mutez
+  |> Tez.Micro.from_z'
 
 let compute_suggested_fee ?(minimal_fee = default_minimal_fee) ?gas_buffer
     ?fee_per_gas ?fee_per_byte input =
   Z.(
     compute_operation_fee ?gas_buffer ?fee_per_gas ?fee_per_byte input
     + (Tez.to_z minimal_fee * Z.of_int 2))
-  |> Tez.of_mutez
+  |> Tez.Micro.from_z'
 
 let compute_total ?minimal_fee ?gas_buffer ?fee_per_gas ?fee_per_byte
     ?cost_per_byte input =

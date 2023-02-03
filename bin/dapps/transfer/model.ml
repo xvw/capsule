@@ -66,14 +66,8 @@ let update_sync model state = function
             Commands.validated_address value (Messages.validated_address value)
           ]
   | Messages.Input_amount_form value ->
-      let amount = Tezos_js.Tez.of_string_in_tez value in
+      let amount = Tezos_js.Tez.from_string value in
       let flag = match amount with None -> false | Some _ -> true in
-      let () =
-        Console.(message log)
-          (Tezos_js.Tez.to_string
-          @@ Option.value ~default:Tezos_js.Tez.zero amount)
-      in
-      let () = Console.log amount in
       Vdom.return
         {
           model with
