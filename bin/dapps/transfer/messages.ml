@@ -1,3 +1,5 @@
+type base_fee = First | Second | Third
+
 type t =
   | Beacon_sync
   | Beacon_unsync
@@ -7,6 +9,7 @@ type t =
       ; constants : Tezos_js.Constants.t
     }
   | Beacon_unsynced
+  | Change_base_fee of base_fee
   | Input_address_form of string
   | Input_amount_form of string
   | Validated_address of {
@@ -34,3 +37,4 @@ let input_address_form input_value = Input_address_form input_value
 let input_amount_form input_value = Input_amount_form input_value
 let new_head balance head = New_head { balance; head }
 let save_error error = Save_error error
+let change_base_fee value = Change_base_fee value

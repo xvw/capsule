@@ -15,7 +15,7 @@ let not_sync_view =
     [
       button
         ~a:[ onclick Messages.beacon_sync; class_ "connection-button" ]
-        [ text "connect wallet" ]
+        [ text "Connecter son Wallet" ]
     ]
 
 let connected_badge handler address balance =
@@ -55,19 +55,21 @@ let bottom_section account_info head =
         ]
     ]
 
-let amount_input_section balance (amount_value, _amount_tez, amount_valid) =
+let amount_input_section balance (amount_value, _amount_tez, amount_valid)
+    base_fee =
   let open Vdom in
   let open Vdom_html in
   let minimal_fee = Tezos_js.Tez.(to_string @@ Micro.from_int' 100) in
   let fast_fee = Tezos_js.Tez.(to_string @@ Micro.from_int' 150) in
   let rocket_fee = Tezos_js.Tez.(to_string @@ Micro.from_int' 200) in
+  let step = Tezos_js.Tez.Micro.from_int64' 500_000L in
   div
     ~a:[ class_ "transfer-fill-amount" ]
     [
       div
         ~a:[ class_ "transfer-input-amount" ]
         [
-          tez_input ~min:Tezos_js.Tez.one ~max:balance ~step:Tezos_js.Tez.one
+          tez_input ~min:step ~max:balance ~step
             ~a:
               [
                 placeholder "Montant du transfert"
@@ -83,13 +85,15 @@ let amount_input_section balance (amount_value, _amount_tez, amount_valid) =
             [
               input
                 ~a:
-                  [
-                    type_ "radio"
-                  ; id "fee-minimal"
-                  ; value minimal_fee
-                  ; name "base-fee"
-                  ; checked
-                  ]
+                  ([
+                     type_ "radio"
+                   ; id "fee-minimal"
+                   ; value minimal_fee
+                   ; name "base-fee"
+                   ; onchange_checked (fun _ ->
+                         Messages.Change_base_fee Messages.First)
+                   ]
+                  @ if base_fee = Messages.First then [ checked ] else [])
                 []
             ; label ~a:[ for_ "fee-minimal" ] [ text minimal_fee ]
             ]
@@ -97,12 +101,15 @@ let amount_input_section balance (amount_value, _amount_tez, amount_valid) =
             [
               input
                 ~a:
-                  [
-                    type_ "radio"
-                  ; id "fee-fast"
-                  ; value fast_fee
-                  ; name "base-fee"
-                  ]
+                  ([
+                     type_ "radio"
+                   ; id "fee-fast"
+                   ; value fast_fee
+                   ; name "base-fee"
+                   ; onchange_checked (fun _ ->
+                         Messages.Change_base_fee Messages.Second)
+                   ]
+                  @ if base_fee = Messages.Second then [ checked ] else [])
                 []
             ; label ~a:[ for_ "fee-fast" ] [ text fast_fee ]
             ]
@@ -110,12 +117,15 @@ let amount_input_section balance (amount_value, _amount_tez, amount_valid) =
             [
               input
                 ~a:
-                  [
-                    type_ "radio"
-                  ; id "fee-rocket"
-                  ; value rocket_fee
-                  ; name "base-fee"
-                  ]
+                  ([
+                     type_ "radio"
+                   ; id "fee-rocket"
+                   ; value rocket_fee
+                   ; name "base-fee"
+                   ; onchange_checked (fun _ ->
+                         Messages.Change_base_fee Messages.Third)
+                   ]
+                  @ if base_fee = Messages.Third then [ checked ] else [])
                 []
             ; label ~a:[ for_ "fee-rocket" ] [ text rocket_fee ]
             ]
@@ -146,6 +156,14 @@ let transfer_input_section state =
     ; div [ text (if is_valid_address then "✔" else "✖") ]
     ]
 
+let submit_button_section state =
+  let open Vdom in
+  let open Vdom_html in
+  let is_disabled = not (Model.can_perform_transfer state) in
+  div
+    ~a:[ class_ "submit-button-section" ]
+    [ button ~a:[ disabled is_disabled ] [ text "Effectuer le transfert" ] ]
+
 let sync_view state =
   let open Vdom_html in
   let account_info = state.Model.account_info
@@ -156,8 +174,9 @@ let sync_view state =
     [
       connected_badge Messages.beacon_unsync account_info.address balance
     ; transfer_input_section state
-    ; amount_input_section balance amount_form
+    ; amount_input_section balance amount_form state.base_fee
     ; bottom_section account_info head
+    ; submit_button_section state
     ]
 
 let state_view = function

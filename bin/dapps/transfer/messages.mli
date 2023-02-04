@@ -1,3 +1,5 @@
+type base_fee = First | Second | Third
+
 type t =
   | Beacon_sync
   | Beacon_unsync
@@ -7,6 +9,7 @@ type t =
       ; constants : Tezos_js.Constants.t
     }
   | Beacon_unsynced
+  | Change_base_fee of base_fee
   | Input_address_form of string
   | Input_amount_form of string
   | Validated_address of {
@@ -32,3 +35,4 @@ val input_address_form : string -> t
 val input_amount_form : string -> t
 val new_head : Tezos_js.Tez.t -> Tezos_js.Monitored_head.t -> t
 val save_error : string -> t
+val change_base_fee : base_fee -> t

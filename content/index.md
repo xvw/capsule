@@ -15,8 +15,7 @@ tags:
 toc: false
 indexes:
   - name: Technologies
-    synopsis:
-      Notes et projets plus-ou-moins organisées relatives à la technologie
+    synopsis: Notes et projets plus-ou-moins organisés relatifs à la technologie
       (incluant la programmation)
     links:
       - name: Bribes & Encodages

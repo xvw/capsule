@@ -464,6 +464,25 @@ code {
   margin-left: 10px;
 }
 
+.standard-dapp .submit-button-section {
+  margin-top: 32px;
+}
+
+.standard-dapp .submit-button-section button {
+  background-color: var(--layout-font-color);
+  border: 0px solid transparent;
+  color: #fff;
+  padding: 4px 8px;
+  cursor: link;
+}
+
+.standard-dapp .submit-button-section button:disabled,
+.standard-dapp .submit-button-section button[disabled] {
+  background-color: var(--layout-bg-rev-color);
+  color: #888;
+  cursor: not-allowed;
+}
+
 @media all and (max-width: 960px) {
   .container {
     padding: 20px;

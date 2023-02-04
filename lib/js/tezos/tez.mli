@@ -36,3 +36,7 @@ val to_string : t -> string
 val from_string : string -> t option
 val max : t -> t -> t
 val ( + ) : t -> t -> t
+val ( - ) : t -> t -> t option
+val ( -! ) : t -> t -> t
+val equal : t -> t -> bool
+val compare : t -> t -> int

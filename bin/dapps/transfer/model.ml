@@ -5,11 +5,19 @@ type address_form =
   | Unknown of Tezos_js.Address.t
   | Revealed of Tezos_js.Address.t
 
+type diagnosis =
+  | Header_not_reacheable
+  | Address_invalid
+  | Same_origin_address
+  | Invalid_amount
+  | Too_high_amount
+
 type synced_state = {
     account_info : Beacon_js.Account_info.t
   ; balance : Tezos_js.Tez.t
   ; address_form : address_form
   ; amount_form : string * Tezos_js.Tez.t option * bool
+  ; base_fee : Messages.base_fee
   ; constants : Tezos_js.Constants.t
   ; head : Tezos_js.Monitored_head.t option
 }
@@ -35,9 +43,37 @@ let init_sync account_info balance constants =
     ; balance
     ; address_form = Invalid ""
     ; amount_form = ("", None, false)
+    ; base_fee = Messages.First
     ; head = None
     ; constants
     }
+
+let transfer_diagnosis state =
+  let head_reacheable =
+    if Stdlib.Option.is_some state.head then [] else [ Header_not_reacheable ]
+  and address_valid =
+    match state.address_form with
+    | Invalid _ -> [ Address_invalid ]
+    | Unknown x | Revealed x ->
+        if String.equal x state.account_info.address then
+          [ Same_origin_address ]
+        else []
+  and amount_valid =
+    match state.amount_form with
+    | _, Some amount, _ ->
+        Option.fold
+          (fun () -> [ Too_high_amount ])
+          (fun limit ->
+            if Tezos_js.Tez.compare amount limit > 0 then [ Too_high_amount ]
+            else [])
+          Tezos_js.Tez.(state.balance - from_int64' 2L)
+    | _ -> [ Invalid_amount ]
+  in
+
+  head_reacheable @ address_valid @ amount_valid
+
+let can_perform_transfer state =
+  match transfer_diagnosis state with [] -> true | _ -> false
 
 let update_not_sync model = function
   | Messages.Beacon_sync ->
@@ -81,6 +117,8 @@ let update_sync model state = function
   | Messages.New_head { balance; head } ->
       Vdom.return
         { model with state = Sync { state with balance; head = Some head } }
+  | Messages.Change_base_fee value ->
+      Vdom.return { model with state = Sync { state with base_fee = value } }
   | _ -> Vdom.return model
 
 let update model = function

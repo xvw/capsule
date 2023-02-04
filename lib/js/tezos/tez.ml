@@ -87,3 +87,11 @@ let from_string x =
   | _ -> None
 
 let ( + ) = Int64.add
+
+let ( - ) x y =
+  let res = Int64.sub x y in
+  if Int64.compare res 0L < 0 then None else Some res
+
+let ( -! ) = Int64.sub
+let equal = Int64.equal
+let compare = Int64.compare
