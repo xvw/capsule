@@ -539,4 +539,10 @@ code {
     display: flex;
     flex-direction: row-reverse;
   }
+
+  .address-meta > .kv > div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 6px;
+  }
 }
