@@ -11,15 +11,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build
+      - name: Hell
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19
+
+      - name: YOCaml
         uses: ocaml/setup-ocaml@v2
         with:
           ocaml-compiler: 4.14.x
           opam-depext-flags: --with-test
 
+      - run: (cd hell; npm install; npm run build)
       - run: opam install . --deps-only --with-doc --with-test
       - run: opam install yocaml
       - run: opam install yocaml_unix yocaml_yaml yocaml_jingoo
+      - run: opam exec -- dune build
       - run: opam exec -- dune exec bin/capsule.exe -- build
 
       - name: Deploy
