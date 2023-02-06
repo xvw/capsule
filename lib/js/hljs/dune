@@ -1,0 +1,6 @@
+(library
+  (name hljs_js)
+  (libraries lwt)
+  (modules_without_implementation bindings)
+  (modes byte)
+  (preprocess (pps js_of_ocaml-ppx)))

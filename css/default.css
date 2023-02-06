@@ -251,6 +251,10 @@ article blockquote {
   border-top: 1px solid var(--layout-bg-rev-color);
 }
 
+.indexes > div:last-child {
+  border-bottom: 0px solid transparent;
+}
+
 .indexes > div > h1 {
   margin: 0;
   font-family: var(--sans-serif-font);
@@ -258,6 +262,7 @@ article blockquote {
 
 .indexes > div > p {
   margin: 0;
+  font-weight: 100;
 }
 
 .indexes > div > nav > ol {
@@ -294,6 +299,196 @@ code {
   font-family: var(--mono-font);
 }
 
+.dapp {
+  margin: 64px 0;
+}
+
+.standard-dapp {
+  font-family: var(--sans-serif-font);
+}
+
+.standard-dapp button {
+  cursor: pointer;
+}
+
+.standard-dapp .not-connected {
+  display: flex;
+  justify-content: center;
+}
+
+.standard-dapp .connected-badge {
+  display: flex;
+  flex-direction: row;
+  border: 2px solid var(--layout-font-color);
+  border-bottom: 0px solid transparent;
+}
+
+.standard-dapp .connected-badge > div {
+  padding: 4px 8px;
+  font-family: var(--mono-font);
+}
+
+.standard-dapp .connected-badge > .address {
+  flex: 1;
+}
+
+.standard-dapp .connected-badge > .tez {
+  border-right: 2px solid var(--layout-font-color);
+}
+
+.standard-dapp .connected-badge > .tez::after {
+  content: "ꜩ";
+  maring-left: 4px;
+  font-family: var(--mono-font);
+}
+
+.standard-dapp .connected-badge > .disconnection {
+  background-color: var(--layout-font-color);
+}
+
+.standard-dapp .connection-button {
+  background-color: var(--layout-font-color);
+  border: 0px solid transparent;
+  color: #fff;
+  padding: 4px 8px;
+}
+
+.standard-dapp .connected-badge > .disconnection button {
+  background-color: transparent;
+  border: 0px solid transparent;
+  color: #fff;
+}
+
+.standard-dapp .transfer-fill-address {
+  border: 2px solid var(--layout-font-color);
+  color: #111;
+  padding: 4px 8px;
+  display: flex;
+  flex-direction: rows;
+}
+
+.standard-dapp .transfer-fill-address .transfer-input-address {
+  flex: 1;
+}
+
+.standard-dapp .transfer-fill-address .transfer-input-address > input {
+  width: 100%;
+  background-color: transparent;
+  border: 0px solid transparent;
+  font-family: var(--mono-font);
+  font-size: 120%;
+}
+
+.standard-dapp .transfer-fill-address .transfer-input-address > input:focus {
+  outline: none;
+}
+
+.standard-dapp .transfer-fill-amount {
+  border: 2px solid var(--layout-font-color);
+  border-top: 0px solid transparent;
+  color: #111;
+  padding: 4px 8px;
+  display: flex;
+  flex-direction: rows;
+}
+
+.standard-dapp .transfer-fill-amount .transfer-input-amount {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+.standard-dapp .transfer-fill-amount .transfer-input-amount > input {
+  background-color: transparent;
+  border: 0px solid transparent;
+  font-family: var(--mono-font);
+  font-size: 120%;
+  flex: 1;
+  text-align: right;
+}
+
+.standard-dapp .transfer-fill-amount .transfer-input-amount::after {
+  content: "ꜩ";
+  margin: 0 12px;
+  font-weight: 700;
+}
+
+.standard-dapp .transfer-fill-amount .transfer-input-amount > input:focus {
+  outline: none;
+}
+
+.standard-dapp .transfer-fill-amount .transfer-input-base-fee {
+  display: flex;
+  flex-direction: row;
+}
+
+.standard-dapp .transfer-fill-amount .transfer-input-base-fee > div {
+  margin: 0 6px;
+  color: #666;
+}
+
+.standard-dapp
+  .transfer-fill-amount
+  .transfer-input-base-fee
+  > div:first-child {
+  margin: 0 0;
+}
+
+.standard-dapp .transfer-fill-amount .transfer-input-base-fee > div > label {
+  font-family: var(--mono-font);
+}
+
+.standard-dapp
+  .transfer-fill-amount
+  .transfer-input-base-fee
+  > div
+  > label::after {
+  content: "ꜩ";
+  font-family: var(--mono-font);
+}
+
+.standard-dapp .bottom {
+  font-size: 86%;
+  padding: 4px 0px;
+  color: #111;
+  display: flex;
+  flex-direction: row;
+}
+
+.standard-dapp .bottom .network {
+  font-weight: 600;
+}
+
+.standard-dapp .bottom .tezos-head {
+  font-family: var(--mono-font);
+  margin-left: 10px;
+}
+
+.standard-dapp .submit-button-section {
+  margin-top: 32px;
+}
+
+.standard-dapp .submit-button-section button {
+  background-color: var(--layout-font-color);
+  border: 0px solid transparent;
+  color: #fff;
+  padding: 4px 8px;
+  cursor: link;
+}
+
+.standard-dapp .submit-button-section button:disabled,
+.standard-dapp .submit-button-section button[disabled] {
+  background-color: var(--layout-bg-rev-color);
+  color: #888;
+  cursor: not-allowed;
+}
+
+.standard-dapp .await-block {
+  border: 2px solid var(--layout-font-color);
+  color: #111;
+  padding: 4px 8px;
+}
+
 @media all and (max-width: 960px) {
   .container {
     padding: 20px;
@@ -305,5 +500,32 @@ code {
 
   footer {
     text-align: center;
+  }
+
+  .standard-dapp .connected-badge {
+    flex-direction: column;
+  }
+
+  .standard-dapp .connected-badge > .tez {
+    border-right: 0px solid var(--layout-font-color);
+    border-bottom: 2px solid var(--layout-font-color);
+  }
+
+  .standard-dapp .connected-badge > .address {
+    overflow: auto;
+  }
+
+  .standard-dapp .transfer-fill-amount {
+    flex-direction: column;
+    overflow: auto;
+  }
+
+  .standard-dapp .transfer-fill-amount .transfer-input-base-fee {
+    flex-direction: column;
+  }
+
+  .standard-dapp .transfer-fill-amount .transfer-input-base-fee > div {
+    display: flex;
+    flex-direction: row-reverse;
   }
 }

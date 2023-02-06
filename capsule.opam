@@ -23,6 +23,13 @@ depends: [
   "logs" {>= "0.7.0" }
   "cmdliner" { >= "1.0.0"}
   "omd" { >= "2.0.0~alpha2" }
+  "js_of_ocaml-compiler" {>= "4.1.0"}
+  "js_of_ocaml-ppx" {>= "4.1.0"}
+  "js_of_ocaml-lwt" {>= "4.1.0"}
+  "promise_jsoo"
+  "ocaml-vdom"
+  "data-encoding"
+  "tezos-base58"
   "preface" { >= "1.0.0"}
   "yocaml" {pinned}
   "yocaml_unix" {pinned}

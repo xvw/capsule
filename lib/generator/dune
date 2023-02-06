@@ -1,0 +1,3 @@
+(library
+ (name generator)
+ (libraries preface yocaml yocaml_jingoo omd yocaml_yaml))
