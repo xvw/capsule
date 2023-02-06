@@ -447,6 +447,17 @@ code {
   font-family: var(--mono-font);
 }
 
+.standard-dapp .transfer-fill-address > .filler {
+  padding: 0 32px;
+}
+
+.standard-dapp .transfer-fill-address > .filler button {
+  background-color: transparent;
+  border: 0px solid transparent;
+  color: #111;
+  padding: 0;
+}
+
 .standard-dapp .bottom {
   font-size: 86%;
   padding: 4px 0px;

@@ -131,6 +131,18 @@ let update_sync model state = function
                 Messages.Await_transfer)
           ]
   | Messages.Await_transfer -> Vdom.return { model with state = Await state }
+  | Messages.Fill_address ->
+      let my_address = "tz1gptNykuiTaYvGECzLNPDbZ9ybcQxwHhD4" in
+      Vdom.return
+        {
+          model with
+          state = Sync { state with address_form = Invalid my_address }
+        }
+        ~c:
+          [
+            Commands.validated_address my_address
+              (Messages.validated_address my_address)
+          ]
   | _ -> Vdom.return model
 
 let update_await model state = function

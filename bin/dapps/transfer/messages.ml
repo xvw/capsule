@@ -19,6 +19,7 @@ type t =
     }
   | New_head of { balance : Tezos_js.Tez.t; head : Tezos_js.Monitored_head.t }
   | Transfer of { destination : Tezos_js.Address.t; amount : Tezos_js.Tez.t }
+  | Fill_address
   | Await_transfer
   | Save_error of string
 

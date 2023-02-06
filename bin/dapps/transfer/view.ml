@@ -97,6 +97,13 @@ let transfer_input_section state =
               ]
             []
         ]
+    ; div
+        ~a:[ class_ "filler" ]
+        [
+          button
+            ~a:[ onclick (fun _ -> Messages.Fill_address) ]
+            [ text "Utiliser mon adresse" ]
+        ]
     ; div [ text (if is_valid_address then "✔" else "✖") ]
     ]
 

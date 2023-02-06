@@ -37,6 +37,6 @@ Développer des **dApps** est, de mon point de vue, très amusant parce que la
 discipline impose la recherche (et l'expérimentation) de nouveaux _paradigmes de
 l'expérience utilisateur_ permettant, en plus, d'expérimenter des aspects
 sociaux et de financement alternatifs, notamment grâce à la présence, presque
-_invasive_, de la _cryptomonaie_. En complément, j'ai l'intime conviction que
+_invasive_, de la _cryptomonnaie_. En complément, j'ai l'intime conviction que
 c'est un très bon exercice parce qu'elle me force à être **consomateur d'un
 écosystème auquel je tâche de contribuer**.
