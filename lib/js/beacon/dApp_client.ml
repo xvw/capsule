@@ -33,6 +33,24 @@ let request_permissions ?network ?scopes client =
   as_lwt @@ client##requestPermissions options
   >|= Permission_response_output.from_js
 
+let request_transfer ~destination ~amount client =
+  let details =
+    object%js
+      val kind = Tezos_js.Operation_type.(TRANSACTION |> to_string |> Js.string)
+      val destination = Tezos_js.Address.(destination |> to_string |> Js.string)
+      val amount = Tezos_js.Tez.Micro.to_string amount |> Js.string
+    end
+  in
+  let input =
+    object%js
+      val operationDetails = Js.array [| details |]
+    end
+  in
+  let open Lwt.Infix in
+  as_lwt @@ client##requestOperation input >|= fun r ->
+  let _ = Console.log r in
+  ()
+
 let get_active_account client =
   let open Lwt.Infix in
   as_lwt @@ client##getActiveAccount

@@ -13,6 +13,9 @@ let request_permissions ?scopes { dapp_client; network } =
   let network = Network.from_tezos_network network in
   DApp_client.request_permissions ~network ?scopes dapp_client
 
+let request_transfer ~destination ~amount { dapp_client; _ } =
+  DApp_client.request_transfer ~destination ~amount dapp_client
+
 let get_active_account { dapp_client; _ } =
   DApp_client.get_active_account dapp_client
 

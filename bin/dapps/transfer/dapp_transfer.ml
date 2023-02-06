@@ -1,7 +1,7 @@
 open Js_of_ocaml
 open Core_js
 
-let network = Tezos_js.Network.Nodes.Ghostnet.ecadlabs
+let network = Tezos_js.Network.Nodes.Mainnet.ecadlabs
 let name = "Transfer"
 
 let mount container_id =

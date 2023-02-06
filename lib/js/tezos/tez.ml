@@ -23,6 +23,7 @@ module Micro = struct
   let from_int64' = Int64.mul one
   let from_int' x = from_int64' (Int64.of_int x)
   let from_z' x = from_int64' (Z.to_int64 x)
+  let to_string x = Int64.div x one |> Int64.to_string
 end
 
 let zero = 0L

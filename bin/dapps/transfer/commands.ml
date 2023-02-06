@@ -18,10 +18,18 @@ type 'message Vdom.Cmd.t +=
         address : string
       ; on_success : Tezos_js.Tez.t -> Tezos_js.Monitored_head.t -> 'message
     }
+  | Perform_transfer of {
+        destination : Tezos_js.Address.t
+      ; amount : Tezos_js.Tez.t
+      ; on_success : Tezos_js.Address.t -> Tezos_js.Tez.t -> 'message
+    }
 
 let beacon_sync on_success on_failure = Beacon_sync { on_success; on_failure }
 let beacon_unsync on_success = Beacon_unsync { on_success }
 let stream_head address on_success = Stream_head { address; on_success }
+
+let perform_transfer destination amount on_success =
+  Perform_transfer { destination; amount; on_success }
 
 let validated_address address on_success =
   Validate_address { address; on_success }
@@ -96,6 +104,11 @@ let perform_address_reveal client ctx address on_success () =
   in
   Vdom_blit.Cmd.send_msg ctx (on_success result)
 
+let perform_perform_transfer client ctx destination amount on_success () =
+  let open Lwt_util in
+  let+ () = Beacon_js.Client.request_transfer ~destination ~amount client in
+  Vdom_blit.Cmd.send_msg ctx (on_success destination amount)
+
 let register client =
   let open Vdom_blit in
   let handler =
@@ -128,6 +141,14 @@ let register client =
               let () =
                 Lwt.dont_wait
                   (perform_stream_head client ctx address on_success)
+                  Console.error
+              in
+              true
+          | Perform_transfer { destination; amount; on_success } ->
+              let () =
+                Lwt.dont_wait
+                  (perform_perform_transfer client ctx destination amount
+                     on_success)
                   Console.error
               in
               true

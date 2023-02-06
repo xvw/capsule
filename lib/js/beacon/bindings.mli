@@ -69,6 +69,24 @@ class type blockExplorer =
       js_string t -> network t -> js_string t promise meth
   end
 
+class type partialOperation =
+  object
+    method kind : js_string t readonly_prop
+    method destination : js_string t readonly_prop
+    method amount : js_string t readonly_prop
+  end
+
+class type requestOperationInput =
+  object
+    method operationDetails : partialOperation t js_array t readonly_prop
+  end
+
+class type operationResponse =
+  object
+    inherit baseMessage
+    method transactionHash : js_string t readonly_prop
+  end
+
 class type dAppClientOptions =
   object
     method name : js_string t readonly_prop
@@ -85,6 +103,9 @@ class type dAppClient =
 
     method requestPermissions :
       requestPermissionInput t -> permissionResponseOutput t promise meth
+
+    method requestOperation :
+      requestOperationInput t -> operationResponse t promise meth
 
     method getActiveAccount : accountInfo t or_undefined promise meth
     method clearActiveAccount : unit promise meth

@@ -483,6 +483,12 @@ code {
   cursor: not-allowed;
 }
 
+.standard-dapp .await-block {
+  border: 2px solid var(--layout-font-color);
+  color: #111;
+  padding: 4px 8px;
+}
+
 @media all and (max-width: 960px) {
   .container {
     padding: 20px;

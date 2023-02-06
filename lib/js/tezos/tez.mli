@@ -17,6 +17,7 @@ module Micro : sig
   val from_int' : int -> t
   val from_int64' : int64 -> t
   val from_z' : Z.t -> t
+  val to_string : t -> string
   val one : t
 end
 

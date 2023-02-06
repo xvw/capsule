@@ -18,6 +18,8 @@ type t =
       ; is_revealed : bool
     }
   | New_head of { balance : Tezos_js.Tez.t; head : Tezos_js.Monitored_head.t }
+  | Transfer of { destination : Tezos_js.Address.t; amount : Tezos_js.Tez.t }
+  | Await_transfer
   | Save_error of string
 
 let beacon_sync _ = Beacon_sync
@@ -38,3 +40,4 @@ let input_amount_form input_value = Input_amount_form input_value
 let new_head balance head = New_head { balance; head }
 let save_error error = Save_error error
 let change_base_fee value = Change_base_fee value
+let transfer destination amount = Transfer { destination; amount }

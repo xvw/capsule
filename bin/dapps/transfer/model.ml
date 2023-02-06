@@ -22,7 +22,7 @@ type synced_state = {
   ; head : Tezos_js.Monitored_head.t option
 }
 
-type state = Not_sync | Sync of synced_state
+type state = Not_sync | Sync of synced_state | Await of synced_state
 type t = { error : string option; state : state }
 
 let fill_address_form address is_valid is_revealed =
@@ -51,29 +51,32 @@ let init_sync account_info balance constants =
 let transfer_diagnosis state =
   let head_reacheable =
     if Stdlib.Option.is_some state.head then [] else [ Header_not_reacheable ]
-  and address_valid =
+  and destination, address_valid =
     match state.address_form with
-    | Invalid _ -> [ Address_invalid ]
+    | Invalid x -> (x, [ Address_invalid ])
     | Unknown x | Revealed x ->
         if String.equal x state.account_info.address then
-          [ Same_origin_address ]
-        else []
-  and amount_valid =
+          (x, [ Same_origin_address ])
+        else (x, [])
+  and amount, amount_valid =
     match state.amount_form with
     | _, Some amount, _ ->
         Option.fold
-          (fun () -> [ Too_high_amount ])
+          (fun () -> (Tezos_js.Tez.zero, [ Too_high_amount ]))
           (fun limit ->
-            if Tezos_js.Tez.compare amount limit > 0 then [ Too_high_amount ]
-            else [])
+            if Tezos_js.Tez.compare amount limit > 0 then
+              (Tezos_js.Tez.zero, [ Too_high_amount ])
+            else (amount, []))
           Tezos_js.Tez.(state.balance - from_int64' 2L)
-    | _ -> [ Invalid_amount ]
+    | _ -> (Tezos_js.Tez.zero, [ Invalid_amount ])
   in
 
-  head_reacheable @ address_valid @ amount_valid
+  match head_reacheable @ address_valid @ amount_valid with
+  | [] -> Ok (destination, amount)
+  | errs -> Error errs
 
 let can_perform_transfer state =
-  match transfer_diagnosis state with [] -> true | _ -> false
+  match transfer_diagnosis state with Ok _ -> true | _ -> false
 
 let update_not_sync model = function
   | Messages.Beacon_sync ->
@@ -119,6 +122,27 @@ let update_sync model state = function
         { model with state = Sync { state with balance; head = Some head } }
   | Messages.Change_base_fee value ->
       Vdom.return { model with state = Sync { state with base_fee = value } }
+  | Messages.Transfer { destination; amount } ->
+      let _ = Console.(message log) (Tezos_js.Tez.Micro.to_string amount) in
+      Vdom.return model
+        ~c:
+          [
+            Commands.perform_transfer destination amount (fun _ _ ->
+                Messages.Await_transfer)
+          ]
+  | Messages.Await_transfer -> Vdom.return { model with state = Await state }
+  | _ -> Vdom.return model
+
+let update_await model state = function
+  | Messages.New_head _ as message ->
+      update_sync model
+        {
+          state with
+          address_form = Invalid ""
+        ; amount_form = ("", None, false)
+        ; base_fee = Messages.First
+        }
+        message
   | _ -> Vdom.return model
 
 let update model = function
@@ -127,7 +151,8 @@ let update model = function
       let model = { model with error = None } in
       match model.state with
       | Not_sync -> update_not_sync model message
-      | Sync state -> update_sync model state message)
+      | Sync state -> update_sync model state message
+      | Await state -> update_await model state message)
 
 let relaxed_get_balance client address =
   let open Lwt_util in

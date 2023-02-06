@@ -13,6 +13,12 @@ val validated_address :
   -> ((bool, Tezos_js.Address.error) result -> 'message)
   -> 'message Vdom.Cmd.t
 
+val perform_transfer :
+     Tezos_js.Address.t
+  -> Tezos_js.Tez.t
+  -> (Tezos_js.Address.t -> Tezos_js.Tez.t -> 'message)
+  -> 'message Vdom.Cmd.t
+
 val stream_head :
      Tezos_js.Address.t
   -> (Tezos_js.Tez.t -> Tezos_js.Monitored_head.t -> 'message)

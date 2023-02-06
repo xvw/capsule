@@ -55,13 +55,9 @@ let bottom_section account_info head =
         ]
     ]
 
-let amount_input_section balance (amount_value, _amount_tez, amount_valid)
-    base_fee =
+let amount_input_section balance (amount_value, _amount_tez, amount_valid) =
   let open Vdom in
   let open Vdom_html in
-  let minimal_fee = Tezos_js.Tez.(to_string @@ Micro.from_int' 100) in
-  let fast_fee = Tezos_js.Tez.(to_string @@ Micro.from_int' 150) in
-  let rocket_fee = Tezos_js.Tez.(to_string @@ Micro.from_int' 200) in
   let step = Tezos_js.Tez.Micro.from_int64' 500_000L in
   div
     ~a:[ class_ "transfer-fill-amount" ]
@@ -77,58 +73,6 @@ let amount_input_section balance (amount_value, _amount_tez, amount_valid)
               ; oninput Messages.input_amount_form
               ]
             ()
-        ]
-    ; div
-        ~a:[ class_ "transfer-input-base-fee" ]
-        [
-          div
-            [
-              input
-                ~a:
-                  ([
-                     type_ "radio"
-                   ; id "fee-minimal"
-                   ; value minimal_fee
-                   ; name "base-fee"
-                   ; onchange_checked (fun _ ->
-                         Messages.Change_base_fee Messages.First)
-                   ]
-                  @ if base_fee = Messages.First then [ checked ] else [])
-                []
-            ; label ~a:[ for_ "fee-minimal" ] [ text minimal_fee ]
-            ]
-        ; div
-            [
-              input
-                ~a:
-                  ([
-                     type_ "radio"
-                   ; id "fee-fast"
-                   ; value fast_fee
-                   ; name "base-fee"
-                   ; onchange_checked (fun _ ->
-                         Messages.Change_base_fee Messages.Second)
-                   ]
-                  @ if base_fee = Messages.Second then [ checked ] else [])
-                []
-            ; label ~a:[ for_ "fee-fast" ] [ text fast_fee ]
-            ]
-        ; div
-            [
-              input
-                ~a:
-                  ([
-                     type_ "radio"
-                   ; id "fee-rocket"
-                   ; value rocket_fee
-                   ; name "base-fee"
-                   ; onchange_checked (fun _ ->
-                         Messages.Change_base_fee Messages.Third)
-                   ]
-                  @ if base_fee = Messages.Third then [ checked ] else [])
-                []
-            ; label ~a:[ for_ "fee-rocket" ] [ text rocket_fee ]
-            ]
         ]
     ; div [ text (if amount_valid then "✔" else "✖") ]
     ]
@@ -159,10 +103,18 @@ let transfer_input_section state =
 let submit_button_section state =
   let open Vdom in
   let open Vdom_html in
-  let is_disabled = not (Model.can_perform_transfer state) in
+  let diagnosis =
+    match Model.transfer_diagnosis state with
+    | Ok (destination, amount) ->
+        [
+          disabled false
+        ; onclick (fun _ -> Messages.transfer destination amount)
+        ]
+    | Error _ -> [ disabled true ]
+  in
   div
     ~a:[ class_ "submit-button-section" ]
-    [ button ~a:[ disabled is_disabled ] [ text "Effectuer le transfert" ] ]
+    [ button ~a:diagnosis [ text "Effectuer le transfert" ] ]
 
 let sync_view state =
   let open Vdom_html in
@@ -174,14 +126,28 @@ let sync_view state =
     [
       connected_badge Messages.beacon_unsync account_info.address balance
     ; transfer_input_section state
-    ; amount_input_section balance amount_form state.base_fee
+    ; amount_input_section balance amount_form
     ; bottom_section account_info head
     ; submit_button_section state
+    ]
+
+let await_view state =
+  let open Vdom in
+  let open Vdom_html in
+  let account_info = state.Model.account_info
+  and balance = state.balance
+  and head = state.head in
+  div
+    [
+      connected_badge Messages.beacon_unsync account_info.address balance
+    ; div ~a:[ class_ "await-block" ] [ text "Attente d'un nouveau block" ]
+    ; bottom_section account_info head
     ]
 
 let state_view = function
   | Model.Not_sync -> not_sync_view
   | Model.Sync state -> sync_view state
+  | Model.Await state -> await_view state
 
 let view model =
   Vdom_html.div @@ error_section model.Model.error @ [ state_view model.state ]

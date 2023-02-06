@@ -18,6 +18,8 @@ type t =
       ; is_revealed : bool
     }
   | New_head of { balance : Tezos_js.Tez.t; head : Tezos_js.Monitored_head.t }
+  | Transfer of { destination : Tezos_js.Address.t; amount : Tezos_js.Tez.t }
+  | Await_transfer
   | Save_error of string
 
 val beacon_sync : _ -> t
@@ -36,3 +38,4 @@ val input_amount_form : string -> t
 val new_head : Tezos_js.Tez.t -> Tezos_js.Monitored_head.t -> t
 val save_error : string -> t
 val change_base_fee : base_fee -> t
+val transfer : Tezos_js.Address.t -> Tezos_js.Tez.t -> t
