@@ -1,5 +1,5 @@
-(** A Work-in-progress binding of {{:https://docs.walletbeacon.io/} Beacon
-    Wallet}. *)
+(** A Work-in-progress binding of
+    {{:https://docs.walletbeacon.io/} Beacon Wallet}. *)
 
 open Js_of_ocaml
 open Js

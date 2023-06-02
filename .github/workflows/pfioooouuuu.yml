@@ -19,7 +19,7 @@ jobs:
       - name: YOCaml
         uses: ocaml/setup-ocaml@v2
         with:
-          ocaml-compiler: 4.14.x
+          ocaml-compiler: 5.0.0
           opam-depext-flags: --with-test
 
       - run: (cd hell; npm install; npm run build)

@@ -1,6 +1,15 @@
 (library
-  (name dapp_transfer)
-  (libraries preface lwt js_of_ocaml-lwt tezos_js core_js beacon_js ocaml-vdom vdom_html)
-  (modules_without_implementation interfaces)
-  (modes byte)
-  (preprocess (pps js_of_ocaml-ppx)))
+ (name dapp_transfer)
+ (libraries
+  preface
+  lwt
+  js_of_ocaml-lwt
+  tezos_js
+  core_js
+  beacon_js
+  ocaml-vdom
+  vdom_html)
+ (modules_without_implementation interfaces)
+ (modes byte)
+ (preprocess
+  (pps js_of_ocaml-ppx)))

@@ -12,7 +12,7 @@ switch_" by sequentially running these different commands (which assume that
 
 ```shellsession
 opam update
-opam switch create . ocaml-base-compiler.4.14.0 --deps-only -y
+opam switch create . ocaml-base-compiler.5.0.0 --deps-only -y
 eval $(opam env)
 ```
 
