@@ -20,6 +20,8 @@ indexes:
     links:
       - name: Bribes & Encodages
         href: /tricks.html
+      - name: Jeux vidéo
+        href: /games.html
       - name: Catalogue de dApps
         href: /dapps.html
   - name: Adresses

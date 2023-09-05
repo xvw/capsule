@@ -45,6 +45,10 @@ main p a {
   border-bottom: 1px dotted var(--regular-link-color);
 }
 
+a strong {
+  font-weight: 700;
+}
+
 main .table-of-contents a {
   color: var(--regular-link-color);
   text-decoration: unerline;
@@ -237,6 +241,56 @@ article h5 {
 
 article blockquote {
   font-weight: 100;
+}
+
+article table {
+  margin: 64px auto;
+  border-collapse: collapse;
+}
+
+article th {
+  background-color: var(--layout-bg-rev-color);
+}
+
+article th,
+article td {
+  border: 1px solid var(--layout-font-color);
+  padding: 0 12px;
+}
+
+article td:empty {
+  visibility: hidden;
+  border: 0 solid transparent;
+}
+
+article details {
+  padding: 0 8px;
+  cursor: pointer;
+  margin: 48px 0;
+  position: relative;
+}
+
+article details summary {
+  border-bottom: 4px solid var(--layout-bg-rev-color);
+  background-color: var(--layout-bg-color);
+  padding: 8px;
+  color: var(--regular-link-color);
+  font-family: var(--sans-serif-font);
+  position: sticky;
+  top: 0;
+  user-select: none;
+}
+
+article summary::before {
+  content: "Ouvrir ";
+}
+
+article details[open] summary::before {
+  content: "Fermer ";
+}
+
+article details summary article details table {
+  margin: 22px auto;
 }
 
 .indexes > div {
@@ -500,6 +554,11 @@ code {
   padding: 4px 8px;
 }
 
+.centered-fig {
+  display: block;
+  margin: auto;
+}
+
 @media all and (max-width: 960px) {
   .container {
     padding: 20px;
@@ -544,5 +603,9 @@ code {
     display: flex;
     flex-direction: column;
     margin-bottom: 6px;
+  }
+
+  .centered-fig {
+    width: 100%;
   }
 }
