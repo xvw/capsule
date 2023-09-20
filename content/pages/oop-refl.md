@@ -23,7 +23,7 @@ breadcrumb:
 
 Les _défenseurs_ de la **programmation orientée objets** défendent souvent cette
 dernière en affirmant que c'est "_la manière normale de raisonner (sur)
-l'ensemble des objets du métier_" et qu'elle permet de modèliser efficacement
+l'ensemble des objets du métier_" et qu'elle permet de modéliser efficacement
 l'ensemble des structures de données de manière uniforme. Pourtant, beaucoup de
 critiques sont parfois formulées à l'encontre de cette approche ("_beaucoup_"
 est à prendre avec des pincettes car l'OOP est encore et toujours l'approche la
@@ -49,7 +49,7 @@ On rend `MyClass` générique en admettant que la variable de type `T` est un
 sous-type de `S`. Le problème est que la contrainte agit **sur toute la
 classe**. Pourtant, parfois, nous voudrions pouvoir n'avoir des contraintes
 que **sur certaines méthodes**. Par exemple, admettons que nous ayons une
-classe `MyList` décrivant une liste:
+classe `MyList` décrivant une liste :
 
 ```java
 class MyList<A> extends ArrayList<A> {
@@ -82,10 +82,10 @@ class MyList<A> extends ArrayList<A> {
 }
 ```
 
-Cette approche fonctionne et ne nécéssite pas de cérémonie particulière par
-contre, elle force le développeur à garder en tête les méthodes présentent dans
+Cette approche fonctionne et ne nécessite pas de cérémonie particulière par
+contre, elle force le développeur à garder en tête les méthodes présentes dans
 le corps de la classe et dans son contexte statique. En plus, cela casse
-l'approche systématique de l'envoi de message à une instance (souvent présentée
+l'approche systématique de l'envoi de messages à une instance (souvent présentée
 comme un des arguments en faveur de la programmation orientée objets).
 
 ### Les méthodes d'extension
@@ -96,7 +96,7 @@ d'extension](https://kotlinlang.org/docs/extensions.html) qui, en plus de
 permettre **l'extension d'une classe déjà existante** (ce qui peut être très
 pratique pour ajouter du comportement à la classe `String` qui, en Java, est
 finale), permet plus de finesse dans la définition du _receveur_. Nous
-pourrions, par exemple, écrire `flatten` de cette manière (en Kotlin):
+pourrions, par exemple, écrire `flatten` de cette manière (en Kotlin) :
 
 ```kotlin
 class MyList<A> : ArrayList<A> { ... }
@@ -104,8 +104,8 @@ fun <A> MyList<MyList<A>>.flatten() = ...
 ```
 
 Même si la solution semble proche de la perfection, elle impose tout de même la
-définition de la méthodes **en dehors de la classe** ce qui pourrait
-potentiellement impliquer de devoir rendre certaines membres de la classe
+définition de la méthode **en dehors de la classe** ce qui pourrait
+potentiellement impliquer de devoir rendre certains membres de la classe
 _publiques_ en vue d'être exploitable par une extension. Cependant elles
 permettent tout de même **de garder l'approche systèmatique de l'envoi de
 messages tout en offrant la possibilité de qualifier plus finement le
@@ -115,7 +115,7 @@ receveur**.
 
 La dernière approche est probablement la plus idéologique car elle ne sort pas
 la définition de la méthode en dehors de la classe. Elle ne force donc pas
-d'abstractions échappée. Il s'agit des **méthodes gardées**, soit la possibilité
+d'abstractions échappées. Il s'agit des **méthodes gardées**, soit la possibilité
 d'ajouter, au niveau de la définition de la méthode, des contraintes sur le
 paramètre générique. Dans une syntaxe **imaginaire** (ce code compile parce
 qu'il n'est pas syntaxiquement faux par contre, il ne produit pas l'effet
@@ -131,16 +131,16 @@ class MyList<A> : ArrayList<A>() {
 
 Même si ça ne semble pas sensiblement différent des méthodes d'extensions
 classiques (pour preuve, la syntaxe de ces dernières, mais **dans le corps de la
-classe** semble suffire), on corrige tous les soucis révélés précédemment:
+classe** semble suffire), on corrige tous les soucis révélés précédemment :
 
 - on peut caractériser plus finement que dans une méthode _normale_ le receveur
 - on ne casse pas l'envoi de messages réguliers
-- on bénéficie toujours des membres disponnibles (donc on n'échappe pas de
+- on bénéficie toujours des membres disponibles (donc on n'échappe pas de
   représentations)
 
-Même si les méthodes gardées semblent être nécéssaires, je ne connais
+Même si les méthodes gardées semblent être nécessaires, je ne connais
 malheureusement pas de langages _mainstream_ qui permettent leur définition.
-Voila qui est très triste. Heureusement, en OCaml, il est possible de les
+Voilà qui est très triste. Heureusement, en OCaml, il est possible de les
 _encoder_.
 
 ### La symétrie OOP/FP : théorie et pratique
@@ -154,7 +154,7 @@ Scherer](http://gallium.inria.fr/~scherer/).
 
 Je recommande cette présentation qui présente une **symétrie** entre les outils
 de la programmation fonctionnelle statiquement typée et la programmation
-orientée objets. Même si cette symétrie à éte de très nombreuse fois observée et
+orientée objets. Même si cette symétrie à été de très nombreuses fois observée et
 étudiée, la présentation est exhaustive et accessible (et relativement peu
 biaisée, posant les avantages et inconvénients des deux approches).
 Malheureusement non couvertes pendant la présentation (_le temps est souvent
@@ -175,7 +175,7 @@ let rec flatten : 'a list list -> 'a list = function
 
 Et l'implémentation d'une méthode `flatten` si nous étions dans le monde
 objet, posant exactement le problème introduit dans cette note. Soit quel
-type donner à `flatten`:
+type donner à `flatten` :
 
 ```ocaml
 class type ['a] olist = object
@@ -201,7 +201,7 @@ par deux types : `class ['a, 'b] t`.
 
 En complément, cette syntaxe permettrait aussi de définir des comportements spécifiques
 de manière élégante, par exemple, pour notre type `olist`, nous pourrions proposer
-une méthode `sum` si les habitants de la liste sont des entiers:
+une méthode `sum` si les habitants de la liste sont des entiers :
 
 ```ocaml
 class type ['a] olist = object
@@ -212,24 +212,24 @@ class type ['a] olist = object
 end
 ```
 
-Tout ceci semble extraordinaire, **malheureusement, cette syntaxe n'est pas disponnible**
-en OCaml. Voila qui est ennuyant ! Pas de panique, il est possible de **l'encoder**
+Tout ceci semble extraordinaire, **malheureusement, cette syntaxe n'est pas disponible**
+en OCaml. Voilà qui est ennuyant ! Pas de panique, il est possible de **l'encoder**
 au moyen de quelques petits outils.
 
 ## Méthodes gardées en OCaml
 
-> Même si j'avais une idée assez précises des outils à mettre en oeuvre dans
+> Même si j'avais une idée assez précise des outils à mettre en oeuvre dans
 > l'encodage des méthodes gardées, en me heurtant à quelques _corner-cases_,
 > j'ai décidé de faire appel à celui qui, dans la communauté OCaml, ne pose
 > jamais de questions mais y répond toujours de manière expansive : [Florian
 > Angeletti](https://github.com/Octachron), aussi connu sous le nom de
 > **Octachron**. (Petite note amusante, `octachron` est le nom d'un séquenceur
 > de batterie midi, donc en cherchant son pseudonyme sur _Google_, j'ai tout de
-> suite eu, dans les suggestions: `octachron ocaml`.)
+> suite eu, dans les suggestions : `octachron ocaml`.)
 
 Notre objectif est de permettre d'ajouter une contrainte à certaines méthodes pour
-ne les rendres accessibles que si le type du receveur la satisfait. Sans passer par
-de la modification syntaxique du langage, modeliser une contrainte peut **consister
+ne les rendre accessibles que si le type du receveur la satisfait. Sans passer par
+de la modification syntaxique du langage, modéliser une contrainte peut **consister
 à donner un paramètre additionnel qui l'enforce**. En d'autres mots, on voudrait
 fournir une **évidence**.
 
@@ -237,18 +237,18 @@ fournir une **évidence**.
 
 Depuis l'introduction des [types algébriques
 généralisés](https://v2.ocaml.org/releases/4.14/htmlman/gadts-tutorial.html#sec63)
-dans le langage, il existe une manière assez directe de définir un témoins
-d'égalité de types:
+dans le langage, il existe une manière assez directe de définir un témoin
+d'égalité de types :
 
 ```ocaml
 type (_, _) eq =
   | Refl : ('a, 'a) eq
 ```
 
-Le type `eq`, qui n'a qu'un seul constructeur: `Refl`, et permet de représenter
+Le type `eq`, qui n'a qu'un seul constructeur : `Refl`, et permet de représenter
 des égalité de types **non connues par le _type-checker_**. Comme on ne peut que
 construire des valeurs `Refl` qui associent deux types égaux, l'instanciation
-de `Refl` dans un _scope_ garantit qu'ils sont équivalent. Par exemple :
+de `Refl` dans un _scope_ garantit qu'ils sont équivalents. Par exemple :
 
 ```ocaml
 type other_int = int
@@ -259,7 +259,7 @@ let _ : (int, other_int) eq = Refl
 Cet exemple est assez artificiel car ici, le compilateur sait parfaitement que
 `int = other_int`, cependant, il existe des cas où le compilateur ne peut pas
 le savoir. Par exemple, si une donnée est fournie à l'exécution du programme, où
-il est parfaitement logique que le _type-checker_ n'ai aucune information sur
+il est parfaitement logique que le _type-checker_ n'ait aucune information sur
 un type ou encore quand la représentation du type est cachée par l'abstraction.
 
 L'objectif de cette note n'est pas de nous étendre sur `eq` donc ne retenons que
@@ -268,7 +268,7 @@ que deux types _syntaxiquement différents_ sont en fait égaux.
 
 ### Contraindre avec `eq`
 
-Reprenons notre exemple qui fournit une API objet à une liste. Voici son interface:
+Reprenons notre exemple qui fournit une API objet à une liste. Voici son interface :
 
 ```ocaml
 class type ['a] obj_list =
@@ -283,7 +283,7 @@ class type ['a] obj_list =
 Pour donner un type à `flatten`, ou voudrait imposer que `'a` (le paramètre de
 type de la classe `obj_list`) soit une liste. En d'autre mot, nous voudrions
 **une preuve que `'a` est de type `'b list`**. Soit garantir que `'a` et `'b list`, bien que syntaxiquement différents, soient égaux. Rien de plus simple,
-il suffit de demander d'en fournir une valeur de type `('a, 'b list) eq`:
+il suffit de demander d'en fournir une valeur de type `('a, 'b list) eq` :
 
 ```ocaml
 method flatten : ('a, 'b list) eq -> 'b list
@@ -312,8 +312,8 @@ let my_list (list : 'a list) =
 
 Maintenant, intéressons-nous à `flatten`. On va récursivement parcourir
 la liste en concaténant chaque élément au précédent. Par exemple :
-`[[1]; [2]; [3]]` donnera `[1] @ [2]; [3]`. Au delà des annotations un
-peu bruyante, toute l'astuce réside dans l'instanciation de `Refl` pour
+`[[1]; [2]; [3]]` donnera `[1] @ [2]; [3]`. Au-delà des annotations un
+peu bruyantes, toute l'astuce réside dans l'instanciation de `Refl` pour
 nous fournir une évidence sur le fait que `'a = 'b list`.
 
 ```ocaml
@@ -334,7 +334,7 @@ Maintenant que nous sommes capable de contraindre certaines méthodes, essayons
 d'ajouter une méthode `sum` qui produit la somme d'une liste d'entiers !
 Premièrement ajoutons `sum` à notre interface. Cette fois, on veut contraindre
 notre paramètre de type à être `int`. Pour cela, il suffit de prendre
-`('a, int) eq` comme témoin d'égalité:
+`('a, int) eq` comme témoin d'égalité :
 
 ```ocaml
 class type ['a] obj_list =
@@ -370,7 +370,7 @@ let _ = assert (10 = b#sum Refl)
 ```
 
 Si l'on tente d'appliquer une méthode gardée avec un mauvais type, par exemple, essayer
-de faire la somme de notre liste `a` (qui est de type `'a list obj_list`), le pogramme
+de faire la somme de notre liste `a` (qui est de type `'a list obj_list`), le programme
 ne compilera pas, logique, nous essayons d'appeler une méthode gardée **sans respecter
 la contrainte qu'elle impose**.
 
@@ -393,12 +393,12 @@ langages OOP, possédant une vérification statique des types, parce qu'elles
 permettent d'exprimer plus de méthodes, tout en **préservant la sémantique
 d'envoi de message**, si chère à la programmation orientée objets. N'étant pas
 un grand utilisateur de langages de programmation orientée objets (OCaml est le
-seul que je pratique régulièrement), je ne suis pas aux faits de langages
+seul que je pratique régulièrement), je ne suis pas au fait de langages
 fournissant un support syntaxique des méthodes gardées. Je sais par contre,
 depuis peu, pointé par [Nicolas Rinaudo](https://twitter.com/NicolasRinaudo),
 que le langage [Scala](https://www.scala-lang.org/) utilise un encodage
 similaire à celui proposé dans cette note mais où le témoin d'égalité est
-fournit _implicitement_, allégant ainsi l'appel, n'obligeant pas l'utilisateur à
+fourni _implicitement_, allégeant ainsi l'appel, n'obligeant pas l'utilisateur à
 fournir manuellement `Refl`.
 
 Même si l'encodage est un peu lourd, et que l'on pourrait imaginer un support
@@ -406,4 +406,4 @@ natif dans le langage pour simplifier la définition de méthode gardée,
 **manipuler explicitement un témoin d'égalité de type permet de les encoder**.
 Est-ce utile ? Comme la programmation OOP est rarement encouragée en OCaml,
 _probablement pas_, mais c'était tout de même amusant de présenter un cas
-d'usages concret et pratique à l'utilisation de témoins d'égalités !
+d'usage concret et pratique à l'utilisation de témoins d'égalités !
