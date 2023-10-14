@@ -1,160 +1,99 @@
-open Core_js
+let loading () =
+  let open Nightmare_js_vdom in
+  [
+    div
+      ~a:[ a_class [ "dapp-loading" ] ]
+      [ span [ txt "❖" ]; span [ txt "En attente" ] ]
+  ]
 
-let error_section = function
-  | None -> []
-  | Some x ->
-      let open Vdom in
-      let open Vdom_html in
-      [ div ~a:[ class_ "errors" ] [ text x ] ]
+let not_synced () =
+  let open Nightmare_js_vdom in
+  [
+    div
+      ~a:[ a_class [ "centered"; "clickable" ]; on_click Message.ask_for_sync ]
+      [ txt "Synchroniser le Wallet" ]
+  ]
 
-let not_sync_view =
-  let open Vdom in
-  let open Vdom_html in
+let render_current_block =
+  let open Nightmare_js_vdom in
+  function
+  | None -> [ txt "■ chargement de la tête" ]
+  | Some head ->
+      let hash = head.Yourbones.Block_header.hash in
+      [ txt @@ "■ " ^ Dapps.Util.block_hash_to_string hash ]
+
+let synced_header balance head =
+  let open Nightmare_js_vdom in
   div
-    ~a:[ class_ "not-connected" ]
+    ~a:[ a_class [ "dapp-std-header" ] ]
     [
-      button
-        ~a:[ onclick Messages.beacon_sync; class_ "connection-button" ]
-        [ text "Connecter son Wallet" ]
-    ]
-
-let connected_badge handler address balance =
-  let open Vdom in
-  let open Vdom_html in
-  div
-    ~a:[ class_ "connected-badge" ]
-    [
-      div
-        ~a:[ class_ "tez" ]
-        [ text @@ Format.asprintf "%a" Tezos_js.Tez.pp balance ]
-    ; div ~a:[ class_ "address" ] [ text address ]
+      div ~a:[ a_class [ "current-block" ] ] (render_current_block head)
     ; div
-        ~a:[ class_ "disconnection" ]
-        [ button ~a:[ onclick handler ] [ text "Déconnexion" ] ]
-    ]
-
-let bottom_section account_info head =
-  let open Vdom in
-  let open Vdom_html in
-  let open Beacon_js.Account_info in
-  div
-    ~a:[ class_ "bottom" ]
-    [
-      div
-        ~a:[ class_ "network" ]
-        [ text (Tezos_js.Network.to_string account_info.network.type_) ]
+        ~a:[ a_class [ "current-balance" ] ]
+        [ txt @@ Format.asprintf "⛃ %a" Yourbones.Tez.pp_print balance ]
     ; div
-        ~a:[ class_ "tezos-head" ]
-        [
-          text
-            (Option.fold
-               (fun () -> "Récupèration de la tête de la chaine...")
-               (fun x ->
-                 Tezos_js.Address.to_short_string x.Tezos_js.Monitored_head.hash)
-               head)
-        ]
+        ~a:[ a_class [ "disconnect" ] ]
+        [ span ~a:[ on_click Message.ask_for_unsync ] [ txt "⏻ Quitter" ] ]
     ]
 
-let amount_input_section balance (amount_value, _amount_tez, amount_valid) =
-  let open Vdom in
-  let open Vdom_html in
-  let step = Tezos_js.Tez.Micro.from_int64' 500_000L in
-  div
-    ~a:[ class_ "transfer-fill-amount" ]
-    [
-      div
-        ~a:[ class_ "transfer-input-amount" ]
-        [
-          tez_input ~min:step ~max:balance ~step
-            ~a:
-              [
-                placeholder "Montant du transfert"
-              ; value amount_value
-              ; oninput Messages.input_amount_form
-              ]
-            ()
-        ]
-    ; div [ text (if amount_valid then "✔" else "✖") ]
-    ]
+let sending_form user_address benefactor_inputable =
+  let is_valid =
+    Dapps.Inputable.is_valid_and benefactor_inputable (fun x ->
+        not (Yourbones.Address.equal x user_address))
+  in
 
-let transfer_input_section state =
-  let open Vdom in
-  let open Vdom_html in
-  let inputed_address, is_valid_address = Model.get_address state in
+  let focus_class = if is_valid then "valid" else "invalid" in
+  let open Nightmare_js_vdom in
   div
-    ~a:[ class_ "transfer-fill-address" ]
+    ~a:[ a_class [ "transfer-form-grid" ] ]
     [
       div
-        ~a:[ class_ "transfer-input-address" ]
+        ~a:[ a_class [ "owner-address" ] ]
+        [ txt @@ Yourbones.Address.to_string user_address ]
+    ; div
+        ~a:[ a_class [ "benefactor-address" ] ]
         [
           input
             ~a:
               [
-                type_ "text"
-              ; placeholder "addresse du bénéficiaire"
-              ; value inputed_address
-              ; oninput Messages.input_address_form
+                on_input Message.fill_benefactor_adress
+              ; a_placeholder "Addresse du bénéficiaire"
+              ; a_value @@ Dapps.Inputable.get_value benefactor_inputable
+              ; a_class [ focus_class ]
               ]
-            []
+            ()
         ]
-    ; div
-        ~a:[ class_ "filler" ]
-        [
-          button
-            ~a:[ onclick (fun _ -> Messages.Fill_address) ]
-            [ text "Utiliser mon adresse" ]
-        ]
-    ; div [ text (if is_valid_address then "✔" else "✖") ]
     ]
 
-let submit_button_section state =
-  let open Vdom in
-  let open Vdom_html in
-  let diagnosis =
-    match Model.transfer_diagnosis state with
-    | Ok (destination, amount) ->
-        [
-          disabled false
-        ; onclick (fun _ -> Messages.transfer destination amount)
-        ]
-    | Error _ -> [ disabled true ]
-  in
+let synced state =
+  [
+    synced_header state.Model.balance state.Model.head
+  ; sending_form state.Model.account.address state.Model.benefactor_address
+  ]
+
+let render_trace =
+  let open Nightmare_js_vdom in
+  function
+  | Model.Error message -> li ~a:[ a_class [ "error" ] ] [ txt message ]
+  | Model.Pending message -> li ~a:[ a_class [ "pending" ] ] [ txt message ]
+  | Model.Done message -> li ~a:[ a_class [ "trace" ] ] [ txt message ]
+
+let render_footer trace =
+  let open Nightmare_js_vdom in
   div
-    ~a:[ class_ "submit-button-section" ]
-    [ button ~a:diagnosis [ text "Effectuer le transfert" ] ]
+    ~a:[ a_class [ "dapp-footer" ] ]
+    (match trace with [] -> [] | _ -> [ ul (List.map render_trace trace) ])
 
-let sync_view state =
-  let open Vdom_html in
-  let account_info = state.Model.account_info
-  and balance = state.balance
-  and amount_form = state.amount_form
-  and head = state.head in
-  div
-    [
-      connected_badge Messages.beacon_unsync account_info.address balance
-    ; transfer_input_section state
-    ; amount_input_section balance amount_form
-    ; bottom_section account_info head
-    ; submit_button_section state
-    ]
-
-let await_view state =
-  let open Vdom in
-  let open Vdom_html in
-  let account_info = state.Model.account_info
-  and balance = state.balance
-  and head = state.head in
-  div
-    [
-      connected_badge Messages.beacon_unsync account_info.address balance
-    ; div ~a:[ class_ "await-block" ] [ text "Attente d'un nouveau block" ]
-    ; bottom_section account_info head
-    ]
-
-let state_view = function
-  | Model.Not_sync -> not_sync_view
-  | Model.Sync state -> sync_view state
-  | Model.Await state -> await_view state
-
-let view model =
-  Vdom_html.div @@ error_section model.Model.error @ [ state_view model.state ]
+let view Model.{ trace; state } =
+  Nightmare_js_vdom.(
+    div
+      ~a:[ a_class [ "black-dapp" ] ]
+      [
+        div
+          ~a:[ a_class [ "dapp-content" ] ]
+          (match state with
+          | Model.Not_synced -> not_synced ()
+          | Model.Loading -> loading ()
+          | Model.Synced state -> synced state)
+      ; render_footer trace
+      ])

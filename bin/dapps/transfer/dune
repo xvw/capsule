@@ -1,15 +1,13 @@
 (library
  (name dapp_transfer)
- (libraries
-  preface
-  lwt
-  js_of_ocaml-lwt
-  tezos_js
-  core_js
-  beacon_js
-  vdom
-  vdom_html)
- (modules_without_implementation interfaces)
  (modes byte)
  (preprocess
-  (pps js_of_ocaml-ppx)))
+  (pps js_of_ocaml-ppx yourbones-ppx))
+ (libraries
+  dapps
+  nightmare_js
+  ocaml-vdom
+  nightmare_js-vdom
+  yourbones
+  yourbones_js
+  yourbones_js-beacon))

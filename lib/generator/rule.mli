@@ -19,10 +19,6 @@ val javascript : target:Filepath.t -> unit Effect.t
 (** [Rule.javascript] this is the rule that moves the JavaScript files into the
     target: [target/js/]. *)
 
-val client : target:Filepath.t -> unit Effect.t
-(** [Rule.client] this is the rule that moves the JavaScript client file into
-    the target: [target/js/]. *)
-
 val fonts : target:Filepath.t -> unit Effect.t
 (** [Rule.fonts] this is the rule that moves the Fonts files into the target:
     [target/fonts]. *)

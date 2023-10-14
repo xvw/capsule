@@ -7,6 +7,9 @@
   --sans-serif-font: "Libre Franklin", sans-serif;
   --mono-font: "Inconsolata", monospace;
   --regular-link-color: #424242;
+  --red-color: #d92525;
+  --green-color: #9fc131;
+  --orange-color: #edaa25;
 }
 
 *,
@@ -27,6 +30,10 @@ body {
   font-size: 1.2rem;
   font-weight: 400;
   line-height: 1.4;
+}
+
+.clickable {
+  cursor: pointer;
 }
 
 .warning {
@@ -372,7 +379,7 @@ code {
   font-family: var(--mono-font);
 }
 
-.feed-pagination {
+<<<<<<< HEAD .feed-pagination {
   margin-bottom: 64px;
   display: flex;
   flex-direction: row;
@@ -541,210 +548,169 @@ code {
   font-weight: 700;
 }
 
-.dapp {
-  margin: 64px 0;
-}
-
-.standard-dapp {
-  font-family: var(--sans-serif-font);
-}
-
-.standard-dapp button {
-  cursor: pointer;
-}
-
-.standard-dapp .not-connected {
-  display: flex;
-  justify-content: center;
-}
-
-.standard-dapp .connected-badge {
-  display: flex;
-  flex-direction: row;
-  border: 2px solid var(--layout-font-color);
-  border-bottom: 0px solid transparent;
-}
-
-.standard-dapp .connected-badge > div {
-  padding: 4px 8px;
-  font-family: var(--mono-font);
-}
-
-.standard-dapp .connected-badge > .address {
-  flex: 1;
-}
-
-.standard-dapp .connected-badge > .tez {
-  border-right: 2px solid var(--layout-font-color);
-}
-
-.standard-dapp .connected-badge > .tez::after {
-  content: "ꜩ";
-  maring-left: 4px;
-  font-family: var(--mono-font);
-}
-
-.standard-dapp .connected-badge > .disconnection {
-  background-color: var(--layout-font-color);
-}
-
-.standard-dapp .connection-button {
-  background-color: var(--layout-font-color);
-  border: 0px solid transparent;
-  color: #fff;
-  padding: 4px 8px;
-}
-
-.standard-dapp .connected-badge > .disconnection button {
-  background-color: transparent;
-  border: 0px solid transparent;
-  color: #fff;
-}
-
-.standard-dapp .transfer-fill-address {
-  border: 2px solid var(--layout-font-color);
-  color: #111;
-  padding: 4px 8px;
-  display: flex;
-  flex-direction: rows;
-}
-
-.standard-dapp .transfer-fill-address .transfer-input-address {
-  flex: 1;
-}
-
-.standard-dapp .transfer-fill-address .transfer-input-address > input {
-  width: 100%;
-  background-color: transparent;
-  border: 0px solid transparent;
-  font-family: var(--mono-font);
-  font-size: 120%;
-}
-
-.standard-dapp .transfer-fill-address .transfer-input-address > input:focus {
-  outline: none;
-}
-
-.standard-dapp .transfer-fill-amount {
-  border: 2px solid var(--layout-font-color);
-  border-top: 0px solid transparent;
-  color: #111;
-  padding: 4px 8px;
-  display: flex;
-  flex-direction: rows;
-}
-
-.standard-dapp .transfer-fill-amount .transfer-input-amount {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-}
-
-.standard-dapp .transfer-fill-amount .transfer-input-amount > input {
-  background-color: transparent;
-  border: 0px solid transparent;
-  font-family: var(--mono-font);
-  font-size: 120%;
-  flex: 1;
-  text-align: right;
-}
-
-.standard-dapp .transfer-fill-amount .transfer-input-amount::after {
-  content: "ꜩ";
-  margin: 0 12px;
-  font-weight: 700;
-}
-
-.standard-dapp .transfer-fill-amount .transfer-input-amount > input:focus {
-  outline: none;
-}
-
-.standard-dapp .transfer-fill-amount .transfer-input-base-fee {
-  display: flex;
-  flex-direction: row;
-}
-
-.standard-dapp .transfer-fill-amount .transfer-input-base-fee > div {
-  margin: 0 6px;
-  color: #666;
-}
-
-.standard-dapp
-  .transfer-fill-amount
-  .transfer-input-base-fee
-  > div:first-child {
-  margin: 0 0;
-}
-
-.standard-dapp .transfer-fill-amount .transfer-input-base-fee > div > label {
-  font-family: var(--mono-font);
-}
-
-.standard-dapp
-  .transfer-fill-amount
-  .transfer-input-base-fee
-  > div
-  > label::after {
-  content: "ꜩ";
-  font-family: var(--mono-font);
-}
-
-.standard-dapp .transfer-fill-address > .filler {
-  padding: 0 32px;
-}
-
-.standard-dapp .transfer-fill-address > .filler button {
-  background-color: transparent;
-  border: 0px solid transparent;
-  color: #111;
-  padding: 0;
-}
-
-.standard-dapp .bottom {
-  font-size: 86%;
-  padding: 4px 0px;
-  color: #111;
-  display: flex;
-  flex-direction: row;
-}
-
-.standard-dapp .bottom .network {
-  font-weight: 600;
-}
-
-.standard-dapp .bottom .tezos-head {
-  font-family: var(--mono-font);
-  margin-left: 10px;
-}
-
-.standard-dapp .submit-button-section {
-  margin-top: 32px;
-}
-
-.standard-dapp .submit-button-section button {
-  background-color: var(--layout-font-color);
-  border: 0px solid transparent;
-  color: #fff;
-  padding: 4px 8px;
-  cursor: link;
-}
-
-.standard-dapp .submit-button-section button:disabled,
-.standard-dapp .submit-button-section button[disabled] {
-  background-color: var(--layout-bg-rev-color);
-  color: #888;
-  cursor: not-allowed;
-}
-
-.standard-dapp .await-block {
-  border: 2px solid var(--layout-font-color);
-  color: #111;
-  padding: 4px 8px;
-}
-
 .centered-fig {
   display: block;
   margin: auto;
+}
+
+.dapp-container {
+  margin: 64px 0;
+  font-family: var(--sans-serif-font);
+}
+
+.dapp-container .dapp-loading {
+  display: flex;
+  flex-direction: rows;
+  align-items: center;
+  font-weight: 700;
+}
+
+.dapp-container .dapp-loading > span:first-child {
+  font-size: 280%;
+  margin-right: 8px;
+  animation: rotation 1s infinite linear;
+}
+
+.dapp-container .black-dapp {
+  color: var(--layout-bg-color);
+  background-color: var(--layout-font-color);
+  padding: 8px;
+  font-size: 80%;
+}
+
+.dapp-container .black-dapp .dapp-content .centered {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.dapp-container .black-dapp .big-button {
+  margin: 12px auto;
+  background-color: var(--layout-bg-rev-color);
+  color: var(--layout-font-color);
+  padding: 8px 12px;
+  border: 0px solid transparent;
+  cursor: pointer;
+  font-size: 110%;
+  font-family: var(--mono-font);
+}
+
+.dapp-container .black-dapp .dapp-footer {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--layout-font-rev-color);
+  color: var(--layout-bg-rev-color);
+}
+
+.dapp-container .black-dapp .dapp-footer:empty,
+.dapp-container .black-dapp .dapp-footer > ul:empty {
+  display: none;
+}
+
+.dapp-container .black-dapp .dapp-footer > ul {
+  padding: 0;
+  margin: 0;
+}
+
+.dapp-container .black-dapp .dapp-footer > ul > li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dapp-container .black-dapp .dapp-footer > ul > li.trace:before {
+  content: "✔";
+  margin-right: 6px;
+  color: var(--green-color);
+}
+
+.dapp-container .black-dapp .dapp-footer > ul > li.pending:before {
+  content: "✤";
+  margin-right: 6px;
+  color: var(--orange-color);
+}
+
+.dapp-container .black-dapp .dapp-footer > ul > li.error:before {
+  content: "✘";
+  margin-right: 6px;
+  color: var(--red-color);
+}
+
+.dapp-container .black-dapp .dapp-std-header {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--layout-font-rev-color);
+  color: var(--layout-bg-rev-color);
+  margin-bottom: 8px;
+}
+
+.dapp-container .black-dapp .dapp-std-header > .current-block {
+  flex: 1;
+}
+
+.dapp-container .black-dapp .dapp-std-header > .current-balance {
+  margin-right: 12px;
+  border-left: 1px solid var(--layout-font-rev-color);
+  border-right: 1px solid var(--layout-font-rev-color);
+  padding: 0 12px;
+}
+
+.dapp-container .black-dapp .dapp-std-header > .disconnect > span {
+  cursor: pointer;
+}
+
+.dapp-container .black-dapp .dapp-std-header > .disconnect > span:hover {
+  color: #fff;
+}
+
+.transfer-form-grid {
+  display: flex;
+  flex-direction: row;
+}
+
+.transfer-form-grid > .owner-address {
+  flex: 1;
+  color: var(--layout-bg-rev-color);
+}
+
+.transfer-form-grid > .owner-address:before {
+  content: "source: ";
+  font-weight: 700;
+  color: var(--layout-bg-rev-color);
+}
+
+.transfer-form-grid > .benefactor-address {
+  flex: 1;
+  color: var(--layout-bg-rev-color);
+  display: flex;
+  border-left: 1px solid var(--layout-font-rev-color);
+  padding-left: 8px;
+}
+
+.transfer-form-grid > .benefactor-address:before {
+  content: "bénéficiaire: ";
+  margin-right: 4px;
+  font-weight: 700;
+  color: var(--layout-bg-rev-color);
+}
+
+.transfer-form-grid > .benefactor-address > input {
+  flex: 1;
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: var(--layout-bg-rev-color);
+}
+
+.transfer-form-grid > .benefactor-address > input:focus {
+  outline: none;
+}
+
+.transfer-form-grid > .benefactor-address > input.valid:focus {
+  border-right: 3px solid var(--green-color);
+}
+
+.transfer-form-grid > .benefactor-address > input.invalid:focus {
+  border-right: 3px solid var(--red-color);
 }
 
 @media all and (max-width: 960px) {
@@ -767,33 +733,6 @@ code {
 
   footer {
     text-align: center;
-  }
-
-  .standard-dapp .connected-badge {
-    flex-direction: column;
-  }
-
-  .standard-dapp .connected-badge > .tez {
-    border-right: 0px solid var(--layout-font-color);
-    border-bottom: 2px solid var(--layout-font-color);
-  }
-
-  .standard-dapp .connected-badge > .address {
-    overflow: auto;
-  }
-
-  .standard-dapp .transfer-fill-amount {
-    flex-direction: column;
-    overflow: auto;
-  }
-
-  .standard-dapp .transfer-fill-amount .transfer-input-base-fee {
-    flex-direction: column;
-  }
-
-  .standard-dapp .transfer-fill-amount .transfer-input-base-fee > div {
-    display: flex;
-    flex-direction: row-reverse;
   }
 
   .address-meta > .kv > div {
@@ -848,5 +787,14 @@ code {
 
   .feed-entry > .feed-content .feed-meta > div:last-child {
     border-style: none;
+  }
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
   }
 }

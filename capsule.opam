@@ -28,6 +28,19 @@ depends: [
   "yocaml_yaml" {pinned}
   "yocaml_jingoo" {pinned}
   "yocaml_syndication" {pinned}
+  "nightmare" {pinned}
+  "nightmare-dream" {pinned}
+  "nightmare-tyxml" {pinned}
+  "nightmare_js" {pinned}
+  "nightmare_js-vdom" {pinned}
+  "yourbones" {pinned}
+  "yourbones-ppx" {pinned}
+  "yourbones_js" {pinned}
+  "yourbones_js-beacon" {pinned}
+  "ocamlformat" {with-dev-setup}
+  "ocp-indent" {with-dev-setup}
+  "merlin" {with-dev-setup}
+  "utop" {with-dev-setup}
   "odoc" {with-doc}
 ]
 build: [
@@ -52,4 +65,13 @@ pin-depends: [
   ["yocaml_markdown.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
   ["yocaml_jingoo.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
   ["yocaml_syndication.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
+  ["nightmare.dev" "git+https://github.com/funkywork/nightmare.git"]
+  ["nightmare-dream.dev" "git+https://github.com/funkywork/nightmare.git"]
+  ["nightmare-tyxml.dev" "git+https://github.com/funkywork/nightmare.git"]
+  ["nightmare_js.dev" "git+https://github.com/funkywork/nightmare.git"]
+  ["nightmare_js-vdom.dev" "git+https://github.com/funkywork/nightmare.git"]
+  ["yourbones.dev" "git+https://github.com/funkywork/yourbones.git"]
+  ["yourbones-ppx.dev" "git+https://github.com/funkywork/yourbones.git"]
+  ["yourbones_js.dev" "git+https://github.com/funkywork/yourbones.git"]
+  ["yourbones_js-beacon.dev" "git+https://github.com/funkywork/yourbones.git"]
 ]

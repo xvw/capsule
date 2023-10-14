@@ -1,6 +1,0 @@
-(library
- (name vdom_html)
- (libraries vdom tezos_js)
- (modes byte)
- (preprocess
-  (pps js_of_ocaml-ppx)))

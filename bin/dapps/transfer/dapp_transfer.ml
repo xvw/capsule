@@ -1,33 +1,18 @@
-open Js_of_ocaml
-open Core_js
+open Nightmare_js
 
-let network = Tezos_js.Network.Nodes.Mainnet.ecadlabs
-let name = "Transfer"
+let app () =
+  let open Dapps.Lwt_util in
+  let client =
+    Beacon.Dapp_client.make ~preferred_network:Network.preferred_network
+      ~name:"capsule-transfer" ()
+  in
+  let () = Command.register client in
+  let+ init = Model.init in
+  Nightmare_js_vdom.app ~init ~update:Model.update ~view:View.view ()
 
 let mount container_id =
-  match Js_browser.(Document.(get_element_by_id document container_id)) with
-  | None ->
-      let () = Console.(message error) "Unable to find root node" in
-      Lwt.return_unit
-  | Some root ->
-      let open Lwt_util in
-      let client = Beacon_js.Client.make ~network ~name () in
-      let* init = Model.init client in
-      let update = Model.update in
-      let view = View.view in
-      let app = Vdom.app ~init ~view ~update () in
-      let () = Commands.register client in
-      let () = Js_browser.Element.remove_all_children root in
+  Nightmare_js_vdom.mount_to ~id:container_id (fun _ ->
       let () =
-        Vdom_blit.run app
-        |> Vdom_blit.dom
-        |> Js_browser.Element.append_child root
+        Console.(string info) @@ "mounting Connect in #" ^ container_id
       in
-      Lwt.return_unit
-
-let entrypoint =
-  object%js
-    method mount input =
-      let container_id = Js.to_string input##.containerId in
-      mount container_id
-  end
+      app ())
