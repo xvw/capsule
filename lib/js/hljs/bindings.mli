@@ -3,7 +3,6 @@
 open Js_of_ocaml
 open Js
 
-class type hljs =
-  object
-    method highlightAll : unit meth
-  end
+class type hljs = object
+  method highlightAll : unit meth
+end

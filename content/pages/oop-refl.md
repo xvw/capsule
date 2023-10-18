@@ -282,8 +282,8 @@ class type ['a] obj_list =
 
 Pour donner un type à `flatten`, ou voudrait imposer que `'a` (le paramètre de
 type de la classe `obj_list`) soit une liste. En d'autre mot, nous voudrions
-**une preuve que `'a` est de type `'b list`**. Soit garantir que `'a` et `'b list`, bien que syntaxiquement différents, soient égaux. Rien de plus simple,
-il suffit de demander d'en fournir une valeur de type `('a, 'b list) eq` :
+**une preuve que `'a` est de type `'b list`**. Soit garantir que `'a` et `'b list`, bien que syntaxiquement différents, soient égaux. Rien de plus simple, il
+suffit de demander d'en fournir une valeur de type `('a, 'b list) eq` :
 
 ```ocaml
 method flatten : ('a, 'b list) eq -> 'b list

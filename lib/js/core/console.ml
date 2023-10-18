@@ -2,15 +2,14 @@ open Js_of_ocaml
 open Js
 open Aliases
 
-class type console_hook =
-  object
-    inherit Firebug.console
-    method clear : unit meth
-    method count : js_string t or_undefined -> unit meth
-    method countReset : js_string t or_undefined -> unit meth
-    method timeLog : 'a. js_string t -> 'a -> unit meth
-    method table : 'a. 'a -> js_string t js_array t or_undefined -> unit meth
-  end
+class type console_hook = object
+  inherit Firebug.console
+  method clear : unit meth
+  method count : js_string t or_undefined -> unit meth
+  method countReset : js_string t or_undefined -> unit meth
+  method timeLog : 'a. js_string t -> 'a -> unit meth
+  method table : 'a. 'a -> js_string t js_array t or_undefined -> unit meth
+end
 
 external get_console : unit -> console_hook t = "caml_js_get_console"
 
