@@ -37,8 +37,14 @@ let watch =
   let term = Term.(const Action.watch $ target_args $ port_args) in
   Cmd.v info term
 
+let gen_entry =
+  let doc = "Generate an empty entry file" in
+  let info = Cmd.info "gen-entry" ~version ~doc ~exits in
+  let term = Term.(const Action.gen_entry $ const ()) in
+  Cmd.v info term
+
 let index =
   let doc = "Capsule" in
   let info = Cmd.info Sys.argv.(0) ~version ~doc ~sdocs:docs ~exits in
   let default = Term.(ret (const (`Help (`Pager, None)))) in
-  Cmd.group info ~default [ build; watch ]
+  Cmd.group info ~default [ build; watch; gen_entry ]
