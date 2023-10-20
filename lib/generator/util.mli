@@ -8,3 +8,6 @@ val is_not_empty_list : 'a list -> bool
 
 val poor_slug : ?space:string -> string -> string
 (** [poor_slug str] try poorly to render a string like... an url. *)
+
+val split_at : int -> 'a list -> 'a list * 'a list
+val split_by_size : int -> 'a list -> 'a list list
