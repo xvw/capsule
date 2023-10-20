@@ -40,7 +40,13 @@ val indexes : target:Filepath.t -> unit Effect.t
 (** [Rule.indexes] this is the rule that produces static indexes. *)
 
 val addresses : target:Filepath.t -> unit Effect.t
-(** [Rule.indexes] this is the rule that produces static addresses. *)
+(** [Rule.addresses] this is the rule that produces static addresses. *)
+
+val entries : target:Filepath.t -> unit Effect.t
+(** [Rule.entries] this is the rule that produces entries of the journal. *)
+
+val journal : target:Filepath.t -> size:int -> unit Effect.t
+(** [Rule.journal] this is the rule that produce pages of the journal. *)
 
 val dapps : target:Filepath.t -> unit Effect.t
 (** [Rule.indexes] this is the rule that produces static page as a DApp vessel. *)

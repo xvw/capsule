@@ -1,6 +1,23 @@
 open Util
 open Yocaml
 
+module Date_filename = struct
+  let from_filename filename =
+    let filename = filename |> Filepath.basename |> Filepath.remove_extension in
+    match String.split_on_char '_' filename with
+    | date_str :: time_str :: _tail ->
+        let datetime_str =
+          date_str ^ " " ^ String.map (function '-' -> ':' | x -> x) time_str
+        in
+        Date.from_string datetime_str
+    | _ -> Error.(to_validate @@ Invalid_date filename)
+
+  let from_filename_opt filename =
+    match from_filename filename with
+    | Preface.Validation.Valid x -> Some x
+    | _ -> None
+end
+
 module KVMap = struct
   type t = { key : string; value : string }
 
@@ -31,6 +48,8 @@ module Link = struct
     ; title : string option
     ; description : string option
   }
+
+  let make ?title ?description name href = { title; description; name; href }
 
   let from (type a) (module Meta : Metadata.VALIDABLE with type t = a)
       metadata_object =
@@ -122,6 +141,8 @@ module Page = struct
     (fun meta -> (meta.synopsis, meta)) ^>> fst arr >>^ fun (synopsis, m) ->
     { m with synopsis }
 
+  let update_breadcrumb f page = { page with breadcrumb = f page.breadcrumb }
+
   let inject_toc =
     Build.arrow (fun (meta, (toc, content)) ->
         ({ meta with toc = Some toc }, content))
@@ -130,9 +151,14 @@ module Page = struct
       =
     let date = Metadata.Date.from (module Meta) in
     let open Validate.Applicative in
-    let+ title = Meta.(required_assoc string) "title" assoc
-    and+ description = Meta.(required_assoc string) "description" assoc
-    and+ synopsis = Meta.(required_assoc string) "synopsis" assoc
+    let+ title =
+      Meta.(optional_assoc_or ~default:"Page sans titre" string) "title" assoc
+    and+ description =
+      Meta.(optional_assoc_or ~default:"Page sans description" string)
+        "description" assoc
+    and+ synopsis =
+      Meta.(optional_assoc_or ~default:"Page sans synopsis" string)
+        "synopsis" assoc
     and+ indexed =
       Meta.(optional_assoc_or ~default:true boolean) "indexed" assoc
     and+ display_toc =
@@ -232,6 +258,155 @@ module Attach_page (P : ATTACH_PAGE) = struct
     let open Build in
     (fun meta -> (P.get_page meta, meta)) ^>> fst (Page.map_synopsis arr)
     >>^ fun (new_page, meta) -> P.set_page new_page meta
+end
+
+module Entry = struct
+  type t = {
+      page : Page.t
+    ; date : Date.t
+    ; cover : string option
+    ; meta : KVMap.t list
+  }
+
+  include Attach_page (struct
+    type nonrec t = t
+
+    let get_page { page; _ } = page
+    let set_page page entry = { entry with page }
+  end)
+
+  let validate (type a) (module Meta : Metadata.VALIDABLE with type t = a) assoc
+      =
+    let open Validate.Applicative in
+    let+ date = Date.(make 2023 Jan 1)
+    and+ page = Page.validate (module Meta) assoc
+    and+ meta =
+      Meta.(optional_assoc_or ~default:[] (list_of $ KVMap.from (module Meta)))
+        "meta" assoc
+    and+ cover = Meta.(optional_assoc string "cover" assoc) in
+    let page =
+      Page.update_breadcrumb (fun _ -> Link.[ make "Journal" "/journal" ]) page
+    in
+    { page; date; cover; meta }
+
+  let from (type a) (module Meta : Metadata.VALIDABLE with type t = a)
+      metadata_object =
+    Meta.object_and (validate (module Meta)) metadata_object
+
+  let from_string (module Meta : Metadata.VALIDABLE) = function
+    | None -> Error.(to_validate $ Required_metadata [ "Entry" ])
+    | Some str ->
+        let open Validate.Monad in
+        let* metadata = Meta.from_string str in
+        from (module Meta) metadata
+
+  let inject (type a) (module Lang : Key_value.DESCRIBABLE with type t = a)
+      { page; date; cover; meta } =
+    let inject_date x = Lang.object_ $ Metadata.Date.inject (module Lang) x in
+    Page.inject (module Lang) page
+    @ Lang.
+        [
+          ("date", inject_date date)
+        ; ("cover", Option.fold ~none:null ~some:string cover)
+        ; ("meta", list $ KVMap.inject_list (module Lang) meta)
+        ; ("has_meta", boolean $ is_not_empty_list meta)
+        ; ("has_cover", boolean $ Option.is_some cover)
+        ]
+
+  let inject_date_from_filename filename entry =
+    let open Validate.Applicative in
+    let+ entry = pure entry and+ date = Date_filename.from_filename filename in
+    let date_str = Date.to_string date in
+    let title = "Journal" and synopsis = "Entrée du " ^ date_str in
+    {
+      entry with
+      date
+    ; page = { entry.page with title; synopsis; description = synopsis }
+    }
+
+  let inject_raw_date date =
+    let date_str = Date.to_string date in
+    let title = "Journal" and synopsis = "Entrée du " ^ date_str in
+    Build.arrow (fun entry ->
+        {
+          entry with
+          date
+        ; page = { entry.page with title; synopsis; description = synopsis }
+        })
+
+  let inject_date filename =
+    let open Build in
+    inject_date_from_filename filename
+    ^>> make Deps.empty (function
+          | Preface.Validation.Valid x -> Effect.return x
+          | Preface.Validation.Invalid x -> Effect.throw (Error.List x))
+end
+
+module Entries = struct
+  type entry = { entry : Entry.t; content : string }
+
+  type t = {
+      page : Page.t
+    ; previous : int option
+    ; next : int option
+    ; entries : entry list
+  }
+
+  let get_entries path size =
+    let+ files = read_child_files path File.is_markdown in
+
+    let sorted =
+      List.filter_map
+        (fun str ->
+          match Date_filename.from_filename str with
+          | Preface.Validation.Valid date -> Some (date, str)
+          | _ -> None)
+        files
+      |> List.sort (fun (y, _) (x, _) -> Date.compare x y)
+      |> split_by_size size
+    in
+
+    let length = List.length sorted in
+    (length, sorted)
+
+  let read_entries (module V : Metadata.VALIDABLE) length index arr entries =
+    let open Build in
+    let pre_arrow =
+      List.fold_left
+        (fun pre_arrow (date, entry_file) ->
+          pre_arrow
+          >>^ (fun x -> (x, ()))
+          >>> snd
+                (read_file_with_metadata (module V) (module Entry) entry_file
+                >>> fst (Entry.inject_raw_date date)
+                >>> snd arr)
+          >>^ fun (acc, (entry, content)) -> { entry; content } :: acc)
+        (arrow (fun _ -> []))
+        entries
+    in
+    (fun (x, _) -> (x, ())) ^>> snd pre_arrow >>^ fun (page, entries) ->
+    let previous = if index = 1 then None else Some (index - 1)
+    and next = if index = length then None else Some (index + 1) in
+    ({ page; entries = List.rev entries; next; previous }, "")
+
+  let inject (type a) (module Lang : Key_value.DESCRIBABLE with type t = a)
+      { page; entries; next; previous } =
+    Page.inject (module Lang) page
+    @ Lang.
+        [
+          ("has_previous", boolean $ Option.is_some previous)
+        ; ("has_next", boolean $ Option.is_some next)
+        ; ("previous", Option.fold ~none:null ~some:integer previous)
+        ; ("next", Option.fold ~none:null ~some:integer next)
+        ; ( "entries"
+          , list
+            $ List.map
+                (fun { entry; content } ->
+                  object_
+                    (("content", string content)
+                    :: Entry.inject (module Lang) entry))
+                entries )
+        ]
 end
 
 module Address = struct

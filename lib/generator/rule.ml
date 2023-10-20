@@ -89,6 +89,60 @@ let addresses ~target =
     >>> T.apply_as_template (module Model.Address) "templates/layout.html"
     >>^ Stdlib.snd)
 
+let journal ~target ~size =
+  let* length, entries = Model.Entries.get_entries "content/journal" size in
+  let _, effect =
+    List.fold_left
+      (fun (i, task) entries ->
+        let file_target = Target.for_entries ~target i in
+        let next_task =
+          let open Build in
+          create_file file_target
+            (binary_update
+            >>> Y.read_file_with_metadata
+                  (module Model.Page)
+                  "content/journal.md"
+            >>> Model.Entries.read_entries
+                  (module Y)
+                  length i M.string_to_html entries
+            >>> T.apply_as_template
+                  (module Model.Entries)
+                  "templates/journal.html"
+            >>> T.apply_as_template
+                  (module Model.Entries)
+                  "templates/page-header.html"
+            >>> T.apply_as_template
+                  (module Model.Entries)
+                  "templates/layout.html"
+            >>^ Stdlib.snd)
+        in
+
+        let t =
+          let* () = task in
+          next_task
+        in
+
+        (i + 1, t))
+      (1, return ())
+      entries
+  in
+  effect
+
+let entries ~target =
+  let open Build in
+  process_files $ [ "content/journal" ] $ File.is_markdown $ fun entry_file ->
+  let file_target = Target.for_entry ~target entry_file in
+  create_file file_target
+    (binary_update
+    >>> Y.read_file_with_metadata (module Model.Entry) entry_file
+    >>> fst (Model.Entry.map_synopsis M.string_to_html)
+    >>> fst (Model.Entry.inject_date file_target)
+    >>> snd M.string_to_html
+    >>> T.apply_as_template (module Model.Entry) "templates/entry.html"
+    >>> T.apply_as_template (module Model.Entry) "templates/page-header.html"
+    >>> T.apply_as_template (module Model.Entry) "templates/layout.html"
+    >>^ Stdlib.snd)
+
 let dapps ~target =
   process_directories [ "content/dapps" ] $ File.all $ fun folder ->
   let open Build in

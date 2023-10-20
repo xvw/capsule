@@ -33,6 +33,10 @@ val addresses : target:Filepath.t -> Filepath.t
 val dapps : target:Filepath.t -> Filepath.t
 (** [Target.dapps ~target] is the subfolder that contains dapps folders. *)
 
+val entries : target:Filepath.t -> Filepath.t
+(** [Target.entries ~target] is the subfolder that contains entries folders (for
+    the journal). *)
+
 (** {1 Direct target for artifact}
 
     These functions give the target path for a specific file. *)
@@ -52,3 +56,10 @@ val for_index : target:Filepath.t -> string -> Filepath.t
 val for_dapp : target:Filepath.t -> Filepath.t -> Filepath.t
 (** [Target.for_dapp ~target "a folder name"] will returns the path of the index
     (with the extension changed in favor of a dApp. *)
+
+val for_entry : target:Filepath.t -> string -> Filepath.t
+(** [Target.for_entry ~target "a_page.md"] will returns the path of the entry
+    (with the extension changed in favor of [.html]). *)
+
+val for_entries : target:Filepath.t -> int -> Filepath.t
+(** [Target.for_entries ~target index] will returns the path of a journal page. *)
