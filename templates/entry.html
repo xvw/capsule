@@ -1,0 +1,51 @@
+<section class="feed-entry">
+    <div class="feed-sidebar">
+        <div class="feed-date">
+            {{ date.canonical }}
+        </div>
+        {%- if has_tags -%}
+        <ul class="feed-tags">
+            {%- for tag in tags -%}
+            <li>{{ tag }}</li>
+            {%- endfor -%}
+        </ul>
+        {%- endif -%}
+    </div>
+    <div class="feed-content">
+        {%- if has_cover -%}
+        <div class="feed-cover">
+            <img src="{{ cover  }}" alt="cover" />
+        </div>
+        {%- endif -%}
+        <article>
+            {%- autoescape false -%}{{ body }}{%- endautoescape -%}
+        </article>
+        {%- if (has_meta || has_indexes) -%}
+        <div class="feed-meta">
+            {%- if has_meta -%}
+            <div class="feed-meta-kv">
+                {%- for m in meta -%}
+                <div>
+                    <span>{{ m.key }}</span>
+                    <span>{{ m.value }}</span>
+                </div>
+                {%- endfor -%}
+            </div>
+            {%- endif -%}
+            {%- if has_indexes -%}
+            {%- for index in indexes-%}
+            <div class="feed-index">
+                <h2>{{ index.name }}</h2>
+                <p>{{ index.synopsis }}</p>
+                <ul>
+                    {%- for link in index.links-%}
+                    <li><a href="{{ link.href }}">{{ link.name }}</a></li>
+                    {%- endfor -%}
+                </ul>
+            </div>
+            {%- endfor -%}
+            {%- endif -%}
+        </div>
+        {%- endif -%}
+    </div>
+</section>

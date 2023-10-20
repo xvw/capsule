@@ -32,6 +32,11 @@ indexes:
     links:
       - name: Bars et cafés
         href: /bars.html
+  - name: Meta
+    synopsis: Pages personnelles ou en rapport direct avec ce site web.
+    links:
+      - name: Journal
+        href: /journal
 ---
 
 Vous me trouverez sur [Mastodon](https://merveilles.town/@xvw), sur

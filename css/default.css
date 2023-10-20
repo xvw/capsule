@@ -353,6 +353,172 @@ code {
   font-family: var(--mono-font);
 }
 
+.feed-pagination {
+  margin-bottom: 64px;
+  display: flex;
+  flex-direction: row;
+}
+
+.feed-pagination > div.feed-spacing {
+  flex: 1;
+}
+
+.feed-pagination > div.feed-previous > a,
+.feed-pagination > div.feed-next > a {
+  text-decoration: none;
+  color: var(--regular-link-color);
+  font-weight: 400;
+  border-bottom: 1px dotted var(--regular-link-color);
+}
+
+.feed-pagination > div.feed-previous > a:before {
+  content: "◀";
+}
+
+.feed-pagination > div.feed-next > a:after {
+  content: "▶";
+}
+
+.feed-entry {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 62px;
+  margin-bottom: 88px;
+  border-bottom: 2px solid var(--layout-bg-rev-color);
+}
+
+.feed-entry:last-child {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-style: none;
+}
+
+.feed-entry > .feed-sidebar {
+}
+
+.feed-entry > .feed-content {
+  flex: 1;
+  margin-left: 24px;
+  font-family: var(--serif-font);
+}
+
+.feed-entry .feed-tags {
+  padding: 4px 0;
+  margin: 0;
+  font-family: var(--mono-font);
+  /* border-right: 2px solid var(--layout-bg-rev-color); */
+}
+
+.feed-entry .feed-tags > li {
+  list-style: none;
+  color: var(--layout-font-rev-color);
+  border-bottom: 2px solid var(--layout-bg-rev-color);
+  padding: 2px 8px;
+}
+
+.feed-entry .feed-tags > li:last-child {
+  border-style: none;
+}
+
+.feed-entry .feed-tags > li:before {
+  content: "#";
+  color: var(--regular-link-color);
+}
+
+.feed-entry .feed-date {
+  display: grid;
+  grid-template-areas: "day day" "month year";
+  font-family: var(--mono-font);
+  background-color: var(--layout-bg-rev-color);
+  padding: 2px 8px;
+}
+
+.feed-date > .feed-month {
+  grid-area: month;
+}
+
+.feed-date > .feed-year {
+  grid-area: year;
+}
+
+.feed-date > .feed-year:before {
+  content: "/";
+  padding-right: 4px;
+}
+
+.feed-entry > .feed-content .feed-cover img {
+  width: 100%;
+}
+
+.feed-entry > .feed-content .feed-cover {
+  margin-bottom: 12px;
+}
+
+.feed-entry > .feed-content p:first-child {
+  margin-top: 0;
+}
+
+.feed-entry > .feed-content p:last-child {
+  margin-bottom: 0;
+}
+
+.feed-entry > .feed-content .feed-meta {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px 12px;
+  font-size: 80%;
+  font-family: var(--sans-serif-font);
+  padding-top: 24px;
+}
+
+.feed-entry > .feed-content .feed-meta > .feed-index h2 {
+  font-size: 110%;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1;
+}
+
+.feed-entry > .feed-content .feed-meta > .feed-index p {
+  margin: 4px 0;
+}
+
+.feed-entry > .feed-content .feed-meta > .feed-index ul {
+  padding: 0;
+  margin: 0;
+  margin-top: 12px;
+  list-style: none;
+}
+
+.feed-entry > .feed-content .feed-meta > .feed-index ul > li > a {
+  text-decoration: none;
+  color: var(--regular-link-color);
+  font-weight: 400;
+  border-bottom: 1px dotted var(--regular-link-color);
+}
+
+.feed-entry > .feed-content .feed-meta > .feed-meta-kv > div {
+  display: flex;
+}
+
+.feed-entry > .feed-content .feed-meta > .feed-meta-kv > div > span {
+  flex: 1;
+  margin-bottom: 4px;
+  padding: 2px 8px;
+}
+
+.feed-entry
+  > .feed-content
+  .feed-meta
+  > .feed-meta-kv
+  > div
+  > span:first-child {
+  background-color: var(--layout-bg-rev-color);
+  text-align: right;
+  font-weight: 700;
+}
+
 .dapp {
   margin: 64px 0;
 }
@@ -607,5 +773,49 @@ code {
 
   .centered-fig {
     width: 100%;
+  }
+
+  .feed-entry {
+    flex-direction: column;
+  }
+
+  .feed-sidebar {
+    display: flex;
+    margin-bottom: 12px;
+    border-bottom: 2px solid var(--layout-bg-rev-color);
+  }
+
+  .feed-sidebar .feed-date {
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    font-size: 100%;
+  }
+
+  .feed-sidebar .feed-tags {
+    padding: 0;
+    margin: 0;
+    margin-left: 32px;
+  }
+
+  .feed-sidebar .feed-tags > li {
+    display: inline-block;
+    border-style: none;
+    padding: 0;
+    margin: 0;
+    margin-right: 8px;
+  }
+
+  .feed-entry > .feed-content .feed-meta {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .feed-entry > .feed-content .feed-meta > div {
+    border-bottom: 2px solid var(--layout-bg-rev-color);
+    padding-bottom: 32px;
+  }
+
+  .feed-entry > .feed-content .feed-meta > div:last-child {
+    border-style: none;
   }
 }
