@@ -6,7 +6,7 @@
  (libraries
   lwt
   js_of_ocaml-lwt
-  ocaml-vdom
+  vdom
   preface
   core_js
   beacon_js

@@ -10,15 +10,16 @@ homepage: "https://github.com/xvw/capsule"
 bug-reports: "https://github.com/xvw/capsule/issues"
 depends: [
   "ocaml" {>= "5.0.0"}
-  "dune" {>= "3.2" & >= "3.8.0"}
+  "dune" {>= "3.10" & >= "3.8.0"}
   "logs" {>= "0.7.0"}
   "cmdliner" {>= "1.0.0"}
   "omd" {>= "2.0.0~alpha2"}
   "js_of_ocaml-compiler" {>= "5.2.0"}
   "js_of_ocaml-ppx" {>= "5.2.0"}
   "js_of_ocaml-lwt" {>= "5.2.0"}
+  "mdx" {with-test & >= "2.0.0"}
   "promise_jsoo"
-  "ocaml-vdom"
+  "vdom"
   "data-encoding"
   "tezos-base58"
   "preface"

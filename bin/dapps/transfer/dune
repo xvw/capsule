@@ -7,7 +7,7 @@
   tezos_js
   core_js
   beacon_js
-  ocaml-vdom
+  vdom
   vdom_html)
  (modules_without_implementation interfaces)
  (modes byte)

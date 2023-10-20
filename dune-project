@@ -1,7 +1,8 @@
-(lang dune 3.2)
+(lang dune 3.10)
 (name capsule)
 (version dev)
 (generate_opam_files true)
+(using mdx 0.4)
 
 (source (github xvw/capsule))
 (license MIT)
@@ -22,8 +23,9 @@
   (js_of_ocaml-compiler (>= 5.2.0))
   (js_of_ocaml-ppx (>= 5.2.0))
   (js_of_ocaml-lwt (>= 5.2.0))
+  (mdx (and :with-test (>= 2.0.0)))
   promise_jsoo
-  ocaml-vdom
+  vdom
   data-encoding
   tezos-base58
   preface

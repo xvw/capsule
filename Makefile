@@ -1,10 +1,13 @@
-.PHONY: all clean lint clean check-lint utop hell
+.PHONY: all clean lint clean check-lint utop hell test
 
 all: hell
 	dune build
 
 clean:
 	dune clean
+
+test:
+	dune runtest --no-buffer -j 1
 
 lint:
 	dune build @fmt --auto-promote
