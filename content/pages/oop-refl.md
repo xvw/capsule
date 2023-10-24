@@ -17,8 +17,10 @@ tags:
   - ocaml
   - gadt
 breadcrumb:
+  - name: Programmation
+    href: /programming.html
   - name: Bribes & Encodages
-    href: /tricks.html#index-ocaml
+    href: /programming.html#index-bribes--encodages
 ---
 
 Les _défenseurs_ de la **programmation orientée objets** défendent souvent cette

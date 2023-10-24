@@ -18,8 +18,8 @@ indexes:
     synopsis: Notes et projets plus-ou-moins organisés relatifs à la technologie
       (incluant la programmation)
     links:
-      - name: Bribes & Encodages
-        href: /tricks.html
+      - name: Programmation
+        href: /programming.html
       - name: Jeux vidéo
         href: /games.html
       - name: Catalogue de dApps
