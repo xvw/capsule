@@ -416,34 +416,37 @@ code {
   padding: 2px 8px;
 }
 
+.feed-entry .feed-tags > li > a {
+  color: var(--layout-font-rev-color);
+  text-decoration: none;
+}
+
+.feed-entry .feed-tags > li > a:before {
+  content: "⧉";
+  padding-right: 4px;
+}
+
 .feed-entry .feed-tags > li:last-child {
   border-style: none;
 }
 
-.feed-entry .feed-tags > li:before {
+.feed-entry .feed-tags > li.tag:before {
   content: "#";
   color: var(--regular-link-color);
 }
 
 .feed-entry .feed-date {
-  display: grid;
-  grid-template-areas: "day day" "month year";
   font-family: var(--mono-font);
   background-color: var(--layout-bg-rev-color);
   padding: 2px 8px;
 }
 
-.feed-date > .feed-month {
-  grid-area: month;
+.feed-entry .feed-date > a {
+  text-decoration: none;
 }
 
-.feed-date > .feed-year {
-  grid-area: year;
-}
-
-.feed-date > .feed-year:before {
-  content: "/";
-  padding-right: 4px;
+.feed-entry .feed-date > a:before {
+  content: "🔗";
 }
 
 .feed-entry > .feed-content .feed-cover img {

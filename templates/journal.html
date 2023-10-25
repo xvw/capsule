@@ -1,74 +1,68 @@
 {%- if (has_previous || has_next) -%}
 <div class="feed-pagination">
-{%- if has_previous -%}
-    <div class="feed-previous">
-        <a href="/journal/{%- if not (previous == 1) -%}{{ previous }}.html{%- endif -%}">
-            Entrées plus récentes
-        </a>
-    </div>
-    {%- endif -%}
-    <div class="feed-spacing"></div>
-    {%- if has_next -%}
-    <div class="feed-next">
-        <a href="/journal/{{ next }}.html">
-            Entrées plus anciennes
-        </a>
-    </div>
-    {%- endif -%}
+  {%- if has_previous -%}
+  <div class="feed-previous">
+    <a
+      href="/journal/{%- if not (previous == 1) -%}{{ previous }}.html{%- endif -%}"
+    >
+      Entrées plus récentes
+    </a>
+  </div>
+  {%- endif -%}
+  <div class="feed-spacing"></div>
+  {%- if has_next -%}
+  <div class="feed-next">
+    <a href="/journal/{{ next }}.html"> Entrées plus anciennes </a>
+  </div>
+  {%- endif -%}
 </div>
-{%- endif -%}
-
-
-{%- for entry in entries -%}
+{%- endif -%} {%- for entry in entries -%}
 <section class="feed-entry">
-    <div class="feed-sidebar">
-        <div class="feed-date">
-            {{ entry.date.canonical }}
+  <div class="feed-sidebar">
+    <div class="feed-date">{{ entry.date.canonical }}</div>
+    {%- if entry.has_tags -%}
+    <ul class="feed-tags">
+      {%- for tag in entry.tags -%}
+      <li class="tag">{{ tag }}</li>
+      {%- endfor -%}
+      <li class="permalink"><a href="{{ entry.entry_url  }}">permalink</a></li>
+    </ul>
+    {%- endif -%}
+  </div>
+  <div class="feed-content">
+    {%- if entry.has_cover -%}
+    <div class="feed-cover">
+      <img src="{{ entry.cover  }}" alt="cover" />
+    </div>
+    {%- endif -%}
+    <article>
+      {%- autoescape false -%}{{ entry.content }}{%- endautoescape -%}
+    </article>
+    {%- if (entry.has_meta || entry.has_indexes) -%}
+    <div class="feed-meta">
+      {%- if entry.has_meta -%}
+      <div class="feed-meta-kv">
+        {%- for m in entry.meta -%}
+        <div>
+          <span>{{ m.key }}</span>
+          <span>{{ m.value }}</span>
         </div>
-        {%- if entry.has_tags -%}
-        <ul class="feed-tags">
-            {%- for tag in entry.tags -%}
-            <li>{{ tag }}</li>
-            {%- endfor -%}
+        {%- endfor -%}
+      </div>
+      {%- endif -%} {%- if entry.has_indexes -%} {%- for index in
+      entry.indexes-%}
+      <div class="feed-index">
+        <h2>{{ index.name }}</h2>
+        <p>{{ index.synopsis }}</p>
+        <ul>
+          {%- for link in index.links-%}
+          <li><a href="{{ link.href }}">{{ link.name }}</a></li>
+          {%- endfor -%}
         </ul>
-        {%- endif -%}
+      </div>
+      {%- endfor -%} {%- endif -%}
     </div>
-    <div class="feed-content">
-        {%- if entry.has_cover -%}
-        <div class="feed-cover">
-            <img src="{{ entry.cover  }}" alt="cover" />
-        </div>
-        {%- endif -%}
-        <article>
-            {%- autoescape false -%}{{ entry.content }}{%- endautoescape -%}
-        </article>
-        {%- if (entry.has_meta || entry.has_indexes) -%}
-        <div class="feed-meta">
-            {%- if entry.has_meta -%}
-            <div class="feed-meta-kv">
-                {%- for m in entry.meta -%}
-                <div>
-                    <span>{{ m.key }}</span>
-                    <span>{{ m.value }}</span>
-                </div>
-                {%- endfor -%}
-            </div>
-            {%- endif -%}
-            {%- if entry.has_indexes -%}
-            {%- for index in entry.indexes-%}
-            <div class="feed-index">
-                <h2>{{ index.name }}</h2>
-                <p>{{ index.synopsis }}</p>
-                <ul>
-                    {%- for link in index.links-%}
-                    <li><a href="{{ link.href }}">{{ link.name }}</a></li>
-                    {%- endfor -%}
-                </ul>
-            </div>
-            {%- endfor -%}
-            {%- endif -%}
-        </div>
-        {%- endif -%}
-    </div>
+    {%- endif -%}
+  </div>
 </section>
 {%- endfor -%}

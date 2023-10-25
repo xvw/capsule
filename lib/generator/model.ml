@@ -10,6 +10,7 @@ module Date_filename = struct
           date_str ^ " " ^ String.map (function '-' -> ':' | x -> x) time_str
         in
         Date.from_string datetime_str
+        |> Validate.Functor.map (fun date -> (filename, date))
     | _ -> Error.(to_validate @@ Invalid_date filename)
 
   let from_filename_opt filename =
@@ -264,6 +265,7 @@ module Entry = struct
   type t = {
       page : Page.t
     ; date : Date.t
+    ; date_str : string
     ; cover : string option
     ; meta : KVMap.t list
   }
@@ -278,6 +280,7 @@ module Entry = struct
   let validate (type a) (module Meta : Metadata.VALIDABLE with type t = a) assoc
       =
     let open Validate.Applicative in
+    let date_str = "2023-01-01_10-00-00" in
     let+ date = Date.(make 2023 Jan 1)
     and+ page = Page.validate (module Meta) assoc
     and+ meta =
@@ -287,7 +290,7 @@ module Entry = struct
     let page =
       Page.update_breadcrumb (fun _ -> Link.[ make "Journal" "/journal" ]) page
     in
-    { page; date; cover; meta }
+    { page; date; cover; meta; date_str }
 
   let from (type a) (module Meta : Metadata.VALIDABLE with type t = a)
       metadata_object =
@@ -301,7 +304,7 @@ module Entry = struct
         from (module Meta) metadata
 
   let inject (type a) (module Lang : Key_value.DESCRIBABLE with type t = a)
-      { page; date; cover; meta } =
+      { page; date; cover; meta; date_str } =
     let inject_date x = Lang.object_ $ Metadata.Date.inject (module Lang) x in
     Page.inject (module Lang) page
     @ Lang.
@@ -311,35 +314,19 @@ module Entry = struct
         ; ("meta", list $ KVMap.inject_list (module Lang) meta)
         ; ("has_meta", boolean $ is_not_empty_list meta)
         ; ("has_cover", boolean $ Option.is_some cover)
+        ; ("entry_url", string (Target.for_entry ~target:"/" date_str))
         ]
 
-  let inject_date_from_filename filename entry =
-    let open Validate.Applicative in
-    let+ entry = pure entry and+ date = Date_filename.from_filename filename in
+  let inject_raw_date file date =
     let date_str = Date.to_string date in
-    let title = "Journal" and synopsis = "Entrée du " ^ date_str in
-    {
-      entry with
-      date
-    ; page = { entry.page with title; synopsis; description = synopsis }
-    }
-
-  let inject_raw_date date =
-    let date_str = Date.to_string date in
-    let title = "Journal" and synopsis = "Entrée du " ^ date_str in
+    let title = date_str and synopsis = "Entrée du " ^ date_str in
     Build.arrow (fun entry ->
         {
           entry with
           date
+        ; date_str = file
         ; page = { entry.page with title; synopsis; description = synopsis }
         })
-
-  let inject_date filename =
-    let open Build in
-    inject_date_from_filename filename
-    ^>> make Deps.empty (function
-          | Preface.Validation.Valid x -> Effect.return x
-          | Preface.Validation.Invalid x -> Effect.throw (Error.List x))
 end
 
 module Entries = struct
@@ -352,14 +339,12 @@ module Entries = struct
     ; entries : entry list
   }
 
-  let get_entries path size =
-    let+ files = read_child_files path File.is_markdown in
-
+  let build_entries files size =
     let sorted =
       List.filter_map
         (fun str ->
           match Date_filename.from_filename str with
-          | Preface.Validation.Valid date -> Some (date, str)
+          | Preface.Validation.Valid (_, date) -> Some (date, str)
           | _ -> None)
         files
       |> List.sort (fun (y, _) (x, _) -> Date.compare x y)
@@ -368,6 +353,10 @@ module Entries = struct
 
     let length = List.length sorted in
     (length, sorted)
+
+  let get_entries path size =
+    let+ files = read_child_files path File.is_markdown in
+    build_entries files size
 
   let read_entries (module V : Metadata.VALIDABLE) length index arr entries =
     let open Build in
@@ -378,7 +367,7 @@ module Entries = struct
           >>^ (fun x -> (x, ()))
           >>> snd
                 (read_file_with_metadata (module V) (module Entry) entry_file
-                >>> fst (Entry.inject_raw_date date)
+                >>> fst (Entry.inject_raw_date entry_file date)
                 >>> snd arr)
           >>^ fun (acc, (entry, content)) -> { entry; content } :: acc)
         (arrow (fun _ -> []))
@@ -407,6 +396,12 @@ module Entries = struct
                     :: Entry.inject (module Lang) entry))
                 entries )
         ]
+
+  let preapply_for_one =
+    Build.arrow (fun (e, s) ->
+        match e.entries with
+        | [ entry ] -> ({ e with page = entry.entry.page }, s)
+        | _ -> (e, s))
 end
 
 module Address = struct

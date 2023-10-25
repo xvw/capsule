@@ -3,8 +3,8 @@
 open Yocaml
 
 module Date_filename : sig
-  val from_filename : Filepath.t -> Date.t Validate.t
-  val from_filename_opt : Filepath.t -> Date.t option
+  val from_filename : Filepath.t -> (string * Date.t) Validate.t
+  val from_filename_opt : Filepath.t -> (string * Date.t) option
 end
 
 (** A page is the atom of the application. The only relationship it has with the
@@ -33,8 +33,6 @@ module Entry : sig
   include WITH_PAGE with type t := t
   include Metadata.READABLE with type t := t
   include Metadata.INJECTABLE with type t := t
-
-  val inject_date : string -> (t, t) Build.t
 end
 
 (** Represents a page of journal. *)
@@ -53,6 +51,8 @@ module Entries : sig
     -> (string, string) Build.t
     -> (Date.t * string) list
     -> (Page.t * string, t * string) Build.t
+
+  val preapply_for_one : (t * string, t * string) Build.t
 end
 
 (** An address is a page with additional metadata related to an address. *)
