@@ -288,7 +288,7 @@ module Entry = struct
         "meta" assoc
     and+ cover = Meta.(optional_assoc string "cover" assoc) in
     let page =
-      Page.update_breadcrumb (fun _ -> Link.[ make "Journal" "/journal" ]) page
+      Page.update_breadcrumb (fun _ -> Link.[ make "Journal" "/journal/" ]) page
     in
     { page; date; cover; meta; date_str }
 
