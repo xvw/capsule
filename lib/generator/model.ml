@@ -1,6 +1,57 @@
 open Util
 open Yocaml
 
+module Atom_util = struct
+  open Yocaml_syndication
+
+  let domain = "https://xvw.lol"
+  let into x = x |> into domain |> Uri.of_string
+  let icon = "apple-touch-icon.png" |> into
+
+  let date date =
+    let (year, month, day), time = Yocaml.Date.to_pair date in
+    let time = Option.value time ~default:(0, 0, 0) in
+    Ptime.of_date_time ((year, Yocaml.Date.month_to_int month, day), (time, 0))
+    |> Option.get (* Should never fail. *)
+
+  module Author = struct
+    let make ?url ?email name =
+      let open Preface.Option.Functor in
+      let uri = Uri.of_string <$> url in
+      Syndic.Atom.author ?uri ?email name
+
+    let xvw =
+      make ~url:domain ~email:"xaviervdw@gmail.com" "Xavier Van de Woestyne"
+
+    let all = [ xvw ]
+  end
+
+  let txt v : Syndic.Atom.text_construct = Syndic.Atom.Text v
+  let tags_to_category = List.map Syndic.Atom.category
+
+  let header ~title ~subtitle ~id entries =
+    let entries =
+      List.sort
+        (fun (a : Syndic.Atom.entry) b -> Ptime.compare b.updated a.updated)
+        entries
+    in
+    let updated = match entries with x :: _ -> x.updated | _ -> Ptime.epoch in
+    Atom.make ~authors:Author.all ~title:(txt title) ~subtitle:(txt subtitle)
+      ~logo:icon ~id:(id |> into)
+      ~links:[ Syndic.Atom.link ~hreflang:"fr" (Uri.of_string domain) ]
+      ~updated entries
+
+  let pp ppf feed =
+    Syndic.Atom.to_xml feed
+    |> Syndic.XML.to_string ~ns_prefix:(function
+         | "http://www.w3.org/2005/Atom" -> Some ""
+         | _ -> Some "http://www.w3.org/2005/Atom")
+    |> String.cat {|<?xml version="1.0" encoding="UTF-8"?>|}
+    |> Format.pp_print_string ppf
+
+  let to_string feed = Format.asprintf "%a" pp feed
+end
+
 module Date_filename = struct
   let from_filename filename =
     let filename = filename |> Filepath.basename |> Filepath.remove_extension in
@@ -270,6 +321,25 @@ module Entry = struct
     ; meta : KVMap.t list
   }
 
+  let compute_url = Target.for_entry ~target:"/"
+
+  let to_atom entry =
+    let pdate = Atom_util.date entry.date in
+    let id = compute_url entry.date_str |> Atom_util.into in
+    let title =
+      entry.page.title ^ ": " ^ String.concat ", " entry.page.tags
+      |> Atom_util.txt
+    in
+    let authors = (Atom_util.Author.xvw, []) in
+    let categories = Atom_util.tags_to_category entry.page.tags in
+    let summary =
+      Atom_util.txt
+      @@ "entrée du journal pour le "
+      ^ Format.asprintf "%a" Date.pp entry.date
+    in
+    Syndic.Atom.entry ~id ~title ~authors ~categories ~summary ~published:pdate
+      ~updated:pdate ()
+
   include Attach_page (struct
     type nonrec t = t
 
@@ -314,7 +384,7 @@ module Entry = struct
         ; ("meta", list $ KVMap.inject_list (module Lang) meta)
         ; ("has_meta", boolean $ is_not_empty_list meta)
         ; ("has_cover", boolean $ Option.is_some cover)
-        ; ("entry_url", string (Target.for_entry ~target:"/" date_str))
+        ; ("entry_url", string (compute_url date_str))
         ]
 
   let inject_raw_date file date =
@@ -357,6 +427,25 @@ module Entries = struct
   let get_entries path size =
     let+ files = read_child_files path File.is_markdown in
     build_entries files size
+
+  let get_entries_for_feed path size =
+    let+ files = read_child_files path File.is_markdown in
+    let _, sorted = build_entries files size in
+    match sorted with [] -> [] | x :: _ -> x
+
+  let read_entries_for_feed (module V : Metadata.VALIDABLE) entries =
+    let open Build in
+    List.fold_left
+      (fun pre_arrow (date, entry_file) ->
+        pre_arrow
+        >>^ (fun x -> (x, ()))
+        >>> snd
+              (read_file_with_metadata (module V) (module Entry) entry_file
+              >>> fst (Entry.inject_raw_date entry_file date))
+        >>^ fun (acc, (entry, _)) -> Entry.to_atom entry :: acc)
+      (arrow (fun _ -> []))
+      entries
+    >>^ List.rev
 
   let read_entries (module V : Metadata.VALIDABLE) length index arr entries =
     let open Build in
@@ -532,4 +621,15 @@ module Dapp = struct
     let open Build in
     (fun meta -> (meta.manifest, meta)) ^>> fst arr >>^ fun (manifest, m) ->
     { m with manifest }
+end
+
+module Feed = struct
+  let journal (module V : Metadata.VALIDABLE) ~feed_file path size =
+    let+ entries = Entries.get_entries_for_feed path size in
+    let open Build in
+    Entries.read_entries_for_feed (module V) entries
+    >>^ (fun entries ->
+          Atom_util.header ~title:"xvw.journal" ~subtitle:"Entrées du journal"
+            ~id:feed_file entries)
+    >>^ Atom_util.to_string
 end

@@ -25,7 +25,7 @@ jobs:
       - run: (cd hell; npm install; npm run build)
       - run: opam install . --deps-only --with-doc --with-test
       - run: opam install yocaml
-      - run: opam install yocaml_unix yocaml_yaml yocaml_jingoo
+      - run: opam install yocaml_unix yocaml_yaml yocaml_jingoo yocaml_syndication
       - run: opam exec -- dune build
       - run: opam exec -- dune exec bin/capsule_cli/capsule.exe -- build
 

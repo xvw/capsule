@@ -6,6 +6,7 @@ let program target =
   let* () = Generator.Rule.pages ~target in
   let* () = Generator.Rule.addresses ~target in
   let* () = Generator.Rule.journal ~target ~size:4 in
+  let* () = Generator.Rule.journal_feed ~target ~size:25 in
   let* () = Generator.Rule.dapps ~target in
   return ()
 

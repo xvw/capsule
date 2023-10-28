@@ -32,4 +32,5 @@
   (yocaml :pinned)
   (yocaml_unix :pinned)
   (yocaml_yaml :pinned)
-  (yocaml_jingoo :pinned)))
+  (yocaml_jingoo :pinned)
+  (yocaml_syndication :pinned)))

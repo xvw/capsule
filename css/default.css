@@ -86,6 +86,10 @@ footer p {
   line-height: 1.2;
 }
 
+footer p.feed-icons {
+  margin-top: 18px;
+}
+
 .warning a,
 footer a {
   color: #ffffff;

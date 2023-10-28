@@ -75,3 +75,13 @@ module Dapp : sig
   val join_files : (string * (t * string), t * string) Build.t
   val map_manifest : (string, string) Build.t -> (t, t) Build.t
 end
+
+(** Deal with Atom Feeds *)
+module Feed : sig
+  val journal :
+       (module Metadata.VALIDABLE)
+    -> feed_file:Filepath.t
+    -> Filepath.t
+    -> int
+    -> ('a, string) Build.t t
+end

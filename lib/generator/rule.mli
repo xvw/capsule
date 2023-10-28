@@ -45,5 +45,9 @@ val addresses : target:Filepath.t -> unit Effect.t
 val journal : target:Filepath.t -> size:int -> unit Effect.t
 (** [Rule.journal] this is the rule that produce pages of the journal. *)
 
+val journal_feed : target:Filepath.t -> size:int -> unit Effect.t
+(** [Rule.journal_feed] this is the rule that produce pages of the journal's
+    atom feed. *)
+
 val dapps : target:Filepath.t -> unit Effect.t
 (** [Rule.indexes] this is the rule that produces static page as a DApp vessel. *)

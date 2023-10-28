@@ -27,6 +27,7 @@ depends: [
   "yocaml_unix" {pinned}
   "yocaml_yaml" {pinned}
   "yocaml_jingoo" {pinned}
+  "yocaml_syndication" {pinned}
   "odoc" {with-doc}
 ]
 build: [
@@ -50,4 +51,5 @@ pin-depends: [
   ["yocaml_yaml.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
   ["yocaml_markdown.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
   ["yocaml_jingoo.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
+  ["yocaml_syndication.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
 ]

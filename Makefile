@@ -28,6 +28,6 @@ local-deps:
 	opam install . --deps-only --with-doc --with-test -y
 
 pinned-deps: local-deps
-	opam install yocaml yocaml_unix yocaml_yaml yocaml_jingoo  -y
+	opam install yocaml yocaml_unix yocaml_yaml yocaml_jingoo yocaml_syndication  -y
 
 deps: pinned-deps dev-deps

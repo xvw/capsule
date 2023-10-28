@@ -173,3 +173,11 @@ let indexes ~target =
   let open Build in
   let file_target = Target.for_index ~target index_file in
   create_file $ file_target $ base_page index_file
+
+let journal_feed ~target ~size =
+  let feed_file = "journal.xml" in
+  let feed_target = feed_file |> into (Target.capsule ~target) in
+  let* feed_arrow =
+    Model.Feed.journal (module Y) ~feed_file "content/journal" size
+  in
+  Build.(create_file feed_target (binary_update >>> feed_arrow))
