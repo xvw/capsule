@@ -30,6 +30,7 @@ module Atom_util = struct
   let tags_to_category = List.map Syndic.Atom.category
 
   let header ~title ~subtitle ~id entries =
+    let id = id |> into in
     let entries =
       List.sort
         (fun (a : Syndic.Atom.entry) b -> Ptime.compare b.updated a.updated)
@@ -37,8 +38,8 @@ module Atom_util = struct
     in
     let updated = match entries with x :: _ -> x.updated | _ -> Ptime.epoch in
     Atom.make ~authors:Author.all ~title:(txt title) ~subtitle:(txt subtitle)
-      ~logo:icon ~id:(id |> into)
-      ~links:[ Syndic.Atom.link ~hreflang:"fr" (Uri.of_string domain) ]
+      ~logo:icon ~id
+      ~links:[ Syndic.Atom.link ~rel:Syndic.Atom.Self ~hreflang:"fr" id ]
       ~updated entries
 
   let pp ppf feed =
@@ -326,6 +327,7 @@ module Entry = struct
   let to_atom entry =
     let pdate = Atom_util.date entry.date in
     let id = compute_url entry.date_str |> Atom_util.into in
+    let links = Syndic.Atom.[ link ~rel:Alternate ~hreflang:"fr" id ] in
     let title =
       entry.page.title ^ ": " ^ String.concat ", " entry.page.tags
       |> Atom_util.txt
@@ -337,8 +339,8 @@ module Entry = struct
       @@ "entrée du journal pour le "
       ^ Format.asprintf "%a" Date.pp entry.date
     in
-    Syndic.Atom.entry ~id ~title ~authors ~categories ~summary ~published:pdate
-      ~updated:pdate ()
+    Syndic.Atom.entry ~id ~title ~links ~authors ~categories ~summary
+      ~published:pdate ~updated:pdate ()
 
   include Attach_page (struct
     type nonrec t = t
