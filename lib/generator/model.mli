@@ -78,10 +78,33 @@ end
 
 (** Deal with Atom Feeds *)
 module Feed : sig
+  val pages :
+       (module Metadata.VALIDABLE)
+    -> feed_file:Filepath.t
+    -> Filepath.t
+    -> int
+    -> (unit, string) Build.t t
+
+  val addresses :
+       (module Metadata.VALIDABLE)
+    -> feed_file:Filepath.t
+    -> Filepath.t
+    -> int
+    -> (unit, string) Build.t t
+
   val journal :
        (module Metadata.VALIDABLE)
     -> feed_file:Filepath.t
     -> Filepath.t
     -> int
-    -> ('a, string) Build.t t
+    -> (unit, string) Build.t t
+
+  val all :
+       (module Metadata.VALIDABLE)
+    -> feed_file:Filepath.t
+    -> path_pages:Filepath.t
+    -> path_addresses:Filepath.t
+    -> path_journal:Filepath.t
+    -> int
+    -> (unit, string) Build.t t
 end

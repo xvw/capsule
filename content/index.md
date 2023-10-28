@@ -16,7 +16,7 @@ toc: false
 indexes:
   - name: Technologies
     synopsis: Notes et projets plus-ou-moins organisés relatifs à la technologie
-      (incluant la programmation)
+      (incluant la programmation).
     links:
       - name: Programmation
         href: /programming.html
@@ -37,6 +37,8 @@ indexes:
     links:
       - name: Journal
         href: /journal/
+      - name: Flux de nouvelles
+        href: /feeds.html
 ---
 
 Vous me trouverez sur [Mastodon](https://merveilles.town/@xvw), sur

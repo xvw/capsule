@@ -181,3 +181,30 @@ let journal_feed ~target ~size =
     Model.Feed.journal (module Y) ~feed_file "content/journal" size
   in
   Build.(create_file feed_target (binary_update >>> feed_arrow))
+
+let pages_feed ~target ~size =
+  let feed_file = "pages.xml" in
+  let feed_target = feed_file |> into (Target.capsule ~target) in
+  let* feed_arrow =
+    Model.Feed.pages (module Y) ~feed_file "content/pages" size
+  in
+  Build.(create_file feed_target (binary_update >>> feed_arrow))
+
+let addresses_feed ~target ~size =
+  let feed_file = "addresses.xml" in
+  let feed_target = feed_file |> into (Target.capsule ~target) in
+  let* feed_arrow =
+    Model.Feed.pages (module Y) ~feed_file "content/addresses" size
+  in
+  Build.(create_file feed_target (binary_update >>> feed_arrow))
+
+let atom_feed ~target ~size =
+  let feed_file = "atom.xml" in
+  let feed_target = feed_file |> into (Target.capsule ~target) in
+  let* feed_arrow =
+    Model.Feed.all
+      (module Y)
+      ~feed_file ~path_pages:"content/pages" ~path_addresses:"content/addresses"
+      ~path_journal:"content/journal" size
+  in
+  Build.(create_file feed_target (binary_update >>> feed_arrow))

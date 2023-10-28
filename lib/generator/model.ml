@@ -1,6 +1,20 @@
 open Util
 open Yocaml
 
+module Effect_util = struct
+  let read_metadata (type a) (module V : Metadata.VALIDABLE)
+      (module R : Metadata.READABLE with type t = a) f path =
+    let* content = read_file path in
+    let result =
+      let open Try.Monad in
+      let* content = content in
+      let m, _ = split_metadata content in
+
+      R.from_string (module V) m |> Validate.to_try >|= f path
+    in
+    match result with Ok x -> return x | Error err -> throw err
+end
+
 module Atom_util = struct
   open Yocaml_syndication
 
@@ -13,6 +27,11 @@ module Atom_util = struct
     let time = Option.value time ~default:(0, 0, 0) in
     Ptime.of_date_time ((year, Yocaml.Date.month_to_int month, day), (time, 0))
     |> Option.get (* Should never fail. *)
+
+  let sort_by_date l =
+    List.sort
+      (fun (a : Syndic.Atom.entry) b -> Ptime.compare b.updated a.updated)
+      l
 
   module Author = struct
     let make ?url ?email name =
@@ -31,11 +50,7 @@ module Atom_util = struct
 
   let header ~title ~subtitle ~id entries =
     let id = id |> into in
-    let entries =
-      List.sort
-        (fun (a : Syndic.Atom.entry) b -> Ptime.compare b.updated a.updated)
-        entries
-    in
+    let entries = sort_by_date entries in
     let updated = match entries with x :: _ -> x.updated | _ -> Ptime.epoch in
     Atom.make ~authors:Author.all ~title:(txt title) ~subtitle:(txt subtitle)
       ~logo:icon ~id
@@ -188,6 +203,23 @@ module Page = struct
     ; display_toc : bool
     ; indexes : Index.t list
   }
+
+  let compute_url = Target.for_page ~target:"/"
+
+  let to_atom file page =
+    let open Preface.Option.Monad in
+    let+ date =
+      Preface.Option.Alternative.(page.update_date <|> page.creation_date)
+    in
+    let id = compute_url file |> Atom_util.into in
+    let published = page.creation_date >|= Atom_util.date in
+    let authors = (Atom_util.Author.xvw, []) in
+    let updated = Atom_util.date date in
+    let categories = Atom_util.tags_to_category page.tags in
+    let title = Atom_util.txt page.title in
+    let summary = Atom_util.txt page.synopsis in
+    Syndic.Atom.entry ?published ~updated ~authors ~categories ~id ~title
+      ~summary ()
 
   let map_synopsis arr =
     let open Build in
@@ -506,6 +538,9 @@ module Address = struct
     ; nominatim_address : string
   }
 
+  let compute_url = Target.for_address ~target:"/"
+  let to_atom file address = Page.to_atom file address.page
+
   let nominatim_address country city zipcode address =
     let address = poor_slug ~space:"+" address
     and country = poor_slug ~space:"+" country
@@ -626,6 +661,64 @@ module Dapp = struct
 end
 
 module Feed = struct
+  let get_page_for_feed (module V : Metadata.VALIDABLE) path size =
+    let* files = read_child_files path File.is_markdown in
+    let+ files =
+      Traverse.traverse
+        (Effect_util.read_metadata
+           (module V)
+           (module Page)
+           (fun path e -> (path, Page.compute_url path, e)))
+        files
+    in
+    let deps, entries =
+      files
+      |> List.filteri (fun i _ -> i < size)
+      |> List.filter_map (fun (p, u, e) ->
+             Option.map (fun x -> (Deps.file p, x)) (Page.to_atom u e))
+      |> List.split
+    in
+    let deps = Deps.of_list deps in
+    Build.make deps (fun () -> return entries)
+
+  let get_addresses_for_feed (module V : Metadata.VALIDABLE) path size =
+    let* files = read_child_files path File.is_markdown in
+    let+ files =
+      Traverse.traverse
+        (Effect_util.read_metadata
+           (module V)
+           (module Address)
+           (fun path e -> (path, Address.compute_url path, e)))
+        files
+    in
+    let deps, entries =
+      files
+      |> List.filteri (fun i _ -> i < size)
+      |> List.filter_map (fun (p, u, e) ->
+             Option.map (fun x -> (Deps.file p, x)) (Address.to_atom u e))
+      |> List.split
+    in
+    let deps = Deps.of_list deps in
+    Build.make deps (fun () -> return entries)
+
+  let pages (module V : Metadata.VALIDABLE) ~feed_file path size =
+    let+ entries = get_page_for_feed (module V) path size in
+    let open Build in
+    entries
+    >>^ (fun entries ->
+          Atom_util.header ~title:"xvw.pages" ~subtitle:"Pages et articles"
+            ~id:feed_file entries)
+    >>^ Atom_util.to_string
+
+  let addresses (module V : Metadata.VALIDABLE) ~feed_file path size =
+    let+ entries = get_addresses_for_feed (module V) path size in
+    let open Build in
+    entries
+    >>^ (fun entries ->
+          Atom_util.header ~title:"xvw.addresses"
+            ~subtitle:"Opinions sur des adresses" ~id:feed_file entries)
+    >>^ Atom_util.to_string
+
   let journal (module V : Metadata.VALIDABLE) ~feed_file path size =
     let+ entries = Entries.get_entries_for_feed path size in
     let open Build in
@@ -633,5 +726,22 @@ module Feed = struct
     >>^ (fun entries ->
           Atom_util.header ~title:"xvw.journal" ~subtitle:"Entrées du journal"
             ~id:feed_file entries)
+    >>^ Atom_util.to_string
+
+  let all (module V : Metadata.VALIDABLE) ~feed_file ~path_pages ~path_addresses
+      ~path_journal size =
+    let* journal =
+      Entries.get_entries_for_feed path_journal size
+      >|= Entries.read_entries_for_feed (module V)
+    in
+    let* pages = get_page_for_feed (module V) path_pages size in
+    let+ addresses = get_addresses_for_feed (module V) path_addresses size in
+    let open Build in
+    (fun () -> ((), ((), ()))) ^>> fst journal
+    >>> snd (fst pages >>> snd addresses)
+    >>^ (fun (j, (p, a)) ->
+          Atom_util.header ~title:"xvw" ~subtitle:"Fil complet d'actualité"
+            ~id:feed_file
+            (j @ p @ a))
     >>^ Atom_util.to_string
 end

@@ -49,5 +49,16 @@ val journal_feed : target:Filepath.t -> size:int -> unit Effect.t
 (** [Rule.journal_feed] this is the rule that produce pages of the journal's
     atom feed. *)
 
+val pages_feed : target:Filepath.t -> size:int -> unit Effect.t
+(** [Rule.pages_feed] this is the rule that produce pages of the pages's atom
+    feed. *)
+
+val addresses_feed : target:Filepath.t -> size:int -> unit Effect.t
+(** [Rule.pages_feed] this is the rule that produce pages of the pages's atom
+    feed. *)
+
+val atom_feed : target:Filepath.t -> size:int -> unit Effect.t
+(** [Rule.atom_feed] this is the rule that produce pages of the full atom feed. *)
+
 val dapps : target:Filepath.t -> unit Effect.t
 (** [Rule.indexes] this is the rule that produces static page as a DApp vessel. *)
