@@ -491,7 +491,8 @@ end
 Rendant l'exploitation du module `Foo`, dans le module courant, impossible.
 Cependant, comme il est d'usage de fournir des signatures de modules — et donc
 d'en contrôler son API publique, on trouvera plus régulièrement des renommages
-de cette forme : `module Bar = Foo`. De plus, je ne suis pas convaincu que l'interdiction d'accès au 
+de cette forme : `module Bar = Foo`. De plus, je ne suis pas convaincu que
+l'interdiction d'accès au module original soit réellement un problème.
 
 #### Renommage imbriqué
 
