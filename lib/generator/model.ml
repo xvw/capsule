@@ -204,7 +204,7 @@ module Page = struct
     ; indexes : Index.t list
   }
 
-  let compute_url = Target.for_page ~target:"/"
+  let compute_url = Target.for_page ~target:""
 
   let to_atom file page =
     let open Preface.Option.Monad in
@@ -355,7 +355,7 @@ module Entry = struct
     ; meta : KVMap.t list
   }
 
-  let compute_url = Target.for_entry ~target:"/"
+  let compute_url = Target.for_entry ~target:""
 
   let to_atom entry =
     let pdate = Atom_util.date entry.date in
@@ -539,8 +539,14 @@ module Address = struct
     ; nominatim_address : string
   }
 
-  let compute_url = Target.for_address ~target:"/"
-  let to_atom file address = Page.to_atom file address.page
+  let compute_url = Target.for_address ~target:""
+
+  let to_atom file address =
+    let id = compute_url file |> Atom_util.into in
+    let links = Syndic.Atom.[ link ~rel:Alternate ~hreflang:"fr" id ] in
+    let open Preface.Option.Monad in
+    let+ p = Page.to_atom file address.page in
+    Syndic.Atom.{ p with id; links }
 
   let nominatim_address country city zipcode address =
     let address = poor_slug ~space:"+" address

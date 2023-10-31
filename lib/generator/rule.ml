@@ -194,7 +194,7 @@ let addresses_feed ~target ~size =
   let feed_file = "addresses.xml" in
   let feed_target = feed_file |> into (Target.capsule ~target) in
   let* feed_arrow =
-    Model.Feed.pages (module Y) ~feed_file "content/addresses" size
+    Model.Feed.addresses (module Y) ~feed_file "content/addresses" size
   in
   Build.(create_file feed_target (binary_update >>> feed_arrow))
 
