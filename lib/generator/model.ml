@@ -212,13 +212,14 @@ module Page = struct
       Preface.Option.Alternative.(page.update_date <|> page.creation_date)
     in
     let id = compute_url file |> Atom_util.into in
+    let links = Syndic.Atom.[ link ~rel:Alternate ~hreflang:"fr" id ] in
     let published = page.creation_date >|= Atom_util.date in
     let authors = (Atom_util.Author.xvw, []) in
     let updated = Atom_util.date date in
     let categories = Atom_util.tags_to_category page.tags in
     let title = Atom_util.txt page.title in
     let summary = Atom_util.txt page.synopsis in
-    Syndic.Atom.entry ?published ~updated ~authors ~categories ~id ~title
+    Syndic.Atom.entry ?published ~updated ~authors ~categories ~links ~id ~title
       ~summary ()
 
   let map_synopsis arr =
