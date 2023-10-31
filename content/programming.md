@@ -19,4 +19,6 @@ indexes:
     links:
       - name: Méthodes gardées en OCaml
         href: /pages/oop-refl.html
+      - name: OCaml, modules et schémas d'importation
+        href: /pages/modules-import.html
 ---

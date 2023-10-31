@@ -38,6 +38,7 @@ body {
 }
 
 .address-meta a,
+article li a,
 main p a {
   text-decoration: none;
   color: var(--regular-link-color);
@@ -295,6 +296,20 @@ article details[open] summary::before {
 
 article details summary article details table {
   margin: 22px auto;
+}
+
+article div.md-multicols {
+  display: flex;
+  flex-direction: row;
+}
+
+article div.md-multicols > * {
+  flex: 1;
+  margin-right: 16px;
+}
+
+article div.md-multicols > *:last-child {
+  margin-right: 0;
 }
 
 .indexes > div {
@@ -739,6 +754,15 @@ code {
 
   article blockquote {
     margin-left: 8px;
+  }
+
+  article div.md-multicols {
+    display: flex;
+    flex-direction: column;
+  }
+
+  article div.md-multicols > * {
+    margin-right: 0;
   }
 
   footer {
