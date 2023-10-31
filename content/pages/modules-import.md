@@ -696,6 +696,35 @@ rarement** eu l'occasion de regretter l'absence de cette fonctionnalité,
 nativement. De mon point de vue, l'importation sélèctive suffit généralement
 largement.
 
+## Ancrages de types
+
+Avant de conclure cet article, [@octachron](https://github.com/Octachron) m'a
+pointé du doigt la symétrie partielle entre `open` et `include` en présence de
+modules anonymes (donc d'expression de modules `struct ... end`), c'est un
+problème auquel j'avais déjà été confronté théoriquement car j'avais assisté à
+l'événement de [Mai 2023](https://www.meetup.com/ocaml-paris/events/292972153)
+du [OCaml Users in Paris](https://oups.frama.io/) où [Clément
+Blaudeau](https://clement.blaudeau.net/), dans sa présentation [_Retrofitting
+OCaml Modules_](https://www.irill.org/videos/OUPS/2023-05/blaudeau.html) (qui
+était une synthèse de son papier [_OCaml modules: formalization, insights and
+improvements_](https://inria.hal.science/hal-03526068/file/main.pdf)).
+
+Comme l'ouverture n'exporte pas les composants ouverts, sans l'association à une
+signature explicite, certains termes ne peuvent pas être typés. Par exemple :
+
+```ocaml
+open struct type t = A end
+let x = A
+```
+
+Dans cet exemple, le type `t` (et son constructeur `A`) est présent dans le
+_scope courant_, cependant, comme il n'est pas exporté, il est impossible de
+_typer_ correctement `x`. Si le module disposait d'une signature, on pourrait
+facilement se rendre compte qu'il n'existe pas de type acceptable pour `x`et
+qu'il faudrait soit changer la directive d'ouverture, soit ne pas exporter `x`.
+C'est un problème que l'on appelle **l'ancrage des types** qui est décrit
+expansivement dans le papier cité en début de section.
+
 ## Conclusion
 
 Je pense sincèrement que, dans une utilisation quotidienne de OCaml, nous sommes
