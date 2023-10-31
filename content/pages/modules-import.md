@@ -699,7 +699,7 @@ largement.
 ## Ancrages de types
 
 Avant de conclure cet article, [@octachron](https://github.com/Octachron) m'a
-pointé du doigt la symétrie partielle entre `open` et `include` en présence de
+pointé du doigt l'asymétrie partielle entre `open` et `include` en présence de
 modules anonymes (donc d'expression de modules `struct ... end`), c'est un
 problème auquel j'avais déjà été confronté théoriquement car j'avais assisté à
 l'événement de [Mai 2023](https://www.meetup.com/ocaml-paris/events/292972153)
