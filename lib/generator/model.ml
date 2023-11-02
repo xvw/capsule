@@ -442,6 +442,7 @@ module Entries = struct
     ; previous : int option
     ; next : int option
     ; entries : entry list
+    ; cover : string option
   }
 
   let build_entries files size =
@@ -500,10 +501,10 @@ module Entries = struct
     (fun (x, _) -> (x, ())) ^>> snd pre_arrow >>^ fun (page, entries) ->
     let previous = if index = 1 then None else Some (index - 1)
     and next = if index = length then None else Some (index + 1) in
-    ({ page; entries = List.rev entries; next; previous }, "")
+    ({ page; entries = List.rev entries; next; previous; cover = None }, "")
 
   let inject (type a) (module Lang : Key_value.DESCRIBABLE with type t = a)
-      { page; entries; next; previous } =
+      { page; entries; next; previous; cover } =
     Page.inject (module Lang) page
     @ Lang.
         [
@@ -511,6 +512,8 @@ module Entries = struct
         ; ("has_next", boolean $ Option.is_some next)
         ; ("previous", Option.fold ~none:null ~some:integer previous)
         ; ("next", Option.fold ~none:null ~some:integer next)
+        ; ("cover", Option.fold ~none:null ~some:string cover)
+        ; ("has_cover", boolean $ Option.is_some cover)
         ; ( "entries"
           , list
             $ List.map
@@ -524,7 +527,8 @@ module Entries = struct
   let preapply_for_one =
     Build.arrow (fun (e, s) ->
         match e.entries with
-        | [ entry ] -> ({ e with page = entry.entry.page }, s)
+        | [ entry ] ->
+            ({ e with page = entry.entry.page; cover = entry.entry.cover }, s)
         | _ -> (e, s))
 end
 

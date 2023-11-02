@@ -8,6 +8,16 @@
     <meta name="description" content="{{ html_meta_description }}" />
     <meta name="keywords" content="{{ html_meta_keywords }}" />
     <meta name="author" content="Xavier Van de Woestyne" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="og:title" content="{{ html_title }}" />
+    <meta name="og:description" content="{{ html_meta_description }}" />
+    <meta name="twitter:title" content="{{ html_title }}" />
+    <meta name="twitter:description" content="{{ html_meta_description }}" />
+    <meta name="twitter:creator" content="@vdwxv" />
+    {%- if has_cover -%}
+    <meta name="og:image" content="https://xvw.lol{{ cover }}" />
+    <meta name="twitter:image" content="https://xvw.lol{{ cover }}" />
+    {%- endif -%}
     <link rel="stylesheet" href="/css/fonts.css" />
     <link rel="stylesheet" href="/css/hl.css" />
     <link rel="stylesheet" href="/css/default.css" />
