@@ -11,11 +11,11 @@ tags:
   - ocaml
 indexes:
   - name: Bribes & Encodages
-    synopsis: En programmation, il existe parfois plusieurs manière de résoudre
-      des problème (ou d'en créer). Cette page indexe des petits
-      fragments de code ou des ruses de sioux qui solutionnent des
+    synopsis: En programmation, il existe parfois plusieurs manières de résoudre
+      des problèmes (ou d'en créer). Cette page indexe de petits
+      fragments de code ou des ruses de sioux qui solutionnent ces
       problèmes (qui parfois n'en sont pas). Ce n'est pas toujours très
-      utile aux premiers abords, mais je trouve ça parfois intéressant.
+      utile au premier abord, mais je trouve ça parfois intéressant.
     links:
       - name: Méthodes gardées en OCaml
         href: /pages/oop-refl.html
