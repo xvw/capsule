@@ -6,7 +6,7 @@
  (libraries
   dapps
   nightmare_js
-  ocaml-vdom
+  vdom
   nightmare_js-vdom
   yourbones
   yourbones_js
