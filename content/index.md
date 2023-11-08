@@ -15,8 +15,12 @@ tags:
 toc: false
 indexes:
   - name: Technologies
-    synopsis: Notes et projets plus-ou-moins organisés relatifs à la technologie
-      (incluant la programmation).
+    synopsis: 
+      Notes et projets plus-ou-moins organisés relatifs à la technologie
+      — incluant la programmation. Depuis plusieurs, la programmation
+      (idéalement fonctionnelle et statiquement typée) est mon activité
+      principale. Cette section sera donc, probablement, la plus souvent
+      mise à jour.
     links:
       - name: Programmation
         href: /programming.html
@@ -24,11 +28,11 @@ indexes:
         href: /games.html
       - name: Catalogue de dApps
         href: /dapps.html
-  - name: Adresses
+  - name: Divers
     synopsis:
-      Comme il est compliqué d'être productif quand on est monomaniaque, j'essaie de
-      diversifier mes sujets de rédactions en documentant les adresses que j'apprécie
-      dans les quelques villes que je visite.
+      Une collection de pages sans thématique particulière. Des critiques d'adresses
+      (des bars, des cafés, des restaurants, des coffee-shops), des galeries (de photographies 
+      ou d'illustrations), ou encore des articles divers — orphelins d'une catégorie parente.
     links:
       - name: Bars et cafés
         href: /bars.html
