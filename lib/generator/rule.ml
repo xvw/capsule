@@ -21,11 +21,6 @@ let javascript ~target =
   $ File.is_javascript
   $ Build.copy_file ~into:(Target.javascript ~target)
 
-let client ~target =
-  Build.copy_file ~new_name:"capsule.js"
-    ~into:(Target.javascript ~target)
-    "_build/default/bin/capsule_client/capsule_client.bc.js"
-
 let fonts ~target =
   process_files
   $ [ "fonts" ]
@@ -53,7 +48,6 @@ let config ~target =
 let static ~target =
   let* () = css ~target in
   let* () = javascript ~target in
-  let* () = client ~target in
   let* () = fonts ~target in
   let* () = images ~target in
   let* () = favicon ~target in

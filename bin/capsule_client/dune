@@ -1,16 +1,12 @@
 (executable
  (name capsule_client)
- (js_of_ocaml
-  (flags :standard --opt 3))
  (modes js)
- (libraries
-  lwt
-  js_of_ocaml-lwt
-  vdom
-  preface
-  core_js
-  beacon_js
-  hljs_js
-  dapp_transfer)
  (preprocess
-  (pps js_of_ocaml-ppx)))
+  (pps js_of_ocaml-ppx))
+ (js_of_ocaml
+  (flags :standard))
+ (promote
+  (until-clean)
+  (into "../../hell/_build")
+  (only capsule_client.bc.js))
+ (libraries nightmare_js dapp_transfer))
