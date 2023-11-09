@@ -20,6 +20,7 @@
   (logs (>= 0.7.0))
   (cmdliner (>= 1.0.0))
   (omd (>= 2.0.0~alpha2))
+  (js_of_ocaml :pinned)
   (js_of_ocaml-compiler :pinned)
   (js_of_ocaml-ppx :pinned)
   (js_of_ocaml-lwt :pinned)
