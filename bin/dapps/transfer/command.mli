@@ -15,3 +15,15 @@ val stream_head :
         -> new_head:Yourbones.Block_header.t
         -> 'msg)
   -> 'msg Vdom.Cmd.t
+
+val perform_transfer :
+     target:Yourbones.Address.t
+  -> amount:Yourbones.tez
+  -> on_success:
+       (   target:Yourbones.Address.t
+        -> amount:Yourbones.tez
+        -> ( Beacon.Transaction_hash_response_output.t
+           , [ `Request_operation_rejection of exn ] )
+           result
+        -> 'msg)
+  -> 'msg Vdom.Cmd.t

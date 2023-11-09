@@ -37,10 +37,7 @@ let synced_header balance head =
     ]
 
 let sending_form user_address benefactor_inputable =
-  let is_valid =
-    Dapps.Inputable.is_valid_and benefactor_inputable (fun x ->
-        not (Yourbones.Address.equal x user_address))
-  in
+  let is_valid = Dapps.Inputable.is_valid benefactor_inputable in
 
   let focus_class = if is_valid then "valid" else "invalid" in
   let open Nightmare_js_vdom in
@@ -65,10 +62,46 @@ let sending_form user_address benefactor_inputable =
         ]
     ]
 
+let xtz_amount balance target_inputable amount_inputable =
+  let is_valid = Dapps.Inputable.is_valid amount_inputable in
+  let is_addr_valid = Dapps.Inputable.is_valid target_inputable in
+
+  let focus_class = if is_valid then "valid" else "invalid" in
+  let max = `Datetime Yourbones.Tez.(Format.asprintf "%a" (pp ()) balance) in
+
+  let open Nightmare_js_vdom in
+  let btn_attr =
+    if is_valid && is_addr_valid then
+      [ a_disabled false; on_click Message.transfer ]
+    else [ a_disabled true ]
+  in
+  div
+    ~a:[ a_class [ "transfer-form-xtz" ] ]
+    [
+      div
+        [
+          input
+            ~a:
+              [
+                on_input Message.fill_amount
+              ; a_input_type `Text
+              ; a_input_min (`Datetime "0.50000")
+              ; a_input_max max
+              ; a_step 0.5
+              ; a_placeholder "montant du transfert"
+              ; a_class [ focus_class ]
+              ]
+            ()
+        ]
+    ; div [ button ~a:btn_attr [ txt "Effectuer le transfert" ] ]
+    ]
+
 let synced state =
   [
     synced_header state.Model.balance state.Model.head
   ; sending_form state.Model.account.address state.Model.benefactor_address
+  ; xtz_amount state.Model.balance state.Model.benefactor_address
+      state.Model.amount
   ]
 
 let render_trace =
@@ -93,7 +126,7 @@ let view Model.{ trace; state } =
           ~a:[ a_class [ "dapp-content" ] ]
           (match state with
           | Model.Not_synced -> not_synced ()
-          | Model.Loading -> loading ()
+          | Model.Loading | Model.Await_inclusion _ -> loading ()
           | Model.Synced state -> synced state)
       ; render_footer trace
       ])

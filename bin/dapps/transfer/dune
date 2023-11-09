@@ -10,4 +10,5 @@
   nightmare_js-vdom
   yourbones
   yourbones_js
-  yourbones_js-beacon))
+  yourbones_js-beacon
+  js_of_ocaml-lwt))

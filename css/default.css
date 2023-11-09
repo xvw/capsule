@@ -705,12 +705,46 @@ code {
   outline: none;
 }
 
+.transfer-form-xtz input.valid:focus,
 .transfer-form-grid > .benefactor-address > input.valid:focus {
   border-right: 3px solid var(--green-color);
 }
 
+.transfer-form-xtz input.invalid:focus,
 .transfer-form-grid > .benefactor-address > input.invalid:focus {
   border-right: 3px solid var(--red-color);
+}
+
+.transfer-form-xtz {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--layout-font-rev-color);
+  display: flex;
+}
+
+.transfer-form-xtz > div:last-child {
+  flex: 1;
+  text-align: right;
+}
+
+.transfer-form-xtz input {
+  background-color: transparent;
+  border: 0px solid transparent;
+  color: #fff;
+}
+
+.transfer-form-xtz:before {
+  content: "ꜩ";
+  margin-right: 8px;
+  font-weight: 700;
+}
+
+.transfer-form-xtz input::placeholder {
+  color: #fff;
+}
+
+.transfer-form-xtz input:focus {
+  outline: none;
 }
 
 @media all and (max-width: 960px) {
@@ -787,6 +821,26 @@ code {
 
   .feed-entry > .feed-content .feed-meta > div:last-child {
     border-style: none;
+  }
+
+  .dapp-container .black-dapp .dapp-std-header {
+    flex-direction: column-reverse;
+  }
+
+  .dapp-container .black-dapp .dapp-std-header > * {
+    text-align: center;
+    padding: 12px;
+  }
+
+  .transfer-form-grid {
+    flex-direction: column;
+  }
+
+  .transfer-form-grid {
+    margin: 0;
+    padding: 12px;
+    border-style: none;
+    border-bottom: 1px solid var(--layout-font-rev-color);
   }
 }
 

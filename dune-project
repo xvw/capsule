@@ -20,11 +20,10 @@
   (logs (>= 0.7.0))
   (cmdliner (>= 1.0.0))
   (omd (>= 2.0.0~alpha2))
-  (js_of_ocaml-compiler (>= 5.2.0))
-  (js_of_ocaml-ppx (>= 5.2.0))
-  (js_of_ocaml-lwt (>= 5.2.0))
+  (js_of_ocaml-compiler :pinned)
+  (js_of_ocaml-ppx :pinned)
+  (js_of_ocaml-lwt :pinned)
   (mdx (and :with-test (>= 2.0.0)))
-  promise_jsoo
   vdom
   data-encoding
   tezos-base58

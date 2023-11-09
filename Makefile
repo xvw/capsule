@@ -26,6 +26,7 @@ local-deps:
 	opam install . --deps-only --with-doc --with-test --with-dev-setup -y
 
 pinned-deps: local-deps
+	opam install js_of_ocaml-compiler js_of_ocaml-ppx js_of_ocaml-lwt
 	opam install yocaml yocaml_unix yocaml_yaml yocaml_jingoo yocaml_syndication  -y
 	opam install nightmare nightmare-dream nightmare-tyxml -y
 	opam install nightmare_js nightmare_js-vdom -y
