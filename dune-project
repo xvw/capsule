@@ -35,7 +35,6 @@
   (yocaml_jingoo :pinned)
   (yocaml_syndication :pinned)
   (nightmare :pinned)
-  (nightmare-dream :pinned)
   (nightmare-tyxml :pinned)
   (nightmare_js :pinned)
   (nightmare_js-vdom :pinned)
