@@ -3,8 +3,8 @@ open Nightmare_js
 let app () =
   let open Dapps.Lwt_util in
   let client =
-    Beacon.Dapp_client.make ~preferred_network:Network.preferred_network
-      ~name:"capsule-transfer" ()
+    Beacon.Dapp_client.make ~color_mode:Beacon.Color_mode.Dark
+      ~preferred_network:Network.preferred_network ~name:"capsule-transfer" ()
   in
   let () = Command.register client in
   let+ init = Model.init in

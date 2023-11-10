@@ -29,6 +29,18 @@ let get_balance address =
     Yourbones.RPC.Directory.get_balance Yourbones.Chain_id.main
     Yourbones.Block_id.head address
 
+let dump_error err =
+  let label, str =
+    match err with
+    | `Http_error code -> ("http-error", string_of_int code)
+    | `Json_error s -> ("json-error", s)
+    | `Json_exn e -> ("json-exn", Printexc.to_string e)
+    | `Request_permissions_rejection e ->
+        ("request-permissions-rejection", Printexc.to_string e)
+  in
+
+  Nightmare_js.Console.(string error) @@ label ^ ", " ^ str
+
 let perform_wallet_synchronization dapp_client ctx on_success on_failure () =
   let open Dapps.Lwt_util in
   let* account = Beacon.Dapp_client.get_active_account dapp_client in
@@ -49,8 +61,9 @@ let perform_wallet_synchronization dapp_client ctx on_success on_failure () =
   let message =
     match account_with_balance with
     | Ok (account, balance) -> on_success ~account ~balance
-    | Error _ ->
+    | Error err ->
         let error = "Impossible de connecter le wallet" in
+        let () = dump_error err in
         let () = Nightmare_js.Console.(string error) error in
         on_failure ~error
   in
