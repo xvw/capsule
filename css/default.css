@@ -379,7 +379,7 @@ code {
   font-family: var(--mono-font);
 }
 
-<<<<<<< HEAD .feed-pagination {
+.feed-pagination {
   margin-bottom: 64px;
   display: flex;
   flex-direction: row;
@@ -546,6 +546,16 @@ code {
   background-color: var(--layout-bg-rev-color);
   text-align: right;
   font-weight: 700;
+}
+
+.page-comment-widget {
+  margin-top: 64px;
+}
+
+.page-comment-widget h1 {
+  font-family: var(--sans-serif-font);
+  font-weight: 700;
+  font-size: 150%;
 }
 
 .centered-fig {

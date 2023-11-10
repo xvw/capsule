@@ -189,6 +189,35 @@ module Index = struct
     List.map (fun l -> Lang.object_ $ inject (module Lang) l)
 end
 
+module Mastodon_thread = struct
+  type t = {
+      mastodon_instance : string
+    ; mastodon_user : string
+    ; mastodon_id : string
+  }
+
+  let validate (type a) (module Meta : Metadata.VALIDABLE with type t = a) assoc
+      =
+    let open Validate.Applicative in
+    let+ mastodon_instance = Meta.(required_assoc string) "instance" assoc
+    and+ mastodon_user = Meta.(required_assoc string) "user" assoc
+    and+ mastodon_id = Meta.(required_assoc string) "id" assoc in
+    { mastodon_instance; mastodon_user; mastodon_id }
+
+  let from (type a) (module Meta : Metadata.VALIDABLE with type t = a)
+      metadata_object =
+    Meta.object_and (validate (module Meta)) metadata_object
+
+  let inject (type a) (module Lang : Key_value.DESCRIBABLE with type t = a)
+      { mastodon_instance; mastodon_user; mastodon_id } =
+    Lang.
+      [
+        ("instance", string mastodon_instance)
+      ; ("user", string mastodon_user)
+      ; ("id", string mastodon_id)
+      ]
+end
+
 module Page = struct
   type t = {
       title : string
@@ -202,6 +231,7 @@ module Page = struct
     ; toc : string option
     ; display_toc : bool
     ; indexes : Index.t list
+    ; mastodon_thread : Mastodon_thread.t option
   }
 
   let compute_url = Target.for_page ~target:""
@@ -259,6 +289,9 @@ module Page = struct
     and+ indexes =
       Meta.(optional_assoc_or ~default:[] (list_of $ Index.from (module Meta)))
         "indexes" assoc
+    and+ mastodon_thread =
+      Meta.(optional_assoc (Mastodon_thread.from (module Meta)))
+        "mastodon_thread" assoc
     in
     {
       title
@@ -272,6 +305,7 @@ module Page = struct
     ; toc = None
     ; display_toc
     ; indexes
+    ; mastodon_thread
     }
 
   let from (type a) (module Meta : Metadata.VALIDABLE with type t = a)
@@ -298,10 +332,18 @@ module Page = struct
       ; toc
       ; display_toc
       ; indexes
+      ; mastodon_thread
       } =
     let open Lang in
     let date x = object_ $ Metadata.Date.inject (module Lang) x in
     let has_toc = Option.is_some toc in
+    let has_comment_thread = Option.is_some mastodon_thread in
+    let comment_thread =
+      Option.fold ~none:null
+        ~some:(fun thread ->
+          object_ $ Mastodon_thread.inject (module Lang) thread)
+        mastodon_thread
+    in
     [
       ("title", string title)
     ; ("description", string description)
@@ -323,6 +365,8 @@ module Page = struct
     ; ("html_meta_description", string description)
     ; ("html_meta_keywords", string $ String.concat ", " ("capsule" :: tags))
     ; ("toc", Option.fold ~none:null ~some:string toc)
+    ; ("has_comment_thread", boolean has_comment_thread)
+    ; ("mastodon_thread", comment_thread)
     ]
 end
 
