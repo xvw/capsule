@@ -21,9 +21,14 @@ dependencies_ (at the time of writing this README, **YOCaml is not yet available
 on OPAM**, which is very **sad**), by running these commands:
 
 ```shellsession
-opam install yocaml
-opam install yocaml_unix yocaml_yaml yocaml_jingoo
+opam install js_of_ocaml-compiler js_of_ocaml-ppx js_of_ocaml-lwt
+opam install yocaml yocaml_unix yocaml_yaml yocaml_jingoo yocaml_syndication  -y
+opam install nightmare nightmare-tyxml -y
+opam install nightmare_js nightmare_js-vdom -y
+opam install yourbones yourbones-ppx yourbones_js yourbones_js-beacon -y
 ```
+
+Otherwise, if you use `make`, you can just run the command `make deps`.
 
 And since the JavaScript part of the application relay on ... `npm`, you have to
 install `npm` and running `make` will build the inner library... `hell.js`.
