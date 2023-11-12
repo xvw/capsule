@@ -30,7 +30,7 @@ jobs:
       - run: opam install yourbones yourbones-ppx yourbones_js yourbones_js-beacon
       - run: opam install yocaml
       - run: opam install yocaml_unix yocaml_yaml yocaml_jingoo yocaml_syndication
-      - run: opam exec -- dune build
+      - run: opam exec -- dune build --profile=release
       - run: opam exec -- dune exec bin/capsule_cli/capsule.exe -- build
 
       - name: Deploy
