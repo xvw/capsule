@@ -396,7 +396,7 @@ module Status = struct
     ; visibility : Visibility.t
     ; sensitive : bool
     ; spoiler_text : string
-    ; application : Application.t option (**)
+    ; application : Application.t option
     ; mentions : Mention.t list
     ; tags : Tag.t list
     ; emojis : Custom_emoji.t list
@@ -406,7 +406,7 @@ module Status = struct
     ; in_reply_to_id : string option
     ; in_reply_to_account_id : string option
     ; reblog : t option
-    ; poll : Poll.t option (**)
+    ; poll : Poll.t option
     ; language : string option
     ; text : string option
     ; edited_at : string option
@@ -414,7 +414,7 @@ module Status = struct
     ; reblogged : bool option
     ; muted : bool option
     ; bookmarked : bool option
-    ; pinned : bool option (**)
+    ; pinned : bool option
     ; (*
             TO BE COMPLETED
       *)
