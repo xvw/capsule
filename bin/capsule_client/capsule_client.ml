@@ -21,6 +21,17 @@ let () =
     end)
 
 let () =
+  Js.export "capsule_widgets"
+    (object%js
+       method mountComments container_id instance username id =
+         let cid = Js.to_string container_id
+         and ins = Js.to_string instance
+         and usr = Js.to_string username
+         and sid = Js.to_string id in
+         Widget_comments.mount cid ins usr sid
+    end)
+
+let () =
   Js.export "capsule_hljs"
     (object%js
        method run = Hljs.mount ()

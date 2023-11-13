@@ -13,6 +13,6 @@ let app () =
 let mount container_id =
   Nightmare_js_vdom.mount_to ~id:container_id (fun _ ->
       let () =
-        Console.(string info) @@ "mounting Connect in #" ^ container_id
+        Console.(string info) @@ "mounting Transfer in #" ^ container_id
       in
       app ())

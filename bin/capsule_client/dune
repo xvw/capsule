@@ -9,4 +9,4 @@
   (until-clean)
   (into "../../hell/_build")
   (only capsule_client.bc.js))
- (libraries nightmare_js dapp_transfer))
+ (libraries nightmare_js dapp_transfer widget_comments))

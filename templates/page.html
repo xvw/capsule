@@ -24,6 +24,16 @@
       >fil de discussion</a
     >!
   </p>
-  <div class="comment-thread"></div>
+  <script>
+    nightmare_js.suspend(function () {
+      capsule_widgets.mountComments(
+        "comments-thread",
+        "{{ mastodon_thread.instance }}",
+        "{{ mastodon_thread.user }}",
+        "{{ mastodon_thread.id }}"
+      );
+    });
+  </script>
+  <div id="comments-thread"></div>
 </section>
 {%- endif -%}
