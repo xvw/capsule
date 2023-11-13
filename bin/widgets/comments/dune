@@ -4,6 +4,7 @@
   (preprocess (pps js_of_ocaml-ppx))
   (libraries
     dapps
+    data-encoding
     nightmare.service
     nightmare_js
     vdom
