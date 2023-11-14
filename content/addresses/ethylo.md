@@ -37,6 +37,10 @@ indexes:
 additional_fields:
   - key: Téléphone
     value: +32 2 307 37 31
+mastodon_thread:
+  instance: merveilles.town
+  user: xvw
+  id: "111408059112515018"
 ---
 
 > Comme toute rencontre démarre souvent de zéro (ou de _rien_, pour certains,

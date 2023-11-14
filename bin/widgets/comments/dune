@@ -1,0 +1,11 @@
+(library
+  (name widget_comments)
+  (modes byte)
+  (preprocess (pps js_of_ocaml-ppx))
+  (libraries
+    dapps
+    data-encoding
+    nightmare.service
+    nightmare_js
+    vdom
+    nightmare_js-vdom))

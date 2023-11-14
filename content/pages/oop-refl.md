@@ -21,6 +21,10 @@ breadcrumb:
     href: /programming.html
   - name: Bribes & Encodages
     href: /programming.html#index-bribes--encodages
+mastodon_thread:
+  instance: merveilles.town
+  user: xvw
+  id: "111408043581289810"
 ---
 
 Les _défenseurs_ de la **programmation orientée objets** défendent souvent cette

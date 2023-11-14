@@ -44,6 +44,7 @@ body {
   font-family: var(--sans-serif-font);
 }
 
+.comment-content-mention,
 .address-meta a,
 article li a,
 main p a {
@@ -379,7 +380,7 @@ code {
   font-family: var(--mono-font);
 }
 
-<<<<<<< HEAD .feed-pagination {
+.feed-pagination {
   margin-bottom: 64px;
   display: flex;
   flex-direction: row;
@@ -548,9 +549,165 @@ code {
   font-weight: 700;
 }
 
+.page-comment-widget {
+  margin-top: 64px;
+}
+
+.page-comment-widget h1 {
+  font-family: var(--sans-serif-font);
+  font-weight: 700;
+  font-size: 150%;
+}
+
 .centered-fig {
   display: block;
   margin: auto;
+}
+
+#comments-thread .comments-permalink,
+#comments-thread .comments-number {
+  background-color: var(--layout-bg-rev-color);
+  padding: 4px 8px;
+  font-family: var(--mono-font);
+  text-decoration: none;
+  color: var(--layout-font-color);
+  display: inline-block;
+  margin-right: 4px;
+}
+
+#comments-thread .comments-number::before {
+  content: "🗨";
+  margin-right: 8px;
+  color: var(--regular-link-color);
+}
+
+#comments-thread .comments-permalink::before {
+  content: "⧉";
+  margin-right: 8px;
+  color: var(--regular-link-color);
+}
+
+#comments-thread .comments-list {
+  margin-top: 64px;
+}
+
+#comments-thread .comments-list .a_comment {
+  display: grid;
+  grid-template-columns: 50px 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    "date .. .. .. .."
+    "author author author author author"
+    "avatar content content content content"
+    "footer footer footer footer stats";
+  gap: 12px;
+  border-top: 2px solid var(--layout-bg-rev-color);
+  padding: 32px 8px;
+}
+
+#comments-thread .comments-list .a_comment:target {
+  background-color: #fff;
+}
+
+#comments-thread .comments-list .a_comment .comment-author-avatar {
+  grid-area: avatar;
+}
+
+#comments-thread .comments-list .a_comment .comment-author-avatar img {
+  width: 100%;
+}
+
+#comments-thread .comments-list .a_comment .comment-stats {
+  grid-area: stats;
+  text-align: right;
+  font-size: 80%;
+}
+
+#comments-thread .comments-list .a_comment .comment-stats > span {
+  color: var(--regular-link-color);
+  display: inline-block;
+  padding: 2px 0px;
+}
+
+#comments-thread .comments-list .a_comment .comment-stats > span:first-child {
+  margin-right: 12px;
+}
+
+#comments-thread
+  .comments-list
+  .a_comment
+  .comment-stats
+  > span.comment-fav::before {
+  content: "★";
+}
+
+#comments-thread
+  .comments-list
+  .a_comment
+  .comment-stats
+  > span.comment-re::before {
+  content: "🗘";
+}
+
+#comments-thread .comments-list .a_comment .comment-author {
+  grid-area: author;
+}
+
+#comments-thread .comments-list .a_comment .comment-author > span {
+  font-weight: 700;
+  margin-right: 12px;
+}
+
+#comments-thread .comments-list .a_comment .comment-author > a {
+  text-decoration: none;
+  color: var(--regular-link-color);
+  font-weight: 100;
+}
+
+#comments-thread .comments-list .a_comment .comment-content {
+  grid-area: content;
+  font-family: var(--serif-font);
+  padding-bottom: 32px;
+}
+
+#comments-thread .comments-list .a_comment .comment-date {
+  grid-area: date;
+  font-family: var(--mono-font);
+  color: var(--regular-link-color);
+  font-size: 75%;
+}
+
+#comments-thread .comments-list .a_comment .comment-footer {
+  grid-area: footer;
+}
+
+#comments-thread .comments-list .a_comment .comment-footer > * {
+  display: inline-block;
+  padding: 2px 8px;
+  background-color: var(--layout-bg-rev-color);
+  color: var(--regular-link-color);
+  text-decoration: none;
+  font-family: var(--mono-font);
+  font-size: 80%;
+}
+
+#comments-thread
+  .comments-list
+  .a_comment
+  .comment-footer
+  .comment-permalink::before {
+  content: "🗨";
+  margin-right: 8px;
+  color: var(--regular-link-color);
+}
+
+#comments-thread .comments-list .a_comment .comment-footer .comment-to-reply {
+  background-color: var(--regular-link-color);
+  color: var(--layout-bg-color);
+}
+
+#comments-thread .comments-list .a_comment:first-child {
+  margin-top: 0;
+  border-top: 0px solid transparent;
 }
 
 .dapp-container {
