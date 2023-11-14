@@ -44,6 +44,7 @@ body {
   font-family: var(--sans-serif-font);
 }
 
+.comment-content-tag,
 .comment-content-mention,
 .address-meta a,
 article li a,
@@ -595,10 +596,10 @@ code {
   display: grid;
   grid-template-columns: 50px 1fr 1fr 1fr 1fr;
   grid-template-areas:
-    "date .. .. .. .."
+    "date date date date date"
     "author author author author author"
     "avatar content content content content"
-    "footer footer footer footer stats";
+    "footer footer footer stats stats";
   gap: 12px;
   border-top: 2px solid var(--layout-bg-rev-color);
   padding: 32px 8px;
