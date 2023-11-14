@@ -46,7 +46,7 @@ module Status : sig
 end
 
 module Context : sig
-  type t
+  type t = { ancestors : Status.t list; descendants : Status.t list }
 
   val encoding : t Data_encoding.t
 end

@@ -21,7 +21,7 @@ let get_context domain () =
 
 let call_context ~domain ~id =
   let open Dapps.Lwt_util in
-  let endpoint = get_context domain in
+  let endpoint = get_context ("https://" ^ domain) in
   let* response = Fetch.from endpoint id in
   if Fetch.Response.is_ok response then
     let+ txt_response = Fetch.Response.text response in

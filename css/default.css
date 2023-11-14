@@ -563,6 +563,9 @@ code {
   margin: auto;
 }
 
+#comments-thread {
+}
+
 .dapp-container {
   margin: 64px 0;
   font-family: var(--sans-serif-font);

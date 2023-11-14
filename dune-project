@@ -29,6 +29,7 @@
   data-encoding
   tezos-base58
   preface
+  markup
   (yocaml :pinned)
   (yocaml_unix :pinned)
   (yocaml_yaml :pinned)
