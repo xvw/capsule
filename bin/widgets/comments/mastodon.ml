@@ -150,3 +150,30 @@ module Context = struct
     in
     ignore_extra_fields prism
 end
+
+type content_fragment = Text of string | Mention of string | Tag of string
+
+let fragmentize str =
+  let len = String.length str in
+  let rec aux acc previous i =
+    if i >= len then List.rev (Text previous :: acc)
+    else
+      let car = str.[i] in
+      match car with
+      | '@' ->
+          let mention, new_i = lex_token "" (succ i) in
+          aux (Mention mention :: Text previous :: acc) "" new_i
+      | '#' ->
+          let tag, new_i = lex_token "" (succ i) in
+          aux (Tag tag :: Text previous :: acc) "" new_i
+      | c -> aux acc (String.cat previous @@ String.make 1 c) (succ i)
+  and lex_token acc i =
+    if i >= len then (acc, i)
+    else
+      let car = str.[i] in
+      match car with
+      | '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '-' | '_' ->
+          lex_token (String.cat acc (String.make 1 car)) (succ i)
+      | _ -> (acc, i)
+  in
+  aux [] "" 0

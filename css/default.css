@@ -44,6 +44,7 @@ body {
   font-family: var(--sans-serif-font);
 }
 
+.comment-content-mention,
 .address-meta a,
 article li a,
 main p a {
@@ -704,9 +705,9 @@ code {
   color: var(--layout-bg-color);
 }
 
-#comments-thread .comments-list .a_comment:last-child {
-  margin-bottom: 0;
-  border-bottom: 0px solid transparent;
+#comments-thread .comments-list .a_comment:first-child {
+  margin-top: 0;
+  border-top: 0px solid transparent;
 }
 
 .dapp-container {

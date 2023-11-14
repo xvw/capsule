@@ -4,7 +4,7 @@
  (preprocess
   (pps js_of_ocaml-ppx))
  (js_of_ocaml
-  (flags :standard --disable shortvar))
+  (flags :standard))
  (promote
   (until-clean)
   (into "../../hell/_build")

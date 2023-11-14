@@ -1,3 +1,49 @@
+let render_mention mentions username =
+  let open Nightmare_js_vdom in
+  match
+    List.find_opt
+      (fun x -> String.equal x.Mastodon.Mention.username username)
+      mentions
+  with
+  | Some s ->
+      a
+        ~a:[ a_href s.url; a_class [ "comment-content-mention" ] ]
+        [ txt @@ "@" ^ username ]
+  | None ->
+      span
+        ~a:
+          [
+            a_class
+              [ "comment-content-mention"; "comment-content-mention-unreach" ]
+          ]
+        [ txt @@ "#" ^ username ]
+
+let render_tag tags username =
+  let open Nightmare_js_vdom in
+  match
+    List.find_opt (fun x -> String.equal x.Mastodon.Tag.name username) tags
+  with
+  | Some s ->
+      a
+        ~a:[ a_href s.url; a_class [ "comment-content-tag" ] ]
+        [ txt @@ "#" ^ username ]
+  | None ->
+      span
+        ~a:[ a_class [ "comment-content-tag"; "comment-content-tag-unreach" ] ]
+        [ txt @@ "#" ^ username ]
+
+let compute_content tags mentions content =
+  let open Nightmare_js_vdom in
+  content
+  |> Util.cheat_with_string_document
+  |> Mastodon.fragmentize
+  |> List.filter_map (function
+       | Mastodon.Tag x -> Some (render_tag tags x)
+       | Mention x -> Some (render_mention mentions x)
+       | Text "" -> None
+       | Text x ->
+           Some (span ~a:[ a_class [ "comment-content-regular" ] ] [ txt x ]))
+
 let render_comments main_id comments =
   let open Mastodon in
   let open Nightmare_js_vdom in
@@ -11,7 +57,9 @@ let render_comments main_id comments =
            if String.(equal empty author.display_name) then author.username
            else author.display_name
          in
-         let txt_content = Util.cheat_with_string_document content in
+         let txt_content =
+           compute_content comment.tags comment.mentions content
+         in
          let replies_txt =
            let msg =
              if comment.replies_count > 1 then "reponses" else "reponse"
@@ -30,7 +78,7 @@ let render_comments main_id comments =
                  span [ txt username ]
                ; a ~a:[ a_href author.url ] [ txt author.acct ]
                ]
-           ; div ~a:[ a_class [ "comment-content" ] ] [ txt txt_content ]
+           ; div ~a:[ a_class [ "comment-content" ] ] txt_content
            ; div ~a:[ a_class [ "comment-date" ] ] [ txt comment.created_at ]
            ; div
                ~a:[ a_class [ "comment-stats" ] ]

@@ -51,3 +51,7 @@ module Context : sig
 
   val encoding : t Data_encoding.t
 end
+
+type content_fragment = Text of string | Mention of string | Tag of string
+
+val fragmentize : string -> content_fragment list

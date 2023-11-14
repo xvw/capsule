@@ -20,6 +20,10 @@ tags:
 breadcrumb:
   - name: Jeux vidéo
     href: /games.html#index-mcaniques-de-jeux
+mastodon_thread:
+  instance: merveilles.town
+  user: xvw
+  id: "111408053910454773"
 ---
 
 Attention, ma critique salée **ne porte que sur le jeu Tetra Master**. Bien que

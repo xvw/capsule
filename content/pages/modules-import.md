@@ -25,6 +25,10 @@ breadcrumb:
     href: /programming.html
   - name: Bribes & Encodages
     href: /programming.html#index-bribes--encodages
+mastodon_thread:
+  instance: merveilles.town
+  user: xvw
+  id: "111408048003189952"
 ---
 
 La généralisation des ouvertures a été documentée dans le papier ["_Extending

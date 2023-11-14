@@ -35,6 +35,11 @@ synopsis:
   On garde l'aspect boisé (un peu rustique mais réconfortant) du lieu, et on modernise sa carte
   et son sevrice. Depuis, Le Wappers (que je ne connaissais pas à l'époque), est devenu un
   des lieux où je suis toujours heureux de revenir quand je rentre à Bruxelles !
+  
+mastodon_thread:
+  instance: merveilles.town
+  user: xvw
+  id: "111408063116418566"
 ---
 
 > Contrairement à Romain, de [l'Ethylo](/addresses/ethylo.html), je ne connais

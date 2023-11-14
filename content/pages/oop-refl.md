@@ -23,8 +23,8 @@ breadcrumb:
     href: /programming.html#index-bribes--encodages
 mastodon_thread:
   instance: merveilles.town
-  user: neauoire
-  id: "111400131835590323"
+  user: xvw
+  id: "111408043581289810"
 ---
 
 Les _défenseurs_ de la **programmation orientée objets** défendent souvent cette
