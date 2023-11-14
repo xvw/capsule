@@ -88,7 +88,7 @@ let render_comments main_id comments =
                    [ txt @@ string_of_int comment.favourites_count ]
                ; span
                    ~a:[ a_class [ "comment-re" ] ]
-                   [ txt @@ string_of_int comment.favourites_count ]
+                   [ txt @@ string_of_int comment.reblogs_count ]
                ]
            ; div
                ~a:[ a_class [ "comment-footer" ] ]
