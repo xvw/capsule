@@ -40,6 +40,7 @@ module Status : sig
     ; reblogs_count : int
     ; favourites_count : int
     ; replies_count : int
+    ; in_reply_to_id : string option
   }
 
   val encoding : t Data_encoding.t

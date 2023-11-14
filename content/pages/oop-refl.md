@@ -24,7 +24,7 @@ breadcrumb:
 mastodon_thread:
   instance: merveilles.town
   user: neauoire
-  id: "111381429766799927"
+  id: "111400131835590323"
 ---
 
 Les _défenseurs_ de la **programmation orientée objets** défendent souvent cette

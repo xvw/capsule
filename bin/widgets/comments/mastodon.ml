@@ -71,10 +71,25 @@ module Status = struct
     ; reblogs_count : int
     ; favourites_count : int
     ; replies_count : int
+    ; in_reply_to_id : string option
   }
 
   let encoding =
     let open Data_encoding in
+    let fst_slice =
+      obj6 (req "id" string) (req "uri" string) (req "created_at" string)
+        (req "account" Account.encoding)
+        (req "content" string)
+        (req "mentions" @@ list Mention.encoding)
+    and snd_slice =
+      obj5
+        (req "tags" @@ list Tag.encoding)
+        (req "reblogs_count" int31)
+        (req "favourites_count" int31)
+        (req "replies_count" int31)
+        (opt "in_reply_to_id" string)
+    in
+    let obj = merge_objs fst_slice snd_slice in
     let prism =
       conv
         (fun {
@@ -88,27 +103,20 @@ module Status = struct
              ; reblogs_count
              ; favourites_count
              ; replies_count
+             ; in_reply_to_id
              } ->
-          ( id
-          , uri
-          , created_at
-          , account
-          , content
-          , mentions
-          , tags
-          , reblogs_count
-          , favourites_count
-          , replies_count ))
-        (fun ( id
-             , uri
-             , created_at
-             , account
-             , content
-             , mentions
-             , tags
-             , reblogs_count
-             , favourites_count
-             , replies_count ) ->
+          ( (id, uri, created_at, account, content, mentions)
+          , ( tags
+            , reblogs_count
+            , favourites_count
+            , replies_count
+            , in_reply_to_id ) ))
+        (fun ( (id, uri, created_at, account, content, mentions)
+             , ( tags
+               , reblogs_count
+               , favourites_count
+               , replies_count
+               , in_reply_to_id ) ) ->
           {
             id
           ; uri
@@ -120,15 +128,9 @@ module Status = struct
           ; reblogs_count
           ; favourites_count
           ; replies_count
+          ; in_reply_to_id
           })
-        (obj10 (req "id" string) (req "uri" string) (req "created_at" string)
-           (req "account" Account.encoding)
-           (req "content" string)
-           (req "mentions" @@ list Mention.encoding)
-           (req "tags" @@ list Tag.encoding)
-           (req "reblogs_count" int31)
-           (req "favourites_count" int31)
-           (req "replies_count" int31))
+        obj
     in
     ignore_extra_fields prism
 end
