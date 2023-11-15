@@ -57,15 +57,7 @@ module Atom_util = struct
       ~links:[ Syndic.Atom.link ~rel:Syndic.Atom.Self ~hreflang:"fr" id ]
       ~updated entries
 
-  let pp ppf feed =
-    Syndic.Atom.to_xml feed
-    |> Syndic.XML.to_string ~ns_prefix:(function
-         | "http://www.w3.org/2005/Atom" -> Some ""
-         | _ -> Some "http://www.w3.org/2005/Atom")
-    |> String.cat {|<?xml version="1.0" encoding="UTF-8"?>|}
-    |> Format.pp_print_string ppf
-
-  let to_string feed = Format.asprintf "%a" pp feed
+  let to_string feed = Atom.to_string feed
 end
 
 module Date_filename = struct
