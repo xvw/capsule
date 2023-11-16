@@ -57,7 +57,7 @@ module Atom_util = struct
       ~links:[ Syndic.Atom.link ~rel:Syndic.Atom.Self ~hreflang:"fr" id ]
       ~updated entries
 
-  let to_string feed = Yocaml_syndication.Atom.to_string feed
+  let to_string feed = Atom.to_atom feed
 end
 
 module Date_filename = struct
