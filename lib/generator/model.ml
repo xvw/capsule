@@ -568,6 +568,109 @@ module Entries = struct
         | _ -> (e, s))
 end
 
+module Gallery = struct
+  type element = {
+      ident : string
+    ; name : string
+    ; desc : string
+    ; meta : KVMap.t list
+    ; links : Link.t list
+    ; large_url : string
+    ; tb_url : string option
+  }
+
+  type t = {
+      page : Page.t
+    ; cover : string option
+    ; cover_tb : string option
+    ; links : Link.t list
+    ; elements : element list
+  }
+
+  let validate_element (type a)
+      (module Meta : Metadata.VALIDABLE with type t = a) assoc =
+    let open Validate.Applicative in
+    let+ ident = Meta.(required_assoc string) "ident" assoc
+    and+ name = Meta.(required_assoc string) "name" assoc
+    and+ desc = Meta.(required_assoc string) "description" assoc
+    and+ meta =
+      Meta.(optional_assoc_or ~default:[] (list_of $ KVMap.from (module Meta)))
+        "meta" assoc
+    and+ links =
+      Meta.(optional_assoc_or ~default:[] (list_of $ Link.from (module Meta)))
+        "links" assoc
+    and+ large_url = Meta.(required_assoc string) "large_url" assoc
+    and+ tb_url = Meta.(optional_assoc string) "tb_url" assoc in
+    { ident; name; desc; meta; links; large_url; tb_url }
+
+  let validate (type a) (module Meta : Metadata.VALIDABLE with type t = a) assoc
+      =
+    let open Validate.Applicative in
+    let+ page = Page.validate (module Meta) assoc
+    and+ cover = Meta.(optional_assoc string) "cover" assoc
+    and+ cover_tb = Meta.(optional_assoc string) "cover_tb" assoc
+    and+ links =
+      Meta.(optional_assoc_or ~default:[] (list_of $ Link.from (module Meta)))
+        "links" assoc
+    and+ elements =
+      Meta.(
+        optional_assoc_or ~default:[]
+          (list_of $ object_and (validate_element (module Meta))))
+        "elements" assoc
+    in
+    { page; cover; cover_tb; links; elements }
+
+  let from (type a) (module Meta : Metadata.VALIDABLE with type t = a)
+      metadata_object =
+    Meta.object_and (validate (module Meta)) metadata_object
+
+  let from_string (module Meta : Metadata.VALIDABLE) = function
+    | None -> Error.(to_validate $ Required_metadata [ "Gallery" ])
+    | Some str ->
+        let open Validate.Monad in
+        let* metadata = Meta.from_string str in
+        from (module Meta) metadata
+
+  let inject_element (type a)
+      (module Lang : Key_value.DESCRIBABLE with type t = a)
+      { ident; name; desc; meta; links; large_url; tb_url } =
+    Lang.
+      [
+        ("ident", string ident)
+      ; ("name", string name)
+      ; ("description", string desc)
+      ; ("meta", list $ KVMap.inject_list (module Lang) meta)
+      ; ("links", list $ Link.inject_list (module Lang) links)
+      ; ("large_url", string large_url)
+      ; ("tb_url", Option.fold ~none:(string large_url) ~some:string tb_url)
+      ]
+
+  let inject (type a) (module Lang : Key_value.DESCRIBABLE with type t = a)
+      { page; cover; cover_tb; links; elements } =
+    Page.inject (module Lang) page
+    @ Lang.
+        [
+          ("cover", Option.fold ~none:null ~some:string cover)
+        ; ("cover_tb", Option.fold ~none:null ~some:string cover_tb)
+        ; ("links", list $ Link.inject_list (module Lang) links)
+        ; ("has_cover", boolean $ Option.is_some cover)
+        ; ("has_cover_tb", boolean $ Option.is_some cover_tb)
+        ; ("number_of_elements", integer $ List.length elements)
+        ; ( "elements"
+          , list
+              (List.map
+                 (fun l -> Lang.object_ $ inject_element (module Lang) l)
+                 elements) )
+        ]
+
+  include Attach_page (struct
+    type nonrec t = t
+
+    let get_page { page; _ } = page
+    let set_page page address = { address with page }
+  end)
+end
+
 module Address = struct
   type t = {
       page : Page.t

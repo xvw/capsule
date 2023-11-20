@@ -55,6 +55,15 @@ module Entries : sig
   val preapply_for_one : (t * string, t * string) Build.t
 end
 
+(** An address is a page with additional metadata related to a gallery. *)
+module Gallery : sig
+  type t
+
+  include WITH_PAGE with type t := t
+  include Metadata.READABLE with type t := t
+  include Metadata.INJECTABLE with type t := t
+end
+
 (** An address is a page with additional metadata related to an address. *)
 module Address : sig
   type t
