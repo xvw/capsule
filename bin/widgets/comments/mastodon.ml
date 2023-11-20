@@ -151,7 +151,11 @@ module Context = struct
     ignore_extra_fields prism
 end
 
-type content_fragment = Text of string | Mention of string | Tag of string
+type content_fragment =
+  | Text of string
+  | Mention of string
+  | Tag of string
+  | Link of (string * string)
 
 let fragmentize str =
   let len = String.length str in

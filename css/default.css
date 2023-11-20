@@ -44,6 +44,7 @@ body {
   font-family: var(--sans-serif-font);
 }
 
+.comment-content-link,
 .comment-content-tag,
 .comment-content-mention,
 .address-meta a,
@@ -668,6 +669,10 @@ code {
   grid-area: content;
   font-family: var(--serif-font);
   padding-bottom: 32px;
+}
+
+#comments-thread .comments-list .a_comment .comment-content .paragraph {
+  margin-bottom: 12px;
 }
 
 #comments-thread .comments-list .a_comment .comment-date {
