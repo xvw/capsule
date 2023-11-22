@@ -126,16 +126,17 @@ synopsis:
   faire un dessin par jour, motivé par un thème commun. Même si j'ai
   **lamentablement** abandonné après 6 jours, l'objectif est atteint car
   j'ai recommencer à dessiner.
+mastodon_thread:
+  instance: merveilles.town
+  user: xvw
+  id: "111456257132674779"
 ---
 
 Depuis 2012, j'avais arrêté de dessiner _régulièrement_ et mes productions
 étaient, _de facto_, très anecdotiques. Même si je n'ai jamais été très
 consciencieux et travailleur, c'était une activité qui m'amusait. Comme chaque
 année, je lisais les _prompts_ de **L'Inktober**, et, j'ai décidé que cette
-année, **je participerais** !
-
-Même si j'étais en retard dès le premier jour, et que le 23 du mois, me rendant
-compte que je n'étais qu'au jour 6 (la cause de mon abandon après... _six
-malheureux petits jours_), j'ai eu beaucoup de _fun_ à dessiner. L'objectif est
-donc atteint !
+année, **je participerais** ! Bon, après 23 jours, je n'avais fait que 6
+dessins. C'est donc un échec cuisant ! Mais j'ai eu du _fun_ à dessiner, on peut
+donc considérer que l'objectif _partiellement_ atteint !
 
