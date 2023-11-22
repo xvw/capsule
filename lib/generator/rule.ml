@@ -85,6 +85,22 @@ let addresses ~target =
     >>> T.apply_as_template (module Model.Address) "templates/layout.html"
     >>^ Stdlib.snd)
 
+let galleries ~target =
+  let open Build in
+  process_files $ [ "content/galleries" ] $ File.is_markdown
+  $ fun gallery_file ->
+  let file_target = Target.for_gallery ~target gallery_file in
+  create_file file_target
+    (binary_update
+    >>> Y.read_file_with_metadata (module Model.Gallery) gallery_file
+    >>> snd M.string_to_html
+    >>> fst (Model.Gallery.map_synopsis M.string_to_html)
+    >>> T.apply_as_template (module Model.Gallery) "templates/gallery.html"
+    >>> T.apply_as_template (module Model.Gallery) "templates/comments.html"
+    >>> T.apply_as_template (module Model.Gallery) "templates/page-header.html"
+    >>> T.apply_as_template (module Model.Gallery) "templates/layout.html"
+    >>^ Stdlib.snd)
+
 let journal_arrow preapply length i entries =
   let open Build in
   binary_update

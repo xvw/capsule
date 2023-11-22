@@ -8,12 +8,14 @@ let fonts ~target = "fonts" |> into (capsule ~target)
 let images ~target = "images" |> into (capsule ~target)
 let pages ~target = "pages" |> into (capsule ~target)
 let addresses ~target = "addresses" |> into (capsule ~target)
+let galleries ~target = "galleries" |> into (capsule ~target)
 let dapps ~target = "dapps" |> into (capsule ~target)
 let entries ~target = "journal" |> into (capsule ~target)
 let indexes ~target = capsule ~target
 let for_page ~target file = md_to_html file |> into (pages ~target)
 let for_index ~target file = md_to_html file |> into (indexes ~target)
 let for_address ~target file = md_to_html file |> into (addresses ~target)
+let for_gallery ~target file = md_to_html file |> into (galleries ~target)
 let for_entry ~target file = md_to_html file |> into (entries ~target)
 
 let for_entries ~target index =

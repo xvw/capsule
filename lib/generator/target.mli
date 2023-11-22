@@ -30,6 +30,9 @@ val indexes : target:Filepath.t -> Filepath.t
 val addresses : target:Filepath.t -> Filepath.t
 (** [Target.addresses ~target] is the subfolder that contains addresses files. *)
 
+val galleries : target:Filepath.t -> Filepath.t
+(** [Target.galleries ~target] is the subfolder that contains galleries files. *)
+
 val dapps : target:Filepath.t -> Filepath.t
 (** [Target.dapps ~target] is the subfolder that contains dapps folders. *)
 
@@ -48,6 +51,10 @@ val for_page : target:Filepath.t -> string -> Filepath.t
 val for_address : target:Filepath.t -> string -> Filepath.t
 (** [Target.for_address ~target "a_page.md"] will returns the path of the
     address (with the extension changed in favor of [.html]). *)
+
+val for_gallery : target:Filepath.t -> string -> Filepath.t
+(** [Target.for_gallery ~target "a_page.md"] will returns the path of the
+    gallery (with the extension changed in favor of [.html]). *)
 
 val for_index : target:Filepath.t -> string -> Filepath.t
 (** [Target.for_index ~target "a_page.md"] will returns the path of the index

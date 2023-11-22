@@ -38,6 +38,9 @@ val indexes : target:Filepath.t -> unit Effect.t
 val addresses : target:Filepath.t -> unit Effect.t
 (** [Rule.addresses] this is the rule that produces static addresses. *)
 
+val galleries : target:Filepath.t -> unit Effect.t
+(** [Rule.gallery] this is the rule that produces static addresses. *)
+
 val journal : target:Filepath.t -> size:int -> unit Effect.t
 (** [Rule.journal] this is the rule that produce pages of the journal. *)
 

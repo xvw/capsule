@@ -5,6 +5,7 @@ let program target =
   let* () = Generator.Rule.indexes ~target in
   let* () = Generator.Rule.pages ~target in
   let* () = Generator.Rule.addresses ~target in
+  let* () = Generator.Rule.galleries ~target in
   let* () = Generator.Rule.journal ~target ~size:4 in
   let* () = Generator.Rule.journal_feed ~target ~size:25 in
   let* () = Generator.Rule.pages_feed ~target ~size:25 in
