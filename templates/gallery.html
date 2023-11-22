@@ -1,0 +1,66 @@
+<section class="synopsis">
+  {%- autoescape false -%}{{ synopsis }}{%- endautoescape -%}
+</section>
+
+<section class="gallery">
+  <div class="sidebar gallery-sidebar">
+    <div>
+      <h3>Liens</h3>
+      <ul class="gallery-links">
+        {%- for link in links -%}
+        <li class="link">
+          <a href="{{ link.href }}">{{ link.name }}</a>
+        </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+    <div>
+      <h3>Tags</h3>
+      <ul class="gallery-tags">
+        {%- for tag in tags -%}
+        <li class="tag">{{ tag }}</li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+  <div class="gallery-content">
+    {%- if has_cover -%}
+    <div class="gallery-cover">
+      <img src="{{ cover  }}" alt="cover de {{ title }}" />
+    </div>
+    {%- endif -%}
+
+    <article>{%- autoescape false -%}{{ body }}{%- endautoescape -%}</article>
+    <div class="gallery-pictures">
+      {%- for elt in elements -%}
+      <div class="gallery-picture">
+        <a href="{{ elt.large_url }}">
+          <img src="{{ elt.tb_url }}" alt="image {{ elt.name }}" />
+        </a>
+        <div class="gallery-description">
+          <div>
+            <div>Nom</div>
+            <div>{{ elt.name }}</div>
+          </div>
+          {%- for m in elt.meta -%}
+          <div>
+            <div>{{ m.key }}</div>
+            <div>{{ m.value }}</div>
+          </div>
+          {%- endfor -%}
+          <div>
+            <div>Liens</div>
+            <div>
+              <ul class="picture-links">
+                {%- for link in elt.links -%}
+                <li><a href="{{ link.href }}">{{ link.name }}</a></li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
