@@ -12,8 +12,10 @@ tags:
   - illustration
   - krita
 breadcrumb:
+  - name: Galeries
+    href: /galleries.html
   - name: Illustrations
-    href: /illustrations.html
+    href: /galleries.html#index-illustrations
 cover: /images/inktober-2023-cover.png
 cover_tb: /images/inktober-2023-cover-tb.png
 elements:

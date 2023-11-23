@@ -34,6 +34,8 @@ indexes:
       (des bars, des cafés, des restaurants, des coffee-shops), des galeries (de photographies 
       ou d'illustrations), ou encore des articles divers — orphelins d'une catégorie parente.
     links:
+      - name: Galeries
+        href: /galleries.html
       - name: Bars et cafés
         href: /bars.html
   - name: Meta
