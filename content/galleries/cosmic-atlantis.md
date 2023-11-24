@@ -43,7 +43,7 @@ synopsis:
 mastodon_thread:
   instance: merveilles.town
   user: xvw
-  id: "111464756584160430"
+  id: "111465385534003264"
 ---
 
 Étant plus jeune, j'ai un pratiqué de la _peinture urbaine_, et j'aimais bien
