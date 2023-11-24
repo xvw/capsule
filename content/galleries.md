@@ -18,6 +18,8 @@ indexes:
       je pratique peu ! Cette rubrique de mon site servira essentiellement
       à me motiver à dessiner de plus en plus.
     links:
+      - name: Cosmic Atlantis
+        href: /galleries/cosmic-atlantis.html
       - name: Inktober 2023
         href: /galleries/never-ended-inktober-2023.html
 ---
