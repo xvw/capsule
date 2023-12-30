@@ -40,6 +40,10 @@ indexes:
 additional_fields:
   - key: Téléphone
     value: +32 2 447 20 59
+mastodon_thread:
+  instance: merveilles.town
+  user: xvw
+  id: "111670342919920380"
 ---
 
 > Ma première experience avec Copain, à l'époque (2018), ce nouveau bar branché,
@@ -120,7 +124,7 @@ Comme chaque fois que j'écris une critique sur ce site, c'est pour parler d'ét
 - Le service de qualité
 - L'ambiance et la décoration du lieu.
 
-je terminerai en soulignant deux points _ad-hoc_: j'adore l'iconographie du
+je terminerai en soulignant deux points _ad-hoc_ : j'adore l'iconographie du
 bar, en partie conçue par [Ben Coosmans](https://www.instagram.com/bencoosmans),
 un artiste bruxellois dont **je suis et apprécie** le travail depuis plusieurs
 années ! Et soulginer la fibre entrepreneuriale des fondateurs qui améliore sans
@@ -134,4 +138,4 @@ moderne à partager**, que je n'ai pas encore eu l'occasion d'essayer !
 Pour conclure, Copain, ça claque, pour les boissons, la nourriture et l'ambiance
 ! Je le recommande chaleureusement et je trouve que l'ensemble de leurs projets
 est une énorme plus-value à la commune de Schaerbeek ! Bravo bravo et merci pour
-_le tier-quar_!
+_le tier-quar_ !
