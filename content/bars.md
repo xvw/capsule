@@ -27,4 +27,6 @@ indexes:
         href: /addresses/wappers.html
       - name: Ethylo
         href: /addresses/ethylo.html
+      - name: Copain
+        href: /addresses/copain.html
 ---
