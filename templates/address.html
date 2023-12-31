@@ -1,29 +1,28 @@
 {%- autoescape false -%}{{ body }}{%- endautoescape -%}
 
 <section class="address-meta">
-    <h3>Compléments</h3>
-    <div class="kv">
-        <div>
-            <div>Addresse</div>
-            <div>
-                <a href="https://nominatim.openstreetmap.org/ui/search.html?{{ nominatim_address  }}">
-                    {{ address  }}, {{ zipcode }} {{ city }}, {{ country }}
-                </a>
-            </div>
-        </div>
-        {%- for field in additional_fields -%}
-        <div>
-            <div>{{ field.key }}</div>
-            <div>{{ field.value  }}</div>
-        </div>
-        {%- endfor -%}
-        {%- for index in indexes -%}
-        {%- for link in index.links -%}
-        <div>
-            <div>{{ link.name }}</div>
-            <div><a href="{{ link.href }}">{{ link.href }}</a></div>
-        </div>
-        {%- endfor -%}
-        {%- endfor -%}
+  <h3>Compléments</h3>
+  <div class="kv">
+    <div>
+      <div>Addresse</div>
+      <div>
+        <a
+          href="https://nominatim.openstreetmap.org/ui/search.html?{{ nominatim_address  }}"
+        >
+          {{ address }}, {{ zipcode }} {{ city }}, {{ country }}
+        </a>
+      </div>
     </div>
+    {%- for field in additional_fields -%}
+    <div>
+      <div>{{ field.key }}</div>
+      <div>{{ field.value }}</div>
+    </div>
+    {%- endfor -%} {%- for index in indexes -%} {%- for link in index.links -%}
+    <div>
+      <div>{{ link.name }}</div>
+      <div class="hyphenate"><a href="{{ link.href }}">{{ link.href }}</a></div>
+    </div>
+    {%- endfor -%} {%- endfor -%}
+  </div>
 </section>

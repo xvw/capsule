@@ -106,7 +106,7 @@ let render_ctx model ctx =
   div
     [
       div
-        ~a:[ a_class [ "comments-header" ] ]
+        ~a:[ a_class [ "comments-header"; "hyphenate" ] ]
         [
           span ~a:[ a_class [ "comments-number" ] ] [ txt comment_number ]
         ; a
