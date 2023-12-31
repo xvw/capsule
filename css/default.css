@@ -1132,6 +1132,15 @@ code {
     border-style: none;
     border-bottom: 1px solid var(--layout-font-rev-color);
   }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    word-break: break-word;
+  }
 }
 
 @keyframes rotation {
