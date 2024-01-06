@@ -13,7 +13,7 @@ synopsis:
   de la [Rue Henri Stacquet](https://fr.wikipedia.org/wiki/Rue_Henri_Stacquet),
   à Schaerbeek, à deux pas du [Parc Josaphat](https://fr.wikipedia.org/wiki/Parc_Josaphat)
   se trouve [Copain](https://copain.brussels), un bar de quartier **de qualité** où il
-  m'arrive très souvent d'y boire un (ou plusieurs) verre(s) quand je suis de retour à
+  m'arrive très souvent de boire un (ou plusieurs) verre(s) quand je suis de retour à
   Bruxelles !
 toc: false
 tags:
@@ -48,12 +48,12 @@ mastodon_thread:
 
 > Ma première experience avec Copain, à l'époque (2018), ce nouveau bar branché,
 > logé dans le quartier où vit ma mère — et où je réside, naturellement, chaque
-> fois que je suis de retour à la capitale — a été mémorable ! En effet, j'étais
-> en charge de l'organisation de l'enterrement de vie de garçon de mon très bon
-> ami Maxime et [Romain](/addresses/ethylo.html), qui, à l'époque, travaillait
-> au [Green Lab](https://www.greenlab.bar/), m'a très intelligemment proposé de
-> démarrer les festivités **chez Copain**, un nouveau bar avec une chouette
-> carte et des chouettes patrons !
+> fois que je suis de retour à la capitale — a été mémorable ! J'étais en charge
+> de l'organisation de l'enterrement de vie de garçon de mon très bon ami Maxime
+> et [Romain](/addresses/ethylo.html), qui, à l'époque, travaillait au [Green
+> Lab](https://www.greenlab.bar/), m'a très intelligemment proposé de démarrer
+> les festivités **chez Copain**, un nouveau bar avec une chouette carte et des
+> chouettes patrons !
 
 > Quelques mois plus tard, Romain les rejoindra pendant plusieurs années, avant
 > de lancer [l'Ethylo](/addresses/ethylo.html), faisant du bar, une des mes
@@ -63,19 +63,19 @@ Fondé par **Arnaud** et **Jeremy** en 2018, rejoints par la suite par **Aivi** 
 la gestion, Copain est une **institution Schaerbaekoise** qui possède une
 terrasse (étendue en été) où il fait bon d'y boire un verre ou déguster des
 planches gourmandes. Le lieu est un genre de cantine sobre et efficace dans un
-style situé entre la décoration industrielle — le subtil mélange du bois, de la
-brique, de l'acier, de la vitre et des ardoises. Le lieu est spacieux et il est
+style proche de la décoration industrielle — un subtil mélange du bois, de
+briques, d'acier, de vitres et des ardoises. Le lieu est spacieux et il est
 possible de consommer aux tables de la zone principale, d'être dans un espace un
 peu plus _cosy_ dans le petit salon situé en arrière salle ou encore d'être au
-bar, grâce à un très long comptoire de bois et d'acier ! Pendant longtemps, j'ai
-considéré que Copain représentait **l'archétype du bar de quartier bien conçu**
-(c'est un compliment !) influant, obligatoirement mais légèrement, sur la
-_gentrification_ d'un quartier, tout en restant accessible aux autochtones.
-Cependant, apprenant que des gens _font du trajets longs, à l'échelle de
-Bruxelles_, pour s'y rendre, j'en déduis que la carte, l'ambiance et le service
-le place à un cran superieur — celui du bar de quartier _plus plus_, attirant
-même les _non-schaerbaekois_. Après s'être étendu sur la _coolitude_ du lieu,
-passons à la carte des boissons !
+bar, grâce à un très long comptoire, lui aussi, de bois et d'acier ! Pendant
+longtemps, j'ai considéré que Copain représentait **l'archétype du bar de
+quartier bien conçu** (c'est un compliment !) influant, obligatoirement mais
+légèrement, sur la _gentrification_ d'un quartier, tout en restant accessible
+aux autochtones. Cependant, apprenant que des gens _font du trajets longs, à
+l'échelle de Bruxelles_, pour s'y rendre, j'en déduis que la carte, l'ambiance
+et le service le place à un cran superieur — celui du bar de quartier _plus
+plus_, attirant même les _non-schaerbaekois_. Après s'être étendu sur la
+_coolitude_ du lieu, passons à la carte des boissons !
 
 Copain appartient à la nouvelle génération de bars Bruxellois, proposant des
 cartes de bières variées, mélant des classiques Belges — avec des bières
@@ -118,7 +118,9 @@ nourrissants** ! Pour en savoir plus sur cette carte, je vous invite à consulte
 [le menu](https://copain.brussels/en/menu/4987764280272093301) qui est,
 logiquement, plus exhaustif que moi.
 
-Comme chaque fois que j'écris une critique sur ce site, c'est pour parler d'établissement que j'aime beaucoup et, Copain ne fait pas exception à la règle, **j'adore cet établissement** pour plusieurs raisons : 
+Comme chaque fois que j'écris une critique sur ce site, c'est pour parler
+d'établissement que j'aime beaucoup et, Copain ne fait pas exception à la règle,
+**j'adore cet établissement** pour plusieurs raisons :
 
 - La carte variée
 - Le service de qualité
