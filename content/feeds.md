@@ -47,4 +47,6 @@ indexes:
         href: https://www.instagram.com/vdwxv
       - name: Linkedin
         href: https://www.linkedin.com/in/xavdw/
+      - name: Threads
+        href: https://www.threads.net/@vdwxv
 ---
