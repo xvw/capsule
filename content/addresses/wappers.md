@@ -47,7 +47,7 @@ mastodon_thread:
 > longtemps. En effet, auparavant, il officiait à [La Buvette Saint-Sebastiaan
 > ](https://www.buvettesintsebastiaan.com/), située au coeur du [parc
 > Josaphat](https://fr.wikipedia.org/wiki/Parc_Josaphat) où, par le plus grand
-> des hasard, un ami proche s'y était retrouvé comme _barman_. Très proche de
+> des hasard, un ami proche s'était retrouvé comme _barman_. Très proche de
 > chez ma mère, où je dors quand je suis de retour à Bruxelles, j'ai eu
 > l'occasion de m'y rendre quelques fois. Cependant, il serait dur de parler du
 > Wappers sans parler de la buvette car c'est avec le fondateur de cette
@@ -79,9 +79,9 @@ pas qu'il soit mauvais, mais je suis parfois un peu extrémiste_). En plus de
 boissons, le Wappers propose **de la restauration**.
 
 "_Reprendre un verre pour prolonger l'apéro, ou aller manger_" est un dilemme
-auquel tout amateur d'apéro à déjà été confronté ! C'est d'ailleurs pour ça que
+auquel tout amateur d'apéro a déjà été confronté ! C'est d'ailleurs pour ça que
 beaucoup de cafés proposent de la petite restauration. Des saucissons, du
-fromages, et des planches, souvent plus belles les unes que les autres. Mais ne
+fromage, et des planches, souvent plus belles les unes que les autres. Mais ne
 nous voilons pas la face, ce sont des subterfuges ! Même si les propositions
 sont très souvent très bonnes, elles ne répondent pas à la problématique
 originale, "_quand, concrètement, manger_" (d'autant plus que l'alcool sur les
@@ -101,8 +101,8 @@ aucune crainte de venir au Wappers le ventre vide, vous y trouverez de quoi
 _survivre_, en vous régalant avec des portions généreuses.
 
 Je terminerai en soulignant la sympathie du service, des habitués et la capacité
-que le Wappers à de se renouveler au fils des mois, des années, organisant des
-concerts, des animations, devenant, le temps d'une saison, rotisserie,
+que le Wappers a de se renouveler au fil des mois, des années, organisant des
+concerts, des animations, devenant, le temps d'une saison, rôtisserie,
 expérimentant les croques-monsieurs, adaptant la carte aux demandes (en ce
 moment, vous pouvez y manger des huîtres). Le Wappers est un bar que j'apprécie
 beaucoup et que je recommande !

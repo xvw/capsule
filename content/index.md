@@ -7,7 +7,7 @@ synopsis:
   donc ça va_). Cette page web, nommée "[capsule](https://github.com/xvw/capsule)" (_pour
   d'étranges raisons_), est une collection de pages et d'indexes _discutablement_
   organisés me servant à prendre des notes sur différents sujets qui m'intéressent.
-  Peut-être qu'un jour, elle sera décrivable comme **une encyclopédie maladroite
+  Peut-être qu'un jour, elle sera descriptible comme **une encyclopédie maladroite
   et _capharnaümesque_** (mais c'est probablement fantasmer sur ma fréquence d'écriture).
 tags:
   - index

@@ -4,7 +4,7 @@ creation_date: 2023-10-01
 update_date: 2023-10-31
 toc: false
 description: 
-  Ma tentative de faire Inktober en 2023, honteusement abandonné 
+  Ma tentative de faire Inktober en 2023, honteusement abandonnée 
   après... 6 jours.
 tags:
   - inktober
@@ -127,7 +127,7 @@ synopsis:
   [L'Inktober](https://inktober.com/), un _auto-defi_ où il est question de
   faire un dessin par jour, motivé par un thème commun. Même si j'ai
   **lamentablement** abandonné après 6 jours, l'objectif est atteint car
-  j'ai recommencer à dessiner.
+  j'ai recommencé à dessiner.
 mastodon_thread:
   instance: merveilles.town
   user: xvw
@@ -140,5 +140,5 @@ consciencieux et travailleur, c'était une activité qui m'amusait. Comme chaque
 année, je lisais les _prompts_ de **L'Inktober**, et, j'ai décidé que cette
 année, **je participerais** ! Bon, après 23 jours, je n'avais fait que 6
 dessins. C'est donc un échec cuisant ! Mais j'ai eu du _fun_ à dessiner, on peut
-donc considérer que l'objectif _partiellement_ atteint !
+donc considérer l'objectif _partiellement_ atteint !
 
