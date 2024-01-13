@@ -61,33 +61,33 @@ mastodon_thread:
 
 Fondé par **Arnaud** et **Jeremy** en 2018, rejoints par la suite par **Aivi** à
 la gestion, Copain est une **institution Schaerbaekoise** qui possède une
-terrasse (étendue en été) où il fait bon d'y boire un verre ou déguster des
+terrasse (étendue en été) où il fait bon boire un verre ou déguster des
 planches gourmandes. Le lieu est un genre de cantine sobre et efficace dans un
 style proche de la décoration industrielle — un subtil mélange du bois, de
-briques, d'acier, de vitres et des ardoises. Le lieu est spacieux et il est
+briques, d'acier, de vitres et d'ardoises. Le lieu est spacieux et il est
 possible de consommer aux tables de la zone principale, d'être dans un espace un
 peu plus _cosy_ dans le petit salon situé en arrière salle ou encore d'être au
-bar, grâce à un très long comptoire, lui aussi, de bois et d'acier ! Pendant
+bar, grâce à un très long comptoir, lui aussi, de bois et d'acier ! Pendant
 longtemps, j'ai considéré que Copain représentait **l'archétype du bar de
 quartier bien conçu** (c'est un compliment !) influant, obligatoirement mais
 légèrement, sur la _gentrification_ d'un quartier, tout en restant accessible
-aux autochtones. Cependant, apprenant que des gens _font du trajets longs, à
+aux autochtones. Cependant, apprenant que des gens _font du trajet long, à
 l'échelle de Bruxelles_, pour s'y rendre, j'en déduis que la carte, l'ambiance
-et le service le place à un cran superieur — celui du bar de quartier _plus
-plus_, attirant même les _non-schaerbaekois_. Après s'être étendu sur la
+et le service le placent à un cran superieur — celui du bar de quartier _plus
+plus_, attirant même les _non-schaerbaekois_. Après m'être étendu sur la
 _coolitude_ du lieu, passons à la carte des boissons !
 
 Copain appartient à la nouvelle génération de bars Bruxellois, proposant des
-cartes de bières variées, mélant des classiques Belges — avec des bières
+cartes de bières variées, mêlant des classiques Belges — avec des bières
 d'abbayes, de l'Orval (oui oui, je sais, c'est une bière d'abbaye aussi) et des
-bières issues des nouveaux standards comme des bières issues de la brasserie
+bières issues des nouveaux standards comme des bières de la brasserie
 [Dupont](https://www.brasserie-dupont.com/) ou encore de la brasserie de [La
 Senne](https://www.brasseriedelasenne.be/)) — mais aussi des bières (que
-j'estime) issue de la nouvelle génération : La brasserie [de la
+j'estime) de la nouvelle génération : La brasserie [de la
 Mule](https://brasseriedelamule.wixsite.com/mule), [La
 Source](https://lasourcebeer.be/),
 [L'ermitage](https://ermitagenanobrasserie.be/) (dont je suis **particulièrement
-féru**) ou encore [Witloof](https://www.brasseriewitloof.be/) et pleins
+féru**) ou encore [Witloof](https://www.brasseriewitloof.be/) et plein
 d'autres, à la pression, en bouteille ou en canette ! En bref, si vous aimez la
 bière, Copain est **un choix très stratégique**. En plus, si vous êtes ouverts à
 la découverte, je vous invite à vous laisser guider par les conseils des
@@ -96,12 +96,12 @@ précision et passion !
 
 En plus d'offrir une carte de bières très impressionnante et variée, Copain
 offre une carte de vins vivants, biologiques, avec peu (ou pas du tout) de
-sulfites. La carte change beaucoup et offre beaucoup de diversité. Et, alors que
-je suis capable de me diriger dans la foultitude d'alternatives des bières, je
+sulfites. La carte change beaucoup et offre une grande diversité. Et, alors que
+je suis capable de me diriger dans la foultitude d'alternatives de bières, je
 dois avouer que mon expertise en vin est assez pauvre (proche du néant),
 heureusement, comme pour les bières, on peut bénéficier de l'expertise des
 _bartenders_ qui connaissent parfaitement leur sélection et en parlent avec
-autant de passion que lorsqu'ils parlent de bières !
+autant de passion que lorsqu'ils parlent de bière !
 
 Bien que les bières et les vins forment la colonne vertébrale de Copain, ils
 offrent aussi des _softs_ et des alcools (y comprit des sélections de Saké) et
@@ -110,16 +110,16 @@ déjà vu les gérants en invités lors d'événements _cocktails_, ils peuvent
 outrepasser les classiques, mais aussi offrir des créations originales et
 délicieuses). Cependant, quand je vais chez Copain, j'ai tendance à me focaliser
 sur les bières et les vins — probablement de par sa proximité géographique avec
-[l'Ethylo](/addresses/ethylo.html) dont c'était l'activité principale.
+[l'Ethylo](/addresses/ethylo.html).
 
-En plus de cette magnifique carte de boissons, l'établissement propose des
+En plus de cette magnifique carte des boissons, l'établissement propose des
 planches, et des _snacks_ (fait-maison) **incroyablement gourmands et
 nourrissants** ! Pour en savoir plus sur cette carte, je vous invite à consulter
 [le menu](https://copain.brussels/en/menu/4987764280272093301) qui est,
 logiquement, plus exhaustif que moi.
 
 Comme chaque fois que j'écris une critique sur ce site, c'est pour parler
-d'établissement que j'aime beaucoup et, Copain ne fait pas exception à la règle,
+d'établissements que j'aime beaucoup et, Copain ne fait pas exception à la règle,
 **j'adore cet établissement** pour plusieurs raisons :
 
 - La carte variée
@@ -129,7 +129,7 @@ d'établissement que j'aime beaucoup et, Copain ne fait pas exception à la règ
 je terminerai en soulignant deux points _ad-hoc_ : j'adore l'iconographie du
 bar, en partie conçue par [Ben Coosmans](https://www.instagram.com/bencoosmans),
 un artiste bruxellois dont **je suis et apprécie** le travail depuis plusieurs
-années ! Et soulginer la fibre entrepreneuriale des fondateurs qui améliore sans
+années ! Et souligner la fibre entrepreneuriale des fondateurs qui améliore sans
 arrêt la diversité des offres à Schaerbeek. En effet, ils ont aussi fondé
 **l'excellent restaurant Japonais** [Yoka Tomo](https://yokatomo.brussels/en),
 qui vaut le détour (et dont j'apprécie aussi le _branding visuel_), expliquant

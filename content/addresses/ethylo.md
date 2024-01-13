@@ -67,14 +67,14 @@ Schaerbeek (dans un quartier que j'affectionne énormément) se trouve
 **l'Ethylo**. Un petit bar, _cosy_, _Art déco_, à l'éclairage tamisé, mais
 chaleureux, notamment grâce à des subtiles ponctuations lumineuses introduisant
 une ambiance orangée. Dès notre arrivée, nous sommes accueillis avec des cartes
-et un verre d'eau aromatisé.
+et un verre d'eau aromatisée.
 
-Bien qu'il soit possible d'y commander des classiques, savemment maitrisés,
+Bien qu'il soit possible d'y commander des classiques, savamment maitrisés,
 l'Ethylo fait varier une carte de créations assez régulièrement, articulée
 autour d'une thématique commune. Parfois, c'est [le
 **cinéma**](https://www.instagram.com/stories/highlights/18013078936321699/) qui
 y est à l'honneur, parfois [le
-**jeux-vidéo**](https://www.instagram.com/stories/highlights/17988837178479342/),
+**jeu-vidéo**](https://www.instagram.com/stories/highlights/17988837178479342/),
 parfois la carte est inspirée par ses amis (et oui, il y a quelques mois, à
 l'Ethylo, nous pouvions y déguster le fameux [**Lis,
 Monade**](https://www.instagram.com/p/Cajeir4AeOL/), un [Long Island Iced
@@ -83,7 +83,7 @@ inspiré par un certain Xavier, avec un nom rappelant la _limonade_ mais aussi..
 [les fameux monoïdes dans la catégorie des
 endofoncteurs](<https://en.wikipedia.org/wiki/Monad_(category_theory)>)). En
 somme, aller à l'Ethylo, c'est garantir que l'on sera surpris, parce que rien
-n'est laissé au hasard. Des préparations maitrisées, des conceptions originales
+n'est laissé au hasard. Des préparations maîtrisées, des conceptions originales
 et dépaysantes, un _dressage_ pertinent, en rapport avec le thème, un service de
 qualité tout en ayant la possibilité de se reposer sur des cocktails plus
 classiques, l'Ethylo est, indéniablement, une valeur sûre.
@@ -93,27 +93,27 @@ sélection de bières brassées par des passionnés ([La
 senne](https://www.brasseriedelasenne.be/?lang=fr), et [La
 mule](https://brasseriedelamule.wixsite.com/mon-site)), une petite sélection de
 vins et de la petite restauration. Un houmous à tomber par terre, des planches
-(charcuteries, fromages et mixtes) riches et savoureuse et une sélection de
+(charcuteries, fromages et mixtes) riches et savoureuses et une sélection de
 saucissons.
 
 La direction de l'Ethylo forme un triangle dont chacun des sommets assure le bon
 fonctionnement d'une thématique. Romain assure le pôle créativité, construisant
 des cartes toutes plus originales les unes que les autres, et assurant la
 manufacture des boissons colorées. Audrey assure la _logique logistique_ et
-traite les _meta-discipline_ ad-hoc liées à la tenue d'un établissement et
+traite les _meta-disciplines_ ad-hoc liées à la tenue d'un établissement et
 [Tips](https://ethylococktailbar.be/upload/content/source/Photo4.png), une
 espèce de petit chien avec des toutes petites pattes, la mascotte du bar, grogne
 sur les clients qu'il n'aime pas (moi, par exemple).
 
 Je terminerai en soulignant le soin apporté à la communication, alors que
 déguster un cocktail de l'Ethylo est un plaisir, les photos présentées sur
-[Instagram](https://www.instagram.com/ethylo_cocktailbar/) leur rend hommage.
-L'exercice de la photographie y est maitrisé et chacun des cliché capture, de
+[Instagram](https://www.instagram.com/ethylo_cocktailbar/) leur rendent hommage.
+L'exercice de la photographie y est maîtrisé et chacun des clichés capture, de
 mon point de vue, l'essence du lieu.
 
 Pour conclure, l'Ethylo s'inscrit dans une nouvelle mouvance du bar à cocktails
-bruxellois, où toutes les facettes de cet art sont parfaitement maitrisées. On y
-déguste des bons produits, avec un soucis de la _localité_ (par exemple
+bruxellois, où toutes les facettes de cet art sont parfaitement maîtrisées. On y
+déguste de bons produits, avec un souci de la _localité_ (par exemple
 l'utilisation de [Verjus](https://fr.wikipedia.org/wiki/Verjus), dans la mesure
 du possible, pour apporter de l'acidité sans devoir faire traverser la terre
 entière à des citrons), de l'originalité, du fun, le tout dans une ambiance
