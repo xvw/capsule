@@ -1,6 +1,6 @@
 ---
 title: Indexation de café avec Notion
-creation_date: 2023-01-23
+creation_date: 2024-01-23
 description:
   Exemple d'utilisation de Notion pour l'indexation de café
 toc: true
