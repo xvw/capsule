@@ -37,8 +37,8 @@ mastodon_thread:
 ---
 
 Alors que généralement, tant que l'on est pas _tombé_ dans le monde très rigolo
-du **café de spécialité**, on se contente d'accepter une tasse de café, sans se
-soucier _réellement_ des caractéristiques du café que l'on boira. Pourtant, il
+du **café de spécialité**, on se contente d'accepter une tasse, sans se
+soucier _réellement_ des caractéristiques de ce que l'on boira. Pourtant, il
 existe **beaucoup** de critères qui influeront sur la tasse : la provenance des
 grains, la variété du café, sa méthode de sechage, le profil de torréfaction, la
 méthode d'extraction et bien d'autres. Un peu à la manière du vin, _comprendre
