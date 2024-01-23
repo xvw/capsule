@@ -1,5 +1,5 @@
 ---
-title: Sur la café
+title: Sur le café
 description: Articles en rapport avec le café
 synopsis:
   Alors que pendant des années, j'ai bu du café _mécaniquement_, sans réellement
