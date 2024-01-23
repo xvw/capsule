@@ -1,5 +1,5 @@
 style.fill: transparent
-direction: right;
+direction: right
 
 a:"" {
     style.fill: transparent
@@ -36,9 +36,10 @@ a:"" {
 
     fermentation {
         shape: sql_table
-        Aerobic_none
+        None
         Anaerobic
         Carbonic
+        Lactic
     }
 
     roasting_level {
@@ -52,48 +53,7 @@ a:"" {
 }
 
 
-b:"" {
-    style.fill: transparent
-    style.stroke: transparent
-    cultivars {
-        shape: sql_table
-        Name: string {constraint: primary_key}
-        Species : species {constraint: foreign_key}
-        Derived_from : cultivar {constraint: foreign_key}
-        Url: url
-        Alternatives_name: string list
-    }
-    
-    farms {
-        shape: sql_table
-        Name: string {constraint: primary_key}
-        City: city {constraint: foreing_key}
-        Country: country Rollup
-        Webpage: link
-    }
-    roasters {
-        shape: sql_table
-        Name: string {constraint: primary_key}
-        City: city {constraint: foreing_key}
-        Country: country Rollup
-        Address: string
-        Webpage: link
-        Tested: bool
-        Active: bool
-    }
-    regions: {
-        shape: sql_table
-        Name: string {constraint: primary_key}
-        Country: country {constraint: foreign_key}
-        Continent: continent Rollup
-    }
-}
-
 
 a.beans.Roasting_level -> a.roasting_level
 a.beans.Process -> a.processes
 a.beans.Fermentation -> a.fermentation
-a.beans.Varieties -> b.cultivars.Name
-a.beans.Farms -> b.farms.Name
-a.beans.Roasters -> b.roasters.Name
-a.beans.Regions -> b.regions.Name
