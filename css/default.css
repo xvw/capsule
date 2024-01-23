@@ -601,6 +601,13 @@ code {
 .centered-fig {
   display: block;
   margin: auto;
+  max-width: 100%;
+}
+
+.aered-centered-fig {
+  display: block;
+  margin: 88px auto;
+  max-width: 100%;
 }
 
 #comments-thread .comments-permalink,

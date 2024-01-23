@@ -36,7 +36,9 @@ indexes:
     links:
       - name: Galeries
         href: /galleries.html
-      - name: Bars et cafés
+      - name: Sur le café
+        href: /coffee.html
+      - name: Critiques de bars
         href: /bars.html
   - name: Meta
     synopsis: Pages personnelles ou en rapport direct avec ce site web.
