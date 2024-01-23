@@ -18,6 +18,19 @@ breadcrumb:
 cover: /images/atlantis-cover.png
 cover_tb: /images/atlantis-cover-tb.png
 elements:
+  - ident: atlantis-2
+    name: Seconde photo
+    description:
+      Quelques mois après la première découverte, les satellites reportèrent
+      une nouvelle structure, tout aussi étrange et dérangeante que la première.
+    large_url: /images/atlantis-2.png
+    tb_url: /images/atlantis-2-tb.png
+    meta:
+      - key: Logiciel
+        value: Krita
+    links:
+      - name: NFT
+        href: https://objkt.com/tokens/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD/1
   - ident: atlantis-1
     name: Première photo
     description:
@@ -31,8 +44,7 @@ elements:
         value: Krita
     links:
       - name: NFT
-        href: https://objkt.com/asset/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD/0        
-        
+        href: https://objkt.com/tokens/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD/0
 links:
   - name: NFTs
     href: https://objkt.com/collection/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD
