@@ -30,6 +30,10 @@ synopsis:
   les cafés que je goûte, en vue de me fournir des métriques précises m'aidant à
   caractériser mes préférences, au moyen de l'outil Notion, tout en présentant quelques
   techniques et ruses apprises lors de la mise en place de ce système.
+mastodon_thread:
+  instance: merveilles.town
+  user: xvw
+  id: "111805129432519399"
 ---
 
 Alors que généralement, tant que l'on est pas _tombé_ dans le monde très rigolo
