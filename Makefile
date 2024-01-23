@@ -21,6 +21,9 @@ utop:
 hell:
 	(cd hell; npm install; npm run build)
 
+images/%.svg: diagrams/%.d2
+	d2 -t 301 --layout=elk $(<) $(@)
+
 
 local-deps:
 	opam install . --deps-only --with-doc --with-test --with-dev-setup -y
