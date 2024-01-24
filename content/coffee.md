@@ -5,8 +5,7 @@ synopsis:
   Alors que pendant des années, j'ai bu du café _mécaniquement_, sans réellement
   me soucier de la qualité des tasses que je consommais, vers 2019, j'ai décidé
   de sérieusement m'intéresser à ce monde. Au fil des mois, c'est devenu une
-  véritable passion (un peu hystérique, je vous l'accorde). Cette page a pour but
-  d'indexer les articles que j'écrirai en rapport avec le café.
+  véritable passion (un peu hystérique, je vous l'accorde).
 tags:
   - café
   - coffee-shop
@@ -30,7 +29,7 @@ indexes:
 > à la prise de conscience qu'il _existe plusieurs genre de café_, je trouve
 > qu'il est tout de même compliqué d'en sortir des bonnes tasses.
 
-Même si le café m'intéresse **beaucoup** depuis 2019, je suis encore néophyte !
+Même si le café m'intéresse **beaucoup**, je suis encore néophyte !
 Cette page me servira à recenser les articles que j'écrirai sur le café pour me
 perfectionner, partager des trucs et astuces et donner mon avis.
 
