@@ -18,6 +18,22 @@ breadcrumb:
 cover: /images/atlantis-cover.png
 cover_tb: /images/atlantis-cover-tb.png
 elements:
+  - ident: atlantis-3
+    name: Prise de conscience
+    description:
+      Il était difficile de croire qu'il s'agissait d'une simple curiosité géologique 
+      spatiale. En effet, la troisième découverte a révélé une macabre citadelle 
+      spatiale. Sans doute les vestiges d'une ancienne civilisation extraterrestre. 
+      A la fois la découverte la plus fascinante et la plus inquiétante de 
+      l'histoire de l'humanité.
+    large_url: /images/atlantis-3.png
+    tb_url: /images/atlantis-3-tb.png
+    meta:
+      - key: Logiciel
+        value: Krita
+    links:
+      - name: NFT
+        href: https://objkt.com/tokens/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD/2
   - ident: atlantis-2
     name: Seconde photo
     description:
