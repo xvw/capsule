@@ -1,7 +1,7 @@
 ---
 title: Atlantide Cosmique
 creation_date: 2023-11-24
-update_date: 2023-11-24
+update_date: 2024-01-25
 toc: false
 description: 
   Une galerie composée de trucs étranges dans l'espace (qui n'existent pas).
