@@ -1,7 +1,7 @@
 ---
 title: Atlantide Cosmique
 creation_date: 2023-11-24
-update_date: 2024-01-25
+update_date: 2024-01-29
 toc: false
 description: 
   Une galerie composée de trucs étranges dans l'espace (qui n'existent pas).
@@ -18,6 +18,21 @@ breadcrumb:
 cover: /images/atlantis-cover.png
 cover_tb: /images/atlantis-cover-tb.png
 elements:
+  - ident: atlantis-4
+    name: Une structure effrayante
+    description:
+      Une nouvelle découverte effrayante ! C'est fragments de civilisation potentielle 
+      semblaient sortir tout droit d'un film de science-fiction ! 
+      Impossible de dire, pour le moment, ce qu'étaient ces structures, 
+      sombres, organiques et mécaniques.
+    large_url: /images/atlantis-4.png
+    tb_url: /images/atlantis-4-tb.png
+    meta:
+      - key: Logiciel
+        value: Krita
+    links:
+      - name: NFT
+        href: https://objkt.com/tokens/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD/3
   - ident: atlantis-3
     name: Prise de conscience
     description:
