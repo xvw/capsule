@@ -20,20 +20,20 @@
   (logs (>= 0.7.0))
   (cmdliner (>= 1.0.0))
   (omd (>= 2.0.0~alpha2))
-  (js_of_ocaml :pinned)
-  (js_of_ocaml-compiler :pinned)
-  (js_of_ocaml-ppx :pinned)
-  (js_of_ocaml-lwt :pinned)
+  (js_of_ocaml  (>= 5.6.0))
+  (js_of_ocaml-compiler (>= 5.6.0))
+  (js_of_ocaml-ppx  (>= 5.6.0))
+  (js_of_ocaml-lwt  (>= 5.6.0))
   (mdx (and :with-test (>= 2.0.0)))
   vdom
   data-encoding
   tezos-base58
   preface
-  (yocaml :pinned)
-  (yocaml_unix :pinned)
-  (yocaml_yaml :pinned)
-  (yocaml_jingoo :pinned)
-  (yocaml_syndication :pinned)
+  yocaml
+  yocaml_unix
+  yocaml_yaml
+  yocaml_jingoo
+  yocaml_syndication
   (nightmare :pinned)
   (nightmare-tyxml :pinned)
   (nightmare_js :pinned)
