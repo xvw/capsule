@@ -12,17 +12,14 @@ switch_" by sequentially running these different commands (which assume that
 
 ```shellsession
 opam update
-opam switch create . ocaml-base-compiler.5.0.0 --deps-only -y
+opam switch create . ocaml-base-compiler.5.1.1 --deps-only -y
 eval $(opam env)
 ```
 
 Once the switch has been initialized, you need to install _the pinned
-dependencies_ (at the time of writing this README, **YOCaml is not yet available
-on OPAM**, which is very **sad**), by running these commands:
+dependencies_ by running these commands:
 
 ```shellsession
-opam install js_of_ocaml-compiler js_of_ocaml-ppx js_of_ocaml-lwt
-opam install yocaml yocaml_unix yocaml_yaml yocaml_jingoo yocaml_syndication  -y
 opam install nightmare nightmare-tyxml -y
 opam install nightmare_js nightmare_js-vdom -y
 opam install yourbones yourbones-ppx yourbones_js yourbones_js-beacon -y
