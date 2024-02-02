@@ -47,6 +47,8 @@ indexes:
         href: /journal/
       - name: Flux de nouvelles
         href: /feeds.html
+      - name: Colophon
+        href: /pages/colophon.html
 ---
 
 Vous me trouverez sur [Mastodon](https://merveilles.town/@xvw), sur

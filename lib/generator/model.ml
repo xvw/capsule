@@ -517,7 +517,6 @@ module Entries = struct
         >>^ fun (acc, (entry, _)) -> Entry.to_atom entry :: acc)
       (arrow (fun _ -> []))
       entries
-    >>^ List.rev
 
   let read_entries (module V : Metadata.VALIDABLE) length index arr entries =
     let open Build in
