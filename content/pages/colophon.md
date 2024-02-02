@@ -16,6 +16,10 @@ tags:
   - yocaml
   - blog
 toc: true
+mastodon_thread:
+  instance: merveilles.town
+  user: xvw
+  id: "111859520888220057"
 creation_date: 2024-02-02
 ---
 
