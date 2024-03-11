@@ -34,12 +34,12 @@
   yocaml_yaml
   yocaml_jingoo
   yocaml_syndication
-  (nightmare :pinned)
-  (nightmare-tyxml :pinned)
-  (nightmare_js :pinned)
-  (nightmare_js-vdom :pinned)
-  (yourbones :pinned)
-  (yourbones-ppx :pinned)
+  nightmare
+  nightmare-tyxml
+  nightmare_js
+  nightmare_js-vdom
+  yourbones
+  yourbones-ppx
   (yourbones_js :pinned)
   (yourbones_js-beacon :pinned)
 

@@ -19,14 +19,12 @@ jobs:
       - name: YOCaml
         uses: ocaml/setup-ocaml@v2
         with:
-          ocaml-compiler: 5.1.0
+          ocaml-compiler: 5.1.1
           opam-depext-flags: --with-test
 
       - run: (cd hell; npm install; npm run build)
       - run: opam install . --deps-only --with-doc --with-test
-      - run: opam install nightmare nightmare-tyxml
-      - run: opam install nightmare_js nightmare_js-vdom
-      - run: opam install yourbones yourbones-ppx yourbones_js yourbones_js-beacon
+      - run: opam install yourbones_js yourbones_js-beacon
       - run: opam exec -- dune build --profile=release
       - run: opam exec -- dune exec bin/capsule_cli/capsule.exe -- build
 

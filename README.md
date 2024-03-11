@@ -12,20 +12,10 @@ switch_" by sequentially running these different commands (which assume that
 
 ```shellsession
 opam update
-opam switch create . ocaml-base-compiler.5.1.1 --deps-only -y
+opam switch create . ocaml.5.1.1 --deps-only -y --with-dev-setup --with-test
+opam install yourbones_js yourbones_js-beacon
 eval $(opam env)
 ```
-
-Once the switch has been initialized, you need to install _the pinned
-dependencies_ by running these commands:
-
-```shellsession
-opam install nightmare nightmare-tyxml -y
-opam install nightmare_js nightmare_js-vdom -y
-opam install yourbones yourbones-ppx yourbones_js yourbones_js-beacon -y
-```
-
-Otherwise, if you use `make`, you can just run the command `make deps`.
 
 And since the JavaScript part of the application relay on ... `npm`, you have to
 install `npm` and running `make` will build the inner library... `hell.js`.
