@@ -461,6 +461,10 @@ code {
   font-family: var(--serif-font);
 }
 
+.feed-entry > .feed-content article li {
+  margin-top: 12px;
+}
+
 .gallery .gallery-links,
 .gallery .gallery-tags,
 .feed-entry .feed-tags {
