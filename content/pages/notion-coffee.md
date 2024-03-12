@@ -1,6 +1,7 @@
 ---
 title: Indexation de café avec Notion
 creation_date: 2024-01-23
+update_date: 2024-03-12
 description:
   Exemple d'utilisation de Notion pour l'indexation de café
 toc: true
@@ -604,6 +605,25 @@ indice **très révélateur** la qualité globale du café.
 Même si le modèle n'est, malheureusement, pas parfait, il est, de mon point de
 vue, suffisant pour construire une sacré intuition sur _mon appréciation
 générale du café_.
+
+##### Amélioration triviale
+
+Quand j'ai partagé l'article sur différents réseaux, [Quentin
+Rault](https://github.com/q-rault) m'a, dans [cette
+conversation](https://www.linkedin.com/feed/update/urn:li:activity:7155947052378521600?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7155947052378521600%2C7156372641266716673%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287156372641266716673%2Curn%3Ali%3Aactivity%3A7155947052378521600%29),
+très cordialement fait remarquer que je pourrai **diviser** le modèle `beans` en
+deux modèles :
+
+- `GreenBeans` décrivant les grains **avant torréfaction** ;
+- `RoastedBeans` décrivant les grains **après torréfaction** (qui entretien une
+  relation avec `GreenBeans`).
+
+L'avantage de cette séparation, c'est qu'elle permet d'éviter la redondance
+d'informations quand des torréfacteurs torréfient les mêmes grains verts. En
+effet, les producteurs vendent le fruit de leurs productions à plusieurs
+torréfacteurs différents. C'est donc une amélioration triviale, améliorant
+largement le modèle.
+
 
 
 ##### Un second outil: diversifier les expériences
