@@ -32,3 +32,6 @@ _opam/
 
 # Node js
 node_modules/
+
+# Krita and emacs temp files
+*~

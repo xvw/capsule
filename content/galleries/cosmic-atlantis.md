@@ -18,6 +18,20 @@ breadcrumb:
 cover: /images/atlantis-cover.png
 cover_tb: /images/atlantis-cover-tb.png
 elements:
+  - ident: atlantis-5
+    name: Une structure réfléchissante
+    description:
+      Bien que très proche des autres structures observées, la manière étrange dont le peu de
+      lumière réfléchissant sur les aspérités du monument galactique remplirent les observateurs
+      humains de perpléxité.
+    large_url: /images/atlantis-5.png
+    tb_url: /images/atlantis-5-tb.png
+    meta:
+      - key: Logiciel
+        value: Krita
+    links:
+      - name: NFT
+        href: https://objkt.com/tokens/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD/4
   - ident: atlantis-4
     name: Une structure effrayante
     description:
