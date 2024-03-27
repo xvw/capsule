@@ -18,6 +18,21 @@ breadcrumb:
 cover: /images/atlantis-cover.png
 cover_tb: /images/atlantis-cover-tb.png
 elements:
+  - ident: atlantis-6
+    name: La toile organique
+    description:
+      "Alors que les télescopes et les sondes continuent d'étudier cet énigme céleste, 
+      une chose demeure certaine : la découverte de cette structure étrange, organique 
+      et mécanique, remet en question notre perception de l'univers, nous incitant à 
+      dévoiler ses secrets et à redéfinir notre compréhension des phénomènes cosmiques."
+    large_url: /images/atlantis-6.png
+    tb_url: /images/atlantis-6-tb.png
+    meta:
+      - key: Logiciel
+        value: Krita
+    links:
+      - name: NFT
+        href: https://objkt.com/tokens/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD/5
   - ident: atlantis-5
     name: Une structure réfléchissante
     description:
