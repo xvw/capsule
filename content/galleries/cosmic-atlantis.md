@@ -18,6 +18,20 @@ breadcrumb:
 cover: /images/atlantis-cover.png
 cover_tb: /images/atlantis-cover-tb.png
 elements:
+  - ident: atlantis-7
+    name: La toile organique
+    description:
+      "Il prend la forme d'une masse organique sombre, drapée à travers la toile céleste 
+      comme un voile ombragé. Ses contours sont sinueux et irréguliers, rappelant les courbes 
+      gracieuses d'un organisme ancien suspendu dans le vide."
+    large_url: /images/atlantis-7.png
+    tb_url: /images/atlantis-7-tb.png
+    meta:
+      - key: Logiciel
+        value: Krita
+    links:
+      - name: NFT
+        href: https://objkt.com/tokens/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD/6
   - ident: atlantis-6
     name: La toile organique
     description:
