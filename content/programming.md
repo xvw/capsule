@@ -21,4 +21,11 @@ indexes:
         href: /pages/oop-refl.html
       - name: OCaml, modules et schémas d'importation
         href: /pages/modules-import.html
+  - name: Notes
+    synopsis:
+      Collections de notes (partiellement organisées/structurées) sur des sujets 
+      divers, en rapport — de près ou de loin — à la programmation.
+    links:
+      - name: Emacs
+        href: /emacs.html
 ---
