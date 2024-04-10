@@ -23,6 +23,10 @@ breadcrumb:
     href: /emacs.html
   - name: Astuces
     href: /emacs.html#index-astuces
+mastodon_thread:
+  instance: merveilles.town
+  user: xvw
+  id: "112247126969336928"
 ---
 
 Il est très courant de programmer avec un nombre de caractères maximum par
