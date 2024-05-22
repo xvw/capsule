@@ -26,6 +26,8 @@ indexes:
       Collections de notes (partiellement organisées/structurées) sur des sujets 
       divers, en rapport — de près ou de loin — à la programmation.
     links:
+      - name: Opinions
+        href: /opinions.html
       - name: Emacs
         href: /emacs.html
 ---

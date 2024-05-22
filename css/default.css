@@ -396,9 +396,17 @@ article div.md-multicols > *:last-child {
   font-family: var(--sans-serif-font);
 }
 
+.indexes > div > h1:empty {
+  display: none;
+}
+
 .indexes > div > p {
   margin: 0;
   font-weight: 100;
+}
+
+.indexes > div > p:empty {
+  display: none;
 }
 
 .indexes > div > nav > ol {
