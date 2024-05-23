@@ -21,9 +21,9 @@
   (cmdliner (>= 1.0.0))
   (omd (>= 2.0.0~alpha2))
   (js_of_ocaml  (>= 5.6.0))
-  (js_of_ocaml-compiler (>= 5.6.0))
-  (js_of_ocaml-ppx  (>= 5.6.0))
-  (js_of_ocaml-lwt  (>= 5.6.0))
+  (js_of_ocaml-compiler (= 5.7.1))
+  (js_of_ocaml-ppx  (= 5.7.1))
+  (js_of_ocaml-lwt  (= 5.7.1))
   (mdx (and :with-test (>= 2.0.0)))
   vdom
   data-encoding
