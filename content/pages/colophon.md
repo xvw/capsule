@@ -293,11 +293,11 @@ journal](/journal/2023-11-14_15-20-50.html), je ne voulais pas dépendre d'un
 service pouvant, potentiellement faire du _tracking_ sans mon accord, j'ai donc
 décidé de construire le support des commentaires sur base de réponses à des fils
 de conversations [Mastodon](https://merveilles.town/getting-started). La
-te car elle ne me permet pas de faire de
-modérations, mais pour le moment, elle me suffit largement. Je pourrais imaginer
-une modération statique (en invalidant certains identifiants de messages au
-niveau d'une page), mais, pour le moment, n'ayant pas eu à déplorer des
-commentaires déplacés, je ne pense pas que ça soit nécéssaire.
+solution est limitée car elle ne me permet pas de faire de modérations, mais
+pour le moment, elle me suffit largement. Je pourrais imaginer une modération
+statique (en invalidant certains identifiants de messages au niveau d'une page),
+mais, pour le moment, n'ayant pas eu à déplorer des commentaires déplacés, je ne
+pense pas que ça soit nécéssaire.
 
 L'application utilise `nightmare_vdom`, ce qui est un peu _overkill_ car il n y
 a pas d'interactivité et un seul composant, mais ça me permet de bénéficier de
