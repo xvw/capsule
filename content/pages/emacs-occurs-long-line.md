@@ -109,7 +109,7 @@ d'utiliser une expression régulière compliquée, nous allons simplement **gén
 - `C-u 81 .` on rempli le motif avec `81` points
 - `[RET]` on exécute la commande.
 
-![example occurs](/images/occurs-81.gif){ class=centered-fig }
+![example occurs](/images/occurs-81.gif){ class=aered-centered-fig }
 
 Et voila ! Expliqué de cette manière, ma solution semble parfaitement stupide,
 je vous l'accorde. Mais elle est, de mon point de vue, **largement plus rapide**

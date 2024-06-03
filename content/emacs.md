@@ -23,6 +23,14 @@ indexes:
     links:
       - name: Occur + argument universel pour lister des lignes trop longues
         href: /pages/emacs-occurs-long-line.html
+  - name: OCaml
+    synopsis:
+      Depuis Février 2024, je travaille, avec d'autres personnes, sur le support 
+      éditeur du langage OCaml. Vous trouverez ici une collection d'articles en
+      rapport avec mon utilisation de Emacs pour éditer du code OCaml.
+    links:
+      - name: Effective ML, au travers de la commande 'destruct'
+        href: /pages/ocaml-merlin-destruct.html
 ---
 
 Je n'ai pas vraiment de convictions fortes sur les éditeurs de texte. J'utilise
