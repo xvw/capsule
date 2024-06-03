@@ -21,6 +21,10 @@ breadcrumb:
     href: /emacs.html
   - name: OCaml
     href: /emacs.html#index-ocaml
+mastodon_thread:
+  instance: merveilles.town
+  user: xvw
+  id: "112553105137079251"
 ---
 
 Les serveurs [Merlin](https://github.com/ocaml/merlin) et [OCaml
