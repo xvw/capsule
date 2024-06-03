@@ -45,8 +45,12 @@ indexes:
         href: https://bsky.app/profile/vdwxv.bsky.social
       - name: Instagram
         href: https://www.instagram.com/vdwxv
+      - name: Cara
+        href: https://cara.app/vdwxv
       - name: Linkedin
         href: https://www.linkedin.com/in/xavdw/
       - name: Threads
         href: https://www.threads.net/@vdwxv
+      - name: Objkt
+        href: https://objkt.com/@xvw
 ---
