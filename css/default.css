@@ -101,6 +101,25 @@ footer {
   color: var(--layout-bg-color);
   padding: 32px 0;
   font-family: var(--sans-serif-font);
+}
+
+footer > .container {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+}
+
+footer > .container > div {
+  flex: 1;
+}
+
+footer > .container > div:first-child {
+  flex: 1;
+  text-align: left;
+}
+
+footer > .container > div:last-child {
+  flex: 1;
   text-align: right;
 }
 
@@ -120,6 +139,10 @@ footer a {
   font-weight: 900;
   text-decoration: none;
   font-family: var(--mono-font);
+}
+
+footer > .container > div:first-child .wb-btn {
+  font-weight: 300;
 }
 
 .sidebar > div {
