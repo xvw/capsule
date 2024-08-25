@@ -150,8 +150,9 @@ module Index = struct
       metadata_object =
     let validation assoc =
       let open Validate.Applicative in
-      let+ name = Meta.(required_assoc string) "name" assoc
-      and+ synopsis = Meta.(required_assoc string) "synopsis" assoc
+      let+ name = Meta.(optional_assoc_or ~default:"" string) "name" assoc
+      and+ synopsis =
+        Meta.(optional_assoc_or ~default:"" string) "synopsis" assoc
       and+ sort = Meta.(optional_assoc_or ~default:false boolean) "sort" assoc
       and+ links =
         Meta.(optional_assoc_or ~default:[] (list_of $ Link.from (module Meta)))
