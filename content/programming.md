@@ -21,13 +21,20 @@ indexes:
         href: /pages/oop-refl.html
       - name: OCaml, modules et schémas d'importation
         href: /pages/modules-import.html
+  - name: Opinions
+    synopsis:
+      J'aime bien (parfois trop) réagir et donner mon avis (même quand il n'est pas
+      sollicité). Cette page servira à recenser les opinions sur la technologie et 
+      la programmation que je formule régulièrement (me permettant de simplement 
+      partager des liens, plutôt que de me répéter, souvent partiellement).
+    links:
+     - name: Sur le choix d'OCaml
+       href: /pages/why-ocaml.html
   - name: Notes
     synopsis:
       Collections de notes (partiellement organisées/structurées) sur des sujets 
       divers, en rapport — de près ou de loin — à la programmation.
     links:
-      - name: Opinions
-        href: /opinions.html
       - name: Emacs
         href: /emacs.html
 ---
