@@ -42,7 +42,11 @@ breadcrumb:
   - name: Programmation
     href: /programming.html
   - name: Opinions
-    href: /programming.html#index-opinions
+    href: /programming.html#index-opinion
+mastodon_thread:
+  instance: merveilles.town
+  user: xvw
+  id: "113021972448640275"
 ---
 
 Dans ce _billet d'opinion_, je vais essayer de présenter brièvement ma rencontre
