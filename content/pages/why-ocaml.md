@@ -52,7 +52,7 @@ mastodon_thread:
 Dans ce _billet d'opinion_, je vais essayer de présenter brièvement ma rencontre
 avec le langage, et d'énumérer ses avantages — répartis en plusieurs rubriques
 portant sur _le langage lui-même_, son écosystème et sa communauté. Je tâcherai
-également de démystifier certains mythes (ou idées reçues) populaires sur
+également de _débunker_ certains mythes (ou idées reçues) populaires sur
 Internet. Par souci de transparence, il est important de préciser qu'à l'heure
 où j'écris ces lignes, mon [activité professionnelle]((https://tarides.com))
 consiste **à travailler pour et sur l'écosystème OCaml**. Cependant, les
@@ -85,7 +85,7 @@ Pour terminer cet avant-propos, beaucoup de personnes ont été confrontées à
 OCaml (ou [Caml Light](https://caml.inria.fr/caml-light/release.fr.html)) en
 licence ou en classes préparatoires, l'utilisant dans des contextes souvent très
 éloignés de l'industrie. Pour ma part, j'ai commencé à m'intéresser à OCaml bien
-avant, grâce au [Site du Zéro]((http://sdz.tdct.org/)), où une petite communauté
+avant, grâce au [Site du Zéro](http://sdz.tdct.org/), où une petite communauté
 de programmeurs férus de fonctionnel faisait la promotion de langages moins
 _mainstream_ comme [OCaml](https://ocaml.org), [Erlang](https://www.erlang.org/)
 et [Haskell](https://www.haskell.org/). Mon interaction avec OCaml à
@@ -702,7 +702,7 @@ let program () =
   let () = Effect.perform (Print_endline "Hello World") in
   let () = Effect.perform (Print_endline "What is your name?") in
   let name = Effect.perform (Read_line ()) in
-  Effect.perform (Print_endline ("Hello " ^ name)
+  Effect.perform (Print_endline ("Hello " ^ name))
 ```
 
 Il est ensuite possible d'interpréter, à postériori, notre programme en
@@ -736,6 +736,11 @@ en programmation fonctionnelle :
 - [Roguelike with effect
   handlers](https://hackmd.io/@yF_ntUhmRvKUt15g7m1uGw/BJBZ7TMeq)
 - [Effect bibliography](https://github.com/yallop/effects-bibliography)
+
+À noter qu'il serait aussi possible de procéder à cette inversion/injection au
+moyen de _records_ ou d'objets, cependant, mon expérience en OCaml m'indique que
+les approches avec des modules ou des effets (quand on veut pouvoir manipuler le
+flot de contrôle), sont souvent plus directes et facile à raisonner.
 
 ### Concernant le futur
 
