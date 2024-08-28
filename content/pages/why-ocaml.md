@@ -5,33 +5,33 @@ description:
   Une explication détaillée de pourquoi j'ai fais le choix de OCaml
   pour langage de programmation "par défaut" pour chaque projet.
 synopsis:
-  J'ai commencé à utiliser régulièrement le langage [OCaml](https://ocaml.org) vers 2012, et depuis, 
-  mon intérêt et mon engouement pour ce langage n'ont cessé de croître. 
-  Il est devenu mon choix de prédilection pour presque tous mes projets personnels, 
-  influençant également mes choix professionnels.  
-  
-  Depuis 2014, je participe activement aux conférences grand public dédiées à la 
-  programmation et à la construction de logiciels, où j'exprime souvent mon 
-  enthousiasme pour OCaml de manière parfois excessive (mais toujours passionnée). 
-  Cela m'a valu, de manière amicale, le surnom _d'évangéliste d'OCaml_, une appellation qui, 
-  je l'avoue, me flatte énormément.  
+  J'ai commencé à utiliser régulièrement le langage [OCaml](https://ocaml.org) vers 2012, et depuis,
+  mon intérêt et mon engouement pour ce langage n'ont cessé de croître.
+  Il est devenu mon choix de prédilection pour presque tous mes projets personnels,
+  influençant également mes choix professionnels.
 
-  Convaincu que mon intérêt pour OCaml est justifié, je prends souvent plaisir à énumérer 
+  Depuis 2014, je participe activement aux conférences grand public dédiées à la
+  programmation et à la construction de logiciels, où j'exprime souvent mon
+  enthousiasme pour OCaml de manière parfois excessive (mais toujours passionnée).
+  Cela m'a valu, de manière amicale, le surnom _d'évangéliste d'OCaml_, une appellation qui,
+  je l'avoue, me flatte énormément.
+
+  Convaincu que mon intérêt pour OCaml est justifié, je prends souvent plaisir à énumérer
   les nombreux avantages de cette technologie. J'ai donc décidé de coucher par écrit les
-  raisons pour lesquelles je considère OCaml comme un excellent choix pour divers types 
-  de projets. Cette page me permettra de partager facilement mes arguments et d'expliquer 
-  pourquoi OCaml mérite attention et intérêt.  
+  raisons pour lesquelles je considère OCaml comme un excellent choix pour divers types
+  de projets. Cette page me permettra de partager facilement mes arguments et d'expliquer
+  pourquoi OCaml mérite attention et intérêt.
 
-  De plus, je ne suis pas seul à penser cela. Malgré l'idée reçue que OCaml ne serait pas 
-  un choix pragmatique pour l'industrie, de grandes entreprises telles que 
-  [Meta](https://engineering.fb.com/?s=ocaml), 
+  De plus, je ne suis pas seul à penser cela. Malgré l'idée reçue que OCaml ne serait pas
+  un choix pragmatique pour l'industrie, de grandes entreprises telles que
+  [Meta](https://engineering.fb.com/?s=ocaml),
   [Microsoft](https://www.microsoft.com/en-us/research/project/slam/?from=https://research.microsoft.com/en-us/projects/slam/&type=exact),
-  [Ahref](https://tech.ahrefs.com/tagged/ocaml), 
+  [Ahref](https://tech.ahrefs.com/tagged/ocaml),
   [Tarides](https://tarides.com),
   [OCamlPro](https://ocamlpro.com/),
   [Bloomberg](https://www.bloomberg.com/company?s=ocaml),
   [Docker](https://github.com/moby/vpnkit), [Janestreet](https://www.janestreet.com/technology/),
-  [Citrix](https://xapi-project.github.io/), [Tezos](https://tezos.com), 
+  [Citrix](https://xapi-project.github.io/), [Tezos](https://tezos.com),
   et [bien d'autres](https://ocaml.org/industrial-users) l'utilisent activement.
 toc: true
 tags:
@@ -181,7 +181,7 @@ car elle offre au langage deux choses :
   l'utilisateur](https://v2.ocaml.org/manual/effects.html) (_user-defined
   effects_), qui est le fruit d'une recherche avancée, illustrée par beaucoup de
   [publications](https://arxiv.org/search/cs?searchtype=author&query=Sivaramakrishnan,+K).
-  
+
 - Une guidance sur les fonctionnalités _désirables_ comme outil pour
   l'industrialisation, aussi supportées par une recherche poussée et motivées
   par des cas d'usages. Par exemple, depuis peu, [Jane
@@ -363,10 +363,10 @@ impérative, si le langage le permet :
   éviter la mutabilité, il faille ajouter de la plomberie additionnelle (par
   exemple, une [monade State](https://wiki.haskell.org/State_Monad)) rendant la
   lecture et la compréhension d'un programme plus laborieuse.
-  
+
 - **La performance.** L'ajout de plomberie peut engendrer des coûts, rendant
   l'exécution d'implémentations plus laborieuse.
-  
+
 - **Le confort à l'usage.** Il y a quelques années, [Arthur
   Guillon](https://twitter.com/rtguillon) m'avait cérémonieusement dit que
   "_OCaml était un lambda-calcul permettant trivialement d'exécuter des
@@ -375,7 +375,7 @@ impérative, si le langage le permet :
   standard. Même si je reconnais que ce n'est probablement pas la _meilleure
   manière_ de produire de la journalisation, cela apporte indéniablement un
   confort d'utilisation, permettant le prototypage rapide.
-  
+
 De manière générale, la nature à la fois impérative et fonctionnelle d'OCaml
 permet de tirer parti des différents avantages des deux paradigmes dans des
 situations différentes et, évidemment, de les coupler. Par exemple, en cachant
@@ -418,7 +418,7 @@ enseigné en classes préparatoires — induit une certaine dualité :
   [d'arguments
   optionnels](https://ocaml.org/manual/lablexamples.html#s%3Aoptional-arguments),
   et de [variants polymorphes](https://ocaml.org/manual/polyvariant.html).
-  
+
 - L'ensemble des paradigmes et des fonctionnalités du langage sont **très
   mûrement réfléchis et théorisés**. En général, l'intégration d'une
   fonctionnalité (ou d'une collection de fonctionnalités) est le fruit d'un
@@ -428,7 +428,7 @@ enseigné en classes préparatoires — induit une certaine dualité :
   par la communauté scientifique). Cette rigueur peut parfois ralentir
   l'intégration de nouvelles fonctionnalités, mais garantit généralement leur
   bon fonctionnement et leur stabilité théorique.
-  
+
 Cette rigueur théorique, engendrée par une proximité indéniable avec le monde de
 la recherche, fait que les différents aspects de OCaml sont bien documentés,
 illustrés par [un grand nombre de
@@ -474,7 +474,7 @@ est nécessaire :
   généralement présents dans tous les langages _mainstream_ (les _objets_ par
   exemple, qui introduisent des concepts en plus, ou les couples et les
   enregistrements).
-  
+
 - Des **types sommes** : qui permettent de construire une **disjonction** de
   types de valeurs hétérogènes, des différents _cas_, indexés par des
   constructeurs. Même si on peut trouver des _cas particuliers_ de sommes dans
@@ -544,7 +544,7 @@ _très modulaire_ d'OCaml :
   optimiser la compilation parallèle et incrémentale. Cette approche est
   exploitée par [dune](https://dune.build/), le système de construction
   recommandé pour compiler du OCaml.
-  
+
 - La séparation systématique entre l'implémentation et l'interface offre
   plusieurs avantages significatifs, notamment l'encapsulation et la
   localisation de la documentation dans l'interface. Dans mon flot de
@@ -564,7 +564,7 @@ _très modulaire_ d'OCaml :
   **maintiennent des invariants**. C'est d'ailleurs pour ça qu'il est courant
   d'avoir une paire structure/signature par structure de données cachant, au
   moyen de l'abstraction et de l'encapsulation, des détails d'implémentation.
-  
+
 - De la réutilisabilité et de la mutualisation. En effet, de la même manière
   qu'il est possible de décrire des types dans le langage des valeurs (comme
   nous l'avons vu dans la rubrique dédiée aux types algébriques), il est
@@ -574,7 +574,7 @@ _très modulaire_ d'OCaml :
   structurellement, et couplées avec les fonctions dans le langage des modules,
   [foncteurs](https://ocaml.org/docs/functors), il est possible de _mutualiser
   du comportement_ attaché à des modules.
-  
+
 - Des formes de polymorphisme avancé, notamment du [Higher Kinded
   Polymorphism](https://okmij.org/ftp/ML/higher-kind-poly.html), disponible
   dans le langage des modules. Dans les grandes lignes, on peut décrire _"des
@@ -582,7 +582,7 @@ _très modulaire_ d'OCaml :
   langages, comme F# ou Java, motive souvent l'utilisation [d'encodages
   lourds](https://github.com/yallop/higher?tab=readme-ov-file#implementations-in-other-languages)
   pour pallier ce manque.
-  
+
 La théorie derrière les langages de modules dans les langages ML est un sujet
 très vaste, [toujours en évolution](https://dl.acm.org/doi/10.1145/3649818),
 qu'il est très difficile de résumer dans un paragraphe. Cependant,
@@ -648,7 +648,7 @@ fonctions exportées par le module, qui, dans notre exemple, s'appelle `Handler`
 :
 
 ```ocaml
-let program (module Handler: IO) = 
+let program (module Handler: IO) =
   let () = Handler.print_endline "Hello World" in
   let () = Handler.print_endline "What is your name?" in
   let name = Handler.read_line () in
@@ -766,19 +766,19 @@ encore plus, le langage :
   [opérations et les effets](https://github.com/ocaml/ocaml/pull/12736) et,
   évidemment, sur la [propagation des effets dans le système de
   types](https://arxiv.org/abs/2407.11816).
-  
+
 - [Jane Street](https://opensource.janestreet.com/) a proposé [un modèle
   non-intrusif de gestion de
   ressources](https://antonlorenzen.de/mode-inference.pdf), inspiré par celui de
   Rust, introduisant _des modalités_ et _un peu de linéarité_.
-  
+
 - Un véritable [travail de
   fond](https://clement.blaudeau.net/assets/pdf/blaudeau_ocaml_modules.pdf) à
   été entamé sur le langage de modules permettant de rendre l'implémentation de
   [Modular
   Implicits](https://www.cl.cam.ac.uk/~jdy22/papers/modular-implicits.pdf) plus
   sereinement implémentable.
-  
+
 On notera aussi le développement d'un système de [macro
 hygiénique](https://xnning.github.io/papers/icfp23.pdf), de l'intégration
 progressive d'un système de [métaprogrammation à
@@ -807,7 +807,7 @@ tant que langage :
   _à la Coq_) peut parfois rendre certaines situations délicates. Même si j'ai
   tendance à toujours trouver les relations explicites préférables, j'ai, au fil
   des années, trouvé plusieurs cas où cette absence pouvait être problématique :
-  
+
     - l'impossibilité de décrire des contraintes de paramètres de types sur des
       fonctions polymorphes, introduisant dans la bibliothèque des fonctions
       d'égalités et de comparaisons polymorphes, faisant couler [beaucoup
@@ -815,19 +815,19 @@ tant que langage :
       et imposant, par exemple, des versions spécialisées de opérateurs
       arithmétiques pour les differentes représentations des nombres (`int`,
       `int64`, `float`).
-      
+
     - Le risque d'explosion combinatoire quand on décrit beaucoup de relations
       entre des modules. C'est pour cette raison que la bibliothèque
       [Preface](https://github.com/xvw/preface) propose une [découpe modulaire
       un peu
       complexe](https://github.com/xvw/preface/blob/master/guides/option_instantiation.md)
-      
+
   Cependant, même si l'arrivée des [modules
   implicites](https://www.cl.cam.ac.uk/~jdy22/papers/modular-implicits.pdf)
   n'est probablement pas dans la feuille de route _court-termiste_, les récents
   travaux sur le langage de modules, présentés dans la rubrique dédiée au futur
   du langages, sont prometteurs.
-  
+
 - Une interaction laborieuse entre le langage de modules et le langages des
   valeurs. En effet, le langage de modules est **un langage différent**, doté
   d'un système de types différent. Je ne sais pas si l'on peut réellement parler
@@ -839,7 +839,7 @@ tant que langage :
   pans du langages sont difficiles à spécifier correctement, par exemple [les
   modules
   récursifs](https://www.ocaml.org/manual/5.2/recursivemodules.html#s%3Arecursive-modules).
-  
+
 - Un langage _confortable pour la programmation fonctionnelle_, impur. Même si
   je trouve que l'impureté est **une feature**, quand on essaye d'importer des
   idiomes issus de langages purs (au hasard, Haskell), on peut se heurter à des
@@ -849,7 +849,7 @@ tant que langage :
   _détendue_](https://caml.inria.fr/pub/papers/garrigue-value_restriction-fiwflp04.pdf),
   ses implications sur l'inférence de fonctions polymorphes peuvent être
   intimidantes — pour de très bonnes raisons.
-  
+
 - La syntaxe. Même si, à titre personnel, j'apprécie beaucoup la syntaxe de
   OCaml et que je suis convaincu que la syntaxe devrait rarement être une issue,
   je suis conscient que certains choix syntaxiques peuvent être déroutants. Par
@@ -858,7 +858,7 @@ tant que langage :
   _volonté de réduire l'ambiguïté de la syntaxe du langage_ et on s'y fait très
   vite. Cependant, je suis conscient qu'en venant d'un autre langage, certains
   de ces choix peuvent sembler surprenants.
-  
+
 Je pense que ces points faibles sont globalement discutables (parce qu'ils sont
 souvent justifiés), mais je comprend parfaitement qu'ils peuvent être
 perturbants. Cependant, je pense qu'ils ne suffisent pas à rendre OCaml
@@ -929,7 +929,7 @@ professionnel et le personnel, ce n'est pas suffisant :
   soyons productifs, il n'est probablement pas très pertinent de devoir
   construire une pile d'outils avant de pouvoir commencer à répondre au problème
   pour lequel on est mandaté.
-  
+
 - Dans le contexte personnel, même si l'on pourrait _arguer_ que construire sa
   pile technologique est **très formateur**, ça modifie l'ensemble des
   compétences que l'on veut _travailler_. Si pour construire une petite
@@ -938,7 +938,7 @@ professionnel et le personnel, ce n'est pas suffisant :
   bon choix. Rassurez-vous, cependant, OCaml dispose [d'un outillage
   riche](https://ocaml.org/docs/is-ocaml-web-yet) pour construire des
   applications web !
-  
+
 C'est pour ça que les fonctionnalités offertes par le langage ne sont pas une
 métrique suffisante pour décrire sa viabilité pour construire et maintenir des
 projets. L'écosystème est aussi un point très important. C'est d'ailleurs pour
@@ -953,13 +953,13 @@ important de prendre en compte plusieurs critères :
   petit _hardware_ exotique — même si, n'y connaissant rien en programmation
   _bas-niveau_ (parce que ce n'est pas du tout mon métier), il est probable que
   je me trompe.
-  
+
 - Sa **plateforme**. Est-ce que l'ensemble de sa _chaine d'outillage_ est
   complète et ergonomique. Ce qui inclut, de mon point de vue, un gestionnaire
   de paquet, un _build-system_, un bon _support éditeur_ (agnostique au
   possible), un bon générateur de documentation et une collection d'outils
   additionnels, comme, par exemple, un _formateur_ (et bien d'autres).
-  
+
 - La pertinence des **bibliothèques disponibles** (et leur niveau de maintenance
   et leur découvrabilité, ce qui implique généralement la nécéssité de disposer
   d'un gestionnaire de paquets) avec une considération particulière sur
@@ -968,7 +968,7 @@ important de prendre en compte plusieurs critères :
   construire une _blockchain_. Il existe toute une classe de problèmes qu'il est
   **très difficile** de _résoudre dans son coin_ ou dans un contexte
   professionnel.
-  
+
 Dans cette section, nous allons essayer de survoler ces différents points pour
 voir si l'écosystème OCaml est à la hauteur du langage. Je tiens à préciser que
 **je suis un peu biaisé** parce que je suis convaincu de la pertinence de OCaml
@@ -983,7 +983,7 @@ utilisateur_ peut ressurgir.
 
 ### Compilation, _runtimes_, et cibles additionnelles
 
-OCaml dispose depuis sa genèse de deux cibles de compilation : 
+OCaml dispose depuis sa genèse de deux cibles de compilation :
 
 - une compilation native, qui produit des exécutables très efficaces, compilés
   pour une architecture. (Et qui supporte un [grand nombre
@@ -997,7 +997,7 @@ OCaml dispose depuis sa genèse de deux cibles de compilation :
 
 - une compilation vers un _bytecode_ (donc à destination d'une machine
   virtuelle), produisant des exécutables portables.
-  
+
 La présence d'une machine virtuelle a permis le développement du vénérable
 [Js\_of\_OCaml](http://ocsigen.org/js_of_ocaml/latest/manual/overview) qui
 permet [la transformation dy bytecode OCaml vers
@@ -1016,7 +1016,7 @@ collector_](https://github.com/WebAssembly/gc)), **OCaml dispose maintenant
 d'une compilation vers WebAssembly parfaitement décente** (et beaucoup de
 projets web, ambitieux, comme [Ocsigen](https://ocsigen.org), commencent à
 supporter _WASM_ nativement).
-  
+
 De plus, le projet [Melange](https://melange.re) (historiquement
 [BuckleScript](https://discuss.ocaml.org/t/a-short-history-of-rescript-bucklescript/7222))
 propose de _transpiler_ — mapper l'_AST_ de OCaml vers l'_AST_ de JavaScript —
@@ -1040,7 +1040,7 @@ _à l'époque_, j'étais très impressionné par le fait que OCaml puisse, _depu
 moment où j'ai commencé à l'utiliser_, compiler vers JavaScript (en plus). A
 cette épqoue, je ne connaissais que [Haxe](https://haxe.org/) qui proposait
 plusieurs cibles de compilation, si différentes (d'ailleurs, Haxe est [écrit en
-OCaml](https://github.com/HaxeFoundation/haxe)). 
+OCaml](https://github.com/HaxeFoundation/haxe)).
 
 En effet, en 2024, produire du JavaScript est devenu standard, on trouve les
 [premières traces de Js\_of\_OCaml en
@@ -1138,7 +1138,7 @@ OPAM, par exemple :
   cours](https://discuss.ocaml.org/t/ann-dune-developer-preview-updates/15160))
 - quelques complications quand il s'agit de gérer des paquets en développement,
   en les référençant depuis un dépôt de source plutôt que depuis OPAM
-  
+
 Je dois avouer qu'en venant d'une ère où OPAM n'existait pas, j'ai appris à
 m'accomoder de certains de ces petits écueils et que, quotidiennement, je dois
 avouer avoir peu de raison de me plaindre de l'outil qui, pour mon usage
@@ -1196,7 +1196,7 @@ important de souligner les points qui ont fait de Dune un standard :
 - il est en constante évolution et amélioré de version en version
 - adossé à [dune-release](https://github.com/tarides/dune-release), il rend la
   publication de paquets sur OPAM incroyablement simple
-  
+
 Peut-être que je suis biaisé mais, selon moi, Dune est un des _build-system_ les
 plus génériques et agréables que j'ai pu utiliser — même si, aux premiers
 abords, il peut sembler effrayant et certains choix peuvent sembler difficile à
@@ -1217,7 +1217,7 @@ décision à plusieurs avantages :
 - le langage est très facile à apprendre, et à décrire
 - il permet de décrire de **véritables programmes**, rendant Dune relativement
   générique et permettant de faire des tâches additionnelles
-  
+
 Donc, de mon point de vue, le choix des **S-expression** est pertinent, il
 permet de décrire des programmes complexes, lisibles, sans être trop verbeux, il
 ne pénalise pas trop la compilation et il permet de décrire, de manière très
@@ -1254,7 +1254,7 @@ de construire des projets avec [Nix](https://nixos.org),
 [Buck2](https://buck2.build/) qui est un projet ambitieux et générique qui est
 en compétition avec Bazel et [Drom](https://github.com/OCamlPro/drom) qui offre
 une expérience similaire à [Cargo](https://doc.rust-lang.org/stable/cargo/),
-unifiant la gestion de paquets et la construction de projets. 
+unifiant la gestion de paquets et la construction de projets.
 
 En toute transparence, je n'ai jamais expérimenté ces alternatives, étant très
 satisfait de Dune et de la direction qu'il est en train de prendre, unifiant
@@ -1272,7 +1272,7 @@ fonctionnalités de **navigation dans le code**, des outils liées à la
 **déstructuration de valeurs**, à la **construction de valeur**, de la gestion
 (et navigation) de **trous typés**, de la **recherche par polarité**, des
 informations précises (avec contrôle de verbosité) sur **les types de valeurs**,
-du **_jump-to-definition_** etc. 
+du **_jump-to-definition_** etc.
 
 Selon moi, le support IDE, via Merlin, est excellent, en OCaml, depuis très
 longtemps. Couplé avec [ocp-indent](https://github.com/OCamlPro/ocp-indent), qui
@@ -1326,7 +1326,7 @@ compilateur et qui offre plusieurs fonctionnalités très intéressantes :
   présents sur OPAM](https://ocaml.org/packages))
 - le support de [_doctest_](https://en.wikipedia.org/wiki/Doctest) via
   [mdx](https://github.com/realworldocaml/mdx)
-  
+
 Même si le _look'n feel_ d'une documentation générée par Odoc, par défaut, est,
 de mon point de vue, **largement superieur** de celle générée par OCamldoc, il
 reste tout de même (_une fois de plus, de mon point de vue_) un peu de travail à
@@ -1365,7 +1365,7 @@ plusieurs points :
 - Comme pour des langages populaires, comme JavaScript ou Rust, des
   contributeurs motivés ont fourni d'excellentes bibliothèques
 - Le langage est ancien, et utilisé industriellement depuis bien longtemps
-  
+
 Pour ma part, il m'est arrivé de _re-créer_ des bibliothèques pour le **plaisir
 de réinventer la roue**, mais aussi, parfois, pour proposer une interface
 alternative. De plus, OCaml permet de s'interfacer avec, entre autres, du C,
@@ -1428,7 +1428,7 @@ sont :
 - [Containers](https://github.com/c-cube/ocaml-containers) est une extension de
   la bibliothèque standard (dans le sens où `open Containers` en début de module
   ne casse pas du code rédigé avec la bibliothèque standard).
-  
+
 Je n'ai pas d'opinion forte concernant le choix d'une bibliothèque alternative,
 j'ai tendance à utiliser celle que mon projet utilise ou de _réinventer la roue_
 (parce que c'est très rigolo), cependant, si je devais donner un avis, il est
@@ -1485,11 +1485,11 @@ est :
   d'adresser une mention particulière à [Gabriel Scherer](http://gasche.info) et
   [Florian Angeletti](https://perso.quaesituri.org/florian.angeletti) dont les
   réponses sont toujours élaborées et intéressantes.
-  
+
 - **Très bienveillante** : il m'arrive souvent d'avoir à demander de l'aide et
   j'ai toujours eu l'occasion d'avoir des réponses claires et précises, que ça
   soit en privé ou en public.
-  
+
 - **Très brillante** : OCaml est le fruit du travail de _chercheurs brillants_
   et avoir l'opprtunité d'interagir avec eux est incroyable (et potentiellement
   un peu intimidant). Avoir l'opportunité de poser, directement, des questions à
@@ -1560,7 +1560,7 @@ présentes dans OCaml, par exemple :
 - et probablement d'autres fonctionnalités que je ne connais pas bien (ou liées
   à l'interopérabilité avec la plateforme .NET, notamment de la
   [réflexion](https://learn.microsoft.com/fr-fr/dotnet/fsharp/language-reference/attributes))
-  
+
 Ces évolutions sont arrivées progressivement dans le langage. Il serait naïf de
 croire que OCaml n'a pas évolué lui aussi. En effet, bien que historiquement,
 les deux langages semblaient très similaires, dès le début de la proposition de
@@ -1571,7 +1571,7 @@ F\#, certaines fonctionnalités étaient manquantes :
   statiques (et se marie étrangement avec les espaces noms)
 - Un modèle objet **drastiquement différent** (pour l'interopérabilité avec C#,
   évidemment)
-  
+
 Ces deux raisons, à elles seules, suffiraient de considérer OCaml et F# comme
 deux langages _cousins_ mais **très différents** et motiveraient, selon moi,
 très largement le fait de préférer l'un à l'autre. Dans mon cas, OCaml plutôt
@@ -1593,7 +1593,7 @@ trouve beaucoup de choses en OCaml, absente dans F# :
   l'utilisateur](https://ocaml.org/manual/5.2/effects.html)
 - Des [sommes ouvertes](https://ocaml.org/manual/5.2/extensiblevariants.html),
   ce qui peut largement se simuler avec des objets et de l'héritage ceci-dit
-  
+
 Pour conclure, même si F# est un vraiment chouette langage, et que son usage
 fait profiter de beaucoup d'avantages (notamment la plateforme .NET), ce n'est
 pas _juste une meilleure version de OCaml_. Les deux langages sont très
@@ -1758,11 +1758,11 @@ Une autre technique similaire consiste à utiliser `include (struct ... end : si
 dans le même fichier. Par exemple :
 
 ```ocaml
-include (struct 
+include (struct
   type t = int
   let f x = x
   let g = _some_private_stuff
-end : sig 
+end : sig
   type t
   val f : int -> t
 end)
