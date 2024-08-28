@@ -888,7 +888,7 @@ populaires_, seul Scala semble couvrir autant de sujets, même si, de mon point
 de vue, son modèle objet est, essentiellement par soucis d'interopérabilité avec
 les autres langages de la JVM, largement moins intéressant.
 
-Comme l'objectif de cet article n'est pas d'être un tutoriel, j'ai
+Comme l'objectif de cet article n'est pas d'être un tutoriel, je suis
 volontairement passé rapidement sur certains concepts, [les
 modules](https://ocaml.org/docs/modules) et les
 [effets](https://ocaml.org/manual/ffects.html). Je n'ai presque pas parlé des
@@ -1012,7 +1012,7 @@ compilation vers _WASM_ pour un langage étant doté d'un [glâneur de
 cellules](https://en.wikipedia.org/wiki/Garbage_collection_(computer_science))
 était un _sacré challenge_, mais l'équipe derrière _WASM_ ayant récemment
 spécificé l'interaction entre _WASM_ et des [_garbage
-collector_](https://github.com/WebAssembly/gc)), **OCaml dispose maintenant
+collector_](https://github.com/WebAssembly/gc), **OCaml dispose maintenant
 d'une compilation vers WebAssembly parfaitement décente** (et beaucoup de
 projets web, ambitieux, comme [Ocsigen](https://ocsigen.org), commencent à
 supporter _WASM_ nativement).
@@ -1640,7 +1640,7 @@ implicites), permettant de décrire une contrainte sur nos opérateurs : `op ::
 Num a => a -> a -> a` ? Une proposition que j'ai souvent lu sur internet serait
 d'utiliser _la même triche_ que pour l'opérateur `=`, dont le type est `val
 (=) : 'a -> 'a -> 'a`. Ça ne fonctionne pas, parce que alors que l'on peut
-espérer que _tout soit compatable_ (dans le pire des cas, on peut renvoyer
+espérer que _tout soit comparable_ (dans le pire des cas, on peut renvoyer
 `false`), comment généraliser, par exemple, une addition ?
 
 Le support des opérateurs arithmétiques est un problème laborieux, qui est
