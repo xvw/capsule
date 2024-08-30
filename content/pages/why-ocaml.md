@@ -49,16 +49,17 @@ mastodon_thread:
   id: "113021972448640275"
 ---
 
-Dans ce _billet d'opinion_, je vais essayer de présenter brièvement ma rencontre
-avec le langage, et d'énumérer ses avantages — répartis en plusieurs rubriques
-portant sur _le langage lui-même_, son écosystème et sa communauté. Je tâcherai
-également de _débunker_ certains mythes (ou idées reçues) populaires sur
-Internet. Par souci de transparence, il est important de préciser qu'à l'heure
-où j'écris ces lignes, mon [activité professionnelle]((https://tarides.com))
-consiste **à travailler pour et sur l'écosystème OCaml**. Cependant, les
-lecteurs qui me suivent depuis plusieurs années pourront témoigner que je
-faisais la promotion du langage bien avant d'être rémunéré pour travailler sur
-l'écosystème OCaml, parfois de manière immodérée.
+Dans ce _billet d'opinion_, je vais essayer de présenter brièvement ma
+rencontre avec le langage, et d'énumérer ses avantages — répartis en
+plusieurs rubriques portant sur _le langage lui-même_, son écosystème
+et sa communauté. Je tâcherai également de _débunker_ certains mythes
+(ou idées reçues) populaires sur Internet. Par souci de transparence,
+il est important de préciser qu'à l'heure où j'écris ces lignes, mon
+[activité professionnelle](https://tarides.com) consiste **à
+travailler pour et sur l'écosystème OCaml**. Cependant, les lecteurs
+qui me suivent depuis plusieurs années pourront témoigner que je
+faisais la promotion du langage bien avant d'être rémunéré pour
+travailler sur l'écosystème OCaml, parfois de manière immodérée.
 
 
 ## Avant-propos
