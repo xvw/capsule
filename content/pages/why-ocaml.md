@@ -1550,7 +1550,8 @@ présentes dans OCaml, par exemple :
   liaisons](https://ocaml.org/manual/5.2/bindingops.html))
 - le [fournisseur de
   types](https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/computation-expressions)
-  (qui malheureusement ne fonctionne pas avec .NET Core)
+  (qui malheureusement peut soulever quelques déconvenues avec .NET
+  Core, dans certains cas de résolutions de noms/chemins)
 - les [motifs
   actifs](https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/active-patterns)
 - [Paramètres de type résolus

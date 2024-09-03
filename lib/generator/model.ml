@@ -9,7 +9,6 @@ module Effect_util = struct
       let open Try.Monad in
       let* content = content in
       let m, _ = split_metadata content in
-
       R.from_string (module V) m |> Validate.to_try >|= f path
     in
     match result with Ok x -> return x | Error err -> throw err
