@@ -1802,7 +1802,7 @@ servent essentiellement à démontrer cette _expressivité_ parce que le
 contre-coup de ce regroupement est la perte de la compilation séparée, ce que je
 trouve sacrément balot.
 
-# Pour conclure
+## Pour conclure
 
 Je pense avoir _sommairement_ survolé les points que je voulais développer. De
 mon point de vue, **OCaml est un langage génial** ! En effet, il offre un très
