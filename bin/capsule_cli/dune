@@ -1,4 +1,0 @@
-(executable
- (name capsule)
- (promote (until-clean))
- (libraries fmt fmt.tty logs logs.fmt cmdliner preface yocaml_unix generator))
