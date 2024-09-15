@@ -1,0 +1,6 @@
+(library
+ (name static)
+ (public_name capsule.static)
+ (libraries yocaml))
+
+(include_subdirs qualified)
