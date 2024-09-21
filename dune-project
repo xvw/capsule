@@ -30,9 +30,10 @@
    mdx ;; maybe because I probably want to use `mdx` in some articles
 
   ;; Test utils
-  ppx_expect
+  (ppx_expect :with-test)
    
   ;; Dev setup
+  (utop :with-dev-setup)
   (ocamlformat :with-dev-setup)
   (ocp-indent :with-dev-setup)
   (merlin :with-dev-setup)
