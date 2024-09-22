@@ -6,4 +6,5 @@ pin-depends: [
   ["yocaml_cmarkit.dev" "git+https://gitlab.com/funkywork/yocaml.git"]
   ["yocaml_eio.dev" "git+https://gitlab.com/funkywork/yocaml.git"]
   ["yocaml_syndication.dev" "git+https://gitlab.com/funkywork/yocaml.git"]
+  ["yocaml_otoml.dev" "git+https://gitlab.com/funkywork/yocaml.git"]
 ]

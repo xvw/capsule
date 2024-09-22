@@ -1,3 +1,7 @@
+class type with_configuration = object
+  method configuration : Config.t
+end
+
 class type with_target_path = object
   method target_path : Yocaml.Path.t
 end

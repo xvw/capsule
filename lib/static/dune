@@ -1,6 +1,7 @@
 (library
  (name static)
  (public_name capsule.static)
- (libraries yocaml))
+ (libraries yocaml yocaml_yaml yocaml_otoml yocaml_jingoo yocaml_cmarkit)
+ (modules_without_implementation intf))
 
 (include_subdirs qualified)

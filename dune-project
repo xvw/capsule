@@ -27,6 +27,7 @@
    yocaml_jingoo
    yocaml_syndication
    yocaml_yaml
+   yocaml_otoml
    mdx ;; maybe because I probably want to use `mdx` in some articles
 
   ;; Test utils

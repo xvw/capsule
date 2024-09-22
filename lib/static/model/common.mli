@@ -1,8 +1,13 @@
-type t
+class t :
+  title:string option
+  -> charset:string option
+  -> description:string option
+  -> tags:string list
+  -> display_toc:bool
+  -> Types.common
 
 val validate
   :  (string * Yocaml.Data.t) list
   -> t Yocaml.Data.Validation.validated_record
 
-val normalize : t -> (string * Yocaml.Data.t) list
-val inspect : t -> Types.common
+val normalize : #t -> (string * Yocaml.Data.t) list
