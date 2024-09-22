@@ -1,6 +1,3 @@
-(* Currently only support Github and Gitlab (because it is for my own
-   usage)*)
-
 type of_user =
   { user_name : string
   ; repository_name : string
