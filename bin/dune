@@ -1,4 +1,4 @@
 (executable
  (name capsule)
  (public_name capsule)
- (libraries yocaml yocaml_eio static cmdliner))
+ (libraries yocaml yocaml_runtime yocaml_eio static cmdliner))
