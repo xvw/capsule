@@ -20,6 +20,9 @@
   (ocaml (>= 5.2.0))
   (dune (>= 3.16.0))
 
+  ;; Binary dependencies
+   cmdliner
+
   ;; Yocaml dependencies 
    yocaml
    yocaml_eio

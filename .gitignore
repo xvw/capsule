@@ -35,3 +35,6 @@ node_modules/
 
 # Krita and emacs temp files
 *~
+
+# Do not upload the cache
+cache
