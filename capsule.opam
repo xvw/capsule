@@ -11,6 +11,7 @@ bug-reports: "https://github.com/xvw/capsule/issues"
 depends: [
   "ocaml" {>= "5.2.0"}
   "dune" {>= "3.16" & >= "3.16.0"}
+  "cmdliner"
   "yocaml"
   "yocaml_eio"
   "yocaml_cmarkit"

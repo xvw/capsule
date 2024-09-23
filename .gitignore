@@ -1,0 +1,41 @@
+*.annot
+*.cmo
+*.cma
+*.cmi
+*.a
+*.o
+*.cmx
+*.cmxs
+*.cmxa
+
+# ocamlbuild working directory
+_build/
+www/
+_www/
+
+# ocamlbuild targets
+*.byte
+*.native
+*.exe
+
+# oasis generated files
+setup.data
+setup.log
+
+# Merlin configuring file for Vim and Emacs
+.merlin
+
+# Dune generated files
+*.install
+
+# Local OPAM switch
+_opam/
+
+# Node js
+node_modules/
+
+# Krita and emacs temp files
+*~
+
+# Do not upload the cache
+cache
