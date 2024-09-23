@@ -18,7 +18,13 @@ let port ?(default = 8888) () =
   Cmdliner.Arg.(value @@ opt Conv.port default arg)
 ;;
 
-let log_level ?(default = `App) () =
+let config_file ?(default = "capsule.toml") () =
+  let doc = "The main configuration file (ie: capsule.toml)" in
+  let arg = Cmdliner.Arg.info ~doc ~docs [ "configuration"; "config"; "C" ] in
+  Cmdliner.Arg.(value @@ opt Cmdliner.Arg.file default arg)
+;;
+
+let log_level ?(default = `Debug) () =
   let doc = "The log-level of the application running" in
   let arg = Cmdliner.Arg.info ~doc ~docs [ "log-level"; "level"; "log" ] in
   Cmdliner.Arg.(value @@ opt Conv.log_level default arg)

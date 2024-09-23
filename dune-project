@@ -22,6 +22,7 @@
 
   ;; Binary dependencies
    cmdliner
+   fmt
 
   ;; Yocaml dependencies 
    yocaml
@@ -31,6 +32,7 @@
    yocaml_syndication
    yocaml_yaml
    yocaml_otoml
+   yocaml_runtime
    mdx ;; maybe because I probably want to use `mdx` in some articles
 
   ;; Test utils
