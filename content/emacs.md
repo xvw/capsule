@@ -23,6 +23,8 @@ indexes:
     links:
       - name: Occur + argument universel pour lister des lignes trop longues
         href: /pages/emacs-occurs-long-line.html
+      - name: Expansion d'abréviations avec YASnippet
+        href: /pages/emacs-yasnippet.html
   - name: OCaml
     synopsis:
       Depuis Février 2024, je travaille, avec d'autres personnes, sur le support 
@@ -43,13 +45,6 @@ que généralement, il existait un _mode emacs_ pour ces derniers, j'ai pris
 l'habitude d'utiliser Emacs. Cependant, je n'ai jamais vraiment pris le temps de
 d'apprendre à l'utiliser correctement — il est donc fort probable que mon
 utilisation soit exaspérante pour un _Guru Emacs_.
-
-Actuellement, j'utilise une version fort peu personnalisée de [Doom
-Emacs](https://github.com/doomemacs/doomemacs), sans
-[evil-mode](https://www.emacswiki.org/emacs/Evil), un _framework_ de
-configuration très complet qui offre une expérience _par défaut_ très
-satisfaisante. J'espère cependant que la rédaction, à propos de Emacs, me
-poussera à personnaliser un peu plus mon expérience éditeur !
 
 Dans cette page, vous trouverez des notes sur des _astuces_ — un peu naïve — de
 mon utilisation de Emacs et, si la prise de notes sur Emacs me permet de
