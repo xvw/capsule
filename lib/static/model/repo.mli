@@ -9,3 +9,4 @@ val validate : Yocaml.Data.t -> t Yocaml.Data.Validation.validated_value
 
 val normalize : t -> Yocaml.Data.t
 val equal : t -> t -> bool
+val resolve_path : ?branch:string -> Yocaml.Path.t -> t -> Url.t

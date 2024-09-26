@@ -23,15 +23,15 @@ let process_images (module R : Intf.RESOLVER) =
 ;;
 
 let process_page (module R : Intf.RESOLVER) config source =
-  let target = R.Target.(as_html ~into:pages source) in
+  let target = R.Target.as_page source in
   Yocaml.Action.Static.write_file_with_metadata
-    target
+    (R.Target.promote target)
     Yocaml.Task.(
       R.track_common_deps
       >>> Yocaml_yaml.Pipeline.read_file_with_metadata
             (module Archetype.Page.Parse)
             source
-      >>> Archetype.Page.configure config
+      >>> Archetype.Page.configure config ~source ~target
       >>> Yocaml_cmarkit.content_to_html_with_toc
             Archetype.Page.table_of_contents
       >>> Yocaml_jingoo.Pipeline.as_template

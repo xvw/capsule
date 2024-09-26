@@ -128,3 +128,15 @@ let equal a b =
     && String.equal repo_a repo_b
   | Github _, _ | Gitlab _, _ -> false
 ;;
+
+let resolve_path ?(branch = "main") path repo =
+  let base_uri = base_uri_of repo in
+  let file = Yocaml.Path.(path |> relocate ~into:root |> to_string) in
+  let sep =
+    match repo with
+    | Github _ -> "/"
+    | Gitlab _ -> "/-/"
+  in
+  let uri = base_uri ^ sep ^ "blob/" ^ branch ^ file in
+  Url.https uri
+;;

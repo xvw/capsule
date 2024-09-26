@@ -18,15 +18,14 @@ module Make (R : Intf.RESOLVABLE) = struct
 
   module Target = struct
     let root = R.target
+    let promote p = Path.relocate ~into:root p
     let cache = Path.(R.source / "cache")
     let pages = Path.(R.target / "pages")
     let css = Path.(R.target / "css")
     let fonts = Path.(R.target / "fonts")
     let images = Path.(R.target / "images")
-
-    let as_html ~into file =
-      file |> Path.move ~into |> Path.change_extension "html"
-    ;;
+    let as_html file = file |> Path.change_extension "html"
+    let as_page file = file |> as_html |> Path.move ~into:(Path.rel [ "pages" ])
   end
 
   let track_common_deps = Pipeline.track_files Source.deps

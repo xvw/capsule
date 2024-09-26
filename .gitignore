@@ -10,7 +10,7 @@
 
 # ocamlbuild working directory
 _build/
-www/
+_www/
 
 # ocamlbuild targets
 *.byte
