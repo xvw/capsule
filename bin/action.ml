@@ -28,7 +28,7 @@ let with_message source target f () =
   let* () =
     logf
       ~level:`Info
-      "Building [%a] in [%a]"
+      "Trigger [%a] in [%a]"
       Yocaml.Path.pp
       source
       Yocaml.Path.pp
@@ -77,7 +77,7 @@ let build =
   let term =
     Cmdliner.Term.(
       const run_build
-      $ Arg.log_level ()
+      $ Arg.log_level ~default:`Debug ()
       $ Arg.target ()
       $ Arg.source ()
       $ Arg.config_file ())
@@ -97,7 +97,7 @@ let watch =
     Cmdliner.Term.(
       const run_watch
       $ Arg.port ()
-      $ Arg.log_level ()
+      $ Arg.log_level ~default:`Info ()
       $ Arg.target ()
       $ Arg.source ()
       $ Arg.config_file ())

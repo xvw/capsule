@@ -19,11 +19,13 @@ module type RESOLVER = sig
 
   module Target : sig
     val root : Yocaml.Path.t
+    val promote : Yocaml.Path.t -> Yocaml.Path.t
     val cache : Yocaml.Path.t
     val css : Yocaml.Path.t
     val fonts : Yocaml.Path.t
     val images : Yocaml.Path.t
     val pages : Yocaml.Path.t
-    val as_html : into:Yocaml.Path.t -> Yocaml.Path.t -> Yocaml.Path.t
+    val as_html : Yocaml.Path.t -> Yocaml.Path.t
+    val as_page : Yocaml.Path.t -> Yocaml.Path.t
   end
 end

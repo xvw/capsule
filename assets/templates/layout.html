@@ -1,0 +1,11 @@
+<!doctype html>
+<html>
+  <head>
+    <title>{{ config.main_title }} - {{ page_title}}</title>
+  </head>
+  <body>
+    {%- autoescape false -%}{{ yocaml_body }}{%- endautoescape -%}
+    <!-- self-url: {{ build_info.self_url.url }} -->
+    <!-- repo-url: {{ build_info.repo_url.url }} -->
+  </body>
+</html>

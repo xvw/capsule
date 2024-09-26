@@ -19,7 +19,7 @@ let validate =
 let normalize { title; repository; branch } =
   let open Yocaml.Data in
   record
-    [ "main-title", string title
+    [ "main_title", string title
     ; "repository", Repo.normalize repository
     ; "branch", string branch
     ]
