@@ -13,14 +13,14 @@ depends: [
   "dune" {>= "3.16" & >= "3.16.0"}
   "cmdliner"
   "fmt"
-  "yocaml"
-  "yocaml_eio"
-  "yocaml_cmarkit"
-  "yocaml_jingoo"
-  "yocaml_syndication"
-  "yocaml_yaml"
-  "yocaml_otoml"
-  "yocaml_runtime"
+  "yocaml" {>= "2.0.0"}
+  "yocaml_eio" {>= "2.0.0"}
+  "yocaml_cmarkit" {>= "2.0.0"}
+  "yocaml_jingoo" {>= "2.0.0"}
+  "yocaml_syndication" {>= "2.0.0"}
+  "yocaml_yaml" {>= "2.0.0"}
+  "yocaml_otoml" {>= "2.0.0"}
+  "yocaml_runtime" {>= "2.0.0"}
   "mdx"
   "ppx_expect" {with-test}
   "utop" {with-dev-setup}
@@ -45,13 +45,3 @@ build: [
   ]
 ]
 dev-repo: "git+https://github.com/xvw/capsule.git"
-pin-depends: [
-  ["yocaml.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
-  ["yocaml_runtime.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
-  ["yocaml_jingoo.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
-  ["yocaml_yaml.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
-  ["yocaml_cmarkit.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
-  ["yocaml_eio.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
-  ["yocaml_syndication.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
-  ["yocaml_otoml.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
-]

@@ -1,9 +1,13 @@
 let process_css (module R : Intf.RESOLVER) =
-  Yocaml.Action.batch
-    ~only:`Files
-    ~where:File.is_css
-    R.Source.css
-    (Yocaml.Action.copy_file ~into:R.Target.css)
+  Yocaml.Action.Static.write_file
+    R.Target.css
+    (Yocaml.Pipeline.pipe_files
+       ~separator:"\n"
+       Yocaml.Path.
+         [ R.Source.css / "fonts.css"
+         ; R.Source.css / "reset.css"
+         ; R.Source.css / "capsule.css"
+         ])
 ;;
 
 let process_fonts (module R : Intf.RESOLVER) =
