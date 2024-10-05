@@ -26,11 +26,10 @@ let process_css (module R : Intf.RESOLVER) =
          ])
 ;;
 
-let process_misc_files (module R : Intf.RESOLVER) cache =
+let process_misc_files (module R : Intf.RESOLVER) =
   let open Yocaml.Eff in
-  return cache
-  >>= Yocaml.Action.copy_file ~into:R.Target.root R.Source.cname
-  >>= Yocaml.Action.batch
+  Yocaml.Action.copy_file ~into:R.Target.root R.Source.cname
+  >=> Yocaml.Action.batch
         ~only:`Files
         ~where:File.is_related_to_favicon
         R.Source.favicon
