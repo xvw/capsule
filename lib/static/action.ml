@@ -1,15 +1,3 @@
-let process_css (module R : Intf.RESOLVER) =
-  Yocaml.Action.Static.write_file
-    R.Target.css
-    (Yocaml.Pipeline.pipe_files
-       ~separator:"\n"
-       Yocaml.Path.
-         [ R.Source.css / "fonts.css"
-         ; R.Source.css / "reset.css"
-         ; R.Source.css / "capsule.css"
-         ])
-;;
-
 let process_fonts (module R : Intf.RESOLVER) =
   Yocaml.Action.batch
     ~only:`Files
@@ -24,6 +12,29 @@ let process_images (module R : Intf.RESOLVER) =
     ~where:File.is_image
     R.Source.images
     (Yocaml.Action.copy_file ~into:R.Target.images)
+;;
+
+let process_css (module R : Intf.RESOLVER) =
+  Yocaml.Action.Static.write_file
+    R.Target.css
+    (Yocaml.Pipeline.pipe_files
+       ~separator:"\n"
+       Yocaml.Path.
+         [ R.Source.css / "fonts.css"
+         ; R.Source.css / "reset.css"
+         ; R.Source.css / "capsule.css"
+         ])
+;;
+
+let process_misc_files (module R : Intf.RESOLVER) cache =
+  let open Yocaml.Eff in
+  return cache
+  >>= Yocaml.Action.copy_file ~into:R.Target.root R.Source.cname
+  >>= Yocaml.Action.batch
+        ~only:`Files
+        ~where:File.is_related_to_favicon
+        R.Source.favicon
+        (Yocaml.Action.copy_file ~into:R.Target.root)
 ;;
 
 let process_page (module R : Intf.RESOLVER) config source =
@@ -68,6 +79,7 @@ let run (module R : Intf.RESOLVER) () =
   >>= process_fonts (module R)
   >>= process_css (module R)
   >>= process_images (module R)
+  >>= process_misc_files (module R)
   >>= process_pages (module R) config
   >>= Yocaml.Action.store_cache ~on:`Source R.Target.cache
 ;;

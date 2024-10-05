@@ -10,6 +10,8 @@ module type RESOLVER = sig
   module Source : sig
     val root : Yocaml.Path.t
     val configuration : Yocaml.Path.t
+    val cname : Yocaml.Path.t
+    val favicon : Yocaml.Path.t
     val css : Yocaml.Path.t
     val fonts : Yocaml.Path.t
     val images : Yocaml.Path.t
