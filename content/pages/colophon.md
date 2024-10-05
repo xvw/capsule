@@ -6,3 +6,7 @@ display_toc: true
 ---
 
 Test
+
+```ocaml
+let x = 10 in x + 1 ;;
+```

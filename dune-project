@@ -20,19 +20,21 @@
   (ocaml (>= 5.2.0))
   (dune (>= 3.16.0))
 
-  ;; Binary dependencies
+   ;; Binary dependencies
    cmdliner
    fmt
 
   ;; Yocaml dependencies 
-   yocaml
-   yocaml_eio
-   yocaml_cmarkit
-   yocaml_jingoo
-   yocaml_syndication
-   yocaml_yaml
-   yocaml_otoml
-   yocaml_runtime
+  (yocaml (>= 2.0.0))
+  (yocaml_eio (>= 2.0.0))
+  (yocaml_cmarkit (>= 2.0.0))
+  (yocaml_jingoo (>= 2.0.0))
+  (yocaml_syndication (>= 2.0.0))
+  (yocaml_yaml (>= 2.0.0))
+  (yocaml_otoml (>= 2.0.0))
+  (yocaml_runtime (>= 2.0.0))
+
+   
    mdx ;; maybe because I probably want to use `mdx` in some articles
 
   ;; Test utils

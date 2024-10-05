@@ -1,11 +1,27 @@
+{%- if has_page_title -%}
+{%- set layout_title = config.main_title + " - " + page_title -%}
+{%- else -%}
+{%- set layout_title = config.main_title -%}
+{%- endif -%}
 <!doctype html>
 <html>
   <head>
-    <title>{{ config.main_title }} - {{ page_title}}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/capsule.css" rel="stylesheet">
+    <title>{{ layout_title }}</title>
   </head>
   <body>
-    {%- autoescape false -%}{{ yocaml_body }}{%- endautoescape -%}
-    <!-- self-url: {{ build_info.self_url.url }} -->
-    <!-- repo-url: {{ build_info.repo_url.url }} -->
+    <header>
+      <div>header</div>
+    </header>
+    <main>
+      <div>
+	{%- autoescape false -%}{{ yocaml_body }}{%- endautoescape -%}
+      </div>
+    </main>
+    <footer>
+      <div>footer</div>
+    </footer>
   </body>
 </html>
