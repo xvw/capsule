@@ -12,6 +12,7 @@ body {
     display: flex;
     flex-direction: column;
     font-family: var(--font-sans-serif);
+    background-color: #eee;
 
     /* Overall layout structure. The aim is not to nest all the CSS in
        these blocks but to provide the overall logic of the layout (which
@@ -20,12 +21,10 @@ body {
     & > header,
     & > footer {
         flex: none;
-        background-color: #ccc;
     }
 
     & > main {
         flex: 1 0 auto;
-        background-color: #eee;
     }
 
     & > footer {
@@ -88,8 +87,9 @@ body {
     & > div:first-child {
         margin-bottom: 2rem;
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr));
+        gap: 2rem;
+        justify-content: center;
     }
 
     & > div:last-child {
@@ -97,8 +97,9 @@ body {
         padding-top: 1.5rem;
         border-top: 1px solid var(--middle-color);
         display: grid;
-        grid-template-columns: 2fr 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr));
         gap: 2rem;
+
 
         & svg {
             display: inline-block;
@@ -109,8 +110,6 @@ body {
             font-weight: 700;
             border-style: none;
         }
-
-
 
         & > div:last-child {
             text-align: right;
@@ -162,4 +161,21 @@ body {
     color: var(--lightest-color);
     font-family: var(--font-sans-serif);
     text-decoration: none;
+}
+
+
+@media all and (max-width: 860px) {
+
+    #footer-content {
+        & > div:last-child > div:first-child,
+        & > div:last-child > div:last-child {
+            text-align: center;
+        }
+
+        & > div:last-child > div:first-child svg {
+            display: block;
+            margin: 1rem auto;
+        }
+    }
+
 }
