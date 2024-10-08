@@ -7,3 +7,4 @@ val from_path : Yocaml.Path.t -> t
 val validate : Yocaml.Data.t -> t Yocaml.Data.Validation.validated_value
 val normalize : t -> Yocaml.Data.t
 val equal : t -> t -> bool
+val get_url : ?with_scheme:bool -> t -> string

@@ -38,7 +38,7 @@
    mdx ;; maybe because I probably want to use `mdx` in some articles
 
   ;; Test utils
-  (ppx_expect :with-test)
+  ppx_expect
    
   ;; Dev setup
   (utop :with-dev-setup)

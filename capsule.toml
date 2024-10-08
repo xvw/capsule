@@ -1,3 +1,11 @@
 title = "xvw.lol"
 repository = "github/xvw/capsule"
 branch = "main"
+
+[software_license]
+title = "MIT"
+url = "https://opensource.org/license/mit"
+
+[content_license]
+title = "CC BY-SA"
+url = "https://creativecommons.org/licenses/by-sa/4.0/"
