@@ -25,7 +25,7 @@ body {
     min-height: 100dvh;
 }
 
-img, picture, video, canvas, svg {
+p, img, picture, video, canvas, svg {
     display: block;
     max-width: 100%;
 }
