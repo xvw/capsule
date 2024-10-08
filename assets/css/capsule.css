@@ -2,6 +2,10 @@
     --font-sans-serif: "Libre Franklin", sans-serif;
     --font-serif: "Inria Serif", serif;
     --font-mono: "Fira Code", monospace;
+
+    --lightest-color: #ffffff;
+    --middle-color: #444444;
+    --darkest-color: #111111;
 }
 
 body {
@@ -9,25 +13,153 @@ body {
     flex-direction: column;
     font-family: var(--font-sans-serif);
 
+    /* Overall layout structure. The aim is not to nest all the CSS in
+       these blocks but to provide the overall logic of the layout (which
+       is very simple) in a single place. */
+
     & > header,
     & > footer {
         flex: none;
-        background-color: yellow;
+        background-color: #ccc;
     }
 
     & > main {
-        flex: 1 0 auto; 
+        flex: 1 0 auto;
+        background-color: #eee;
     }
 
     & > footer {
-        background-color: #111111;
-        color: #ffffff;
+        background-color: var(--darkest-color);
+        color: var(--lightest-color);
+
+        & a:not(:has(svg)) {
+            text-decoration: none;
+            color: var(--lightest-color);
+            border-bottom: 1px dotted var(--lightest-color);
+        }
     }
 
     & > main > div,
     & > header > div,
     & > footer > div {
-        width: min(960px, 100%);
+        width: min(1024px, 100%);
         margin: 0 auto;
     }
+}
+
+#footer-content {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+
+    & > div {
+        padding: 0.2rem 1.2rem;
+    }
+
+    & section {
+        & h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        & p {
+            margin-top: 1rem;
+        }
+
+        & nav {
+            margin-top: 1rem;
+
+            & a {
+                display: inline-block;
+            }
+
+            & svg {
+                width: 1.5rem;
+            }
+        }
+
+        & .btn {
+            background-color: var(--lightest-color);
+            color: var(--darkest-color);
+            font-size: 1rem;
+            font-weight: 700;
+        }
+    }
+
+    & > div:first-child {
+        margin-bottom: 2rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    & > div:last-child {
+
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--middle-color);
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
+
+        & svg {
+            display: inline-block;
+            width: 2rem;
+        }
+
+        & > div > a {
+            font-weight: 700;
+            border-style: none;
+        }
+
+
+
+        & > div:last-child {
+            text-align: right;
+        }
+        
+    }
+}
+
+.set {
+
+    & > * {
+        margin-left: 0.5rem;
+    }
+
+    & > :first-child {
+        margin-left: 0;
+    }
+}
+
+.stack {
+    & > * {
+        margin-top: 2rem;
+    }
+
+    & > :first-child {
+        margin-top: 0;
+    }
+}
+
+.svg-light {
+    & svg {
+        fill: var(--lightest-color);
+    }
+}
+
+.svg-cc-light {
+    /* Since the icon does not rely on path... */
+    & circle {
+        fill: var(--lightest-color);
+    }
+}
+
+
+.btn {
+    display: inline-block;
+    padding: 0.1rem 0.5rem;
+    border-radius: 0.4rem;
+    background-color: var(--darkest-color);
+    color: var(--lightest-color);
+    font-family: var(--font-sans-serif);
+    text-decoration: none;
 }

@@ -130,3 +130,8 @@ let normalize url =
     ; "url_without_scheme", string url_2
     ]
 ;;
+
+let get_url ?(with_scheme = false) = function
+  | Internal p -> Yocaml.Path.to_string p
+  | External (s, suf) -> if with_scheme then scheme_to_prefix s ^ suf else suf
+;;
