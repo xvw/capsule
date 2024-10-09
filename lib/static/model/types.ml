@@ -14,6 +14,7 @@ class type common = object ('a)
   method page_title : string option
   method page_charset : string option
   method description : string option
+  method breadcrumb : Link.t list
   method tags : string list
   method display_toc : bool
   method toc : string option
