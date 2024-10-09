@@ -4,15 +4,17 @@
     --font-mono: "Fira Code", monospace;
 
     --lightest-color: #ffffff;
+    --middle-light-color: #bcbcbc;
     --middle-color: #444444;
     --darkest-color: #111111;
+    --bg-color: #eeeeee;
 }
 
 body {
     display: flex;
     flex-direction: column;
     font-family: var(--font-sans-serif);
-    background-color: #eee;
+    background-color: var(--bg-color);
 
     /* Overall layout structure. The aim is not to nest all the CSS in
        these blocks but to provide the overall logic of the layout (which
@@ -43,21 +45,64 @@ body {
     & > footer > div {
         width: min(1024px, 100%);
         margin: 0 auto;
+        padding: 0.2rem 1.2rem;
     }
+}
+
+#header-content {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    & > div:last-child {
+        flex: 1;
+        font-family: var(--font-mono);
+        font-size: 1.2rem;
+    }
+
+    & nav.breadcrumb {
+        & > a {
+            text-decoration: none;
+            color: var(--darkest-color);
+            font-weight: 400;
+        }
+
+        & > a:not(:first-child)::before {
+            content: "/";
+            display: inline-block;
+            color: var(--middle-light-color);
+            margin-right: 0.4rem;
+            font-weight: 900;
+        }
+    }
+
+    & h3 {
+        font-weight: 900;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        background-color: var(--darkest-color);
+
+        & a {
+            text-decoration: none;
+            padding: 0.3rem;
+            color: var(--lightest-color);
+        }
+    }
+    
 }
 
 #footer-content {
     margin-top: 4rem;
     margin-bottom: 2rem;
 
-    & > div {
-        padding: 0.2rem 1.2rem;
-    }
 
     & section {
         & h3 {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 700;
+            text-transform: uppercase;
         }
 
         & p {
@@ -176,6 +221,11 @@ body {
             display: block;
             margin: 1rem auto;
         }
+    }
+
+    #header-content {
+        flex-direction: column;
+        align-items: start;
     }
 
 }

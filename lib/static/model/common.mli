@@ -3,6 +3,7 @@ class t :
   -> charset:string option
   -> description:string option
   -> tags:string list
+  -> breadcrumb:Link.t list
   -> display_toc:bool
   -> Types.common
 

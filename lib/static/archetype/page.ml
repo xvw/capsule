@@ -24,6 +24,7 @@ class make p config source_path target_path =
         ~title:p#page_title
         ~charset:p#page_charset
         ~description:p#description
+        ~breadcrumb:p#breadcrumb
         ~tags:p#tags
         ~display_toc:p#display_toc
 

@@ -22,7 +22,7 @@ depends: [
   "yocaml_otoml" {>= "2.0.0"}
   "yocaml_runtime" {>= "2.0.0"}
   "mdx"
-  "ppx_expect" {with-test}
+  "ppx_expect"
   "utop" {with-dev-setup}
   "ocamlformat" {with-dev-setup}
   "ocp-indent" {with-dev-setup}
