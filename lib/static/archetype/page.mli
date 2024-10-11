@@ -9,7 +9,7 @@ module Parse : sig
 end
 
 val configure
-  :  Model.Config.t
+  :  Config.t
   -> source:Yocaml.Path.t
   -> target:Yocaml.Path.t
   -> (Parse.t * 'a, t * 'a) Yocaml.Task.t

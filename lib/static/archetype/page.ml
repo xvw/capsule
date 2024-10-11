@@ -12,7 +12,7 @@ end
 
 class type t = object
   inherit Parse.t
-  inherit [Model.Config.t] Model.Types.with_configuration
+  inherit [Config.t] Model.Types.with_configuration
   inherit Model.Types.with_target_path
   inherit Model.Types.with_source_path
 end
@@ -45,8 +45,8 @@ let normalize_build_info page =
   let target = Yocaml.Path.relocate ~into:Yocaml.Path.root page#target_path in
   let config = page#configuration in
   let source = page#source_path in
-  let repo = Model.Config.repository_of config in
-  let branch = Model.Config.branch_of config in
+  let repo = Config.repository_of config in
+  let branch = Config.branch_of config in
   let external_resource = Model.Repo.resolve_path ~branch source repo in
   record
     [ ("self_url", Model.Url.(normalize (from_path target)))
@@ -58,7 +58,7 @@ let meta page = Model.Common.meta page
 
 let normalize page =
   Model.Common.normalize page
-  @ [ "config", Model.Config.normalize page#configuration
+  @ [ "config", Config.normalize page#configuration
     ; "build_info", normalize_build_info page
     ; "meta", Model.Meta.normalize_options @@ meta page
     ]

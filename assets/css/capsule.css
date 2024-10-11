@@ -93,6 +93,11 @@ body {
     
 }
 
+#main-content {
+    margin-bottom: 4rem;
+}
+
+
 #footer-content {
     margin-top: 4rem;
     margin-bottom: 2rem;
