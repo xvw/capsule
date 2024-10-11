@@ -3,10 +3,7 @@
 
 type t
 
-(** [validate data] validate a string as a repository using the form
-    [github_or_gitlab/user/repo]. *)
-val validate : Yocaml.Data.t -> t Yocaml.Data.Validation.validated_value
+include Types.MODEL with type t := t
 
-val normalize : t -> Yocaml.Data.t
 val equal : t -> t -> bool
 val resolve_path : ?branch:string -> Yocaml.Path.t -> t -> Url.t

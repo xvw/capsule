@@ -12,7 +12,7 @@ end
 
 class type t = object
   inherit Parse.t
-  inherit Model.Types.with_configuration
+  inherit [Model.Config.t] Model.Types.with_configuration
   inherit Model.Types.with_target_path
   inherit Model.Types.with_source_path
 end
@@ -54,9 +54,12 @@ let normalize_build_info page =
     ]
 ;;
 
+let meta page = Model.Common.meta page
+
 let normalize page =
   Model.Common.normalize page
   @ [ "config", Model.Config.normalize page#configuration
     ; "build_info", normalize_build_info page
+    ; "meta", Model.Meta.normalize_options @@ meta page
     ]
 ;;

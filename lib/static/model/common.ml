@@ -33,7 +33,7 @@ let validate fields =
     ~display_toc
 ;;
 
-let metadata obj =
+let meta obj =
   [ Meta.from_list "keywords" obj#tags
   ; Meta.from_option "description" obj#description
   ]
@@ -47,7 +47,6 @@ let normalize obj =
   ; "description", option string obj#description
   ; "tags", list_of string obj#tags
   ; "breadcrumb", list_of Link.normalize obj#breadcrumb
-  ; "meta", Meta.normalize_options @@ metadata obj
   ; "toc", option string obj#toc
   ; "has_toc", bool (obj#display_toc && Option.is_some obj#toc)
   ; "has_page_title", exists_from_opt obj#page_title

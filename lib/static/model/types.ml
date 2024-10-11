@@ -1,5 +1,5 @@
-class type with_configuration = object
-  method configuration : Config.t
+class type ['config] with_configuration = object
+  method configuration : 'config
 end
 
 class type with_target_path = object
@@ -20,4 +20,32 @@ class type common = object ('a)
   method toc : string option
   method with_toc : string option -> 'a
   method on_description : (string option -> string option) -> 'a
+end
+
+module type NORMALIZABLE = sig
+  type t
+
+  val normalize : t -> Yocaml.Data.t
+end
+
+module type VALIDABLE = sig
+  type t
+
+  val validate : Yocaml.Data.t -> t Yocaml.Data.Validation.validated_value
+end
+
+module type MODEL = sig
+  include NORMALIZABLE
+  include VALIDABLE with type t := t
+end
+
+module type KEY_VALUE = sig
+  type t
+  type key
+  type value
+
+  val from_list : (key * value) list -> t
+  val to_list : t -> (key * value) list
+
+  include MODEL with type t := t
 end
