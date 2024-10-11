@@ -66,7 +66,7 @@ let process_pages (module R : Intf.RESOLVER) config =
 
 let fetch_config (module R : Intf.RESOLVER) =
   Yocaml_otoml.Eff.read_file_as_metadata
-    (module Model.Config)
+    (module Archetype.Config)
     ~on:`Source
     R.Source.configuration
 ;;
