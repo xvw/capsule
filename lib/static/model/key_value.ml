@@ -7,6 +7,7 @@ module Make (K : Types.MODEL) (V : Types.MODEL) = struct
 
   let from_list x = x
   let to_list x = x
+  let empty = []
 
   let normalize =
     let open Yocaml.Data in
@@ -14,14 +15,25 @@ module Make (K : Types.MODEL) (V : Types.MODEL) = struct
       record [ "key", K.normalize key; "value", V.normalize value ])
   ;;
 
+  let as_record =
+    let open Yocaml.Data in
+    function
+    | List [ k; v ] -> record [ "key", k; "value", v ]
+    | x -> x
+  ;;
+
   let validate =
     let open Yocaml.Data.Validation in
-    list_of
-      (record (fun fields ->
-         let+ key = required fields "key" K.validate
-         and+ value = required fields "value" V.validate in
-         key, value))
+    list_of (fun x ->
+      record
+        (fun fields ->
+          let+ key = required fields "key" K.validate
+          and+ value = required fields "value" V.validate in
+          key, value)
+        (as_record x))
   ;;
+
+  let has_elements = exists_from_list
 end
 
 module String_model = struct

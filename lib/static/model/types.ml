@@ -46,6 +46,8 @@ module type KEY_VALUE = sig
 
   val from_list : (key * value) list -> t
   val to_list : t -> (key * value) list
+  val empty : t
+  val has_elements : t -> Yocaml.Data.t
 
   include MODEL with type t := t
 end
