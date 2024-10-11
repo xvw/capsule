@@ -3,6 +3,8 @@ type t =
   ; url : Url.t
   }
 
+let make title url = { title; url }
+
 let equal { title = title_a; url = url_a } { title = title_b; url = url_b } =
   String.equal title_a title_b && Url.equal url_a url_b
 ;;
@@ -24,4 +26,9 @@ let validate =
 let normalize { url; title } =
   let open Yocaml.Data in
   record [ "url", Url.normalize url; "title", string title ]
+;;
+
+let validate_from_url title =
+  let open Yocaml.Data.Validation in
+  Url.validate $ make title
 ;;
