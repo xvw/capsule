@@ -43,7 +43,7 @@ body {
     & > main > div,
     & > header > div,
     & > footer > div {
-        width: min(1024px, 100%);
+        width: min(960px, 100%);
         margin: 0 auto;
         padding: 0.2rem 1.2rem;
     }
@@ -95,10 +95,26 @@ body {
 
 #main-content {
     margin-bottom: 8rem;
+    font-family: var(--font-serif);
+
+    hr {
+        margin: 3rem 0 3.5rem 0;
+        border: 0px solid transparent;
+        border-bottom: 1px solid var(--middle-light-color);
+    }
+
+    a {
+        color: var(--middle-color);
+        text-decoration: none;
+        border-bottom: 1px dotted var(--middle-color);
+    }
 
     .toc {
         margin: 2.5rem 0;
-        font-family: var(--font-serif);
+
+        & ul {
+            padding: 0 1.8rem;
+        }
 
         & > ul {
             padding: 0;
@@ -110,6 +126,7 @@ body {
     }
 
     & > h1 {
+        font-family: var(--font-sans-serif);
         font-weight: 900;
         text-transform: uppercase;
         font-size: 300%;
@@ -158,8 +175,32 @@ body {
             margin: 1.8rem 0 0.8rem 0;
         }
 
+
         & p {
-            font-family: var(--font-serif);
+            margin-bottom: 1.5rem;
+        }
+
+        & ul {
+
+            & li {
+                margin: 0.3rem 0;
+            }
+
+            & li:last-child {
+                margin-bottom: 1.5rem;
+            }
+            
+            & > li:has(p) {
+
+                margin: 1rem 0;
+                
+                & > p {
+                    margin-bottom: 0.5rem;
+                }
+                & > p:last-child {
+                    margin: 0;
+                }
+            }
         }
     }
 }
