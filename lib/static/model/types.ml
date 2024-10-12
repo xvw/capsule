@@ -14,12 +14,14 @@ class type common = object ('a)
   method page_title : string option
   method page_charset : string option
   method description : string option
+  method synopsis : string
   method breadcrumb : Link.t list
   method tags : string list
   method display_toc : bool
   method toc : string option
   method with_toc : string option -> 'a
   method on_description : (string option -> string option) -> 'a
+  method on_synopsis : (string -> string) -> 'a
 end
 
 module type NORMALIZABLE = sig

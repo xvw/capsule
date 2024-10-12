@@ -24,6 +24,7 @@ class make p config source_path target_path =
         ~title:p#page_title
         ~charset:p#page_charset
         ~description:p#description
+        ~synopsis:p#synopsis
         ~breadcrumb:p#breadcrumb
         ~tags:p#tags
         ~display_toc:p#display_toc
@@ -39,6 +40,11 @@ let configure config ~source ~target =
 ;;
 
 let table_of_contents page = page#with_toc
+
+let on_synopsis f =
+  Yocaml.Task.Static.on_metadata
+    (Yocaml.Task.lift (fun metadata -> metadata#on_synopsis f))
+;;
 
 let normalize_build_info page =
   let open Yocaml.Data in

@@ -1,18 +1,21 @@
 open Yocaml
 
-class t ~title ~charset ~description ~tags ~breadcrumb ~display_toc =
+class t ~title ~charset ~description ~synopsis ~tags ~breadcrumb ~display_toc =
   object (_ : #Types.common)
     val toc_value = None
     val description_value = description
+    val synopsis_value = synopsis
     method page_title = title
     method page_charset = charset
     method description = description_value
+    method synopsis = synopsis_value
     method tags = tags
     method breadcrumb = breadcrumb
     method display_toc = display_toc
     method toc = toc_value
     method with_toc new_toc = {<toc_value = new_toc>}
     method on_description f = {<description_value = f description_value>}
+    method on_synopsis f = {<synopsis_value = f synopsis_value>}
   end
 
 let validate fields =
@@ -20,6 +23,7 @@ let validate fields =
   let+ title = optional fields "page_title" string
   and+ charset = optional_or ~default:"utf-8" fields "page_charset" string
   and+ description = optional fields "description" string
+  and+ synopsis = required fields "synopsis" string
   and+ tags = optional_or fields ~default:[] "tags" (list_of Slug.validate)
   and+ breadcrumb =
     optional_or fields ~default:[] "breadcrumb" (list_of Link.validate)
@@ -28,6 +32,7 @@ let validate fields =
     ~title
     ~charset:(Some charset)
     ~description
+    ~synopsis
     ~tags
     ~breadcrumb
     ~display_toc
@@ -45,6 +50,7 @@ let normalize obj =
   [ "page_title", option string obj#page_title
   ; "page_charset", option string obj#page_charset
   ; "description", option string obj#description
+  ; "synopsis", string obj#synopsis
   ; "tags", list_of string obj#tags
   ; "breadcrumb", list_of Link.normalize obj#breadcrumb
   ; "toc", option string obj#toc

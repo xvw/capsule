@@ -15,3 +15,4 @@ val configure
   -> (Parse.t * 'a, t * 'a) Yocaml.Task.t
 
 val table_of_contents : t -> string option -> t
+val on_synopsis : (string -> string) -> (t * 'a, t * 'a) Yocaml.Task.t

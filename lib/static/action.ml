@@ -1,3 +1,7 @@
+let md_to_html ?strict ?(safe = true) content =
+  content |> Cmarkit.Doc.of_string ?strict |> Cmarkit_html.of_doc ~safe
+;;
+
 let process_fonts (module R : Intf.RESOLVER) =
   Yocaml.Action.batch
     ~only:`Files
@@ -48,6 +52,7 @@ let process_page (module R : Intf.RESOLVER) config source =
       >>> Archetype.Page.configure config ~source ~target
       >>> Yocaml_cmarkit.content_to_html_with_toc
             Archetype.Page.table_of_contents
+      >>> Archetype.Page.on_synopsis md_to_html
       >>> Yocaml_jingoo.Pipeline.as_template
             (module Archetype.Page)
             (R.Source.template "page.html")
