@@ -34,8 +34,10 @@
   (yocaml_otoml (>= 2.0.0))
   (yocaml_runtime (>= 2.0.0))
 
-   
-   mdx ;; maybe because I probably want to use `mdx` in some articles
+  ;; Generator dependencies
+  cmarkit
+ 
+  mdx ;; maybe because I probably want to use `mdx` in some articles
 
   ;; Test utils
   ppx_expect

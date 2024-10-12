@@ -21,6 +21,7 @@ depends: [
   "yocaml_yaml" {>= "2.0.0"}
   "yocaml_otoml" {>= "2.0.0"}
   "yocaml_runtime" {>= "2.0.0"}
+  "cmarkit"
   "mdx"
   "ppx_expect"
   "utop" {with-dev-setup}

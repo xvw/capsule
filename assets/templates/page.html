@@ -1,1 +1,22 @@
-{%- autoescape false -%}{{ yocaml_body }}{%- endautoescape -%}
+<h1>{{ page_title }}</h1>
+
+<article>
+  {%- autoescape false -%}
+  {{ synopsis }}
+  {%- endautoescape -%}
+</article>
+
+{%- if has_toc -%}
+<section class="toc">
+  {%- autoescape false -%}
+  {{ toc }}
+  {%- endautoescape -%}
+</section>
+{%- endif -%}
+
+<article>
+  {%- autoescape false -%}
+  {{ yocaml_body }}
+  {%- endautoescape -%}
+</article>
+

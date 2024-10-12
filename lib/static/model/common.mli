@@ -2,6 +2,7 @@ class t :
   title:string option
   -> charset:string option
   -> description:string option
+  -> synopsis:string
   -> tags:string list
   -> breadcrumb:Link.t list
   -> display_toc:bool
