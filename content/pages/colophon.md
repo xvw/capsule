@@ -20,6 +20,8 @@ synopsis:
   [l'anneau web](https://webring.xxiivv.com/) dont j'ai fait partie pendant
   plusieures années) pour décrire les différents processus et outils utilisés
   pour décrire un site web.
+published_at: 2024-02-02
+updated_at: 2024-03-03
 ---
 
 Vous êtes sur ma _page personnelle_ et son objectif est de me permettre d'avoir

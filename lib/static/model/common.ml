@@ -1,6 +1,15 @@
 open Yocaml
 
-class t ~title ~charset ~description ~synopsis ~tags ~breadcrumb ~display_toc =
+class t
+  ~title
+  ~charset
+  ~description
+  ~synopsis
+  ~published_at
+  ~updated_at
+  ~tags
+  ~breadcrumb
+  ~display_toc =
   object (_ : #Types.common)
     val toc_value = None
     val description_value = description
@@ -8,6 +17,8 @@ class t ~title ~charset ~description ~synopsis ~tags ~breadcrumb ~display_toc =
     method page_title = title
     method page_charset = charset
     method description = description_value
+    method published_at = published_at
+    method updated_at = updated_at
     method synopsis = synopsis_value
     method tags = tags
     method breadcrumb = breadcrumb
@@ -23,6 +34,10 @@ let validate fields =
   let+ title = optional fields "page_title" string
   and+ charset = optional_or ~default:"utf-8" fields "page_charset" string
   and+ description = optional fields "description" string
+  and+ published_at =
+    optional fields "published_at" Yocaml.Archetype.Datetime.validate
+  and+ updated_at =
+    optional fields "updated_at" Yocaml.Archetype.Datetime.validate
   and+ synopsis = required fields "synopsis" string
   and+ tags = optional_or fields ~default:[] "tags" (list_of Slug.validate)
   and+ breadcrumb =
@@ -32,6 +47,8 @@ let validate fields =
     ~title
     ~charset:(Some charset)
     ~description
+    ~published_at
+    ~updated_at
     ~synopsis
     ~tags
     ~breadcrumb
@@ -51,6 +68,8 @@ let normalize obj =
   ; "page_charset", option string obj#page_charset
   ; "description", option string obj#description
   ; "synopsis", string obj#synopsis
+  ; "published_at", option Yocaml.Archetype.Datetime.normalize obj#published_at
+  ; "updated_at", option Yocaml.Archetype.Datetime.normalize obj#updated_at
   ; "tags", list_of string obj#tags
   ; "breadcrumb", list_of Link.normalize obj#breadcrumb
   ; "toc", option string obj#toc
@@ -59,5 +78,9 @@ let normalize obj =
   ; "has_page_charset", exists_from_opt obj#page_charset
   ; "has_description", exists_from_opt obj#description
   ; "has_breadcrumb", exists_from_list obj#breadcrumb
+  ; "has_published_date", exists_from_opt obj#published_at
+  ; "has_updated_date", exists_from_opt obj#updated_at
+  ; ( "has_publication_date"
+    , bool (Option.is_some obj#published_at || Option.is_some obj#updated_at) )
   ]
 ;;

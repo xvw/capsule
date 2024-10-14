@@ -4,6 +4,7 @@
     --font-mono: "Fira Code", monospace;
 
     --lightest-color: #ffffff;
+    --light-color: #e2e2e2;
     --middle-light-color: #bcbcbc;
     --middle-color: #444444;
     --darkest-color: #111111;
@@ -96,6 +97,23 @@ body {
 #main-content {
     margin-bottom: 8rem;
     font-family: var(--font-serif);
+
+    .publication-date {
+        time {
+            background-color: var(--light-color);
+            color: var(--middle-color);
+            font-family: var(--font-sans-serif);
+            padding: 0.2rem 0.2rem;
+            font-size: 80%;
+        }
+
+        time::before {
+            content: attr(data-prefix);
+            margin-right: 0.4rem;
+            font-weight: 700;
+        }
+        
+    }
 
     hr {
         margin: 3rem 0 3.5rem 0;
