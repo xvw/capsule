@@ -3,6 +3,8 @@ class t :
   -> charset:string option
   -> description:string option
   -> synopsis:string
+  -> published_at:Yocaml.Archetype.Datetime.t option
+  -> updated_at:Yocaml.Archetype.Datetime.t option
   -> tags:string list
   -> breadcrumb:Link.t list
   -> display_toc:bool

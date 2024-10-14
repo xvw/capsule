@@ -14,6 +14,8 @@ class type common = object ('a)
   method page_title : string option
   method page_charset : string option
   method description : string option
+  method published_at : Yocaml.Archetype.Datetime.t option
+  method updated_at : Yocaml.Archetype.Datetime.t option
   method synopsis : string
   method breadcrumb : Link.t list
   method tags : string list
