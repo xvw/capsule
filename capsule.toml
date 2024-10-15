@@ -15,9 +15,10 @@ display_name = "xvw"
 avatar = "/images/xvw.png"
 website.title = "xvw.lol"
 website.url = "https://xvw.lol"
-x_account = "https://x.com/vdwxv"
-mastodon_account = "https://merveilles.town/@xvw"
-github_account = "https://github.com/xvw"
+x_account = "vdwxv"
+github_account = "xvw"
+mastodon_account.instance = "https://merveilles.town"
+mastodon_account.username = "xvw"
 
 
 # Cheap SVG resolver

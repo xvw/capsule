@@ -83,21 +83,27 @@
                 {{ config.svg.rss.to_html }}
                 {%- endautoescape -%}
               </a>
-              <a href="{{ config.owner.x_account.url.url }}">
+              {%- if config.owner.has_x_account -%}
+              <a href="https://x.com/{{ config.owner.x_account }}">
                 {%- autoescape false -%}
                 {{ config.svg.x.to_html }}
                 {%- endautoescape -%}
               </a>
-              <a href="{{ config.owner.mastodon_account.url.url }}">
+              {%- endif -%}
+              {%- if config.owner.has_mastodon_account -%}
+              <a href="{{ config.owner.mastodon_instance.url }}/@{{ config.owner.mastodon_account }}">
                 {%- autoescape false -%}
                 {{ config.svg.mastodon.to_html }}
                 {%- endautoescape -%}
               </a>
-              <a href="{{ config.owner.github_account.url.url }}">
+              {%- endif -%}
+              {%- if config.owner.has_github_account -%}
+              <a href="https://github.com/{{ config.owner.github_account }}">
                 {%- autoescape false -%}
                 {{ config.svg.github.to_html }}
                 {%- endautoescape -%}
               </a>
+              {%- endif -%}
               <a href="">Autres flux</a>
             </nav>
           </section>
