@@ -1,8 +1,10 @@
 class t :
-  title:string option
+  document_kind:Types.document_kind
+  -> title:string option
   -> charset:string option
   -> description:string option
   -> synopsis:string
+  -> section:string option
   -> published_at:Yocaml.Archetype.Datetime.t option
   -> updated_at:Yocaml.Archetype.Datetime.t option
   -> tags:string list

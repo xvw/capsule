@@ -1,6 +1,7 @@
 type t =
   { title : string
   ; repository : Model.Repo.t
+  ; main_url : Model.Url.t
   ; branch : string
   ; software_license : Model.Link.t
   ; content_license : Model.Link.t
@@ -15,21 +16,39 @@ let validate =
   let open Yocaml.Data.Validation in
   record (fun bag ->
     let+ title = required bag "title" string
+    and+ main_url = required bag "main_url" Model.Url.validate
     and+ repository = required bag "repository" Model.Repo.validate
     and+ branch = optional_or ~default:"main" bag "branch" string
     and+ software_license = required bag "software_license" Model.Link.validate
     and+ content_license = required bag "content_license" Model.Link.validate
     and+ owner = required bag "owner" Model.Identity.validate
     and+ svg = optional_or ~default:[] bag "svg" (list_of Model.Svg.validate) in
-    { title; repository; branch; software_license; content_license; owner; svg })
+    { title
+    ; repository
+    ; branch
+    ; software_license
+    ; content_license
+    ; owner
+    ; svg
+    ; main_url
+    })
 ;;
 
 let normalize
-  { title; repository; branch; software_license; content_license; owner; svg }
+  { title
+  ; repository
+  ; branch
+  ; software_license
+  ; content_license
+  ; owner
+  ; svg
+  ; main_url
+  }
   =
   let open Yocaml.Data in
   record
     [ "main_title", string title
+    ; "main_url", Model.Url.normalize main_url
     ; "repository", Model.Repo.normalize repository
     ; "branch", string branch
     ; "software_license", Model.Link.normalize software_license
@@ -41,3 +60,4 @@ let normalize
 
 let repository_of { repository; _ } = repository
 let branch_of { branch; _ } = branch
+let owner_of { owner; _ } = owner

@@ -22,6 +22,8 @@ class make p config source_path target_path =
     inherit
       Model.Common.t
         ~title:p#page_title
+        ~document_kind:p#document_kind
+        ~section:p#section
         ~charset:p#page_charset
         ~description:p#description
         ~synopsis:p#synopsis
@@ -56,13 +58,22 @@ let normalize_build_info page =
   let repo = Config.repository_of config in
   let branch = Config.branch_of config in
   let external_resource = Model.Repo.resolve_path ~branch source repo in
+  let path_str =
+    match Yocaml.Path.to_string target with
+    | "/index.html" -> ""
+    | x -> x
+  in
   record
     [ ("self_url", Model.Url.(normalize (from_path target)))
     ; "repo_url", Model.Url.normalize external_resource
+    ; ("canonical_url", Model.Url.(normalize (https @@ "xvw.lol" ^ path_str)))
     ]
 ;;
 
-let meta page = Model.Common.meta page
+let meta page =
+  Model.Common.meta page
+  @ Model.Identity.meta_for (Config.owner_of page#configuration)
+;;
 
 let normalize page =
   Model.Common.normalize page

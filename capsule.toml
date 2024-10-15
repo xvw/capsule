@@ -1,6 +1,7 @@
 title = "xvw.lol"
 repository = "github/xvw/capsule"
 branch = "main"
+main_url = "https://xvw.lol"
 
 [software_license]
 title = "MIT"
@@ -12,6 +13,8 @@ url = "https://creativecommons.org/licenses/by-sa/4.0/"
 
 [owner]
 display_name = "xvw"
+first_name = "Xavier"
+last_name = "Van de Woestyne"
 avatar = "/images/xvw.png"
 website.title = "xvw.lol"
 website.url = "https://xvw.lol"
