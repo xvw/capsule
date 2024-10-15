@@ -10,13 +10,19 @@ class type with_source_path = object
   method source_path : Yocaml.Path.t
 end
 
+type document_kind =
+  | Page
+  | Article
+
 class type common = object ('a)
+  method document_kind : document_kind
   method page_title : string option
   method page_charset : string option
   method description : string option
   method published_at : Yocaml.Archetype.Datetime.t option
   method updated_at : Yocaml.Archetype.Datetime.t option
   method synopsis : string
+  method section : string option
   method breadcrumb : Link.t list
   method tags : string list
   method display_toc : bool
