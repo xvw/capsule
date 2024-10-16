@@ -66,12 +66,14 @@ let on_synopsis f =
   Static.on_metadata (on_page_synopsis f >>> on_index_synopsis f)
 ;;
 
-let as_index () =
+let define_document_kind kind =
   let open Yocaml.Task in
   Static.on_metadata
-    (lift (fun metadata ->
-       metadata#on_document_kind (fun _ -> Model.Types.Index)))
+    (lift (fun metadata -> metadata#on_document_kind (fun _ -> kind)))
 ;;
+
+let as_index () = define_document_kind Model.Types.Index
+let as_article () = define_document_kind Model.Types.Article
 
 let normalize_build_info page =
   let open Yocaml.Data in

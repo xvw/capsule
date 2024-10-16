@@ -40,15 +40,16 @@ let process_misc_files (module R : Intf.RESOLVER) =
         (Yocaml.Action.copy_file ~into:R.Target.root)
 ;;
 
-let page_arrow (module R : Intf.RESOLVER) config source target =
+let page_arrow (module R : Intf.RESOLVER) ~kind config source target =
   let open Yocaml.Task in
   R.track_common_deps
   >>> Yocaml_yaml.Pipeline.read_file_with_metadata
         (module Archetype.Page.Parse)
         source
   >>> Archetype.Page.configure config ~source ~target
-  >>> Yocaml_cmarkit.content_to_html_with_toc Archetype.Page.table_of_contents
   >>> Archetype.Page.on_synopsis md_to_html
+  >>> Archetype.Page.define_document_kind kind
+  >>> Yocaml_cmarkit.content_to_html_with_toc Archetype.Page.table_of_contents
   >>> Yocaml_jingoo.Pipeline.as_template
         (module Archetype.Page)
         (R.Source.template "page.html")
@@ -56,10 +57,11 @@ let page_arrow (module R : Intf.RESOLVER) config source target =
 
 let process_page (module R : Intf.RESOLVER) config source =
   let target = R.Target.as_page source in
+  let kind = Model.Types.Article in
   Yocaml.Action.Static.write_file_with_metadata
     (R.Target.promote target)
     Yocaml.Task.(
-      page_arrow (module R) config source target
+      page_arrow (module R) ~kind config source target
       >>> Yocaml_jingoo.Pipeline.as_template
             (module Archetype.Page)
             (R.Source.template "layout.html"))
@@ -67,10 +69,11 @@ let process_page (module R : Intf.RESOLVER) config source =
 
 let process_index (module R : Intf.RESOLVER) config source =
   let target = R.Target.as_index source in
+  let kind = Model.Types.Index in
   Yocaml.Action.Static.write_file_with_metadata
     (R.Target.promote target)
     Yocaml.Task.(
-      page_arrow (module R) config source target
+      page_arrow ~kind (module R) config source target
       >>> Yocaml_jingoo.Pipeline.as_template
             (module Archetype.Page)
             (R.Source.template "index.html")
