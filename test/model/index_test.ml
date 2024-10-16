@@ -59,7 +59,7 @@ let%expect_test "test index without any sort" =
       {"kind": "external", "has_scheme": true, "scheme": "https", "url":
        "https://github.com", "url_without_scheme": "github.com"},
      "title": "3 - trd link"}],
-    "has_synopsis": false}
+    "size": 3, "has_synopsis": false, "has_links": true}
     |}]
 ;;
 
@@ -81,7 +81,7 @@ let%expect_test "test index with rev false" =
       {"kind": "external", "has_scheme": true, "scheme": "https", "url":
        "https://github.com", "url_without_scheme": "github.com"},
      "title": "3 - trd link"}],
-    "has_synopsis": false}
+    "size": 3, "has_synopsis": false, "has_links": true}
     |}]
 ;;
 
@@ -103,7 +103,7 @@ let%expect_test "test index with rev true" =
       {"kind": "external", "has_scheme": true, "scheme": "https", "url":
        "https://xvw.github.io", "url_without_scheme": "xvw.github.io"},
      "title": "2 - snd link"}],
-    "has_synopsis": false}
+    "size": 3, "has_synopsis": false, "has_links": true}
     |}]
 ;;
 
@@ -125,7 +125,7 @@ let%expect_test "test index with key" =
       {"kind": "external", "has_scheme": true, "scheme": "https", "url":
        "https://github.com", "url_without_scheme": "github.com"},
      "title": "3 - trd link"}],
-    "has_synopsis": false}
+    "size": 3, "has_synopsis": false, "has_links": true}
     |}]
 ;;
 
@@ -147,7 +147,7 @@ let%expect_test "test index with key and rev false" =
       {"kind": "external", "has_scheme": true, "scheme": "https", "url":
        "https://github.com", "url_without_scheme": "github.com"},
      "title": "3 - trd link"}],
-    "has_synopsis": false}
+    "size": 3, "has_synopsis": false, "has_links": true}
     |}]
 ;;
 
@@ -169,6 +169,6 @@ let%expect_test "test index with key and rev true" =
       {"kind": "external", "has_scheme": true, "scheme": "https", "url":
        "https://xvw.lol", "url_without_scheme": "xvw.lol"},
      "title": "1 - first link"}],
-    "has_synopsis": false}
+    "size": 3, "has_synopsis": false, "has_links": true}
     |}]
 ;;
