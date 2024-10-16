@@ -1,4 +1,4 @@
-open Static.Model
+open Generator.Model
 
 let%expect_test "validate a simple repo - 1" =
   let open Yocaml.Data in

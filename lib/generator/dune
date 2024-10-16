@@ -1,6 +1,6 @@
 (library
- (name static)
- (public_name capsule.static)
+ (name generator)
+ (public_name capsule.generator)
  (libraries
   yocaml
   yocaml_yaml
