@@ -3,6 +3,7 @@ type t =
   ; repository : Model.Repo.t
   ; main_url : Model.Url.t
   ; branch : string
+  ; default_cover : Model.Cover.t option
   ; software_license : Model.Link.t
   ; content_license : Model.Link.t
   ; owner : Model.Identity.t
@@ -22,6 +23,7 @@ let validate =
     and+ software_license = required bag "software_license" Model.Link.validate
     and+ content_license = required bag "content_license" Model.Link.validate
     and+ owner = required bag "owner" Model.Identity.validate
+    and+ default_cover = optional bag "default_cover" Model.Cover.validate
     and+ svg = optional_or ~default:[] bag "svg" (list_of Model.Svg.validate) in
     { title
     ; repository
@@ -30,6 +32,7 @@ let validate =
     ; content_license
     ; owner
     ; svg
+    ; default_cover
     ; main_url
     })
 ;;
@@ -43,6 +46,7 @@ let normalize
   ; owner
   ; svg
   ; main_url
+  ; default_cover
   }
   =
   let open Yocaml.Data in
@@ -55,9 +59,13 @@ let normalize
     ; "content_license", Model.Link.normalize content_license
     ; "owner", Model.Identity.normalize owner
     ; "svg", Model.Svg.normalize_list svg
+    ; "default_cover", option Model.Cover.normalize default_cover
+    ; "has_default_cover", Model.Model_util.exists_from_opt default_cover
     ]
 ;;
 
 let repository_of { repository; _ } = repository
 let branch_of { branch; _ } = branch
 let owner_of { owner; _ } = owner
+let main_url_of { main_url; _ } = main_url
+let default_cover_of { default_cover; _ } = default_cover

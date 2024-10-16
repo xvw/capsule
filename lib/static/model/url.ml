@@ -139,7 +139,9 @@ let get_url ?(with_scheme = false) = function
 let resolve source target =
   match source, target with
   | External (scheme, path), Internal target ->
-    External (scheme, Filename.concat path (Yocaml.Path.to_string target))
+    let t = Yocaml.Path.to_string target in
+    let p = if t.[0] = '/' then path ^ t else Filename.concat path t in
+    External (scheme, p)
   | _ -> target (* do not resolve target if target are not resolvable. *)
 ;;
 
@@ -147,3 +149,5 @@ let extension = function
   | Internal path -> Yocaml.Path.extension path
   | External (_, k) -> Filename.extension k
 ;;
+
+let to_string u = fst @@ make_urls u

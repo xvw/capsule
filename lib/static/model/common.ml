@@ -4,6 +4,7 @@ class t
   ~document_kind
   ~title
   ~charset
+  ~cover
   ~description
   ~synopsis
   ~section
@@ -19,6 +20,7 @@ class t
     method document_kind = document_kind
     method page_title = title
     method page_charset = charset
+    method cover = cover
     method description = description_value
     method section = section
     method published_at = published_at
@@ -61,6 +63,7 @@ let validate fields =
     optional fields "updated_at" Yocaml.Archetype.Datetime.validate
   and+ synopsis = required fields "synopsis" string
   and+ tags = optional_or fields ~default:[] "tags" (list_of Slug.validate)
+  and+ cover = optional fields "cover" Cover.validate
   and+ breadcrumb =
     optional_or fields ~default:[] "breadcrumb" (list_of Link.validate)
   and+ display_toc = optional_or fields ~default:false "display_toc" bool in
@@ -69,6 +72,7 @@ let validate fields =
     ~document_kind
     ~section
     ~charset:(Some charset)
+    ~cover
     ~description
     ~published_at
     ~updated_at
@@ -131,12 +135,14 @@ let normalize obj =
   ; "updated_at", option Yocaml.Archetype.Datetime.normalize obj#updated_at
   ; "tags", list_of string obj#tags
   ; "breadcrumb", list_of Link.normalize obj#breadcrumb
+  ; "cover", option Cover.normalize obj#cover
   ; "toc", option string obj#toc
   ; "has_section", exists_from_opt obj#section
   ; "has_toc", bool (obj#display_toc && Option.is_some obj#toc)
   ; "has_page_title", exists_from_opt obj#page_title
   ; "has_page_charset", exists_from_opt obj#page_charset
   ; "has_description", exists_from_opt obj#description
+  ; "has_cover", exists_from_opt obj#cover
   ; "has_breadcrumb", exists_from_list obj#breadcrumb
   ; "has_published_date", exists_from_opt obj#published_at
   ; "has_updated_date", exists_from_opt obj#updated_at
