@@ -40,22 +40,40 @@ let process_misc_files (module R : Intf.RESOLVER) =
         (Yocaml.Action.copy_file ~into:R.Target.root)
 ;;
 
+let page_arrow (module R : Intf.RESOLVER) config source target =
+  let open Yocaml.Task in
+  R.track_common_deps
+  >>> Yocaml_yaml.Pipeline.read_file_with_metadata
+        (module Archetype.Page.Parse)
+        source
+  >>> Archetype.Page.configure config ~source ~target
+  >>> Yocaml_cmarkit.content_to_html_with_toc Archetype.Page.table_of_contents
+  >>> Archetype.Page.on_synopsis md_to_html
+  >>> Yocaml_jingoo.Pipeline.as_template
+        (module Archetype.Page)
+        (R.Source.template "page.html")
+;;
+
 let process_page (module R : Intf.RESOLVER) config source =
   let target = R.Target.as_page source in
   Yocaml.Action.Static.write_file_with_metadata
     (R.Target.promote target)
     Yocaml.Task.(
-      R.track_common_deps
-      >>> Yocaml_yaml.Pipeline.read_file_with_metadata
-            (module Archetype.Page.Parse)
-            source
-      >>> Archetype.Page.configure config ~source ~target
-      >>> Yocaml_cmarkit.content_to_html_with_toc
-            Archetype.Page.table_of_contents
-      >>> Archetype.Page.on_synopsis md_to_html
+      page_arrow (module R) config source target
       >>> Yocaml_jingoo.Pipeline.as_template
             (module Archetype.Page)
-            (R.Source.template "page.html")
+            (R.Source.template "layout.html"))
+;;
+
+let process_index (module R : Intf.RESOLVER) config source =
+  let target = R.Target.as_index source in
+  Yocaml.Action.Static.write_file_with_metadata
+    (R.Target.promote target)
+    Yocaml.Task.(
+      page_arrow (module R) config source target
+      >>> Yocaml_jingoo.Pipeline.as_template
+            (module Archetype.Page)
+            (R.Source.template "index.html")
       >>> Yocaml_jingoo.Pipeline.as_template
             (module Archetype.Page)
             (R.Source.template "layout.html"))
@@ -67,6 +85,14 @@ let process_pages (module R : Intf.RESOLVER) config =
     ~where:File.is_markdown
     R.Source.pages
     (process_page (module R) config)
+;;
+
+let process_indexes (module R : Intf.RESOLVER) config =
+  Yocaml.Action.batch
+    ~only:`Files
+    ~where:File.is_markdown
+    R.Source.indexes
+    (process_index (module R) config)
 ;;
 
 let fetch_config (module R : Intf.RESOLVER) =
@@ -85,5 +111,6 @@ let run (module R : Intf.RESOLVER) () =
   >>= process_images (module R)
   >>= process_misc_files (module R)
   >>= process_pages (module R) config
+  >>= process_indexes (module R) config
   >>= Yocaml.Action.store_cache ~on:`Source R.Target.cache
 ;;

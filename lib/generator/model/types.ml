@@ -1,5 +1,5 @@
 type document_kind =
-  | Page
+  | Index
   | Article
 
 module type NORMALIZABLE = sig

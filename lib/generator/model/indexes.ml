@@ -41,3 +41,6 @@ let normalize indexes =
   let open Yocaml.Data in
   list_of Index.normalize indexes
 ;;
+
+let map = List.map
+let empty = []

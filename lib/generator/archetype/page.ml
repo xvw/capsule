@@ -35,6 +35,7 @@ class make p config source_path target_path =
         ~published_at:p#published_at
         ~updated_at:p#updated_at
         ~breadcrumb:p#breadcrumb
+        ~indexes:p#indexes
         ~tags:p#tags
         ~display_toc:p#display_toc
 
@@ -50,9 +51,26 @@ let configure config ~source ~target =
 
 let table_of_contents page = page#with_toc
 
+let on_page_synopsis f =
+  Yocaml.Task.lift (fun metadata -> metadata#on_synopsis f)
+;;
+
+let on_index_synopsis f =
+  Yocaml.Task.lift (fun metadata ->
+    metadata#on_index (fun index ->
+      Model.Index.map_synopsis (Option.map f) index))
+;;
+
 let on_synopsis f =
-  Yocaml.Task.Static.on_metadata
-    (Yocaml.Task.lift (fun metadata -> metadata#on_synopsis f))
+  let open Yocaml.Task in
+  Static.on_metadata (on_page_synopsis f >>> on_index_synopsis f)
+;;
+
+let as_index () =
+  let open Yocaml.Task in
+  Static.on_metadata
+    (lift (fun metadata ->
+       metadata#on_document_kind (fun _ -> Model.Types.Index)))
 ;;
 
 let normalize_build_info page =

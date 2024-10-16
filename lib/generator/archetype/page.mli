@@ -16,3 +16,4 @@ val configure
 
 val table_of_contents : t -> string option -> t
 val on_synopsis : (string -> string) -> (t * 'a, t * 'a) Yocaml.Task.t
+val as_index : unit -> (t * 'a, t * 'a) Yocaml.Task.t
