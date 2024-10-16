@@ -32,3 +32,7 @@ let validate_from_url title =
   let open Yocaml.Data.Validation in
   Url.validate $ make title
 ;;
+
+let compare_title { title = title_a; _ } { title = title_b; _ } =
+  String.compare title_a title_b
+;;
