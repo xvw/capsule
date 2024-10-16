@@ -2,6 +2,7 @@ class t :
   document_kind:Types.document_kind
   -> title:string option
   -> charset:string option
+  -> cover:Cover.t option
   -> description:string option
   -> synopsis:string
   -> section:string option

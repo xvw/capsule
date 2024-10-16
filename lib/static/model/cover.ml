@@ -24,7 +24,7 @@ let mime_type =
       Yocaml.Data.Validation.fail_with ~given "Unknowm mime/type for image")
 ;;
 
-let validate ?root_uri () =
+let validate =
   let open Yocaml.Data.Validation in
   record (fun fields ->
     let+ url = required fields "url" Url.validate
@@ -32,10 +32,29 @@ let validate ?root_uri () =
     and+ width = optional fields "width" int
     and+ height = optional fields "height" int
     and+ alt = optional fields "alt" string in
-    let url =
-      match root_uri with
-      | None -> url
-      | Some root_uri -> Url.resolve root_uri url
-    in
     { url; mime_type; width; height; alt })
 ;;
+
+let normalize { url; mime_type; width; height; alt } =
+  let open Yocaml.Data in
+  record
+    [ "url", Url.normalize url
+    ; "mime_type", string mime_type
+    ; "width", option int width
+    ; "height", option int height
+    ; "alt", option string alt
+    ]
+;;
+
+let meta_for { url; mime_type; width; height; alt } =
+  let url = Some (Url.to_string url) in
+  [ Meta.from_option "og:image" url
+  ; Meta.from_option "og:image:url" url
+  ; Meta.from_option "og:image:type" (Some mime_type)
+  ; Meta.from_option "og:image:width" (Option.map string_of_int width)
+  ; Meta.from_option "og:image:height" (Option.map string_of_int height)
+  ; Meta.from_option "og:image:alt" alt
+  ]
+;;
+
+let resolve url c = { c with url = Url.resolve url c.url }

@@ -17,6 +17,10 @@ class type t = object
   inherit Model.Types.with_source_path
 end
 
+let resolve_cover config cover =
+  Option.map (Model.Cover.resolve (Config.main_url_of config)) cover
+;;
+
 class make p config source_path target_path =
   object (_ : #t)
     inherit
@@ -25,6 +29,7 @@ class make p config source_path target_path =
         ~document_kind:p#document_kind
         ~section:p#section
         ~charset:p#page_charset
+        ~cover:(resolve_cover config p#cover)
         ~description:p#description
         ~synopsis:p#synopsis
         ~published_at:p#published_at
@@ -71,8 +76,22 @@ let normalize_build_info page =
 ;;
 
 let meta page =
+  let cover =
+    match page#cover with
+    | Some x -> Some x
+    | None ->
+      resolve_cover
+        page#configuration
+        (Config.default_cover_of page#configuration)
+  in
+  let meta_cover =
+    match cover with
+    | None -> []
+    | Some x -> Model.Cover.meta_for x
+  in
   Model.Common.meta page
   @ Model.Identity.meta_for (Config.owner_of page#configuration)
+  @ meta_cover
 ;;
 
 let normalize page =

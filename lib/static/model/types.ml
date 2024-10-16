@@ -18,6 +18,7 @@ class type common = object ('a)
   method document_kind : document_kind
   method page_title : string option
   method page_charset : string option
+  method cover : Cover.t option
   method description : string option
   method published_at : Yocaml.Archetype.Datetime.t option
   method updated_at : Yocaml.Archetype.Datetime.t option

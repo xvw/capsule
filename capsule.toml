@@ -3,6 +3,12 @@ repository = "github/xvw/capsule"
 branch = "main"
 main_url = "https://xvw.lol"
 
+[default_cover]
+url = "/images/xvw-cover.png"
+width = 1200
+height = 630
+alt = "Cover image xvw.lol"
+
 [software_license]
 title = "MIT"
 url = "https://opensource.org/license/mit"
