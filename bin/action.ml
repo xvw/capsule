@@ -39,14 +39,14 @@ let with_message source target f () =
 
 let run_build log_level target source configuration_file =
   let module Resolver =
-    Static.Resolver.Make (struct
+    Generator.Resolver.Make (struct
       let source, target = source, target
       let configuration_file = configuration_file
     end)
   in
   let program =
     with_message source target
-    @@ Static.Action.run (module Resolver : Static.Intf.RESOLVER)
+    @@ Generator.Action.run (module Resolver : Generator.Intf.RESOLVER)
   in
   let () = Yocaml_runtime.Log.setup ~level:log_level () in
   Yocaml_eio.run ~level:log_level program
@@ -54,14 +54,14 @@ let run_build log_level target source configuration_file =
 
 let run_watch port log_level target source configuration_file =
   let module Resolver =
-    Static.Resolver.Make (struct
+    Generator.Resolver.Make (struct
       let source, target = source, target
       let configuration_file = configuration_file
     end)
   in
   let program =
     with_message source target
-    @@ Static.Action.run (module Resolver : Static.Intf.RESOLVER)
+    @@ Generator.Action.run (module Resolver : Generator.Intf.RESOLVER)
   in
   let () = Yocaml_runtime.Log.setup ~level:log_level () in
   Yocaml_eio.serve ~level:log_level ~target ~port program

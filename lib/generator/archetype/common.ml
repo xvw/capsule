@@ -40,8 +40,8 @@ let validate_document_kind =
   string
   & fun x ->
   match String.(trim @@ lowercase_ascii x) with
-  | "page" -> Ok Types.Page
-  | "article" -> Ok Types.Article
+  | "page" -> Ok Model.Types.Page
+  | "article" -> Ok Model.Types.Article
   | _ -> fail_with ~given:x "Invalid document kind"
 ;;
 
@@ -50,7 +50,7 @@ let validate fields =
   let+ title = optional fields "page_title" string
   and+ document_kind =
     optional_or
-      ~default:Types.Article
+      ~default:Model.Types.Article
       fields
       "document_kind"
       validate_document_kind
@@ -63,9 +63,9 @@ let validate fields =
     optional fields "updated_at" Yocaml.Archetype.Datetime.validate
   and+ synopsis = required fields "synopsis" string
   and+ tags = optional_or fields ~default:[] "tags" (list_of Slug.validate)
-  and+ cover = optional fields "cover" Cover.validate
+  and+ cover = optional fields "cover" Model.Cover.validate
   and+ breadcrumb =
-    optional_or fields ~default:[] "breadcrumb" (list_of Link.validate)
+    optional_or fields ~default:[] "breadcrumb" (list_of Model.Link.validate)
   and+ display_toc = optional_or fields ~default:false "display_toc" bool in
   new t
     ~title
@@ -83,48 +83,51 @@ let validate fields =
 ;;
 
 let pseudo_og obj =
-  [ Meta.from_option "twitter:card" (Some "summary_large_image")
-  ; Meta.from_option "twitter:title" obj#page_title
-  ; Meta.from_option "og:title" obj#page_title
-  ; Meta.from_option "twitter:description" obj#description
-  ; Meta.from_option "og:description" obj#description
-  ; Meta.from_option "og:site_name" (Some "xvw.lol")
-  ]
+  Model.Meta.
+    [ from_option "twitter:card" (Some "summary_large_image")
+    ; from_option "twitter:title" obj#page_title
+    ; from_option "og:title" obj#page_title
+    ; from_option "twitter:description" obj#description
+    ; from_option "og:description" obj#description
+    ; from_option "og:site_name" (Some "xvw.lol")
+    ]
 ;;
 
 let article_meta obj =
   match obj#document_kind with
-  | Types.Page -> [ Meta.from_option "og:type" (Some "website") ]
-  | Types.Article ->
-    [ Meta.from_option "og:type" (Some "article")
-    ; Meta.from_option
-        "og:article:published_time"
-        (Option.map
-           (Format.asprintf "%a" Yocaml.Archetype.Datetime.pp)
-           obj#published_at)
-    ; Meta.from_option
-        "og:article:modified_time"
-        (Option.map
-           (Format.asprintf "%a" Yocaml.Archetype.Datetime.pp)
-           obj#updated_at)
-    ; Meta.from_option "og:article:section" obj#section
-    ]
+  | Model.Types.Page -> [ Model.Meta.from_option "og:type" (Some "website") ]
+  | Model.Types.Article ->
+    Model.Meta.
+      [ from_option "og:type" (Some "article")
+      ; from_option
+          "og:article:published_time"
+          (Option.map
+             (Format.asprintf "%a" Yocaml.Archetype.Datetime.pp)
+             obj#published_at)
+      ; from_option
+          "og:article:modified_time"
+          (Option.map
+             (Format.asprintf "%a" Yocaml.Archetype.Datetime.pp)
+             obj#updated_at)
+      ; from_option "og:article:section" obj#section
+      ]
     @ List.map
-        (fun tag -> Meta.from_option "og:article:tag" (Some tag))
+        (fun tag -> Model.Meta.from_option "og:article:tag" (Some tag))
         obj#tags
 ;;
 
 let meta obj =
-  [ Meta.from_list "keywords" obj#tags
-  ; Meta.from_option "description" obj#description
-  ; Meta.from_option "generator" (Some "YOCaml")
-  ]
+  Model.Meta.
+    [ from_list "keywords" obj#tags
+    ; from_option "description" obj#description
+    ; from_option "generator" (Some "YOCaml")
+    ]
   @ pseudo_og obj
   @ article_meta obj
 ;;
 
 let normalize obj =
-  let open Model_util in
+  let open Model.Model_util in
   let open Yocaml.Data in
   [ "page_title", option string obj#page_title
   ; "page_charset", option string obj#page_charset
@@ -134,8 +137,8 @@ let normalize obj =
   ; "published_at", option Yocaml.Archetype.Datetime.normalize obj#published_at
   ; "updated_at", option Yocaml.Archetype.Datetime.normalize obj#updated_at
   ; "tags", list_of string obj#tags
-  ; "breadcrumb", list_of Link.normalize obj#breadcrumb
-  ; "cover", option Cover.normalize obj#cover
+  ; "breadcrumb", list_of Model.Link.normalize obj#breadcrumb
+  ; "cover", option Model.Cover.normalize obj#cover
   ; "toc", option string obj#toc
   ; "has_section", exists_from_opt obj#section
   ; "has_toc", bool (obj#display_toc && Option.is_some obj#toc)

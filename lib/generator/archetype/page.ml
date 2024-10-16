@@ -1,20 +1,20 @@
 module Parse = struct
-  class type t = Model.Types.common
+  class type t = Types.common
 
   let entity_name = "Page"
   let neutral = Yocaml.Metadata.required entity_name
 
   let validate =
     let open Yocaml.Data.Validation in
-    record Model.Common.validate
+    record Common.validate
   ;;
 end
 
 class type t = object
   inherit Parse.t
-  inherit [Config.t] Model.Types.with_configuration
-  inherit Model.Types.with_target_path
-  inherit Model.Types.with_source_path
+  inherit Types.with_configuration
+  inherit Types.with_target_path
+  inherit Types.with_source_path
 end
 
 let resolve_cover config cover =
@@ -24,7 +24,7 @@ let resolve_cover config cover =
 class make p config source_path target_path =
   object (_ : #t)
     inherit
-      Model.Common.t
+      Common.t
         ~title:p#page_title
         ~document_kind:p#document_kind
         ~section:p#section
@@ -89,13 +89,13 @@ let meta page =
     | None -> []
     | Some x -> Model.Cover.meta_for x
   in
-  Model.Common.meta page
+  Common.meta page
   @ Model.Identity.meta_for (Config.owner_of page#configuration)
   @ meta_cover
 ;;
 
 let normalize page =
-  Model.Common.normalize page
+  Common.normalize page
   @ [ "config", Config.normalize page#configuration
     ; "build_info", normalize_build_info page
     ; "meta", Model.Meta.normalize_options @@ meta page

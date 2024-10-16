@@ -1,4 +1,4 @@
-open Static.Model
+open Generator.Model
 
 let%expect_test "validate a key-value of an empty list" =
   let open Yocaml.Data in
