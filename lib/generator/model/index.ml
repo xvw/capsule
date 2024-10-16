@@ -64,3 +64,5 @@ let compare_by_id { id = id_a; _ } { id = id_b; _ } = String.compare id_a id_b
 let compare_by_size { size = size_a; _ } { size = size_b; _ } =
   Int.compare size_a size_b
 ;;
+
+let map_synopsis f index = { index with synopsis = f index.synopsis }

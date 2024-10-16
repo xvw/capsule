@@ -13,6 +13,7 @@ module Make (R : Intf.RESOLVABLE) = struct
     let css = Path.(assets / "css")
     let fonts = Path.(assets / "fonts")
     let images = Path.(assets / "images")
+    let indexes = Path.(content / "indexes")
     let pages = Path.(content / "pages")
     let deps = [ binary; configuration ]
     let template file = Path.(templates / file)
@@ -28,6 +29,7 @@ module Make (R : Intf.RESOLVABLE) = struct
     let images = Path.(R.target / "images")
     let as_html file = file |> Path.change_extension "html"
     let as_page file = file |> as_html |> Path.move ~into:(Path.rel [ "pages" ])
+    let as_index file = file |> as_html |> Path.move ~into:(Path.rel [])
   end
 
   let track_common_deps = Pipeline.track_files Source.deps

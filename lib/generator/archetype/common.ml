@@ -12,12 +12,15 @@ class t
   ~updated_at
   ~tags
   ~breadcrumb
+  ~indexes
   ~display_toc =
   object (_ : #Types.common)
     val toc_value = None
     val description_value = description
     val synopsis_value = synopsis
-    method document_kind = document_kind
+    val indexes_value = indexes
+    val document_kind_value = document_kind
+    method document_kind = document_kind_value
     method page_title = title
     method page_charset = charset
     method cover = cover
@@ -28,11 +31,14 @@ class t
     method synopsis = synopsis_value
     method tags = tags
     method breadcrumb = breadcrumb
+    method indexes = indexes_value
     method display_toc = display_toc
     method toc = toc_value
     method with_toc new_toc = {<toc_value = new_toc>}
     method on_description f = {<description_value = f description_value>}
     method on_synopsis f = {<synopsis_value = f synopsis_value>}
+    method on_index f = {<indexes_value = Model.Indexes.map f indexes_value>}
+    method on_document_kind f = {<document_kind_value = f document_kind_value>}
   end
 
 let validate_document_kind =
@@ -40,7 +46,7 @@ let validate_document_kind =
   string
   & fun x ->
   match String.(trim @@ lowercase_ascii x) with
-  | "page" -> Ok Model.Types.Page
+  | "index" -> Ok Model.Types.Index
   | "article" -> Ok Model.Types.Article
   | _ -> fail_with ~given:x "Invalid document kind"
 ;;
@@ -66,6 +72,12 @@ let validate fields =
   and+ cover = optional fields "cover" Model.Cover.validate
   and+ breadcrumb =
     optional_or fields ~default:[] "breadcrumb" (list_of Model.Link.validate)
+  and+ indexes =
+    optional_or
+      ~default:Model.Indexes.empty
+      fields
+      "indexes"
+      Model.Indexes.validate
   and+ display_toc = optional_or fields ~default:false "display_toc" bool in
   new t
     ~title
@@ -79,6 +91,7 @@ let validate fields =
     ~synopsis
     ~tags
     ~breadcrumb
+    ~indexes
     ~display_toc
 ;;
 
@@ -95,7 +108,7 @@ let pseudo_og obj =
 
 let article_meta obj =
   match obj#document_kind with
-  | Model.Types.Page -> [ Model.Meta.from_option "og:type" (Some "website") ]
+  | Model.Types.Index -> [ Model.Meta.from_option "og:type" (Some "website") ]
   | Model.Types.Article ->
     Model.Meta.
       [ from_option "og:type" (Some "article")
@@ -138,6 +151,7 @@ let normalize obj =
   ; "updated_at", option Yocaml.Archetype.Datetime.normalize obj#updated_at
   ; "tags", list_of string obj#tags
   ; "breadcrumb", list_of Model.Link.normalize obj#breadcrumb
+  ; "indexes", Model.Indexes.normalize obj#indexes
   ; "cover", option Model.Cover.normalize obj#cover
   ; "toc", option string obj#toc
   ; "has_section", exists_from_opt obj#section
@@ -147,6 +161,7 @@ let normalize obj =
   ; "has_description", exists_from_opt obj#description
   ; "has_cover", exists_from_opt obj#cover
   ; "has_breadcrumb", exists_from_list obj#breadcrumb
+  ; "has_indexes", exists_from_list obj#indexes
   ; "has_published_date", exists_from_opt obj#published_at
   ; "has_updated_date", exists_from_opt obj#updated_at
   ; ( "has_publication_date"

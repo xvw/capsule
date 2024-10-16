@@ -10,6 +10,7 @@ class t :
   -> updated_at:Yocaml.Archetype.Datetime.t option
   -> tags:string list
   -> breadcrumb:Model.Link.t list
+  -> indexes:Model.Indexes.t
   -> display_toc:bool
   -> Types.common
 
