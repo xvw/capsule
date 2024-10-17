@@ -95,7 +95,7 @@ body {
 }
 
 #main-content {
-    margin-bottom: 8rem;
+    margin-bottom: 3rem;
     font-family: var(--font-serif);
 
     .publication-date {
@@ -152,16 +152,6 @@ body {
 
     & > article {
         margin-top: 2rem;
-
-        & h1,
-        & h2,
-        & h3,
-        & h4,
-        & h5,
-        & h6 {
-            font-family: var(--font-sans-serif);
-            font-weight: 700;
-        }
 
         & h1 {
             font-size: 220%;
@@ -220,6 +210,10 @@ body {
                 }
             }
         }
+    }
+
+    & > article:empty {
+        display: none;
     }
 }
 
@@ -292,6 +286,66 @@ body {
         }
         
     }
+}
+
+section.indexes {
+
+    --top-padding: 1.8rem;
+
+    margin: 5rem 0;
+    border-top: 1px solid var(--middle-light-color);
+    padding-top: var(--top-padding);
+
+    & > div {
+        border-bottom: 1px solid var(--middle-light-color);
+        padding: var(--top-padding) 0;
+        margin-bottom: 1rem;
+
+        & > h2 {
+            margin-bottom: 1.2rem;
+        }
+
+        & > p {
+            margin-bottom: 1.4rem;
+        }
+
+        & > nav > ul {
+            display: block;
+            padding: 0;
+            list-style: none;
+            font-family: var(--font-serif);
+
+            & > li {
+                display: inline-block;
+                margin-bottom: 0.3rem;
+            }
+
+            & > li:not(:last-child)::after {
+                content: '/';
+                margin: 0 0.5rem;
+            }
+
+            & li:first-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+    & > div:last-child {
+        margin-bottom: 0;
+        border-style: none;
+    }
+    
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-sans-serif);
+    font-weight: 700;
 }
 
 .set {

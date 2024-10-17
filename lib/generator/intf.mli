@@ -13,6 +13,7 @@ module type RESOLVER = sig
     val cname : Yocaml.Path.t
     val favicon : Yocaml.Path.t
     val css : Yocaml.Path.t
+    val js : Yocaml.Path.t
     val fonts : Yocaml.Path.t
     val images : Yocaml.Path.t
     val indexes : Yocaml.Path.t
@@ -25,6 +26,7 @@ module type RESOLVER = sig
     val promote : Yocaml.Path.t -> Yocaml.Path.t
     val cache : Yocaml.Path.t
     val css : Yocaml.Path.t
+    val js : Yocaml.Path.t
     val fonts : Yocaml.Path.t
     val images : Yocaml.Path.t
     val pages : Yocaml.Path.t
