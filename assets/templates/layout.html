@@ -23,6 +23,8 @@
     <link rel="manifest" href="/site.webmanifest">
     <link rel="canonical" href="{{ build_info.canonical_url.url }}">
     <title>{{ layout_title }}</title>
+    <script src="/js/hell.js"></script>
+    <script src="/js/capsule_js.bc.js"></script>
   </head>
   <body>
     <header>
@@ -141,5 +143,11 @@
         </div>
       </div>
     </footer>
+    <script>
+      nightmare_js.suspend(function () {
+          capsule_hljs.run();
+      });
+      nightmare_js.mount();
+    </script>
   </body>
 </html>

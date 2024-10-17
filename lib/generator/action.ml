@@ -18,6 +18,14 @@ let process_images (module R : Intf.RESOLVER) =
     (Yocaml.Action.copy_file ~into:R.Target.images)
 ;;
 
+let process_js (module R : Intf.RESOLVER) =
+  Yocaml.Action.batch
+    ~only:`Files
+    ~where:File.is_javascript
+    R.Source.js
+    (Yocaml.Action.copy_file ~into:R.Target.js)
+;;
+
 let process_css (module R : Intf.RESOLVER) =
   Yocaml.Action.Static.write_file
     R.Target.css
@@ -26,6 +34,7 @@ let process_css (module R : Intf.RESOLVER) =
        Yocaml.Path.
          [ R.Source.css / "fonts.css"
          ; R.Source.css / "reset.css"
+         ; R.Source.css / "hl.css"
          ; R.Source.css / "capsule.css"
          ])
 ;;
@@ -112,6 +121,7 @@ let run (module R : Intf.RESOLVER) () =
   >>= process_fonts (module R)
   >>= process_css (module R)
   >>= process_images (module R)
+  >>= process_js (module R)
   >>= process_misc_files (module R)
   >>= process_pages (module R) config
   >>= process_indexes (module R) config

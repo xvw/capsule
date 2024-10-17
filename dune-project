@@ -34,6 +34,12 @@
   (yocaml_otoml (>= 2.0.0))
   (yocaml_runtime (>= 2.0.0))
 
+  ;; Nightmare dependencies
+  nightmare
+  nightmare-tyxml
+  nightmare_js
+  nightmare_js-vdom
+
   ;; Generator dependencies
   cmarkit
  
