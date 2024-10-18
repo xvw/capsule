@@ -6,7 +6,7 @@
 (executables_implicit_empty_intf)
 
 (source (github xvw/capsule))
-(license MIT)
+(license GPL-3.0-or-later)
 (authors "Xavier Van de Woestyne <xaviervdw@gmail.com>")
 (maintainers "Xavier Van de Woestyne <xaviervdw@gmail.com>")
 
