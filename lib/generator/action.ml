@@ -11,11 +11,12 @@ let process_fonts (module R : Intf.RESOLVER) =
 ;;
 
 let process_images (module R : Intf.RESOLVER) =
-  Yocaml.Action.batch
-    ~only:`Files
-    ~where:File.is_image
-    R.Source.images
-    (Yocaml.Action.copy_file ~into:R.Target.images)
+  let copy_image = Yocaml.Action.copy_file ~into:R.Target.images in
+  let batch source =
+    Yocaml.Action.batch ~only:`Files ~where:File.is_image source copy_image
+  in
+  let open Yocaml.Eff in
+  batch R.Source.images >=> batch R.Source.content_images
 ;;
 
 let process_js (module R : Intf.RESOLVER) =

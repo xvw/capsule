@@ -188,6 +188,11 @@ body {
             margin-bottom: 1.5rem;
         }
 
+        & blockquote {
+            font-weight: 100;
+            padding: 0 2.5rem;
+        }
+
         & ul {
 
             & li {

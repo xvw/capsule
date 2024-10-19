@@ -12,7 +12,7 @@ synopsis:
 breadcrumb:
   - title: Technologies
     url: /#index-technologies
-toc: false
+display_toc: false
 indexes:
   - name: Mécaniques de jeux
     synopsis: 
