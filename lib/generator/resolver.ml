@@ -14,6 +14,7 @@ module Make (R : Intf.RESOLVABLE) = struct
     let js = Path.(R.source / "hell" / "_build")
     let fonts = Path.(assets / "fonts")
     let images = Path.(assets / "images")
+    let content_images = Path.(content / "images")
     let indexes = Path.(content / "indexes")
     let pages = Path.(content / "pages")
     let deps = [ binary; configuration ]

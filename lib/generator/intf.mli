@@ -16,6 +16,7 @@ module type RESOLVER = sig
     val js : Yocaml.Path.t
     val fonts : Yocaml.Path.t
     val images : Yocaml.Path.t
+    val content_images : Yocaml.Path.t
     val indexes : Yocaml.Path.t
     val pages : Yocaml.Path.t
     val template : string -> Yocaml.Path.t

@@ -23,7 +23,7 @@ indexes:
           url: https://xvw.lol/programming.html
         - title: Jeux vidéo
           url: /games.html
-toc: false
+display_toc: false
 ---
 
 Vous me trouverez sur [Mastodon](https://merveilles.town/@xvw), sur
