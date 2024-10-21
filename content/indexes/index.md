@@ -20,7 +20,7 @@ indexes:
         mise à jour.
     links:
         - title: Programmation
-          url: https://xvw.lol/programming.html
+          url: /programming.html
         - title: Jeux vidéo
           url: /games.html
 display_toc: false
