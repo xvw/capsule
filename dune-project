@@ -32,7 +32,6 @@
   (yocaml_syndication (>= 2.0.0))
   (yocaml_yaml (>= 2.0.0))
   (yocaml_otoml (>= 2.0.0))
-  (yocaml_runtime (>= 2.0.0))
 
   ;; Nightmare dependencies
   nightmare

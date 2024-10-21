@@ -59,7 +59,9 @@ let page_arrow (module R : Intf.RESOLVER) ~kind config source target =
   >>> Archetype.Page.configure config ~source ~target
   >>> Archetype.Page.on_synopsis md_to_html
   >>> Archetype.Page.define_document_kind kind
-  >>> Yocaml_cmarkit.content_to_html_with_toc Archetype.Page.table_of_contents
+  >>> Yocaml_cmarkit.content_to_html_with_toc
+        ~strict:false
+        Archetype.Page.table_of_contents
   >>> Yocaml_jingoo.Pipeline.as_template
         (module Archetype.Page)
         (R.Source.template "page.html")

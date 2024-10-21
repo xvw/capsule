@@ -116,10 +116,11 @@ body {
     }
 
     hr {
-        margin: 3rem 0 3.5rem 0;
+        margin: 3.5rem 0 4rem 0;
         border: 0px solid transparent;
         border-bottom: 1px solid var(--middle-light-color);
     }
+    
 
     a {
         color: var(--middle-color);
@@ -152,6 +153,7 @@ body {
 
     & > article {
         margin-top: 2rem;
+        margin-bottom: 4rem;
 
         & h1 {
             font-size: 220%;
@@ -196,7 +198,7 @@ body {
         & ul {
 
             & li {
-                margin: 0.3rem 0;
+                margin: 0.1rem 0;
             }
 
             & li:last-child {
@@ -215,11 +217,70 @@ body {
                 }
             }
         }
+
+        & pre {
+            margin: 3rem 0;
+        }
+
+        & img {
+            display: block;
+            margin: auto;
+            max-width: 100%;   
+        }
+
+        & table {
+            margin: 4rem auto;
+            border-collapse: collapse;
+
+            & th {
+                background-color: var(--light-color);
+            }
+
+            & th,
+            & td {
+                border: 1px solid var(--darkest-color);
+                padding: 0.2rem 1rem;
+            }
+
+            & td:empty {
+                visibility: hidden;
+                border: 0 solid transparent;
+            }
+            
+        }
+
+        & details {
+            padding: 0 0.5rem;
+            margin: 3rem 0;
+            position: relative;
+            
+            & > summary {
+                border-bottom: 0.3rem solid var(--light-color);
+                padding: 1rem 0;
+                user-select: none;
+                cursor: pointer;
+                position: sticky;
+                top: 0;
+                background-color: var(--bg-color);
+                font-family: var(--font-sans-serif);
+                font-weight: 600;
+            }
+            
+        }
+
+        & details > summary::before {
+            content: "Ouvrir ";
+        }
+
+        & details[open] > summary::before {
+            content: "Fermer ";
+        }
     }
 
     & > article:empty {
         display: none;
     }
+
 }
 
 
