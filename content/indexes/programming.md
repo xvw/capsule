@@ -20,6 +20,9 @@ indexes:
       fragments de code ou des ruses de sioux qui solutionnent ces
       problèmes (qui parfois n'en sont pas). Ce n'est pas toujours très
       utile au premier abord, mais je trouve ça parfois intéressant.
+    links:
+      - title: Méthodes gardées en OCaml
+        url: /pages/oop-refl.html
   - name: Opinions
     synopsis:
       J'aime bien (parfois trop) réagir et donner mon avis (même quand il n'est pas
