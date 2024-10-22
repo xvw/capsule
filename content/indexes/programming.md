@@ -23,6 +23,8 @@ indexes:
     links:
       - title: Méthodes gardées en OCaml
         url: /pages/oop-refl.html
+      - title: OCaml, modules et schémas d'importation
+        url: /pages/modules-import.html
   - name: Opinions
     synopsis:
       J'aime bien (parfois trop) réagir et donner mon avis (même quand il n'est pas
