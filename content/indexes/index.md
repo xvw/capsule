@@ -21,6 +21,8 @@ indexes:
     links:
         - title: Programmation
           url: /programming.html
+        - title: Outils
+          url: /tools.html
         - title: Jeux vidéo
           url: /games.html
 display_toc: false
