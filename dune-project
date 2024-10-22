@@ -25,13 +25,13 @@
    fmt
 
   ;; Yocaml dependencies 
-  (yocaml (>= 2.0.0))
-  (yocaml_eio (>= 2.0.0))
-  (yocaml_cmarkit (>= 2.0.0))
-  (yocaml_jingoo (>= 2.0.0))
-  (yocaml_syndication (>= 2.0.0))
-  (yocaml_yaml (>= 2.0.0))
-  (yocaml_otoml (>= 2.0.0))
+  (yocaml (>= 2.0.1))
+  (yocaml_eio (>= 2.0.1))
+  (yocaml_cmarkit (>= 2.0.1))
+  (yocaml_jingoo (>= 2.0.1))
+  (yocaml_syndication (>= 2.0.1))
+  (yocaml_yaml (>= 2.0.1))
+  (yocaml_otoml (>= 2.0.1))
 
   ;; Nightmare dependencies
   nightmare

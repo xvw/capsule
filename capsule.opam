@@ -13,13 +13,13 @@ depends: [
   "dune" {>= "3.16" & >= "3.16.0"}
   "cmdliner"
   "fmt"
-  "yocaml" {>= "2.0.0"}
-  "yocaml_eio" {>= "2.0.0"}
-  "yocaml_cmarkit" {>= "2.0.0"}
-  "yocaml_jingoo" {>= "2.0.0"}
-  "yocaml_syndication" {>= "2.0.0"}
-  "yocaml_yaml" {>= "2.0.0"}
-  "yocaml_otoml" {>= "2.0.0"}
+  "yocaml" {>= "2.0.1"}
+  "yocaml_eio" {>= "2.0.1"}
+  "yocaml_cmarkit" {>= "2.0.1"}
+  "yocaml_jingoo" {>= "2.0.1"}
+  "yocaml_syndication" {>= "2.0.1"}
+  "yocaml_yaml" {>= "2.0.1"}
+  "yocaml_otoml" {>= "2.0.1"}
   "nightmare"
   "nightmare-tyxml"
   "nightmare_js"
