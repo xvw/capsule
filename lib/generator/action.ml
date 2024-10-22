@@ -19,6 +19,22 @@ let process_images (module R : Intf.RESOLVER) =
   batch R.Source.images >=> batch R.Source.content_images
 ;;
 
+let process_d2_diagrams (module R : Intf.RESOLVER) =
+  Yocaml.Action.batch ~only:`Files ~where:File.is_d2 R.Source.d2 (fun source ->
+    let target = R.Target.as_diagram source in
+    let command target =
+      Yocaml.Cmd.(
+        make
+          "d2"
+          [ param ~prefix:"-" "t" (int 301)
+          ; param ~suffix:"=" "layout" (string "elk")
+          ; arg (w source)
+          ; arg target
+          ])
+    in
+    Yocaml.Action.exec_cmd command target)
+;;
+
 let process_js (module R : Intf.RESOLVER) =
   Yocaml.Action.batch
     ~only:`Files
@@ -124,6 +140,7 @@ let run (module R : Intf.RESOLVER) () =
   >>= process_fonts (module R)
   >>= process_css (module R)
   >>= process_images (module R)
+  >>= process_d2_diagrams (module R)
   >>= process_js (module R)
   >>= process_misc_files (module R)
   >>= process_pages (module R) config

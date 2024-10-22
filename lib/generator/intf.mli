@@ -16,6 +16,8 @@ module type RESOLVER = sig
     val js : Yocaml.Path.t
     val fonts : Yocaml.Path.t
     val images : Yocaml.Path.t
+    val diagrams : Yocaml.Path.t
+    val d2 : Yocaml.Path.t
     val content_images : Yocaml.Path.t
     val indexes : Yocaml.Path.t
     val pages : Yocaml.Path.t
@@ -34,5 +36,6 @@ module type RESOLVER = sig
     val as_html : Yocaml.Path.t -> Yocaml.Path.t
     val as_page : Yocaml.Path.t -> Yocaml.Path.t
     val as_index : Yocaml.Path.t -> Yocaml.Path.t
+    val as_diagram : Yocaml.Path.t -> Yocaml.Path.t
   end
 end

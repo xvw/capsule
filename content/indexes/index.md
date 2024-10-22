@@ -25,6 +25,16 @@ indexes:
           url: /tools.html
         - title: Jeux vidéo
           url: /games.html
+  - name: Divers
+    synopsis:
+      Une collection de pages sans thématique particulière. 
+      Des critiques d'adresses (des bars, des cafés, des restaurants, 
+      des coffee-shops), des galeries (de photographies 
+      ou d'illustrations), ou encore des articles divers 
+      — orphelins d'une catégorie parente.
+    links:
+        - title: Sur le café
+          url: /coffee.html
 display_toc: false
 ---
 

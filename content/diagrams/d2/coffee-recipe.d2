@@ -1,0 +1,29 @@
+style.fill: transparent
+direction: right
+
+brewer_categories {
+    shape: sql_table
+    Name: string {constraint: primary_key}
+}
+
+brewers {
+    shape: sql_table
+    Name: string {constraint: primary_key}
+    Category: brewer_categories {constraint: foreign_key}
+    Brand: string   
+}
+
+
+recipes {
+    shape: sql_table
+    Name: string {constraint: primary_key}
+    Brewer_category: brewer_categories {constraint: foreign_key}
+    Recommanded_brewer: brewers  {constraint: foreign_key}
+    Source: Url
+    Water_temperature: Number
+    Grinding_clicks: Number
+    Ratio: Number
+}
+
+recipes.Brewer_category -> brewer_categories.Name
+recipes.Recommanded_brewer -> brewers.Name

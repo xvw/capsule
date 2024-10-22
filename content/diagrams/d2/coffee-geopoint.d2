@@ -1,0 +1,58 @@
+style.fill: transparent
+grid-columns: 1
+grid-rows: 2
+
+a:"" {
+    style.fill: transparent
+    style.stroke: transparent
+    direction: right
+    continents: {
+        shape: sql_table
+        Name: string {constraint: primary_key}
+    }
+
+    countries: {
+        shape: sql_table
+        Name: string {constraint: primary_key}
+        Continent: continent {constraint: foreign_key}
+    }
+}
+
+b:"" {
+    style.fill: transparent
+    style.stroke: transparent
+    direction: right
+    regions: {
+        shape: sql_table
+        Name: string {constraint: primary_key}
+        Country: country {constraint: foreign_key}
+        Continent: continent Rollup
+    }
+
+    cities: {
+        shape: sql_table
+        Name: string {constraint: primary_key}
+        Region: region {constraint: foreing_key}
+        Country: country Rollup
+        Continent: continent Rollup
+    }
+}
+
+a.countries.Continent -> a.continents.Name
+b.regions.Country -> a.countries.Name
+b.regions.Continent -> a.continents.Name: rollup {
+    style {
+        stroke-dash: 3
+    }
+}
+b.cities.Region -> b.regions.Name
+b.cities.Country -> a.countries.Name: rollup {
+    style {
+        stroke-dash: 3
+    }
+}
+b.cities.Continent -> a.continents.Name: rollup {
+    style {
+        stroke-dash: 3
+    }
+}

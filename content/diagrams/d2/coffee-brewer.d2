@@ -1,0 +1,17 @@
+style.fill: transparent
+direction: right
+
+brewer_categories {
+    shape: sql_table
+    Name: string {constraint: primary_key}
+}
+
+
+brewers {
+    shape: sql_table
+    Name: string {constraint: primary_key}
+    Category: brewer_categories {constraint: foreign_key}
+    Brand: string   
+}
+
+brewers.Category -> brewer_categories.Name

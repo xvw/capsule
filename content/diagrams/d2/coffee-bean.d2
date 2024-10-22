@@ -1,0 +1,59 @@
+style.fill: transparent
+direction: right
+
+a:"" {
+    style.fill: transparent
+    style.stroke: transparent
+    beans {
+        shape: sql_table
+        Name: string {constraint: primary_key}
+        Varieties: cultivar list {constraint: foreing_key}
+        Farms: farm list {constraint: foreing_key}
+        Roasters: roaster list {constraint: foreing_key}
+        Regions: region list {constraint: foreing_key}
+        Process: processe enum
+        Fermentation: fermentation enum
+        Fermentation_duration: float
+        Infusion: boolean
+        Roasting_level: roasting_level enum
+        Flavours: flavours enum list
+        Altitude: integer
+        Score_SCA: float
+    }
+
+    processes {
+        shape: sql_table
+        Natural
+        Washed
+        Monsooned
+        Wet_hulled
+        White_honey
+        Red_honey
+        Yellow_honey
+        Black_honey
+        Gold_honey
+    }
+
+    fermentation {
+        shape: sql_table
+        None
+        Anaerobic
+        Carbonic
+        Lactic
+    }
+
+    roasting_level {
+        shape: sql_table
+        Extralight
+        Light
+        Medium
+        Dark
+        Extradark
+    }
+}
+
+
+
+a.beans.Roasting_level -> a.roasting_level
+a.beans.Process -> a.processes
+a.beans.Fermentation -> a.fermentation
