@@ -197,6 +197,7 @@ body {
             padding: 0 2.5rem;
         }
 
+        & ol,
         & ul {
 
             & li {
@@ -291,6 +292,11 @@ body {
 
     & > article:empty {
         display: none;
+    }
+
+    & > article.synopsis {
+        margin-top: 2rem;
+        margin-bottom: 0;
     }
 
 }

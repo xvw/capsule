@@ -1,0 +1,59 @@
+style.fill: transparent
+direction: right
+
+recipes {
+    shape: sql_table
+    Name: string {constraint: primary_key}
+    Brewer_category: brewer_categories {constraint: foreign_key}
+    Recommanded_brewer: brewers  {constraint: foreign_key}
+    Source: Url
+    Water_temperature: Number
+    Grinding_clicks: Number
+    Ratio: Number
+}
+
+experimentations {
+    shape: sql_table
+    Name: string {constraint: primary_key}
+    Recipe: recipes {constraint: foreign_key}
+    Brewer: brewer {constraint: foreign_key}
+    Beans: beans {constraint: foreign_key}
+    Torrefaction_date: date
+    Water_temperature: number
+    Water_quantity: number
+    Coffee_quantity: number
+    Grinding_clicks: number
+    Date: date
+    Personal_score: number
+    Ratio: formula
+    Coffee_freshness: formula
+}
+
+
+beans {
+    shape: sql_table
+    Name: string {constraint: primary_key}
+    Varieties: cultivar list {constraint: foreing_key}
+    Farms: farm list {constraint: foreing_key}
+    Roasters: roaster list {constraint: foreing_key}
+    Regions: region list {constraint: foreing_key}
+    Process: processe enum
+    Fermentation: fermentation enum
+    Fermentation_duration: float
+    Infusion: boolean
+    Roasting_level: roasting_level enum
+    Flavours: flavours enum list
+    Altitude: integer
+    Score_SCA: float
+}
+
+brewers {
+    shape: sql_table
+    Name: string {constraint: primary_key}
+    Category: brewer_categories {constraint: foreign_key}
+    Brand: string   
+}
+
+experimentations.Recipe -> recipes.Name
+experimentations.Beans -> beans.Name
+experimentations.Brewer -> brewers.Name

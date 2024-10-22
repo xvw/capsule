@@ -1,0 +1,46 @@
+style.fill: transparent
+grid-columns: 2
+
+a:"" {
+    style.fill: transparent
+    style.stroke: transparent
+    direction: right
+    roasters {
+        shape: sql_table
+        Name: string {constraint: primary_key}
+        City: city {constraint: foreing_key}
+        Country: country Rollup
+        Address: string
+        Webpage: link
+        Tested: bool
+        Active: bool
+    }
+}
+
+b:"" {
+    style.fill: transparent
+    style.stroke: transparent
+    direction: right
+    countries: {
+        shape: sql_table
+        Name: string {constraint: primary_key}
+        Continent: continent {constraint: foreign_key}
+    }
+    
+    cities: {
+        shape: sql_table
+        Name: string {constraint: primary_key}
+        Region: region {constraint: foreing_key}
+        Country: country Rollup
+        Continent: continent Rollup
+    }
+}
+
+
+
+a.roasters -> b.cities
+a.roasters -> b.countries: Rollup {
+    style {
+        stroke-dash: 3
+    }
+}

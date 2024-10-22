@@ -14,6 +14,8 @@ module Make (R : Intf.RESOLVABLE) = struct
     let js = Path.(R.source / "hell" / "_build")
     let fonts = Path.(assets / "fonts")
     let images = Path.(assets / "images")
+    let diagrams = Path.(content / "diagrams")
+    let d2 = Path.(diagrams / "d2")
     let content_images = Path.(content / "images")
     let indexes = Path.(content / "indexes")
     let pages = Path.(content / "pages")
@@ -33,6 +35,10 @@ module Make (R : Intf.RESOLVABLE) = struct
     let as_html file = file |> Path.change_extension "html"
     let as_page file = file |> as_html |> Path.move ~into:(Path.rel [ "pages" ])
     let as_index file = file |> as_html |> Path.move ~into:(Path.rel [])
+
+    let as_diagram file =
+      file |> Path.change_extension "svg" |> Path.move ~into:images
+    ;;
   end
 
   let track_common_deps = Pipeline.track_files Source.deps

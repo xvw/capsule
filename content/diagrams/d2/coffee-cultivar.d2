@@ -1,0 +1,22 @@
+style.fill: transparent
+direction: right
+
+species {
+    shape: sql_table
+    Shortname: string {constraint: primary_key}
+    Name: string
+}
+
+
+cultivars {
+    shape: sql_table
+    Name: string {constraint: primary_key}
+    Species : species {constraint: foreign_key}
+    Derived_from : cultivar {constraint: foreign_key}
+    Url: url
+    Alternatives_name: string list
+}
+
+
+cultivars.Species -> species.Shortname
+cultivars -> cultivars
