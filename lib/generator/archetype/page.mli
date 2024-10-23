@@ -6,6 +6,11 @@ module Parse : sig
   type t
 
   include Yocaml.Required.DATA_READABLE with type t := t
+
+  val page_title : t -> string
+  val page_datetime : t -> Yocaml.Datetime.t
+  val page_tags : t -> string list
+  val page_summary : t -> string
 end
 
 val configure

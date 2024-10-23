@@ -53,7 +53,7 @@ let validate_document_kind =
 
 let validate fields =
   let open Data.Validation in
-  let+ title = optional fields "page_title" string
+  let+ title = required fields "page_title" string
   and+ document_kind =
     optional_or
       ~default:Model.Types.Article
@@ -98,8 +98,8 @@ let validate fields =
 let pseudo_og obj =
   Model.Meta.
     [ from_option "twitter:card" (Some "summary_large_image")
-    ; from_option "twitter:title" obj#page_title
-    ; from_option "og:title" obj#page_title
+    ; from_option "twitter:title" (Some obj#page_title)
+    ; from_option "og:title" (Some obj#page_title)
     ; from_option "twitter:description" obj#description
     ; from_option "og:description" obj#description
     ; from_option "og:site_name" (Some "xvw.lol")
@@ -142,7 +142,7 @@ let meta obj =
 let normalize obj =
   let open Model.Model_util in
   let open Yocaml.Data in
-  [ "page_title", option string obj#page_title
+  [ "page_title", string obj#page_title
   ; "page_charset", option string obj#page_charset
   ; "description", option string obj#description
   ; "synopsis", string obj#synopsis
@@ -156,7 +156,6 @@ let normalize obj =
   ; "toc", option string obj#toc
   ; "has_section", exists_from_opt obj#section
   ; "has_toc", bool (obj#display_toc && Option.is_some obj#toc)
-  ; "has_page_title", exists_from_opt obj#page_title
   ; "has_page_charset", exists_from_opt obj#page_charset
   ; "has_description", exists_from_opt obj#description
   ; "has_cover", exists_from_opt obj#cover

@@ -12,7 +12,7 @@ end
 
 class type common = object ('a)
   method document_kind : Model.Types.document_kind
-  method page_title : string option
+  method page_title : string
   method page_charset : string option
   method cover : Model.Cover.t option
   method description : string option
