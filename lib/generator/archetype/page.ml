@@ -8,6 +8,15 @@ module Parse = struct
     let open Yocaml.Data.Validation in
     record Common.validate
   ;;
+
+  let page_title p = p#page_title
+
+  let page_datetime p =
+    Std.Option.(p#updated_at <|> p#published_at || Yocaml.Datetime.dummy)
+  ;;
+
+  let page_tags p = p#tags
+  let page_summary p = p#synopsis
 end
 
 class type t = object
