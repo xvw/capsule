@@ -10,4 +10,5 @@ val validate_from_url
   -> Yocaml.Data.t
   -> t Yocaml.Data.Validation.validated_value
 
+val url : t -> Url.t
 val compare_title : t -> t -> int

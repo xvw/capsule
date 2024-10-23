@@ -38,8 +38,3 @@ end
 
 include Infix
 include Syntax
-
-let dump pp ppf = function
-  | None -> Format.fprintf ppf "None"
-  | Some x -> Format.fprintf ppf "Some (%a)" pp x
-;;

@@ -117,14 +117,13 @@ let twitter_meta_for { x_account; _ } =
     ]
 ;;
 
-let meta_author { display_name; last_name; first_name; _ } =
-  let name =
-    match first_name, last_name with
-    | Some fname, Some lname -> fname ^ " " ^ lname
-    | _ -> display_name
-  in
-  Meta.from_option "author" (Some name)
+let render_name { display_name; last_name; first_name; _ } =
+  match first_name, last_name with
+  | Some fname, Some lname -> display_name ^ ", " ^ fname ^ " " ^ lname
+  | _ -> display_name
 ;;
+
+let meta_author idt = Meta.from_option "author" (Some (render_name idt))
 
 let to_open_graph { display_name; last_name; first_name; _ } =
   Meta.from_option "og:profile:username" (Some display_name)
@@ -134,3 +133,9 @@ let to_open_graph { display_name; last_name; first_name; _ } =
 ;;
 
 let meta_for t = (meta_author t :: twitter_meta_for t) @ to_open_graph t
+
+let to_person p =
+  Yocaml_syndication.Person.make
+    ?uri:(Option.map (fun link -> link |> Link.url |> Url.to_string) p.website)
+    (render_name p)
+;;

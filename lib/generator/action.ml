@@ -136,6 +136,7 @@ let fetch_config (module R : Intf.RESOLVER) =
 let run (module R : Intf.RESOLVER) () =
   let open Yocaml.Eff in
   let* config = fetch_config (module R) in
+  let* context = Feed.make (module Yocaml_yaml) (module R) in
   Yocaml.Action.restore_cache ~on:`Source R.Target.cache
   >>= process_fonts (module R)
   >>= process_css (module R)
@@ -145,5 +146,7 @@ let run (module R : Intf.RESOLVER) () =
   >>= process_misc_files (module R)
   >>= process_pages (module R) config
   >>= process_indexes (module R) config
+  >>= Feed.atom_for_entries (module R) config context
+  >>= Feed.atom_for_pages (module R) config context
   >>= Yocaml.Action.store_cache ~on:`Source R.Target.cache
 ;;
