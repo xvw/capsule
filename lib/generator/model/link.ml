@@ -3,6 +3,7 @@ type t =
   ; url : Url.t
   }
 
+let url { url; _ } = url
 let make title url = { title; url }
 
 let equal { title = title_a; url = url_a } { title = title_b; url = url_b } =

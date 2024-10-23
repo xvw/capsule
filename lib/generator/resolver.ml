@@ -39,6 +39,11 @@ module Make (R : Intf.RESOLVABLE) = struct
     let as_diagram file =
       file |> Path.change_extension "svg" |> Path.move ~into:images
     ;;
+
+    module Atom = struct
+      let general = Path.(R.target / "atom.xml")
+      let pages = Path.(R.target / "pages.xml")
+    end
   end
 
   let track_common_deps = Pipeline.track_files Source.deps

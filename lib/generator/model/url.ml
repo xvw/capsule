@@ -139,7 +139,9 @@ let get_url ?(with_scheme = false) = function
 let resolve source target =
   match source, target with
   | External (scheme, path), Internal target ->
-    let t = Yocaml.Path.to_string target in
+    let t =
+      Yocaml.Path.to_string (Yocaml.Path.relocate ~into:Yocaml.Path.root target)
+    in
     let p = if t.[0] = '/' then path ^ t else Filename.concat path t in
     External (scheme, p)
   | _ -> target (* do not resolve target if target are not resolvable. *)

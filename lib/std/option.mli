@@ -23,9 +23,3 @@ end
 
 include module type of Infix
 include module type of Syntax
-
-val dump
-  :  (Format.formatter -> 'a -> unit)
-  -> Format.formatter
-  -> 'a option
-  -> unit

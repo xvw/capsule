@@ -37,5 +37,10 @@ module type RESOLVER = sig
     val as_page : Yocaml.Path.t -> Yocaml.Path.t
     val as_index : Yocaml.Path.t -> Yocaml.Path.t
     val as_diagram : Yocaml.Path.t -> Yocaml.Path.t
+
+    module Atom : sig
+      val pages : Yocaml.Path.t
+      val general : Yocaml.Path.t
+    end
   end
 end
