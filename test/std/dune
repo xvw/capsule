@@ -1,0 +1,6 @@
+(library
+ (name std_test)
+ (inline_tests)
+ (libraries yocaml capsule.std)
+ (preprocess
+  (pps ppx_expect)))
