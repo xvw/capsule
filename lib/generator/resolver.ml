@@ -32,6 +32,7 @@ module Make (R : Intf.RESOLVABLE) = struct
     let js = Path.(R.target / "js")
     let fonts = Path.(R.target / "fonts")
     let images = Path.(R.target / "images")
+    let tags = Path.(R.target / "tags")
     let as_html file = file |> Path.change_extension "html"
     let as_page file = file |> as_html |> Path.move ~into:(Path.rel [ "pages" ])
     let as_index file = file |> as_html |> Path.move ~into:(Path.rel [])
@@ -43,6 +44,7 @@ module Make (R : Intf.RESOLVABLE) = struct
     module Atom = struct
       let general = Path.(R.target / "atom.xml")
       let pages = Path.(R.target / "pages.xml")
+      let tag name = Path.(tags / name) |> Path.add_extension "xml"
     end
   end
 

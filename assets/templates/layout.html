@@ -22,6 +22,8 @@
     {%- endif -%}
     <link rel="manifest" href="/site.webmanifest">
     <link rel="canonical" href="{{ build_info.canonical_url.url }}">
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" />
+    <link rel="alternate" type="application/atom+xml" href="/pages.xml" />
     <title>{{ layout_title }}</title>
     <script src="/js/hell.js"></script>
     <script src="/js/capsule_js.bc.js"></script>
@@ -84,7 +86,7 @@
           <section>
             <h3>Flux</h3>
             <nav class="set svg-light">
-              <a href="">
+              <a href="/atom.xml">
                 {%- autoescape false -%}
                 {{ config.svg.rss.to_html }}
                 {%- endautoescape -%}
