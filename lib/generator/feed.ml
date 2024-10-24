@@ -8,14 +8,12 @@ type entry =
   ; tags : string list
   ; file : Yocaml.Path.t
   }
-[@@warning "-69"]
 
 type t =
   { pages : entry list
   ; entries : entry list
   ; by_tags : entry list M.t
   }
-[@@warning "-69"]
 
 let entry ~title ~content_url ~datetime ~summary ~tags ~file =
   { title; content_url; datetime; summary; tags; file }
@@ -147,4 +145,16 @@ let atom_for_pages (module R : Intf.RESOLVER) config { pages; _ } =
      >>> R.track_common_deps
      >>> const pages
      >>> configure_feed config "pages" "Pages et articles")
+;;
+
+let atom_for_tags (module R : Intf.RESOLVER) config { by_tags; _ } =
+  Yocaml.Action.batch_list (M.bindings by_tags) (fun (tag, entries) ->
+    let deps = List.map (fun { file; _ } -> file) entries in
+    Yocaml.Action.Static.write_file
+      (R.Target.Atom.tag tag)
+      (let open Yocaml.Task in
+       Yocaml.Pipeline.track_files deps
+       >>> R.track_common_deps
+       >>> const entries
+       >>> configure_feed config ("tags/" ^ tag) ("Flux du tag " ^ tag)))
 ;;

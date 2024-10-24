@@ -148,5 +148,6 @@ let run (module R : Intf.RESOLVER) () =
   >>= process_indexes (module R) config
   >>= Feed.atom_for_entries (module R) config context
   >>= Feed.atom_for_pages (module R) config context
+  >>= Feed.atom_for_tags (module R) config context
   >>= Yocaml.Action.store_cache ~on:`Source R.Target.cache
 ;;
