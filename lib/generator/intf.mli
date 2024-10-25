@@ -21,6 +21,7 @@ module type RESOLVER = sig
     val content_images : Yocaml.Path.t
     val indexes : Yocaml.Path.t
     val pages : Yocaml.Path.t
+    val addresses : Yocaml.Path.t
     val template : string -> Yocaml.Path.t
   end
 
@@ -35,12 +36,14 @@ module type RESOLVER = sig
     val pages : Yocaml.Path.t
     val as_html : Yocaml.Path.t -> Yocaml.Path.t
     val as_page : Yocaml.Path.t -> Yocaml.Path.t
+    val as_address : Yocaml.Path.t -> Yocaml.Path.t
     val as_index : Yocaml.Path.t -> Yocaml.Path.t
     val as_diagram : Yocaml.Path.t -> Yocaml.Path.t
 
     module Atom : sig
       val pages : Yocaml.Path.t
       val general : Yocaml.Path.t
+      val addresses : Yocaml.Path.t
       val tag : string -> Yocaml.Path.t
     end
   end

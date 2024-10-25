@@ -33,3 +33,27 @@ class type common = object ('a)
   method on_document_kind :
     (Model.Types.document_kind -> Model.Types.document_kind) -> 'a
 end
+
+module type ARCHETYPE = sig
+  module Input : sig
+    type t
+
+    include Yocaml.Required.DATA_READABLE with type t := t
+
+    val to_entry : file:Yocaml.Path.t -> url:Yocaml.Path.t -> t -> Model.Entry.t
+  end
+
+  type t
+
+  val full_configure
+    :  config:Config.t
+    -> source:Yocaml.Path.t
+    -> target:Yocaml.Path.t
+    -> kind:Model.Types.document_kind
+    -> on_synopsis:(string -> string)
+    -> (Input.t * 'a, t * 'a) Yocaml.Task.t
+
+  val table_of_content : t -> string option -> t
+
+  include Yocaml.Required.DATA_INJECTABLE with type t := t
+end

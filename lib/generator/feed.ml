@@ -1,45 +1,11 @@
 module M = Map.Make (String)
 
-type entry =
-  { title : string
-  ; content_url : Yocaml.Path.t
-  ; datetime : Yocaml.Datetime.t
-  ; summary : string option
-  ; tags : string list
-  ; file : Yocaml.Path.t
-  }
-
 type t =
-  { pages : entry list
-  ; entries : entry list
-  ; by_tags : entry list M.t
+  { pages : Model.Entry.t list
+  ; addresses : Model.Entry.t list
+  ; entries : Model.Entry.t list
+  ; by_tags : Model.Entry.t list M.t
   }
-
-let entry ~title ~content_url ~datetime ~summary ~tags ~file =
-  { title; content_url; datetime; summary; tags; file }
-;;
-
-let compare_entry b a = Yocaml.Datetime.compare a.datetime b.datetime
-
-let entry_to_atom ~base_url { title; content_url; datetime; summary; tags; _ } =
-  let open Yocaml_syndication in
-  let path = Model.Url.from_path content_url in
-  let id = Model.Url.resolve base_url path |> Model.Url.to_string in
-  let links = [ Atom.alternate ~title id ] in
-  let summary = Option.map Atom.text summary in
-  let categories = List.map Category.make tags in
-  let updated = Datetime.make datetime in
-  let title = Atom.text title in
-  Atom.entry ?summary ~links ~categories ~updated ~id ~title ()
-;;
-
-let page_to_entry ~file ~url page =
-  let title = Archetype.Page.Parse.page_title page
-  and datetime = Archetype.Page.Parse.page_datetime page
-  and tags = Archetype.Page.Parse.page_tags page
-  and summary = Archetype.Page.Parse.page_summary page |> Std.Option.return in
-  entry ~title ~content_url:url ~datetime ~summary ~tags ~file
-;;
 
 let from_source
   (type a)
@@ -78,18 +44,20 @@ let compute_map_from_tags source m =
               | Some xs -> Some (entry :: xs))
             m)
         m
-        entry.tags)
+        (Model.Entry.tags_of entry))
     m
     source
 ;;
 
-let sort_map m = M.map (List.sort compare_entry) m
+let sort_entries = List.sort Model.Entry.rev_compare
+let sort_map m = M.map sort_entries m
 
-let build_context pages =
-  let entries = pages in
-  { pages = List.sort compare_entry pages
-  ; entries = List.sort compare_entry entries
-  ; by_tags = M.empty |> compute_map_from_tags pages |> sort_map
+let build_context pages addresses =
+  let entries = pages @ addresses in
+  { pages = sort_entries pages
+  ; addresses = sort_entries addresses
+  ; entries = sort_entries entries
+  ; by_tags = M.empty |> compute_map_from_tags entries |> sort_map
   }
 ;;
 
@@ -98,14 +66,24 @@ let make (module P : Yocaml.Required.DATA_PROVIDER) (module R : Intf.RESOLVER) =
   let* pages =
     from_source
       (module P)
-      (module Archetype.Page.Parse)
+      (module Archetype.Page.Input)
       ~on:`Source
       ~where:File.is_markdown
-      ~to_entry:page_to_entry
+      ~to_entry:Archetype.Page.Input.to_entry
       ~compute_link:R.Target.as_page
       R.Source.pages
   in
-  return @@ build_context pages
+  let* addresses =
+    from_source
+      (module P)
+      (module Archetype.Address.Input)
+      ~on:`Source
+      ~where:File.is_markdown
+      ~to_entry:Archetype.Address.Input.to_entry
+      ~compute_link:R.Target.as_address
+      R.Source.addresses
+  in
+  return @@ build_context pages addresses
 ;;
 
 let configure_feed config id title =
@@ -124,7 +102,7 @@ let configure_feed config id title =
     ~authors
     ~updated
     ~id:feed_id
-    (entry_to_atom ~base_url)
+    (Model.Entry.to_atom ~base_url)
 ;;
 
 let atom_for_entries (module R : Intf.RESOLVER) config { entries; _ } =
@@ -147,9 +125,19 @@ let atom_for_pages (module R : Intf.RESOLVER) config { pages; _ } =
      >>> configure_feed config "pages" "Pages et articles")
 ;;
 
+let atom_for_addresses (module R : Intf.RESOLVER) config { addresses; _ } =
+  Yocaml.Action.Static.write_file
+    R.Target.Atom.addresses
+    (let open Yocaml.Task in
+     Yocaml.Pipeline.track_file R.Source.pages
+     >>> R.track_common_deps
+     >>> const addresses
+     >>> configure_feed config "adresses" "Critiques d'adresses")
+;;
+
 let atom_for_tags (module R : Intf.RESOLVER) config { by_tags; _ } =
   Yocaml.Action.batch_list (M.bindings by_tags) (fun (tag, entries) ->
-    let deps = List.map (fun { file; _ } -> file) entries in
+    let deps = List.map Model.Entry.file_of entries in
     Yocaml.Action.Static.write_file
       (R.Target.Atom.tag tag)
       (let open Yocaml.Task in

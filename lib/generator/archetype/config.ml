@@ -69,3 +69,7 @@ let branch_of { branch; _ } = branch
 let owner_of { owner; _ } = owner
 let main_url_of { main_url; _ } = main_url
 let default_cover_of { default_cover; _ } = default_cover
+
+let resolve_cover config cover =
+  Option.map (Model.Cover.resolve (main_url_of config)) cover
+;;

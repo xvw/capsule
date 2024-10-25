@@ -10,6 +10,7 @@ synopsis:
   descriptible comme **une encyclopédie maladroite et _capharnaümesque_**
   de ce que je sais (mais c'est probablement fantasmer sur ma fréquence 
   d'écriture).
+display_toc: false
 indexes:
   - name: Technologies
     synopsis: 
@@ -35,7 +36,14 @@ indexes:
     links:
         - title: Sur le café
           url: /coffee.html
-display_toc: false
+  - name: Meta
+    synopsis:
+      Pages personnelles, ou en rapport direct avec ce site web.
+    links:
+        - title: Flux de nouvelles
+          url: /feeds.html
+        - title: Colophon
+          url: /pages/colophon.html
 ---
 
 Vous me trouverez sur [Mastodon](https://merveilles.town/@xvw), sur
