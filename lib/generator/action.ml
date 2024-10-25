@@ -151,13 +151,12 @@ let process_addresses (module R : Intf.RESOLVER) config =
     (process_address (module R) config)
 ;;
 
-let process_feed (module R : Intf.RESOLVER) config context cache =
+let process_feed (module R : Intf.RESOLVER) config context =
   let open Yocaml.Eff in
-  return cache
-  >>= Feed.atom_for_entries (module R) config context
-  >>= Feed.atom_for_pages (module R) config context
-  >>= Feed.atom_for_addresses (module R) config context
-  >>= Feed.atom_for_tags (module R) config context
+  Feed.atom_for_entries (module R) config context
+  >=> Feed.atom_for_pages (module R) config context
+  >=> Feed.atom_for_addresses (module R) config context
+  >=> Feed.atom_for_tags (module R) config context
 ;;
 
 let fetch_config (module R : Intf.RESOLVER) =

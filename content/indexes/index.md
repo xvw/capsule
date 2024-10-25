@@ -36,6 +36,8 @@ indexes:
     links:
         - title: Sur le café
           url: /coffee.html
+        - title: Critiques de bars
+          url: /bars.html
   - name: Meta
     synopsis:
       Pages personnelles, ou en rapport direct avec ce site web.

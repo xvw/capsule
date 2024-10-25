@@ -1,5 +1,6 @@
 ---
 page_title: Ethylo
+display_toc: false
 country: Belgique
 city: Bruxelles
 zipcode: "1030"
@@ -19,6 +20,11 @@ synopsis:
   **de qualité** ! Ouvert par mon très bon ami Romain, en 2019, c'est 
   naturellement par cette institution _Schaerbeekoise_ que j'ai décidé de 
   démarrer ma série sur les bars que j'affectionne !
+breadcrumb:
+  - title: Critiques de Bars
+    url: /bars.html
+  - title: Bruxelles
+    url: /bars.html#index-bruxelles
 ---
 
 > Comme toute rencontre démarre souvent de zéro (ou de _rien_, pour
