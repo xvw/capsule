@@ -1,0 +1,63 @@
+<section class="gallery-meta">
+  <div class="sidebar">
+    {%- if has_indexes -%}
+    {%- for index in indexes -%}
+    <nav class="nav-enum">
+      <h3>{{ index.name }}</h3>
+      <ul class="without-padding">
+        {%- for link in index.links -%}
+        <li><a href="{{ link.url.url }}">{{ link.title }}</a></li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+    {%- endfor -%}
+    {%- endif -%}
+    <nav class="nav-enum">
+      <h3>Tags</h3>
+      <ul class="without-padding">
+        {%- for tag in tags -%}
+        <li class="tag">{{ tag }}</li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+  </div>
+  <div class="content">
+    {%- if has_cover -%}
+    <img class="cover"
+         alt="{%- if cover.alt -%} {{ cover.alt }} {%- else -%} Cover de {{ page_title }} {%- endif-%}"
+         src="{{ cover.url.url }}"/>
+    {%- endif -%}
+    <article>
+      {%- autoescape false -%}
+      {{ yocaml_body }}
+      {%- endautoescape -%}
+      <article>
+  </div>
+</section>
+
+{%- if has_elements -%}
+<section class="gallery">
+  {%- for image in elements -%}
+  <div id="image-{{ image.id}}">
+    <a href="{{ image.url.url }}">
+      <img alt="Image {{image.name}}" src="{{ image.url_tb.url }}"/>
+    </a>
+    <div class="desc">
+      <span class="title">{{ image.name }}</span>
+      {%- if image.has_desc -%}
+      <p>{{ image.desc }}</p>
+      {%- endif-%}
+      {%- if image.has_links -%}
+      <nav class="nav-enum">
+        <ul>
+          {%- for link in image.links -%}
+          <li><a href="{{ link.url.url }}">{{ link.title }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+      {%- endif-%}
+    </div>
+  </div>
+  {%- endfor -%}
+</section>
+{%- endif -%}

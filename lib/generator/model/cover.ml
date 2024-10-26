@@ -6,27 +6,34 @@ type t =
   ; alt : string option
   }
 
-let mime_type =
-  Yocaml.Data.Validation.(
-    Url.validate
-    & fun x ->
-    match String.lowercase_ascii @@ Url.extension x with
-    | ".jpg" | ".jpeg" -> Ok "image/jpeg"
-    | ".apng" -> Ok "image/apng"
-    | ".avif" -> Ok "image/avif"
-    | ".bmp" -> Ok "image/bmp"
-    | ".gif" -> Ok "image/gif"
-    | ".png" -> Ok "image/png"
-    | ".svg" -> Ok "image/svg+xml"
-    | ".tif" | ".tiff" -> Ok "image/tiff"
-    | ".webp" -> Ok "image/webp"
-    | given ->
-      Yocaml.Data.Validation.fail_with ~given "Unknowm mime/type for image")
+let extract_extension x =
+  match String.lowercase_ascii @@ Url.extension x with
+  | ".jpg" | ".jpeg" -> Ok "image/jpeg"
+  | ".apng" -> Ok "image/apng"
+  | ".avif" -> Ok "image/avif"
+  | ".bmp" -> Ok "image/bmp"
+  | ".gif" -> Ok "image/gif"
+  | ".png" -> Ok "image/png"
+  | ".svg" -> Ok "image/svg+xml"
+  | ".tif" | ".tiff" -> Ok "image/tiff"
+  | ".webp" -> Ok "image/webp"
+  | given ->
+    Yocaml.Data.Validation.fail_with ~given "Unknowm mime/type for image"
+;;
+
+let mime_type = Yocaml.Data.Validation.(Url.validate & extract_extension)
+
+let as_plain_url url =
+  let open Yocaml.Data.Validation in
+  let* url = Url.validate url in
+  let+ ext = extract_extension url in
+  { url; mime_type = ext; width = None; height = None; alt = None }
 ;;
 
 let validate =
   let open Yocaml.Data.Validation in
-  record (fun fields ->
+  as_plain_url
+  / record (fun fields ->
     let+ url = required fields "url" Url.validate
     and+ mime_type = required fields "url" mime_type
     and+ width = optional fields "width" int

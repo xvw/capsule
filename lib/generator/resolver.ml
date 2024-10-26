@@ -20,6 +20,7 @@ module Make (R : Intf.RESOLVABLE) = struct
     let indexes = Path.(content / "indexes")
     let pages = Path.(content / "pages")
     let addresses = Path.(content / "addresses")
+    let galleries = Path.(content / "galleries")
     let maps = Path.(content / "maps")
     let deps = [ binary; configuration ]
     let template file = Path.(templates / file)
@@ -39,6 +40,10 @@ module Make (R : Intf.RESOLVABLE) = struct
     let as_html file = file |> Path.change_extension "html"
     let as_index file = file |> as_html |> Path.move ~into:(Path.rel [])
     let as_page file = file |> as_html |> Path.move ~into:(Path.rel [ "pages" ])
+
+    let as_gallery file =
+      file |> as_html |> Path.move ~into:(Path.rel [ "galleries" ])
+    ;;
 
     let as_address file =
       file |> as_html |> Path.move ~into:(Path.rel [ "addresses" ])

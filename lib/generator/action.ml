@@ -74,10 +74,25 @@ let process_misc_files (module R : Intf.RESOLVER) =
         (Yocaml.Action.copy_file ~into:R.Target.root)
 ;;
 
+let layout_arrow
+  (type a)
+  (module A : Archetype.Types.ARCHETYPE with type t = a)
+  (module R : Intf.RESOLVER)
+  =
+  let open Yocaml.Task in
+  Yocaml_jingoo.Pipeline.as_template
+    (module A)
+    (R.Source.template "page-header.html")
+  >>> Yocaml_jingoo.Pipeline.as_template
+        (module A)
+        (R.Source.template "layout.html")
+;;
+
 let page_arrow
   (type a)
   (module A : Archetype.Types.ARCHETYPE with type t = a)
   (module R : Intf.RESOLVER)
+  template
   kind
   config
   source
@@ -88,9 +103,7 @@ let page_arrow
   >>> Yocaml_yaml.Pipeline.read_file_with_metadata (module A.Input) source
   >>> A.full_configure ~config ~source ~target ~kind ~on_synopsis:md_to_html
   >>> Yocaml_cmarkit.content_to_html_with_toc ~strict:false A.table_of_content
-  >>> Yocaml_jingoo.Pipeline.as_template
-        (module A)
-        (R.Source.template "page.html")
+  >>> Yocaml_jingoo.Pipeline.as_template (module A) (R.Source.template template)
 ;;
 
 let process_page (module R : Intf.RESOLVER) config source =
@@ -99,10 +112,15 @@ let process_page (module R : Intf.RESOLVER) config source =
   Yocaml.Action.Static.write_file_with_metadata
     (R.Target.promote target)
     Yocaml.Task.(
-      page_arrow (module Archetype.Page) (module R) kind config source target
-      >>> Yocaml_jingoo.Pipeline.as_template
-            (module Archetype.Page)
-            (R.Source.template "layout.html"))
+      page_arrow
+        (module Archetype.Page)
+        (module R)
+        "page.html"
+        kind
+        config
+        source
+        target
+      >>> layout_arrow (module Archetype.Page) (module R))
 ;;
 
 let process_address (module R : Intf.RESOLVER) config source =
@@ -111,13 +129,35 @@ let process_address (module R : Intf.RESOLVER) config source =
   Yocaml.Action.Static.write_file_with_metadata
     (R.Target.promote target)
     Yocaml.Task.(
-      page_arrow (module Archetype.Address) (module R) kind config source target
+      page_arrow
+        (module Archetype.Address)
+        (module R)
+        "page.html"
+        kind
+        config
+        source
+        target
       >>> Yocaml_jingoo.Pipeline.as_template
             (module Archetype.Address)
             (R.Source.template "address.html")
-      >>> Yocaml_jingoo.Pipeline.as_template
-            (module Archetype.Address)
-            (R.Source.template "layout.html"))
+      >>> layout_arrow (module Archetype.Address) (module R))
+;;
+
+let process_gallery (module R : Intf.RESOLVER) config source =
+  let target = R.Target.as_gallery source in
+  let kind = Model.Types.Article in
+  Yocaml.Action.Static.write_file_with_metadata
+    (R.Target.promote target)
+    Yocaml.Task.(
+      page_arrow
+        (module Archetype.Gallery)
+        (module R)
+        "gallery.html"
+        kind
+        config
+        source
+        target
+      >>> layout_arrow (module Archetype.Gallery) (module R))
 ;;
 
 let process_index (module R : Intf.RESOLVER) config source =
@@ -126,13 +166,18 @@ let process_index (module R : Intf.RESOLVER) config source =
   Yocaml.Action.Static.write_file_with_metadata
     (R.Target.promote target)
     Yocaml.Task.(
-      page_arrow (module Archetype.Page) (module R) kind config source target
+      page_arrow
+        (module Archetype.Page)
+        (module R)
+        "page.html"
+        kind
+        config
+        source
+        target
       >>> Yocaml_jingoo.Pipeline.as_template
             (module Archetype.Page)
             (R.Source.template "index.html")
-      >>> Yocaml_jingoo.Pipeline.as_template
-            (module Archetype.Page)
-            (R.Source.template "layout.html"))
+      >>> layout_arrow (module Archetype.Page) (module R))
 ;;
 
 let process_pages (module R : Intf.RESOLVER) config =
@@ -157,6 +202,14 @@ let process_addresses (module R : Intf.RESOLVER) config =
     ~where:File.is_markdown
     R.Source.addresses
     (process_address (module R) config)
+;;
+
+let process_galleries (module R : Intf.RESOLVER) config =
+  Yocaml.Action.batch
+    ~only:`Files
+    ~where:File.is_markdown
+    R.Source.galleries
+    (process_gallery (module R) config)
 ;;
 
 let process_feed (module R : Intf.RESOLVER) config context =
@@ -189,6 +242,7 @@ let run (module R : Intf.RESOLVER) () =
   >>= process_pages (module R) config
   >>= process_indexes (module R) config
   >>= process_addresses (module R) config
+  >>= process_galleries (module R) config
   >>= process_feed (module R) config context
   >>= Yocaml.Action.store_cache ~on:`Source R.Target.cache
 ;;
