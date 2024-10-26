@@ -13,13 +13,15 @@ class t
   ~tags
   ~breadcrumb
   ~indexes
-  ~display_toc =
+  ~display_toc
+  ~notes =
   object (_ : #Types.common)
     val toc_value = None
     val description_value = description
     val synopsis_value = synopsis
     val indexes_value = indexes
     val document_kind_value = document_kind
+    val temporal_notes = notes
     method document_kind = document_kind_value
     method page_title = title
     method page_charset = charset
@@ -34,10 +36,15 @@ class t
     method indexes = indexes_value
     method display_toc = display_toc
     method toc = toc_value
+    method notes = temporal_notes
     method with_toc new_toc = {<toc_value = new_toc>}
     method on_description f = {<description_value = f description_value>}
     method on_synopsis f = {<synopsis_value = f synopsis_value>}
     method on_index f = {<indexes_value = Model.Indexes.map f indexes_value>}
+
+    method on_notes f =
+      {<temporal_notes = Model.Temporal_note.on_messages f temporal_notes>}
+
     method on_document_kind f = {<document_kind_value = f document_kind_value>}
   end
 
@@ -78,7 +85,10 @@ let validate fields =
       fields
       "indexes"
       Model.Indexes.validate
-  and+ display_toc = optional_or fields ~default:false "display_toc" bool in
+  and+ display_toc = optional_or fields ~default:false "display_toc" bool
+  and+ notes =
+    optional_or fields ~default:[] "notes" Model.Temporal_note.validate
+  in
   new t
     ~title
     ~document_kind
@@ -93,6 +103,7 @@ let validate fields =
     ~breadcrumb
     ~indexes
     ~display_toc
+    ~notes
 ;;
 
 let pseudo_og obj =
@@ -153,6 +164,7 @@ let normalize obj =
   ; "breadcrumb", list_of Model.Link.normalize obj#breadcrumb
   ; "indexes", Model.Indexes.normalize obj#indexes
   ; "cover", option Model.Cover.normalize obj#cover
+  ; "notes", Model.Temporal_note.normalize obj#notes
   ; "toc", option string obj#toc
   ; "has_section", exists_from_opt obj#section
   ; "has_toc", bool (obj#display_toc && Option.is_some obj#toc)
@@ -161,6 +173,7 @@ let normalize obj =
   ; "has_cover", exists_from_opt obj#cover
   ; "has_breadcrumb", exists_from_list obj#breadcrumb
   ; "has_indexes", exists_from_list obj#indexes
+  ; "has_notes", exists_from_list obj#notes
   ; "has_published_date", exists_from_opt obj#published_at
   ; "has_updated_date", exists_from_opt obj#updated_at
   ; ( "has_publication_date"

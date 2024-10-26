@@ -22,6 +22,8 @@ indexes:
           url: /atom.xml
         - title: Flux des articles
           url: /pages.xml
+        - title: Flux des adresses (et critiques)
+          url: /addresses.xml
   - name: Réseaux sociaux
     synopsis:
       Même si j'essaie de centraliser un maximum de contenu sur 

@@ -10,6 +10,21 @@
 </div>
 {%- endif -%}
 
+{%- if has_notes -%}
+<div class="temporal-notes">
+  {%- for note in notes -%}
+  <div>
+    <time datetime="{{ note.when.repr.datetime}}">{{ note.when.repr.date }}</time>
+    <div>
+        {%- autoescape false -%}
+        {{ note.message }}
+        {%- endautoescape -%}
+    </div>
+  </div>
+  {%- endfor -%}
+</div>
+{%- endif -%}
+
 <article class="synopsis">
   {%- autoescape false -%}
   {{ synopsis }}

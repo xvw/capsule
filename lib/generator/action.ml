@@ -19,6 +19,14 @@ let process_images (module R : Intf.RESOLVER) =
   batch R.Source.images >=> batch R.Source.content_images
 ;;
 
+let process_maps (module R : Intf.RESOLVER) =
+  Yocaml.Action.batch
+    ~only:`Files
+    ~where:File.is_image
+    R.Source.maps
+    (Yocaml.Action.copy_file ~into:R.Target.maps)
+;;
+
 let process_d2_diagrams (module R : Intf.RESOLVER) =
   Yocaml.Action.batch ~only:`Files ~where:File.is_d2 R.Source.d2 (fun source ->
     let target = R.Target.as_diagram source in
@@ -175,6 +183,7 @@ let run (module R : Intf.RESOLVER) () =
   >>= process_css (module R)
   >>= process_images (module R)
   >>= process_d2_diagrams (module R)
+  >>= process_maps (module R)
   >>= process_js (module R)
   >>= process_misc_files (module R)
   >>= process_pages (module R) config

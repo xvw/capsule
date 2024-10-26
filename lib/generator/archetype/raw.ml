@@ -42,6 +42,7 @@ module Output = struct
           ~indexes:input#indexes
           ~tags:input#tags
           ~display_toc:input#display_toc
+          ~notes:input#notes
 
       method configuration = config
       method source_path = source_path
@@ -53,7 +54,8 @@ module Output = struct
   ;;
 
   let on_synopsis f output =
-    (output#on_synopsis f)#on_index (Model.Index.map_synopsis (Option.map f))
+    ((output#on_synopsis f)#on_notes f)#on_index
+      (Model.Index.map_synopsis (Option.map f))
   ;;
 
   let define_document_kind kind output = output#on_document_kind (fun _ -> kind)

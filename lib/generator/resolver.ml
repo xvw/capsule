@@ -20,6 +20,7 @@ module Make (R : Intf.RESOLVABLE) = struct
     let indexes = Path.(content / "indexes")
     let pages = Path.(content / "pages")
     let addresses = Path.(content / "addresses")
+    let maps = Path.(content / "maps")
     let deps = [ binary; configuration ]
     let template file = Path.(templates / file)
   end
@@ -33,6 +34,7 @@ module Make (R : Intf.RESOLVABLE) = struct
     let js = Path.(R.target / "js")
     let fonts = Path.(R.target / "fonts")
     let images = Path.(R.target / "images")
+    let maps = Path.(images / "maps")
     let tags = Path.(R.target / "tags")
     let as_html file = file |> Path.change_extension "html"
     let as_index file = file |> as_html |> Path.move ~into:(Path.rel [])

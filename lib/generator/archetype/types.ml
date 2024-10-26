@@ -24,11 +24,13 @@ class type common = object ('a)
   method indexes : Model.Indexes.t
   method tags : string list
   method display_toc : bool
+  method notes : Model.Temporal_note.t
   method toc : string option
   method with_toc : string option -> 'a
   method on_description : (string option -> string option) -> 'a
   method on_synopsis : (string -> string) -> 'a
   method on_index : (Model.Index.t -> Model.Index.t) -> 'a
+  method on_notes : (string -> string) -> 'a
 
   method on_document_kind :
     (Model.Types.document_kind -> Model.Types.document_kind) -> 'a

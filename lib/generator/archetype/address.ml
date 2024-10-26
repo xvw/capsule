@@ -4,6 +4,7 @@ type 'a addr =
   ; city : string
   ; zipcode : string
   ; address : string
+  ; osm_image : Model.Url.t option
   }
 
 module Input = struct
@@ -21,8 +22,9 @@ module Input = struct
         let+ country = required fields "country" string
         and+ city = required fields "city" string
         and+ zipcode = required fields "zipcode" string
-        and+ address = required fields "address" string in
-        { page; country; city; zipcode; address })
+        and+ address = required fields "address" string
+        and+ osm_image = optional fields "osm_image" Model.Url.validate in
+        { page; country; city; zipcode; address; osm_image })
       obj
   ;;
 end
@@ -42,7 +44,7 @@ let uri_address country city zipcode address =
     zipcode
 ;;
 
-let normalize { page; country; city; zipcode; address } =
+let normalize { page; country; city; zipcode; address; osm_image } =
   let open Yocaml.Data in
   Raw.Output.normalize page
   @ [ "country", string country
@@ -50,6 +52,8 @@ let normalize { page; country; city; zipcode; address } =
     ; "zipcode", string zipcode
     ; "address", string address
     ; "address_uri", string @@ uri_address country city zipcode address
+    ; "osm_image", option Model.Url.normalize osm_image
+    ; "has_osm_image", Model.Model_util.exists_from_opt osm_image
     ]
 ;;
 

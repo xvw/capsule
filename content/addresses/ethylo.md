@@ -1,6 +1,7 @@
 ---
 page_title: Ethylo
 display_toc: false
+osm_image: ethylo.png
 country: Belgique
 city: Bruxelles
 zipcode: "1030"
@@ -12,6 +13,7 @@ section: bar
 tags: [bar, alcool, cocktail, schaerbeek]
 display_toc: false
 published_at: 2022-11-07
+updated_at: 2023-12-16
 synopsis:
   Situé à l'intersection de la 
   [Rue Josse Impens](https://fr.wikipedia.org/wiki/Rue_Josse_Impens)
@@ -25,6 +27,26 @@ breadcrumb:
     url: /bars.html
   - title: Bruxelles
     url: /bars.html#index-bruxelles
+notes:
+  - when: 2023-12-16
+    message:
+      Même si l'Ethylo était une superbe aventure, le concept décrit
+      dans cette critique a malheureusement fermé le 16 Décembre
+      2023, l'établissement a 
+      [été repris](https://www.instagram.com/p/C1m2-00tTWV/) et je
+      serai ravi de tester la nouvelle mouture !
+  - when: 2023-11-02
+    message:
+      _Tips_, la mascotte de l'Ethylo nous a quittés.
+indexes:
+  - name: Liens
+    links:
+        - title: Instagram
+          url: https://www.instagram.com/ethylo_cocktailbar/
+        - title: Facebook
+          url: https://www.facebook.com/ethylococktailbar/
+        - title: TripAdvisor
+          url: https://www.tripadvisor.fr/Restaurant_Review-g950786-d17520620-Reviews-Ethylo_Bar-Schaerbeek_Brussels.html
 ---
 
 > Comme toute rencontre démarre souvent de zéro (ou de _rien_, pour

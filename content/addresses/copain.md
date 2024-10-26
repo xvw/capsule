@@ -1,6 +1,7 @@
 ---
 page_title: Copain
 display_toc: false
+osm_image: copain.png
 country: Belgique
 city: Bruxelles
 zipcode: "1030"
@@ -25,6 +26,20 @@ breadcrumb:
     url: /bars.html
   - title: Bruxelles
     url: /bars.html#index-bruxelles
+    
+indexes:
+  - name: Liens
+    links:
+        - title: Site Officiel
+          url: https://copain.brussels/en
+        - title: Instagram
+          url: https://www.instagram.com/copain.bar
+        - title: Facebook
+          url: https://www.facebook.com/copaindebar
+        - title: Yelp
+          url: https://www.yelp.com/biz/copain-schaerbeek
+        - title: TripAdvisor
+          url: https://www.tripadvisor.com/Restaurant_Review-g950786-d12789860-Reviews-Copain-Schaerbeek_Brussels.html
 ---
 
 > Ma première experience avec Copain, à l'époque (2018), ce nouveau

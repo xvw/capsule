@@ -1,6 +1,7 @@
 ---
 page_title: Le Wappers
 display_toc: false
+osm_image: wappers.png
 country: Belgique
 city: Bruxelles
 zipcode: "1030"
@@ -27,6 +28,13 @@ breadcrumb:
     url: /bars.html
   - title: Bruxelles
     url: /bars.html#index-bruxelles
+indexes:
+  - name: Liens
+    links:
+        - title: Instagram
+          url: https://www.instagram.com/lewappers/
+        - title: Facebook
+          url: https://www.facebook.com/LeWappers/
 ---
 
 > Contrairement à Romain, de [l'Ethylo](/addresses/ethylo.html), je ne

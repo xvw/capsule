@@ -12,6 +12,7 @@ class t :
   -> breadcrumb:Model.Link.t list
   -> indexes:Model.Indexes.t
   -> display_toc:bool
+  -> notes:Model.Temporal_note.t
   -> Types.common
 
 val validate
