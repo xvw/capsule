@@ -48,6 +48,7 @@ module type RESOLVER = sig
       val pages : Yocaml.Path.t
       val general : Yocaml.Path.t
       val addresses : Yocaml.Path.t
+      val galleries : Yocaml.Path.t
       val tag : string -> Yocaml.Path.t
     end
   end

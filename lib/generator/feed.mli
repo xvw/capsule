@@ -23,6 +23,12 @@ val atom_for_addresses
   -> t
   -> Yocaml.Action.t
 
+val atom_for_galleries
+  :  (module Intf.RESOLVER)
+  -> Archetype.Config.t
+  -> t
+  -> Yocaml.Action.t
+
 val atom_for_tags
   :  (module Intf.RESOLVER)
   -> Archetype.Config.t

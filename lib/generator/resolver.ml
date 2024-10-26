@@ -57,6 +57,7 @@ module Make (R : Intf.RESOLVABLE) = struct
       let general = Path.(R.target / "atom.xml")
       let pages = Path.(R.target / "pages.xml")
       let addresses = Path.(R.target / "addresses.xml")
+      let galleries = Path.(R.target / "galleries.xml")
       let tag name = Path.(tags / name) |> Path.add_extension "xml"
     end
   end

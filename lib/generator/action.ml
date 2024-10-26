@@ -217,6 +217,7 @@ let process_feed (module R : Intf.RESOLVER) config context =
   Feed.atom_for_entries (module R) config context
   >=> Feed.atom_for_pages (module R) config context
   >=> Feed.atom_for_addresses (module R) config context
+  >=> Feed.atom_for_galleries (module R) config context
   >=> Feed.atom_for_tags (module R) config context
 ;;
 
