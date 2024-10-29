@@ -5,6 +5,7 @@ type t =
   ; addresses : Model.Entry.t list
   ; entries : Model.Entry.t list
   ; galleries : Model.Entry.t list
+  ; journal_entries : Model.Entry.t list
   ; by_tags : Model.Entry.t list M.t
   }
 
@@ -53,9 +54,10 @@ let compute_map_from_tags source m =
 let sort_entries = List.sort Model.Entry.rev_compare
 let sort_map m = M.map sort_entries m
 
-let build_context pages addresses galleries =
-  let entries = pages @ addresses @ galleries in
+let build_context pages addresses galleries journal_entries =
+  let entries = pages @ addresses @ galleries @ journal_entries in
   { pages = sort_entries pages
+  ; journal_entries = sort_entries journal_entries
   ; galleries = sort_entries galleries
   ; addresses = sort_entries addresses
   ; entries = sort_entries entries
@@ -95,7 +97,17 @@ let make (module P : Yocaml.Required.DATA_PROVIDER) (module R : Intf.RESOLVER) =
       ~compute_link:R.Target.as_gallery
       R.Source.galleries
   in
-  return @@ build_context pages addresses galleries
+  let* journal_entries =
+    from_source
+      (module P)
+      (module Archetype.Journal.Input)
+      ~on:`Source
+      ~where:File.is_markdown
+      ~to_entry:Archetype.Journal.Input.to_entry
+      ~compute_link:R.Target.as_journal_entry
+      R.Source.journal_entries
+  in
+  return @@ build_context pages addresses galleries journal_entries
 ;;
 
 let configure_feed config id title =
@@ -121,7 +133,12 @@ let atom_for_entries (module R : Intf.RESOLVER) config { entries; _ } =
   Yocaml.Action.Static.write_file
     R.Target.Atom.general
     (let open Yocaml.Task in
-     Yocaml.Pipeline.track_file R.Source.pages
+     Yocaml.Pipeline.track_files
+       [ R.Source.pages
+       ; R.Source.addresses
+       ; R.Source.galleries
+       ; R.Source.journal_entries
+       ]
      >>> R.track_common_deps
      >>> const entries
      >>> configure_feed config "feed" "Fil complet d'actualité")
@@ -141,7 +158,7 @@ let atom_for_addresses (module R : Intf.RESOLVER) config { addresses; _ } =
   Yocaml.Action.Static.write_file
     R.Target.Atom.addresses
     (let open Yocaml.Task in
-     Yocaml.Pipeline.track_file R.Source.pages
+     Yocaml.Pipeline.track_file R.Source.addresses
      >>> R.track_common_deps
      >>> const addresses
      >>> configure_feed config "adresses" "Critiques d'adresses")
@@ -151,10 +168,20 @@ let atom_for_galleries (module R : Intf.RESOLVER) config { galleries; _ } =
   Yocaml.Action.Static.write_file
     R.Target.Atom.galleries
     (let open Yocaml.Task in
-     Yocaml.Pipeline.track_file R.Source.pages
+     Yocaml.Pipeline.track_file R.Source.galleries
      >>> R.track_common_deps
      >>> const galleries
      >>> configure_feed config "galeries" "galeries de dessin/photo")
+;;
+
+let atom_for_journal (module R : Intf.RESOLVER) config { journal_entries; _ } =
+  Yocaml.Action.Static.write_file
+    R.Target.Atom.journal
+    (let open Yocaml.Task in
+     Yocaml.Pipeline.track_file R.Source.journal_entries
+     >>> R.track_common_deps
+     >>> const journal_entries
+     >>> configure_feed config "journal" "entrées du journal")
 ;;
 
 let atom_for_tags (module R : Intf.RESOLVER) config { by_tags; _ } =

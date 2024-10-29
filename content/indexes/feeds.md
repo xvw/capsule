@@ -26,6 +26,8 @@ indexes:
           url: /addresses.xml
         - title: Flux des galeries
           url: /galleries.xml
+        - title: Flux du journal
+          url: /journal.xml
   - name: Réseaux sociaux
     synopsis:
       Même si j'essaie de centraliser un maximum de contenu sur 

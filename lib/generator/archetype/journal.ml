@@ -68,10 +68,10 @@ module Input = struct
     Model.Entry.make
       ~title
       ~content_url:url
-      ~tags:jrnl.page.tags
+      ~tags:dt.page.tags
       ~summary
       ~file
-      ~datetime:jrnl.datetime
+      ~datetime:dt.datetime
       ()
   ;;
 end

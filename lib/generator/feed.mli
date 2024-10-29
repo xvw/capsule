@@ -29,6 +29,12 @@ val atom_for_galleries
   -> t
   -> Yocaml.Action.t
 
+val atom_for_journal
+  :  (module Intf.RESOLVER)
+  -> Archetype.Config.t
+  -> t
+  -> Yocaml.Action.t
+
 val atom_for_tags
   :  (module Intf.RESOLVER)
   -> Archetype.Config.t
