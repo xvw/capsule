@@ -21,6 +21,7 @@ module Make (R : Intf.RESOLVABLE) = struct
     let pages = Path.(content / "pages")
     let addresses = Path.(content / "addresses")
     let galleries = Path.(content / "galleries")
+    let journal_entries = Path.(content / "journal")
     let maps = Path.(content / "maps")
     let deps = [ binary; configuration ]
     let template file = Path.(templates / file)
@@ -41,6 +42,10 @@ module Make (R : Intf.RESOLVABLE) = struct
     let as_index file = file |> as_html |> Path.move ~into:(Path.rel [])
     let as_page file = file |> as_html |> Path.move ~into:(Path.rel [ "pages" ])
 
+    let as_journal_entry file =
+      file |> as_html |> Path.move ~into:(Path.rel [ "journal" ])
+    ;;
+
     let as_gallery file =
       file |> as_html |> Path.move ~into:(Path.rel [ "galleries" ])
     ;;
@@ -58,6 +63,7 @@ module Make (R : Intf.RESOLVABLE) = struct
       let pages = Path.(R.target / "pages.xml")
       let addresses = Path.(R.target / "addresses.xml")
       let galleries = Path.(R.target / "galleries.xml")
+      let journal = Path.(R.target / "journal.xml")
       let tag name = Path.(tags / name) |> Path.add_extension "xml"
     end
   end

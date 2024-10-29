@@ -9,7 +9,7 @@
     <h2>Localisation</h2>
     <a href="https://nominatim.openstreetmap.org/ui/search.html?{{ address_uri }}">
       {%- if has_osm_image -%}
-      <img src="/images/maps/{{ osm_image.url }}" alt="Carte {{ addr_repr }}">
+      <img src="{{ osm_image.url }}" alt="Carte {{ addr_repr }}">
       {%- endif -%}
       <span>{{ addr_repr }}</span>
     </a>

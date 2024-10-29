@@ -52,7 +52,12 @@ let normalize { page; country; city; zipcode; address; osm_image } =
     ; "zipcode", string zipcode
     ; "address", string address
     ; "address_uri", string @@ uri_address country city zipcode address
-    ; "osm_image", option Model.Url.normalize osm_image
+    ; ( "osm_image"
+      , option
+          Model.Url.normalize
+          (Option.map
+             (Model.Url.relocate ~into:(Yocaml.Path.abs [ "images"; "maps" ]))
+             osm_image) )
     ; "has_osm_image", Model.Model_util.exists_from_opt osm_image
     ]
 ;;

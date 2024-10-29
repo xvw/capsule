@@ -44,7 +44,7 @@ body {
     & > main > div,
     & > header > div,
     & > footer > div {
-        width: min(960px, 100%);
+        width: min(980px, 100%);
         margin: 0 auto;
         padding: 0.2rem 1.2rem;
     }
@@ -211,7 +211,7 @@ body {
         margin-bottom: 1rem;
     }
 
-    & > article {
+    & article {
         margin-top: 2rem;
         margin-bottom: 4rem;
 
@@ -460,6 +460,60 @@ section.indexes {
     
 }
 
+section.journal-entry {
+    margin: 4rem 0;
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    border-bottom: 1px solid var(--light-color);
+
+    & > .sidebar {
+        flex: 2;
+    }
+
+
+    & > .content {
+        flex: 6;
+        margin-bottom: 4rem;
+
+        & .cover {
+            width: 100%;
+            display: bloc;
+            margin-bottom: 2rem;
+        }
+
+        & .details {
+            font-size: 80%;
+            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.2rem;
+
+            & h3 {
+                text-transform: uppercase;
+            }
+
+            & .index p {
+                font-family: var(--font-sans-serif);
+                margin-bottom: 1rem;
+            }
+
+            & nav > ul > li > a {
+                font-family: var(--font-sans-serif);
+            }
+        }
+    }
+    
+}
+
+section.journal-entry:last-child {
+    border-bottom: 0px solid var(--light-color);
+
+    & .details {
+        margin-bottom: 0;
+    }
+}
+
 section.gallery-meta {
     margin: 4rem 0;
     display: flex;
@@ -488,7 +542,7 @@ section.gallery-meta {
 
         & .cover {
             width: 100%;
-            margin: 2rem 0;
+            margin-bottom: 2rem;
         }
     }
 }
@@ -621,6 +675,33 @@ h6 {
     color: var(--lightest-color);
     font-family: var(--font-sans-serif);
     text-decoration: none;
+}
+
+.kv {
+    & > div {
+        display: flex;
+        flex-direction: row;
+        gap: 0.2rem;
+        margin-bottom: 0.3rem;
+        font-family: var(--font-sans-serif);
+
+        & > span {
+            flex: 1;
+            padding: 0.3rem;
+        }
+
+        & > span:first-child {
+            background-color: var(--light-color);
+            text-align: right;
+            font-weight: 700;
+        }
+
+        & > div:last-child {
+            margin-bottom: 0;
+     }
+
+        
+    }
 }
 
 

@@ -1,3 +1,9 @@
+<article class="synopsis">
+  {%- autoescape false -%}
+  {{ synopsis }}
+  {%- endautoescape -%}
+</article>
+
 <section class="gallery-meta">
   <div class="sidebar">
     {%- if has_indexes -%}
@@ -12,6 +18,7 @@
     </nav>
     {%- endfor -%}
     {%- endif -%}
+    {%- if has_tags -%}
     <nav class="nav-enum">
       <h3>Tags</h3>
       <ul class="without-padding">
@@ -20,6 +27,7 @@
         {%- endfor -%}
       </ul>
     </nav>
+    {%- endif -%}
   </div>
   <div class="content">
     {%- if has_cover -%}

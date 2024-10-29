@@ -147,6 +147,15 @@ let resolve source target =
   | _ -> target (* do not resolve target if target are not resolvable. *)
 ;;
 
+let relocate ~into = function
+  | External _ as p -> p
+  | Internal x ->
+    let path = Yocaml.Path.relocate ~into x in
+    Internal path
+;;
+
+let on_root = relocate ~into:Yocaml.Path.root
+
 let extension = function
   | Internal path -> Yocaml.Path.extension path
   | External (_, k) -> Filename.extension k

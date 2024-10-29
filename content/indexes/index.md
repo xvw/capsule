@@ -44,6 +44,8 @@ indexes:
     synopsis:
       Pages personnelles, ou en rapport direct avec ce site web.
     links:
+        - title: Journal
+          url: /journal
         - title: Flux de nouvelles
           url: /feeds.html
         - title: Colophon

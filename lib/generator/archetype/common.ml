@@ -166,6 +166,7 @@ let normalize obj =
   ; "cover", option Model.Cover.normalize obj#cover
   ; "notes", Model.Temporal_note.normalize obj#notes
   ; "toc", option string obj#toc
+  ; "has_tags", exists_from_list obj#tags
   ; "has_section", exists_from_opt obj#section
   ; "has_toc", bool (obj#display_toc && Option.is_some obj#toc)
   ; "has_page_charset", exists_from_opt obj#page_charset

@@ -11,3 +11,5 @@ val get_url : ?with_scheme:bool -> t -> string
 val resolve : t -> t -> t
 val extension : t -> string
 val to_string : t -> string
+val on_root : t -> t
+val relocate : into:Yocaml.Path.t -> t -> t

@@ -2,7 +2,7 @@ type elt =
   { id : string
   ; name : string
   ; desc : string option
-  ; meta : Model.Key_value.String.t
+  ; kv : Model.Key_value.String.t
   ; links : Model.Link.t list
   ; url : Model.Url.t
   ; url_tb : Model.Url.t option
@@ -30,14 +30,14 @@ module Input = struct
       and+ url_tb = optional fields "url_tb" Model.Url.validate
       and+ links =
         optional_or ~default:[] fields "links" (list_of Model.Link.validate)
-      and+ meta =
+      and+ kv =
         optional_or
           ~default:Model.Key_value.String.empty
           fields
-          "meta"
+          "kv"
           Model.Key_value.String.validate
       in
-      { id; name; desc; meta; links; url; url_tb })
+      { id; name; desc; kv; links; url; url_tb })
   ;;
 
   let validate obj =
@@ -55,7 +55,7 @@ end
 
 type t = Raw.Output.t gallery
 
-let normalize_elt { id; name; desc; meta; links; url; url_tb } =
+let normalize_elt { id; name; desc; kv; links; url; url_tb } =
   let open Yocaml.Data in
   let url = Model.Url.normalize url in
   let tb = Std.Option.(Model.Url.normalize <$> url_tb || url) in
@@ -63,12 +63,12 @@ let normalize_elt { id; name; desc; meta; links; url; url_tb } =
     [ "id", string id
     ; "name", string name
     ; "desc", option string desc
-    ; "meta", Model.Key_value.String.normalize meta
+    ; "kv", Model.Key_value.String.normalize kv
     ; "links", (list_of Model.Link.normalize) links
     ; "url", url
     ; "url_tb", tb
     ; "has_desc", Model.Model_util.exists_from_opt desc
-    ; "has_meta", Model.Key_value.String.has_elements meta
+    ; "has_kv", Model.Key_value.String.has_elements kv
     ; "has_links", Model.Model_util.exists_from_list links
     ]
 ;;

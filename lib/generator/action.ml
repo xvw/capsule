@@ -89,8 +89,8 @@ let layout_arrow
 ;;
 
 let page_arrow
-  (type a)
-  (module A : Archetype.Types.ARCHETYPE with type t = a)
+  (type a b)
+  (module A : Archetype.Types.ARCHETYPE with type t = a and type Input.t = b)
   (module R : Intf.RESOLVER)
   template
   kind
@@ -160,6 +160,23 @@ let process_gallery (module R : Intf.RESOLVER) config source =
       >>> layout_arrow (module Archetype.Gallery) (module R))
 ;;
 
+let process_journal_entry (module R : Intf.RESOLVER) config source =
+  let target = R.Target.as_journal_entry source in
+  let kind = Model.Types.Article in
+  Yocaml.Action.Static.write_file_with_metadata
+    (R.Target.promote target)
+    Yocaml.Task.(
+      page_arrow
+        (module Archetype.Journal)
+        (module R)
+        "journal-entry.html"
+        kind
+        config
+        source
+        target
+      >>> layout_arrow (module Archetype.Journal) (module R))
+;;
+
 let process_index (module R : Intf.RESOLVER) config source =
   let target = R.Target.as_index source in
   let kind = Model.Types.Index in
@@ -212,6 +229,14 @@ let process_galleries (module R : Intf.RESOLVER) config =
     (process_gallery (module R) config)
 ;;
 
+let process_journal_entries (module R : Intf.RESOLVER) config =
+  Yocaml.Action.batch
+    ~only:`Files
+    ~where:File.is_markdown
+    R.Source.journal_entries
+    (process_journal_entry (module R) config)
+;;
+
 let process_feed (module R : Intf.RESOLVER) config context =
   let open Yocaml.Eff in
   Feed.atom_for_entries (module R) config context
@@ -244,6 +269,7 @@ let run (module R : Intf.RESOLVER) () =
   >>= process_indexes (module R) config
   >>= process_addresses (module R) config
   >>= process_galleries (module R) config
+  >>= process_journal_entries (module R) config
   >>= process_feed (module R) config context
   >>= Yocaml.Action.store_cache ~on:`Source R.Target.cache
 ;;
