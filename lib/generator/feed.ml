@@ -6,8 +6,10 @@ type t =
   ; entries : Model.Entry.t list
   ; galleries : Model.Entry.t list
   ; journal_entries : Model.Entry.t list
+  ; journal_meta : Archetype.Journal.Input.t list
   ; by_tags : Model.Entry.t list M.t
   }
+[@@ocaml.warning "-69"]
 
 let from_source
   (type a)
@@ -34,6 +36,36 @@ let from_source
   elements
 ;;
 
+let journal_entries
+  (module P : Yocaml.Required.DATA_PROVIDER)
+  (module R : Intf.RESOLVER)
+  =
+  let open Yocaml.Eff in
+  let* files =
+    read_directory
+      ~on:`Source
+      ~only:`Files
+      ~where:File.is_markdown
+      R.Source.journal_entries
+  in
+  let+ elements =
+    List.traverse
+      (fun file ->
+        let url = R.Target.as_journal_entry file in
+        let+ metadata, _content =
+          read_file_with_metadata
+            (module P)
+            (module Archetype.Journal.Input)
+            ~on:`Source
+            file
+        in
+        let metadata = Archetype.Journal.replace_datetime ~file metadata in
+        metadata, Archetype.Journal.Input.to_entry ~file ~url metadata)
+      files
+  in
+  elements |> Stdlib.List.split
+;;
+
 let compute_map_from_tags source m =
   List.fold_left
     (fun m entry ->
@@ -54,10 +86,11 @@ let compute_map_from_tags source m =
 let sort_entries = List.sort Model.Entry.rev_compare
 let sort_map m = M.map sort_entries m
 
-let build_context pages addresses galleries journal_entries =
-  let entries = pages @ addresses @ galleries @ journal_entries in
+let build_context pages addresses galleries (jmeta, jentries) =
+  let entries = pages @ addresses @ galleries @ jentries in
   { pages = sort_entries pages
-  ; journal_entries = sort_entries journal_entries
+  ; journal_entries = sort_entries jentries
+  ; journal_meta = List.sort Archetype.Journal.rev_compare_input jmeta
   ; galleries = sort_entries galleries
   ; addresses = sort_entries addresses
   ; entries = sort_entries entries
@@ -97,16 +130,7 @@ let make (module P : Yocaml.Required.DATA_PROVIDER) (module R : Intf.RESOLVER) =
       ~compute_link:R.Target.as_gallery
       R.Source.galleries
   in
-  let* journal_entries =
-    from_source
-      (module P)
-      (module Archetype.Journal.Input)
-      ~on:`Source
-      ~where:File.is_markdown
-      ~to_entry:Archetype.Journal.Input.to_entry
-      ~compute_link:R.Target.as_journal_entry
-      R.Source.journal_entries
-  in
+  let* journal_entries = journal_entries (module P) (module R) in
   return @@ build_context pages addresses galleries journal_entries
 ;;
 

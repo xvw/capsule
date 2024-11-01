@@ -39,33 +39,45 @@
       {%- autoescape false -%}
       {{ yocaml_body }}
       {%- endautoescape -%}
-      <article>
-  </div>
-</section>
+    </article>
 
-{%- if has_elements -%}
-<section class="gallery">
-  {%- for image in elements -%}
-  <div id="image-{{ image.id}}">
-    <a href="{{ image.url.url }}">
-      <img alt="Image {{image.name}}" src="{{ image.url_tb.url }}"/>
-    </a>
-    <div class="desc">
-      <span class="title">{{ image.name }}</span>
-      {%- if image.has_desc -%}
-      <p>{{ image.desc }}</p>
-      {%- endif-%}
-      {%- if image.has_links -%}
-      <nav class="nav-enum">
-        <ul>
-          {%- for link in image.links -%}
-          <li><a href="{{ link.url.url }}">{{ link.title }}</a></li>
-          {%- endfor -%}
-        </ul>
-      </nav>
-      {%- endif-%}
-    </div>
+    
+    {%- if has_elements -%}
+    <section class="gallery">
+      {%- for image in elements -%}
+      <div id="image-{{ image.id}}">
+        <a href="{{ image.url.url }}">
+          <img alt="Image {{image.name}}" src="{{ image.url_tb.url }}"/>
+        </a>
+        <div class="desc">
+          <span class="title">{{ image.name }}</span>
+          {%- if image.has_desc -%}
+          <p>{{ image.desc }}</p>
+          {%- endif-%}
+          {%- if image.has_links -%}
+          <nav class="nav-enum">
+            <ul>
+              {%- for link in image.links -%}
+              <li><a href="{{ link.url.url }}">{{ link.title }}</a></li>
+              {%- endfor -%}
+            </ul>
+          </nav>
+          {%- endif-%}
+          {%- if image.has_kv -%}
+          <div class="kv">
+            {%- for elt in image.kv -%}
+            <div>
+              <span>{{ elt.key }}</span>
+              <span>{{ elt.value }}</span>
+            </div>
+            {%- endfor -%}
+          </div>
+          {%- endif-%}
+        </div>
+      </div>
+      {%- endfor -%}
+    </section>
+    {%- endif -%}
+
   </div>
-  {%- endfor -%}
 </section>
-{%- endif -%}

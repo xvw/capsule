@@ -33,6 +33,7 @@ body {
     & > footer {
         background-color: var(--darkest-color);
         color: var(--lightest-color);
+        margin-top: 4rem;
 
         & a:not(:has(svg)) {
             text-decoration: none;
@@ -44,7 +45,7 @@ body {
     & > main > div,
     & > header > div,
     & > footer > div {
-        width: min(980px, 100%);
+        width: min(1024px, 100%);
         margin: 0 auto;
         padding: 0.2rem 1.2rem;
     }
@@ -213,7 +214,6 @@ body {
 
     & article {
         margin-top: 2rem;
-        margin-bottom: 4rem;
 
         & h1 {
             font-size: 220%;
@@ -435,7 +435,7 @@ section.indexes {
     --top-padding: 1.8rem;
     --border-color: var(--light-color);
 
-    margin: 5rem 0;
+    margin: 3rem 0;
     border-top: 1px solid var(--border-color);
     padding-top: var(--top-padding);
 
@@ -549,29 +549,27 @@ section.gallery-meta {
 
 section.gallery {
     --gap: 0.5rem;
-    columns: 300px;
-    column-gap: var(--gap);
-    margin-bottom: 4rem;
-    column-break-inside : avoid;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap);
 
     & > div {
         background-color:  var(--lightest-color);
         padding: 0.5rem;
-        margin-bottom: var(--gap);
         display: inline-block;
+        font-size: 80%;
 
         & .title {
             font-weight: 700;
             font-family: var(--font-sans-serif);
             display: block;
-            margin-top: 0.5rem;
-            margin-bottom: 0.5rem;
+            margin: var(--gap) 0;
         }
 
         & p {
             font-family: var(--font-serif);
             font-size: 88%;
-            margin-bottom: 1.2rem;
             color: var(--middle-color);
             font-weight: 200;
         }
@@ -706,6 +704,10 @@ h6 {
 
 
 @media all and (max-width: 860px) {
+
+    body > footer {
+        margin-top: 0.2rem;
+    }
 
     #footer-content {
         & > div:last-child > div:first-child,

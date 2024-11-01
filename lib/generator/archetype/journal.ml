@@ -76,6 +76,27 @@ module Input = struct
   ;;
 end
 
+let compare_input { datetime = a; _ } { datetime = b; _ } =
+  Yocaml.Datetime.compare a b
+;;
+
+let rev_compare_input a b = compare_input b a
+
+let normalize_input { kv; datetime; page = Input.{ cover; tags; indexes } } =
+  let open Yocaml.Data in
+  record
+    [ "kv", Model.Key_value.String.normalize kv
+    ; "datetime", Yocaml.Datetime.normalize datetime
+    ; "cover", option Model.Cover.normalize cover
+    ; "tags", list_of string tags
+    ; "indexes", Model.Indexes.normalize indexes
+    ; "has_indexes", Model.Model_util.exists_from_list indexes
+    ; "has_tags", Model.Model_util.exists_from_list tags
+    ; "has_kv", Model.Key_value.String.has_elements kv
+    ; "has_cover", Model.Model_util.exists_from_opt cover
+    ]
+;;
+
 let inject_datetime ~file =
   Yocaml.Task.Static.on_metadata (Yocaml.Task.lift @@ replace_datetime ~file)
 ;;

@@ -74,7 +74,6 @@ elements:
     links:
       - title: NFT
         url: https://objkt.com/asset/KT1N9MrTvHKbdykcFBbUgfUGNkDdoY4kyvcA/5
-
 ---
 
 Depuis 2012, j'avais arrêté de dessiner _régulièrement_ et mes
