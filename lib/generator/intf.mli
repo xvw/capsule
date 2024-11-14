@@ -25,6 +25,7 @@ module type RESOLVER = sig
     val addresses : Yocaml.Path.t
     val galleries : Yocaml.Path.t
     val journal_entries : Yocaml.Path.t
+    val journal_feed : Yocaml.Path.t
     val template : string -> Yocaml.Path.t
   end
 
@@ -45,6 +46,7 @@ module type RESOLVER = sig
     val as_index : Yocaml.Path.t -> Yocaml.Path.t
     val as_diagram : Yocaml.Path.t -> Yocaml.Path.t
     val as_journal_entry : Yocaml.Path.t -> Yocaml.Path.t
+    val as_journal_feed_page : int -> Yocaml.Path.t
 
     module Atom : sig
       val pages : Yocaml.Path.t

@@ -6,7 +6,8 @@ type t =
   ; entries : Model.Entry.t list
   ; galleries : Model.Entry.t list
   ; journal_entries : Model.Entry.t list
-  ; journal_meta : Archetype.Journal.Input.t list
+  ; journal_meta :
+      (Archetype.Journal_entry.Input.t * string * Yocaml.Path.t) list
   ; by_tags : Model.Entry.t list M.t
   }
 [@@ocaml.warning "-69"]
@@ -52,15 +53,18 @@ let journal_entries
     List.traverse
       (fun file ->
         let url = R.Target.as_journal_entry file in
-        let+ metadata, _content =
+        let+ metadata, content =
           read_file_with_metadata
             (module P)
-            (module Archetype.Journal.Input)
+            (module Archetype.Journal_entry.Input)
             ~on:`Source
             file
         in
-        let metadata = Archetype.Journal.replace_datetime ~file metadata in
-        metadata, Archetype.Journal.Input.to_entry ~file ~url metadata)
+        let metadata =
+          Archetype.Journal_entry.replace_datetime ~file metadata
+        in
+        ( (metadata, content, file)
+        , Archetype.Journal_entry.Input.to_entry ~file ~url metadata ))
       files
   in
   elements |> Stdlib.List.split
@@ -86,11 +90,15 @@ let compute_map_from_tags source m =
 let sort_entries = List.sort Model.Entry.rev_compare
 let sort_map m = M.map sort_entries m
 
+let sort_journal_meta (a, _, _) (b, _, _) =
+  Archetype.Journal_entry.rev_compare_input a b
+;;
+
 let build_context pages addresses galleries (jmeta, jentries) =
   let entries = pages @ addresses @ galleries @ jentries in
   { pages = sort_entries pages
   ; journal_entries = sort_entries jentries
-  ; journal_meta = List.sort Archetype.Journal.rev_compare_input jmeta
+  ; journal_meta = List.sort sort_journal_meta jmeta
   ; galleries = sort_entries galleries
   ; addresses = sort_entries addresses
   ; entries = sort_entries entries
@@ -132,6 +140,23 @@ let make (module P : Yocaml.Required.DATA_PROVIDER) (module R : Intf.RESOLVER) =
   in
   let* journal_entries = journal_entries (module P) (module R) in
   return @@ build_context pages addresses galleries journal_entries
+;;
+
+let create_journal_feed config { journal_meta; _ } cache =
+  let by_page = Archetype.Config.journal_entries_per_page config in
+  let entries = Std.List.split_by_size by_page journal_meta in
+  let len = List.length entries in
+  let open Yocaml.Eff in
+  let+ cache, _ =
+    Yocaml.Action.fold_list
+      ~state:0
+      entries
+      (fun entries state cache ->
+         
+      )
+      cache
+  in
+  cache
 ;;
 
 let configure_feed config id title =

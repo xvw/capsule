@@ -1,3 +1,4 @@
 (library
  (name std)
- (public_name capsule.std))
+ (public_name capsule.std)
+ (libraries yocaml))

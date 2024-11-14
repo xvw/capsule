@@ -1,165 +1,49 @@
-type 'a entry =
-  { kv : Model.Key_value.String.t
-  ; datetime : Yocaml.Datetime.t
-  ; page : 'a
-  }
-
-let replace_datetime ~file input =
-  match file |> Yocaml.Path.remove_extension |> Yocaml.Path.basename with
-  | None -> input
-  | Some x ->
-    (match x |> Yocaml.Data.string |> Yocaml.Datetime.validate with
-     | Ok datetime -> { input with datetime }
-     | _ -> input)
-;;
-
 module Input = struct
-  type pre =
-    { cover : Model.Cover.t option
-    ; tags : string list
-    ; indexes : Model.Indexes.t
-    }
+  type t = { page : Raw.Input.t }
 
-  type t = pre entry
-
-  let title_of { datetime; _ } =
-    Format.asprintf "%a" Yocaml.Datetime.pp datetime
-  ;;
-
-  let summary_of { datetime; page = { tags; _ }; _ } =
-    Format.asprintf
-      "Entrée du %a, à propos de %s"
-      Yocaml.Datetime.pp
-      datetime
-      (String.concat ", " tags)
-  ;;
-
-  let entity_name = "Journal Entry"
+  let entity_name = "Journal"
   let neutral = Yocaml.Metadata.required entity_name
+  let to_entry ~file ~url { page } = Raw.Input.to_entry ~file ~url page
 
-  let validate =
+  let validate obj =
     let open Yocaml.Data.Validation in
-    record (fun fields ->
-      let datetime = Yocaml.Datetime.dummy in
-      let+ cover = optional fields "cover" Model.Cover.validate
-      and+ tags =
-        optional_or ~default:[] fields "tags" @@ list_of Yocaml.Slug.validate
-      and+ kv =
-        optional_or
-          ~default:Model.Key_value.String.empty
-          fields
-          "kv"
-          Model.Key_value.String.validate
-      and+ indexes =
-        optional_or
-          ~default:Model.Indexes.empty
-          fields
-          "indexes"
-          Model.Indexes.validate
-      in
-      let page = { cover; tags; indexes } in
-      { kv; datetime; page })
-  ;;
-
-  let to_entry ~file ~url jrnl =
-    let dt = replace_datetime ~file jrnl in
-    let title = title_of dt in
-    let summary = summary_of dt in
-    Model.Entry.make
-      ~title
-      ~content_url:url
-      ~tags:dt.page.tags
-      ~summary
-      ~file
-      ~datetime:dt.datetime
-      ()
+    let+ page = Raw.Input.validate obj in
+    { page }
   ;;
 end
 
-let compare_input { datetime = a; _ } { datetime = b; _ } =
-  Yocaml.Datetime.compare a b
-;;
+type t =
+  { page : Raw.Output.t
+  ; entries : (Journal_entry.Input.t * string * Yocaml.Path.t) list
+  ; length : int
+  ; index : int
+  }
 
-let rev_compare_input a b = compare_input b a
-
-let normalize_input { kv; datetime; page = Input.{ cover; tags; indexes } } =
+let journal_entries (entry, content, path) =
   let open Yocaml.Data in
   record
-    [ "kv", Model.Key_value.String.normalize kv
-    ; "datetime", Yocaml.Datetime.normalize datetime
-    ; "cover", option Model.Cover.normalize cover
-    ; "tags", list_of string tags
-    ; "indexes", Model.Indexes.normalize indexes
-    ; "has_indexes", Model.Model_util.exists_from_list indexes
-    ; "has_tags", Model.Model_util.exists_from_list tags
-    ; "has_kv", Model.Key_value.String.has_elements kv
-    ; "has_cover", Model.Model_util.exists_from_opt cover
+    [ "entry_content", string content
+    ; "path", string @@ Yocaml.Path.to_string path
+    ; "input", Journal_entry.normalize_input entry
     ]
 ;;
 
-let inject_datetime ~file =
-  Yocaml.Task.Static.on_metadata (Yocaml.Task.lift @@ replace_datetime ~file)
-;;
-
-type t = Raw.Output.t entry
-
-let table_of_content i s =
-  { i with page = Raw.Output.table_of_content i.page s }
-;;
-
-let normalize { kv; page; datetime } =
-  Raw.Output.normalize page
-  @ [ "kv", Model.Key_value.String.normalize kv
-    ; "datetime", Yocaml.Datetime.normalize datetime
-    ; "has_kv", Model.Key_value.String.has_elements kv
-    ]
-;;
-
-let from_input ({ datetime; page = Input.{ tags; indexes; cover }; _ } as r) =
-  let title = Input.title_of r in
-  let synopsis = Input.summary_of r in
-  let description = Some synopsis in
-  let charset = Some "utf-8" in
-  let published_at = Some datetime in
-  let page =
-    new Common.t
-      ~document_kind:Model.Types.Article
-      ~title
-      ~cover
-      ~published_at
-      ~updated_at:None
-      ~charset
-      ~tags
-      ~synopsis
-      ~description
-      ~display_toc:false
-      ~section:(Some "journal")
-      ~breadcrumb:
-        [ Model.Link.make
-            "Journal"
-            (Model.Url.from_path (Yocaml.Path.abs [ "journal" ]))
-        ]
-      ~notes:[]
-      ~indexes
+let normalize { page; entries; length; index } =
+  let pred = if Int.compare index 0 > 0 then None else Some (pred index) in
+  let succ =
+    if Int.compare index length >= 0 then None else Some (succ index)
   in
-  { r with page }
+  let open Yocaml.Data in
+  Raw.Output.normalize page
+  @ [ "entries", list_of journal_entries entries
+    ; "length", int length
+    ; "index", int index
+    ; "pred", option int pred
+    ; "succ", option int succ
+    ; "has_pred", Model.Model_util.exists_from_opt pred
+    ; "has_pred", Model.Model_util.exists_from_opt succ
+    ]
 ;;
 
-let full_configure ~config ~source ~target ~kind ~on_synopsis =
-  let open Yocaml.Task in
-  Static.on_metadata
-    (lift (replace_datetime ~file:source)
-     >>> lift from_input
-     >>> lift
-         @@ fun ({ page; _ } as entry) ->
-         { entry with
-           page =
-             Raw.Output.full_configure
-               ~config
-               ~source
-               ~target
-               ~kind
-               ~on_synopsis
-               page
-         })
-;;
+(* let full_configure ~config ~source ~target ~on_synopsis = *)
+(*   Yocaml.Task.Static.on_metadata *)

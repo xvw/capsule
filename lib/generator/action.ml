@@ -167,14 +167,14 @@ let process_journal_entry (module R : Intf.RESOLVER) config source =
     (R.Target.promote target)
     Yocaml.Task.(
       page_arrow
-        (module Archetype.Journal)
+        (module Archetype.Journal_entry)
         (module R)
         "journal-entry.html"
         kind
         config
         source
         target
-      >>> layout_arrow (module Archetype.Journal) (module R))
+      >>> layout_arrow (module Archetype.Journal_entry) (module R))
 ;;
 
 let process_index (module R : Intf.RESOLVER) config source =

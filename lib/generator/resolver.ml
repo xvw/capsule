@@ -22,6 +22,8 @@ module Make (R : Intf.RESOLVABLE) = struct
     let addresses = Path.(content / "addresses")
     let galleries = Path.(content / "galleries")
     let journal_entries = Path.(content / "journal")
+    let specifics = Path.(content / "specifics")
+    let journal_feed = Path.(specifics / "journal.yml")
     let maps = Path.(content / "maps")
     let deps = [ binary; configuration ]
     let template file = Path.(templates / file)
@@ -44,6 +46,13 @@ module Make (R : Intf.RESOLVABLE) = struct
 
     let as_journal_entry file =
       file |> as_html |> Path.move ~into:(Path.rel [ "journal" ])
+    ;;
+
+    let as_journal_feed_page index =
+      let journal_path = Path.rel [ "journal" ] in
+      if Int.equal index 0
+      then Path.(journal_path / "index.html")
+      else Path.(journal_path / string_of_int index / "index.html")
     ;;
 
     let as_gallery file =

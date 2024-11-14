@@ -8,6 +8,7 @@ type t =
   ; content_license : Model.Link.t
   ; owner : Model.Identity.t
   ; svg : Model.Svg.t list
+  ; journal_entries_per_page : int
   }
 
 let entity_name = "Configuration"
@@ -24,7 +25,10 @@ let validate =
     and+ content_license = required bag "content_license" Model.Link.validate
     and+ owner = required bag "owner" Model.Identity.validate
     and+ default_cover = optional bag "default_cover" Model.Cover.validate
-    and+ svg = optional_or ~default:[] bag "svg" (list_of Model.Svg.validate) in
+    and+ svg = optional_or ~default:[] bag "svg" (list_of Model.Svg.validate)
+    and+ journal_entries_per_page =
+      optional_or ~default:4 bag "journal_entries_per_page" (int & gt 0)
+    in
     { title
     ; repository
     ; branch
@@ -34,6 +38,7 @@ let validate =
     ; svg
     ; default_cover
     ; main_url
+    ; journal_entries_per_page
     })
 ;;
 
@@ -47,6 +52,7 @@ let normalize
   ; svg
   ; main_url
   ; default_cover
+  ; journal_entries_per_page
   }
   =
   let open Yocaml.Data in
@@ -55,6 +61,7 @@ let normalize
     ; "main_url", Model.Url.normalize main_url
     ; "repository", Model.Repo.normalize repository
     ; "branch", string branch
+    ; "journal_entries_per_page", int journal_entries_per_page
     ; "software_license", Model.Link.normalize software_license
     ; "content_license", Model.Link.normalize content_license
     ; "owner", Model.Identity.normalize owner
@@ -69,6 +76,10 @@ let branch_of { branch; _ } = branch
 let owner_of { owner; _ } = owner
 let main_url_of { main_url; _ } = main_url
 let default_cover_of { default_cover; _ } = default_cover
+
+let journal_entries_per_page { journal_entries_per_page; _ } =
+  journal_entries_per_page
+;;
 
 let resolve_cover config cover =
   Option.map (Model.Cover.resolve (main_url_of config)) cover
