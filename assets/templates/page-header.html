@@ -2,12 +2,16 @@
 {%- if has_publication_date -%}
 <div class="set publication-date">
   {%- if has_published_date -%}
-  <time data-prefix="publié le" datetime="{{ published_at.repr.datetime }}">
+  <time class="date-repr"
+        data-prefix="publié le"
+        datetime="{{ published_at.repr.datetime }}">
     {{published_at.repr.date}}
   </time>
   {%- endif -%}
   {%- if has_updated_date -%}
-  <time data-prefix="modifié le" datetime="{{ updated_at.repr.datetime }}">
+  <time class="date-repr"
+        data-prefix="modifié le"
+        datetime="{{ updated_at.repr.datetime }}">
     {{updated_at.repr.date}}
   </time>
   {%- endif -%}

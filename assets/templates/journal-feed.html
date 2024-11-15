@@ -1,7 +1,21 @@
+<div class="journal-navigation">
+  {%- if has_pred -%}
+  <div class="pred"><a href="/journal/{{ pred }}">Entrées plus récentes</a></div>
+  {%- endif -%}
+  {%- if has_succ -%}
+  <div class="succ"><a href="/journal/{{ succ }}">Entrées plus anciennes</a></div>
+  {%- endif -%}
+</div> 
+
 {%- for entry in entries -%}
 <section class="journal-entry">
 
   <div class="sidebar">
+    <time class="date-repr"
+          data-prefix="publié le"
+          datetime="{{ entry.input.datetime.repr.datetime }}">
+      {{entry.input.datetime.repr.datetime}}
+    </time>
     {%- if entry.input.has_tags -%}
     <nav class="nav-enum">
       <h3>Tags</h3>
@@ -29,7 +43,7 @@
     <div class="details">
       {%- if entry.input.has_kv -%}
       <div class="kv">
-        {%- for elt in kv -%}
+        {%- for elt in entry.input.kv -%}
         <div>
           <span>{{ elt.key }}</span>
           <span>{{ elt.value }}</span>
@@ -60,6 +74,15 @@
   </div>
 </section>
 {%- endfor -%}
+
+<div class="journal-navigation">
+  {%- if has_pred -%}
+  <div class="pred"><a href="/journal/{{ pred }}">Entrées plus récentes</a></div>
+  {%- endif -%}
+  {%- if has_succ -%}
+  <div class="succ"><a href="/journal/{{ succ }}">Entrées plus anciennes</a></div>
+  {%- endif -%}
+</div> 
 
 {%- autoescape false -%}
 {{ yocaml_body }}

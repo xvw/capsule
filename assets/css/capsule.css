@@ -99,23 +99,6 @@ body {
     margin-bottom: 3rem;
     font-family: var(--font-serif);
 
-    & .publication-date {
-        & time {
-            background-color: var(--light-color);
-            color: var(--middle-color);
-            font-family: var(--font-sans-serif);
-            padding: 0.2rem 0.2rem;
-            font-size: 80%;
-        }
-
-        & time::before {
-            content: attr(data-prefix);
-            margin-right: 0.4rem;
-            font-weight: 700;
-        }
-        
-    }
-
     & .temporal-notes {
         margin: 2rem 0;
         background-color: var(--lightest-color);
@@ -213,7 +196,6 @@ body {
     }
 
     & article {
-        margin-top: 2rem;
 
         & h1 {
             font-size: 220%;
@@ -469,12 +451,21 @@ section.journal-entry {
 
     & > .sidebar {
         flex: 2;
+
+        & time.date-repr {
+            display: block;
+            margin-bottom: 2rem;
+        }
     }
 
 
     & > .content {
         flex: 6;
         margin-bottom: 4rem;
+
+        & > article {
+            margin-top: 0;
+        }
 
         & .cover {
             width: 100%;
@@ -484,7 +475,7 @@ section.journal-entry {
 
         & .details {
             font-size: 80%;
-            margin-top: 2rem;
+            margin-top: 4rem;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1.2rem;
@@ -703,6 +694,54 @@ h6 {
 }
 
 
+.journal-navigation {
+    display: flex;
+    flex-direction: row;
+    margin: 4rem 0;
+
+    & > div {
+        flex: 1;
+    }
+
+    & > div.pred {
+        text-align: left;
+
+        & a::before {
+            content: "◀";
+            padding-right: 0.5rem;
+        }
+    }
+    
+    & > div.succ {
+        text-align: right;
+        
+        & a::after {
+            content: "▶";
+            padding-left: 0.5rem;
+        }
+    }
+}
+
+
+.journal-navigation:empty {
+    display:none;
+}
+
+time.date-repr {
+    background-color: var(--light-color);
+    color: var(--middle-color);
+    font-family: var(--font-sans-serif);
+    padding: 0.2rem 0.2rem;
+    font-size: 80%;
+}
+
+time.date-repr::before {
+    content: attr(data-prefix);
+    margin-right: 0.4rem;
+    font-weight: 700;
+}
+
+
 @media all and (max-width: 860px) {
 
     body > footer {
@@ -751,6 +790,7 @@ h6 {
         
     }
 
+    section.journal-entry,
     section.gallery-meta {
         flex-direction: column-reverse;
 

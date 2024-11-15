@@ -27,20 +27,23 @@ let journal_entries (entry, content, path) =
     ]
 ;;
 
+let normalize_index = function
+  | 0 -> ""
+  | x -> string_of_int x
+;;
+
 let normalize { page; entries; length; index } =
-  let pred = if Int.compare index 0 > 0 then None else Some (pred index) in
-  let succ =
-    if Int.compare index length >= 0 then None else Some (succ index)
-  in
+  let pred = if index <= 0 then None else Some (pred index) in
+  let succ = if index >= length - 1 then None else Some (succ index) in
   let open Yocaml.Data in
   Raw.Output.normalize page
   @ [ "entries", list_of journal_entries entries
     ; "length", int length
     ; "index", int index
-    ; "pred", option int pred
-    ; "succ", option int succ
+    ; "pred", option string (Option.map normalize_index pred)
+    ; "succ", option string (Option.map normalize_index succ)
     ; "has_pred", Model.Model_util.exists_from_opt pred
-    ; "has_pred", Model.Model_util.exists_from_opt succ
+    ; "has_succ", Model.Model_util.exists_from_opt succ
     ]
 ;;
 

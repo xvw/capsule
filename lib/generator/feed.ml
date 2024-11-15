@@ -168,7 +168,8 @@ let create_journal_feed
           Yocaml.Action.Static.write_file_with_metadata
             (R.Target.promote target)
             (let open Yocaml.Task in
-             Yocaml.Pipeline.track_files deps
+             R.track_common_deps
+             >>> Yocaml.Pipeline.track_files deps
              >>> Yocaml.Pipeline.read_file_as_metadata
                    (module P)
                    (module Archetype.Journal.Input)
