@@ -3,7 +3,6 @@ module Input = struct
 
   let entity_name = "Journal"
   let neutral = Yocaml.Metadata.required entity_name
-  let to_entry ~file ~url { page } = Raw.Input.to_entry ~file ~url page
 
   let validate obj =
     let open Yocaml.Data.Validation in
@@ -45,5 +44,34 @@ let normalize { page; entries; length; index } =
     ]
 ;;
 
-(* let full_configure ~config ~source ~target ~on_synopsis = *)
-(*   Yocaml.Task.Static.on_metadata *)
+let full_configure
+  ~config
+  ~source
+  ~target
+  ~kind
+  ~on_synopsis
+  ~length
+  ~entries
+  ~index
+  =
+  Yocaml.Task.Static.on_metadata
+    (Yocaml.Task.lift
+     @@ fun Input.{ page } ->
+     { page =
+         Raw.Output.full_configure
+           ~config
+           ~source
+           ~target
+           ~kind
+           ~on_synopsis
+           page
+     ; length
+     ; entries =
+         List.map
+           (fun (meta, content, path) -> meta, on_synopsis content, path)
+           entries
+     ; index
+     })
+;;
+
+let deps_of entries = List.map (fun (_, _, path) -> path) entries

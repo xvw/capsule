@@ -142,7 +142,14 @@ let make (module P : Yocaml.Required.DATA_PROVIDER) (module R : Intf.RESOLVER) =
   return @@ build_context pages addresses galleries journal_entries
 ;;
 
-let create_journal_feed config { journal_meta; _ } cache =
+let create_journal_feed
+  (module P : Yocaml.Required.DATA_PROVIDER)
+  (module R : Intf.RESOLVER)
+  on_synopsis
+  config
+  { journal_meta; _ }
+  cache
+  =
   let by_page = Archetype.Config.journal_entries_per_page config in
   let entries = Std.List.split_by_size by_page journal_meta in
   let len = List.length entries in
@@ -152,8 +159,42 @@ let create_journal_feed config { journal_meta; _ } cache =
       ~state:0
       entries
       (fun entries state cache ->
-         
-      )
+        let index = state in
+        let deps = Archetype.Journal.deps_of entries in
+        let target = R.Target.as_journal_feed_page index in
+        let source = R.Source.journal_feed in
+        let length = len in
+        let+ cache =
+          Yocaml.Action.Static.write_file_with_metadata
+            (R.Target.promote target)
+            (let open Yocaml.Task in
+             Yocaml.Pipeline.track_files deps
+             >>> Yocaml.Pipeline.read_file_as_metadata
+                   (module P)
+                   (module Archetype.Journal.Input)
+                   source
+             >>> Yocaml.Task.empty_body ()
+             >>> Archetype.Journal.full_configure
+                   ~config
+                   ~source
+                   ~target
+                   ~kind:Model.Types.Article
+                   ~on_synopsis
+                   ~length
+                   ~entries
+                   ~index
+             >>> Yocaml_jingoo.Pipeline.as_template
+                   (module Archetype.Journal)
+                   (R.Source.template "journal-feed.html")
+             >>> Yocaml_jingoo.Pipeline.as_template
+                   (module Archetype.Journal)
+                   (R.Source.template "page-header.html")
+             >>> Yocaml_jingoo.Pipeline.as_template
+                   (module Archetype.Journal)
+                   (R.Source.template "layout.html"))
+            cache
+        in
+        cache, succ index)
       cache
   in
   cache

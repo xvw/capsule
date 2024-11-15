@@ -239,7 +239,13 @@ let process_journal_entries (module R : Intf.RESOLVER) config =
 
 let process_feed (module R : Intf.RESOLVER) config context =
   let open Yocaml.Eff in
-  Feed.atom_for_entries (module R) config context
+  Feed.create_journal_feed
+    (module Yocaml_yaml)
+    (module R)
+    md_to_html
+    config
+    context
+  >=> Feed.atom_for_entries (module R) config context
   >=> Feed.atom_for_pages (module R) config context
   >=> Feed.atom_for_addresses (module R) config context
   >=> Feed.atom_for_galleries (module R) config context
