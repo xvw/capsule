@@ -53,6 +53,8 @@ indexes:
 ---
 
 Vous me trouverez sur [Mastodon](https://merveilles.town/@xvw), sur
-[Github](https://github.com/xvw) et sur
-[X/Twitter](https://twitter.com/vdwxv) et, dans la _vrai vie_, à
-**Nantes**, parfois à **Bruxelles** et de temps en temps à **Paris**.
+[Github](https://github.com/xvw), sur
+[X/Twitter](https://twitter.com/vdwxv), sur
+[BlueSky](https://bsky.app/profile/xvw.lol) (ou encore
+[ailleurs](/feeds.html)) et, dans la _vrai vie_, à **Nantes**, parfois
+à **Bruxelles** et de temps en temps à **Paris**.

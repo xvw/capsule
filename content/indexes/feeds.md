@@ -43,7 +43,7 @@ indexes:
         - title: X/Twitter
           url: https://x.com/vdwxv
         - title: Bluesky
-          url: https://bsky.app/profile/vdwxv.bsky.social
+          url: https://bsky.app/profile/xvw.lol
         - title: Instagram
           url: https://www.instagram.com/vdwxv
         - title: Cara
