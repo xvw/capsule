@@ -4,12 +4,8 @@ description: Information sur comment cette application web est construite
 tags: [misc, meta, colophon, ocaml]
 display_toc: true
 breadcrumb:
-  - title: foo
-    url: https://google.be
-  - title: bar
-    url: https://xvw.lol
-  - title: Avatars et coquecigrue
-    url: /index.html#foo-bar
+  - title: Meta
+    url: /#index-meta
 synopsis:
   Cette page décrit le rôle de ce site web. Elle décrit aussi
   les différentes ressources et bibliothèques utilisées. Un **Colophon** est,
@@ -21,99 +17,112 @@ synopsis:
   plusieures années) pour décrire les différents processus et outils utilisés
   pour décrire un site web.
 published_at: 2024-02-02
-updated_at: 2024-03-03
+updated_at: 2024-11-19
 ---
 
-Vous êtes sur ma _page personnelle_ et son objectif est de me permettre d'avoir
-un espace de _publication libre_. Où je peux choisir les thématiques que je veux
-traiter et où il est possible de structurer mes documents à ma guise. Les
-grandes sections présentent sur [l'index](/) décrivent des **thématiques**, qui
-elles-même sont regroupées en **sections**. L'application possède aussi un
-[journal](/journal/), me permettant de rédiger _à la manière d'un blog_. Les
-documents peuvent être des articles, des guides ou des
+Vous êtes sur ma _page personnelle_ et son objectif est de me
+permettre d'avoir un espace de _publication libre_. Où je peux choisir
+les thématiques que je veux traiter et où il est possible de
+structurer mes documents à ma guise. Les grandes sections présentent
+sur [l'index](/) décrivent des **thématiques**, qui elles-même sont
+regroupées en **sections**. L'application possède aussi un
+[journal](/journal/), me permettant de rédiger _à la manière d'un
+blog_. Les documents peuvent être des articles, des guides ou des
 [galeries](/galleries.html).
 
-Mon tout premier site personnel date de 2001, et avait été construit avec
-l'éditeur en ligne du site [voila.fr](https://fr.wikipedia.org/wiki/Voila), au
-fil des années, j'ai eu beaucoup de sites différents (et j'ai utilisé beaucoup
-de platformes différentes) dont la première archive, encore accessible, [date de
+Mon tout premier site personnel date de 2001, et avait été construit
+avec l'éditeur en ligne du site
+[voila.fr](https://fr.wikipedia.org/wiki/Voila), au fil des années,
+j'ai eu beaucoup de sites différents (et j'ai utilisé beaucoup de
+platformes différentes) dont la première archive, encore accessible,
+[date de
 2004](https://web.archive.org/web/20040724002549/http://www.destination-x.be.tf/)
-(attention, c'est _cringe_). Depuis quelques années, j'utilise des générateurs
-de sites statiques et mon contenu est versionné sur un dépôt Git, rendant
-l'archivage plus aisé (il est possible de retrouver des archives en cherchant
+(attention, c'est _cringe_). Depuis quelques années, j'utilise des
+générateurs de sites statiques et mon contenu est versionné sur un
+dépôt Git, rendant l'archivage plus aisé (il est possible de retrouver
+des archives en cherchant
 [nukifw.github.io](https://web.archive.org/web/20240000000000*/nukifw.github.io)
-et [xvw.github.io](https://web.archive.org/web/20240000000000*/xvw.github.io)).
+et
+[xvw.github.io](https://web.archive.org/web/20240000000000*/xvw.github.io)).
 
 ### Thématiques et navigation
 
-Alors que pendant très longtemps, je tâchais de _dupliquer_ mes espaces de
-rédactions pour garantir que chacun de mes sites possédaient une thématique
-clair, j'ai, vers 2014, commencé à être amusé par certaines pages de chercheurs
-qui exploitaient leurs espaces numériques pour discuter de sujets variés. Par
-exemple, je me souviens d'une page de [Joe
-Armstrong](https://en.wikipedia.org/wiki/Joe_Armstrong_(programmer)), le
-créateur de [Erlang](https://www.erlang.org/) qui, au milieu d'une [liste de
-projets très
+Alors que pendant très longtemps, je tâchais de _dupliquer_ mes
+espaces de rédactions pour garantir que chacun de mes sites
+possédaient une thématique clair, j'ai, vers 2014, commencé à être
+amusé par certaines pages de chercheurs qui exploitaient leurs espaces
+numériques pour discuter de sujets variés. Par exemple, je me souviens
+d'une page de [Joe
+Armstrong](https://en.wikipedia.org/wiki/Joe_Armstrong_(programmer)),
+le créateur de [Erlang](https://www.erlang.org/) qui, au milieu d'une
+[liste de projets très
 sérieux](https://web.archive.org/web/20150905063923/https://www.sics.se/%7ejoe/bluetail/index.html),
 décrivait comment il avait construit des [fusées propulsées à
 l'eau](https://web.archive.org/web/20150905140220/https://www.sics.se/%7ejoe/bluetail/misc/water.html).
-Ou encore certains chercheurs de [INRIA](https://www.inria.fr/fr) profitant de
-leurs pages pour partager leurs photos de vacances. 
+Ou encore certains chercheurs de [INRIA](https://www.inria.fr/fr)
+profitant de leurs pages pour partager leurs photos de vacances.
 
 Plus tard, en fréquentant l'instance Mastodon
-[Merveilles](https://merveilles.town/getting-started), j'ai découvert une
-[collection de sites](https://webring.xxiivv.com/) dans lesquels il était
-possible de se perdre pendant plusieurs heures. Le site de [Devine Lu
-Linvega](https://wiki.xxiivv.com/site/home.html) en est, de mon point de vue, un
-excellent exemple. On clique sur un lien, et, quelques heures plus tard, on
-s'est perdu au détour d'une section, appartenant elle-même à une rubrique.
-L'auteur décrit d'ailleurs son site, dans la conférence [The Frameworks for
+[Merveilles](https://merveilles.town/getting-started), j'ai découvert
+une [collection de sites](https://webring.xxiivv.com/) dans lesquels
+il était possible de se perdre pendant plusieurs heures. Le site de
+[Devine Lu Linvega](https://wiki.xxiivv.com/site/home.html) en est, de
+mon point de vue, un excellent exemple. On clique sur un lien, et,
+quelques heures plus tard, on s'est perdu au détour d'une section,
+appartenant elle-même à une rubrique.  L'auteur décrit d'ailleurs son
+site, dans la conférence [The Frameworks for
 Mystics](https://www.youtube.com/watch?v=w5bbJcimCcs), comme une ville
 _labyrinthique_ dans lequel il est possible de se perdre.
 
 Cette approche du web, que l'on appelle maintenant [_Le Web
-Indie_](https://indieweb.org/) est un retour aux fondamentaux, à l'époque
-[Geocities](https://fr.wikipedia.org/wiki/GeoCities) où les internautes étaient
-très créatifs et rigolos. La popularité des platforme de publications _à la
-Medium_ a **normalisé** le contenu en ligne, et certains, dont je fais partie,
-trouvent ça dommage. C'est pour cette raison que j'ai pris, à la refonte de mon
-site personnel, la décision de ne pas **figer sa thématique**, et de m'offrir la
-liberté d'écrire sur **tout ce dont j'ai envie**. N'étant pas très productif, il
-est possible que mon site ne ressemble jamais à une ville dans laquelle il est
-possible de se perdre, mais la navigation _structurée, mais pas trop,_ sert
-cette ambition.
+Indie_](https://indieweb.org/) est un retour aux fondamentaux, à
+l'époque [Geocities](https://fr.wikipedia.org/wiki/GeoCities) où les
+internautes étaient très créatifs et rigolos. La popularité des
+platforme de publications _à la Medium_ a **normalisé** le contenu en
+ligne, et certains, dont je fais partie, trouvent ça dommage. C'est
+pour cette raison que j'ai pris, à la refonte de mon site personnel,
+la décision de ne pas **figer sa thématique**, et de m'offrir la
+liberté d'écrire sur **tout ce dont j'ai envie**. N'étant pas très
+productif, il est possible que mon site ne ressemble jamais à une
+ville dans laquelle il est possible de se perdre, mais la navigation
+_structurée, mais pas trop,_ sert cette ambition.
 
 ### Technologies
 
-Pour être parfaitement libre dans la manière dont je structure mes documents, il
-était très important que j'utilise un outil libre, extensible et que je puisse
-facilement maitriser. [L'itération
+Pour être parfaitement libre dans la manière dont je structure mes
+documents, il était très important que j'utilise un outil libre,
+extensible et que je puisse facilement maitriser. [L'itération
 précédente](https://web.archive.org/web/20211021123408/https://xvw.github.io/)
-de mon site personnel approchait cette idée. J'avais construit une collection de
-petits logiciels (en [OCaml](https://ocaml.org), évidemment) me permettant de
-_structurer de la données_ et, potentiellement, de générer des pages. N'étant
-pas emballé à l'idée de créer un _moteur de gabarits_, je m'étais tourné vers
+de mon site personnel approchait cette idée. J'avais construit une
+collection de petits logiciels (en [OCaml](https://ocaml.org),
+évidemment) me permettant de _structurer de la données_ et,
+potentiellement, de générer des pages. N'étant pas emballé à l'idée de
+créer un _moteur de gabarits_, je m'étais tourné vers
 [Hakyll](https://jaspervdj.be/hakyll/), un excellent **générateur, de
-générateurs de sites statiques**, écrit en [Haskell](https://www.haskell.org/).
-Cependant, le mélange OCaml/Haskell rendait la maintenance de l'application et
-j'ai décidé, en 2022, de repartir de zéro.
+générateurs de sites statiques**, écrit en
+[Haskell](https://www.haskell.org/).  Cependant, le mélange
+OCaml/Haskell rendait la maintenance de l'application et j'ai décidé,
+en 2022, de repartir de zéro.
 
-Le code source du générateur, et le contenu _brut_ se trouvent sur le dépôt
-Github [xvw/capsule](https://github.com/xvw/capsule) et le résultat du site
-généré se trouve sur le dépôt Github
+Le code source du générateur, et le contenu _brut_ se trouvent sur le
+dépôt Github [xvw/capsule](https://github.com/xvw/capsule) et le
+résultat du site généré se trouve sur le dépôt Github
 [xvw/xvw.github.io](https://github.com/xvw/xvw.github.io).
 
 #### Génération statique: YOCaml
 
 [YOCaml](https://github.com/xhtmlboi/yocaml) a été conçu par mon ami
-[Antoine](https://xhtmlboi.github.io/) pour donner un exemple d'utilisation de
-la bibliothèque [Preface](https://github.com/xvw/preface/), sur laquelle
-j'avais, avec [Didier](http://www.fungus.fr/) et
-[Pierre](https://github.com/gr-im), travaillé. Comme Hakyll, YOCaml est un
-générateur très versatile, qui laisse beaucoup de liberté sur les documents à
-construire. On peut le voir comme un tout petit _framework_ pour construire des
-_build-systems_ minimalistes. Son fonctionnement est, dans les grandes lignes,
-décrit [dans un article](https://xhtmlboi.github.io/articles/yocaml.html) du
+[Antoine](https://xhtmlboi.github.io/) pour donner un exemple
+d'utilisation de la bibliothèque
+[Preface](https://github.com/xvw/preface/), sur laquelle j'avais, avec
+[Didier](http://www.fungus.fr/) et [Pierre](https://github.com/gr-im),
+travaillé (depuis, comme YOCaml a été utilisé, contrairement à
+Preface, la version 2 du logiciel ne l'utilise plus, _snif_). Comme
+Hakyll, YOCaml est un générateur très versatile, qui laisse beaucoup
+de liberté sur les documents à construire. On peut le voir comme un
+tout petit _framework_ pour construire des _build-systems_
+minimalistes. Son fonctionnement est, dans les grandes lignes, décrit
+[dans un article](https://xhtmlboi.github.io/articles/yocaml.html) du
 créateur, et, j'ai eu l'honneur de [le
 présenter](https://www.irill.org/videos/OUPS/2023-01/xavier-van-de-woestyne.html)
 au [OCaml _usergroup_ Parisien](https://oups.frama.io/).
@@ -138,59 +147,40 @@ manière dont les pages statiques sont produites. En général, un _greffon_ est
 une sur-couche à une bibliothèque OCaml existante, servant à faire la glue entre
 cette dernière et YOCaml. Pour ce site, j'utilise ces différents _greffons_ :
 
-- [Yocaml_unix](https://ocaml.org/p/yocaml_unix/latest) : comme YOCaml est très
-  versatile, il peut générer un site depuis et vers un système de fichier Unix
-  (mais aussi dans un [répertoire Git](https://ocaml.org/p/yocaml_git/latest)
-  permettant au site généré d'être servi par un
+- [Yocaml_eio](https://ocaml.org/p/yocaml_eio/latest) : comme YOCaml
+  est très versatile, il peut générer un site depuis et vers un
+  système de fichier Unix (via la bibliothèque
+  [Eio](https://github.com/ocaml-multicore/eio)) (mais aussi dans un
+  [répertoire Git](https://ocaml.org/p/yocaml_git/latest) permettant
+  au site généré d'être servi par un
   [MirageOS](https://github.com/robur-coop/unipi)). Je l'utilise en
-  développement (ce qui me permet d'avoir un serveur de développement) mais
-  aussi en déployement. Le paquet repose essentiellement sur
-  [Cryptokit](https://ocaml.org/p/cryptokit/latest), pour le _hachage_ des
-  documents, [Logs](https://ocaml.org/p/logs/latest), pour l'affichage des logs,
-  [Conduit](https://ocaml.org/p/conduit/latest) et
-  [Cohttp](https://ocaml.org/p/cohttp/latest) pour le serveur de développement
-  local.
-
+  développement (ce qui me permet d'avoir un serveur de développement)
+  mais aussi en déployement.
 - [Yocaml_yaml](https://ocaml.org/p/yocaml_yaml/latest) : qui repose sur la
   bibliothèque [yaml](https://ocaml.org/p/yaml/latest) pour décrire les
   métadonnées des articles avec le langage de description
   [Yaml](https://fr.wikipedia.org/wiki/YAML). Le Yaml est assez controversé mais
   pour décrire des petites structures de données servant à donner du contexte à
-  des articles, je le trouve largement suffisant. Cependant, il est possible que
-  dans un futur proche, je me penche sur
-  [TOML](https://fr.wikipedia.org/wiki/TOML).
-  
+  des articles, je le trouve largement suffisant.
+- [Yocaml_toml](https://ocaml.org/p/yocaml_toml/latest) : qui repose
+  sur la bibliothèque [otoml](https://ocaml.org/p/otoml/latest) pour
+  décrire la configuration du site
 - [Yocaml_jingoo](https://ocaml.org/p/yocaml_jingoo/latest) : qui repose sur la
   bibliothèque [jingoo](https://ocaml.org/p/yocaml_jingoo/latest), un moteur de
   gabarits conceptuellement très proche de
   [Jinja](https://github.com/pallets/jinja/) et qui est, de mon point de vue,
   incroyablement versatile.
-  
-- [Yocaml_syndication](https://ocaml.org/p/yocaml_syndication/latest) : qui
-  repose sur la bibliothèque [syndic](https://ocaml.org/p/syndic/latest) me
-  servant à décrire le flux Atom du site. Ce greffon a été développé par
-  l'équipe [Psi-Prod](https://github.com/Psi-Prod), qui réalise beaucoup de
-  projets en rapport avec MirageOS, Gemini et YOCaml.
-  
-##### Greffons implémentés
+- [Yocaml_syndication](https://ocaml.org/p/yocaml_syndication/latest) :
+  me servant à décrire le flux Atom du site. Historiquement développé
+  développé par l'équipe [Psi-Prod](https://github.com/Psi-Prod), qui
+  réalise beaucoup de projets en rapport avec MirageOS, Gemini et
+  YOCaml, [la version
+  2](https://github.com/xhtmlboi/yocaml/blob/main/CHANGES.md#v200-2024-10-04-nantes-france)
+  l'a complètement réimplémenté
+- [Yocaml_cmarkit](https://ocaml.org/p/yocaml_cmarkit/latest) : pour
+  la transformation de
+  [Markdown](https://fr.wikipedia.org/wiki/Markdown) à HTML.
 
-Alors que, historiquement, j'utilisais [Org](https://orgmode.org/) comme langage
-_Markup_, j'ai décidé de passer vers du
-[Markdown](https://fr.wikipedia.org/wiki/Markdown), essentiellement parce qu'il
-y avait une bibliothèque complète, et que YOCaml possédait, déjà, un greffon
-[Yocaml_markdown](https://ocaml.org/p/yocaml_markdown/latest), basé sur
-[omd](https://ocaml.org/p/omd/latest). Cependant, je voulais pouvoir automatiser
-la génération de table des matières, donc j'ai implémenté mon propre greffon,
-lui aussi, basé sur [omd](https://ocaml.org/p/omd/latest).
-
-Entre temps, la bibliothèque [Cmarkit](https://ocaml.org/p/cmarkit/latest), qui
-respecte la spécification [CommonMark](https://spec.commonmark.org/) a été
-publiée et [Dinosaure](https://blog.osau.re/) (contributeur et utilisateur de
-YOCaml, mais aussi le mainteneur/créateur de [pléthore de
-bibliothèques](https://ocaml.org/packages/search?q=Calascibetta+Romain)
-incroyablement utile pour l'écosystème OCaml) a construit un greffon
-[Yocaml_cmark](https://ocaml.org/p/yocaml_cmark/latest). Quand le temps me le
-permettra, je passerai probablement sur cette bibliothèque.
 
 #### Infrastructure
 
@@ -242,9 +232,7 @@ Le choix d'une bibliothèque JavaScript pour assurer la coloration syntaxique es
 **de la pure fainéantise**. Même s'il y a des priorités plus importantes, je
 garde en tête le projet [Hilite](https://ocaml.org/p/hilite/latest) pour colorer
 les blocs de codes à la construction du site, et réduire la nécéssité d'une
-bibliothèque tiers aussi grande. (Actuellement, c'est laissé de coté car ça
-implique de migrer vers `Cmarkit` et d'intégrer d'autres syntaxes, mon site ne
-parlant pas *que* de OCaml).
+bibliothèque tiers aussi grande.
 
 ##### Nightmare
 
@@ -275,12 +263,15 @@ différentes bibliothèques :
   quelques années, [La Elm
   Architecture](https://guide.elm-lang.org/architecture/)).
 
-Ces différentes bibliothèques me permettent d'embarquer des _applications
-riches_, par exemple, les [Dapps](/dapps.html) ou encore l'affichage des
-commentaires. Et, comme le site fait office d'incubateur pour YOCaml, c'est
-aussi le cas pour les différentes bibliothèques qui constituent Nightmare.
+Ces différentes bibliothèques me permettent d'embarquer des
+_applications riches. Et, comme le site fait office d'incubateur pour
+YOCaml, c'est aussi le cas pour les différentes bibliothèques qui
+constituent Nightmare.
 
 #### Commentaires
+
+> Cette fonctionnalité n'est pas encore développée dans la nouvelle
+> version du site.
 
 Une des difficultés quand on construit un site statique, c'est que l'on perd des
 fonctionnalités d'interactivité. Par exemple, les commentaires sur les articles.
@@ -303,40 +294,6 @@ pense pas que ça soit nécéssaire.
 L'application utilise `nightmare_vdom`, ce qui est un peu _overkill_ car il n y
 a pas d'interactivité et un seul composant, mais ça me permet de bénéficier de
 combinateurs pour décrire une UI.
-
-#### Web3 et Tezos
-
-Dans certains espaces de conversations que je fréquente, il arrive souvent que
-les _blockchains_ aient une mauvaise réputation, cependant, à titre personnel,
-et comme je l'avais expansivement évoqué dans [ce
-podcast](https://www.youtube.com/watch?v=ZDVxRlKExmc), j'y vois une collection
-d'opportunités de création de projets amusants. Et comme un des objectifs de mon
-site est d'être un petit bac à sable pour construire de petites
-expérimentations, je voulais être capable d'embarquer des petites applications
-décentralisées utilisant [Tezos](https://tezos.com/) comme _back-end_ (j'avais
-d'ailleurs éventualisé l'idée d'utiliser cette dernière pour la gestion des
-commentaires mais je trouvais ça laborieux d'imposer à mes lecteurs potentiels
-le fait de _devoir payer_ pour publier un commentaire).
-
-Pour l'interaction avec la chaine, j'utilise
-[yourbones](https://github.com/funkywork/yourbones) qui est, comme `nightmare`,
-une collection d'embryon de bibliothèques pour interagir avec la chaine Tezos.
-Dans `Yourbones`, il existe une bibliothèque `yourbones_js-beacon` qui fait la
-liaison avec [Beacon](https://www.walletbeacon.io/), une implémentation de la
-[TZIP-10](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-10/tzip-10.md)
-permettant l'abstraction de la connexion d'un _Wallet_. Exactement comme pour
-YOCaml et Nightmare, mon site fait office d'incubateur pour `Yourbones` en
-détectant les fonctionnalités intéressantes à implémenter et en faisant remonter
-des bogues potentiels, notamment pour Js\_of\_OCaml ou beaucoup d'améliorations
-d'_inlining_ ont été remonté par l'utilisation de `Yourbones`. En complément,
-j'utilise la bibliothèque
-[data-encoding](https://ocaml.org/p/data-encoding/latest) pour les échanges de
-données entre mes applications embrarquées et les noeuds RPC de Tezos.
-
-En complément, certaines galeries pointent vers des collections
-[Objkt](https://objkt.com/) (ou certaines illustrations pointent directement
-vers une page Objkt) permettant à des utilisateurs d'acheter certaines éditions
-sous formes de [NFT](https://en.wikipedia.org/wiki/Non-fungible_token).
 
 #### Conclusion sur la pile technologique
 
@@ -381,17 +338,9 @@ relatifs au développement de projets OCaml :
 - [mdx](https://github.com/realworldocaml/mdx) : pour écrire des _tests_ dans un
   style _literate_ (dans de la documentation ou des documents Markown),
 
-Comme YOCaml a été conçu par au dessus de
-[Preface](https://github.com/xvw/preface), cette bibliothèque est aussi
-grandement utilisée dans les différents modules du générateur et des parties
-clientes.
-
-En plus, j'utilise, par habitude
-[Make](https://en.wikipedia.org/wiki/Make_(software)) comme _orchestrateur de
-tâches génériques_ (un peu par habitude car `Dune` pourrait largement le
-remplacer) et [npm](https://www.npmjs.com/) et
-[Webpack](https://webpack.js.org/) pour gérer les dépendances JavaScript (en
-l'occurence, uniquement `Highlight.js`).
+[Npm](https://www.npmjs.com/) et [Webpack](https://webpack.js.org/)
+pour gérer les dépendances JavaScript (en l'occurence, uniquement
+`Highlight.js`).
 
 #### Éléments visuels
 
@@ -419,6 +368,9 @@ Les différents éléments visuels du site sont réalisés avec ces trois outils
   J'utilise le thème [`301`](https://d2lang.com/tour/themes/) et le moteur
   d'organisation [Elk](https://d2lang.com/tour/elk).
   
+Dans un futur proche, j'utiliserai [Penpot](https://penpot.app/) pour
+construire le _design-system_.
+  
 L'ensemble des illustrations, _pixels_ ou _vectorielles_ sont réalisées avec une
 bien vieille (2008) tablettes graphique **Bamboo** de chez
 [Wacom](https://www.wacom.com/) qui, malgré son âge avancé... fonctionne
@@ -437,14 +389,26 @@ Le site web utilise trois polices de caractères différentes :
   dont les titres en gras me font penser à la typographie de [Burger
   King](https://www.bk.com/)).
 
-- [Inconsolata](https://levien.com/type/myfonts/inconsolata.html) : comme police
-  principale pour les blocs de code. Une police monospace très populaire et très
-  lisible (pour du code).
+- [Fira Code](https://github.com/tonsky/FiraCode) : comme police
+  principale pour les blocs de code. Une police monospace très
+  populaire et très lisible (pour du code).
   
 J'ai longuement hésité à utiliser la police [Inter](https://rsms.me/inter/)
 comme police sans serif, que je trouve aussi très jolie et lisible. Mais, même
 si mon avis en tant que _designer_ a peu de valeur, je suis assez satisfait de
 la composition de ces trois polices.
+
+##### Iconographies
+
+Dans la première version du site (avec YOCaml), j'évitais
+l'utilisation d'icones, parce que je n'y connais rien en
+SVG. Cependant, dans une volonté de **modernité sauvage**, j'ai
+décidé, d'enfin, en utiliser !
+
+- [Creative Commons](https://creativecommons.org/mission/downloads/),
+  pour les icones concernant les attributions de la [Creative
+  Commons](https://creativecommons.org/)
+- [Simple Icons](https://simpleicons.org/), pour les autres icones.
 
 ### Conclusion
 
