@@ -1,50 +1,55 @@
-(lang dune 3.10)
+(lang dune 3.16)
 (name capsule)
 (version dev)
-(generate_opam_files true)
+(generate_opam_files)
 (using mdx 0.4)
+(executables_implicit_empty_intf)
 
 (source (github xvw/capsule))
-(license MIT)
-(authors "Xavier Van de Woestyne")
-(maintainers "Xavier Van de Woestyne")
+(license GPL-3.0-or-later)
+(authors "Xavier Van de Woestyne <xaviervdw@gmail.com>")
+(maintainers "Xavier Van de Woestyne <xaviervdw@gmail.com>")
 
 (package
  (name capsule)
- (synopsis "Microblogging for fun an profit")
- (description "The source code for my website [xvw.lol]")
- (allow_empty)
+ (synopsis "Site generator of https://xvw.lol")
+ (description "Source code of the generator of my website")
  (depends
-  (ocaml (>= 5.0.0))
-  (dune (>= 3.8.0))
-  (logs (>= 0.7.0))
-  (cmdliner (>= 1.0.0))
-  (omd (>= 2.0.0~alpha2))
-  (js_of_ocaml  (>= 5.6.0))
-  (js_of_ocaml-compiler (= 5.7.1))
-  (js_of_ocaml-ppx  (= 5.7.1))
-  (js_of_ocaml-lwt  (= 5.7.1))
-  (mdx (and :with-test (>= 2.0.0)))
-  vdom
-  data-encoding
-  tezos-base58
-  preface
-  yocaml
-  yocaml_unix
-  yocaml_yaml
-  yocaml_jingoo
-  yocaml_syndication
+
+  ;; Build dependencies 
+  (ocaml (>= 5.2.0))
+  (dune (>= 3.16.0))
+
+   ;; Binary dependencies
+   cmdliner
+   fmt
+
+  ;; Yocaml dependencies 
+  (yocaml (>= 2.0.1))
+  (yocaml_eio (>= 2.0.1))
+  (yocaml_cmarkit (>= 2.0.1))
+  (yocaml_jingoo (>= 2.0.1))
+  (yocaml_syndication (>= 2.0.1))
+  (yocaml_yaml (>= 2.0.1))
+  (yocaml_otoml (>= 2.0.1))
+
+  ;; Nightmare dependencies
   nightmare
   nightmare-tyxml
   nightmare_js
   nightmare_js-vdom
-  yourbones
-  yourbones-ppx
-  (yourbones_js :pinned)
-  (yourbones_js-beacon :pinned)
 
+  ;; Generator dependencies
+  cmarkit
+ 
+  mdx ;; maybe because I probably want to use `mdx` in some articles
+
+  ;; Test utils
+  ppx_expect
+   
   ;; Dev setup
+  (utop :with-dev-setup)
   (ocamlformat :with-dev-setup)
   (ocp-indent :with-dev-setup)
   (merlin :with-dev-setup)
-  (utop :with-dev-setup)))
+  (ocaml-lsp-server :with-dev-setup)))

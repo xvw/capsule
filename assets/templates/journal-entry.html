@@ -1,0 +1,61 @@
+<section class="journal-entry">
+
+  <div class="sidebar">
+    {%- if has_tags -%}
+    <nav class="nav-enum">
+      <h3>Tags</h3>
+      <ul class="without-padding">
+        {%- for tag in tags -%}
+        <li class="tag">{{ tag }}</li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+    {%- endif -%}
+  </div>
+  
+  <div class="content">
+
+    {%- if has_cover -%}
+    <img class="cover" alt="Cover" src="{{ cover.url.url }}"/>
+    {%- endif -%}
+    
+    <article>
+      {%- autoescape false -%}
+      {{ yocaml_body }}
+      {%- endautoescape -%}
+    </article>
+
+    <div class="details">
+      {%- if has_kv -%}
+      <div class="kv">
+        {%- for elt in kv -%}
+        <div>
+          <span>{{ elt.key }}</span>
+          <span>{{ elt.value }}</span>
+        </div>
+        {%- endfor -%}
+      </div>
+      {%- endif -%}
+      {%- if has_indexes -%}
+      {%- for index in indexes -%}
+      <div class="index">
+        <h3>{{index.name}}</h3>
+        {%- if index.has_synopsis -%}
+        {%- autoescape false -%}{{ index.synopsis }}{%- endautoescape -%}
+        {%- if index.has_links -%}
+        <nav class="nav-enum">
+          <ul>
+            {%- for link in index.links-%}
+            <li><a href="{{ link.url.url}}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+        {%- endif -%}
+        {%- endif -%}
+      </div>
+      {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+

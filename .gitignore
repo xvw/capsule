@@ -11,6 +11,7 @@
 # ocamlbuild working directory
 _build/
 www/
+_www/
 
 # ocamlbuild targets
 *.byte
@@ -35,3 +36,6 @@ node_modules/
 
 # Krita and emacs temp files
 *~
+
+# Do not upload the cache
+cache

@@ -1,36 +1,10 @@
 open Yocaml
-open Preface.Predicate
 
-let not_emacs_backup f =
-  let bname = Filepath.basename f in
-  not (String.starts_with ~prefix:".#" bname)
-
-let is_css = not_emacs_backup && with_extension "css"
-let is_javascript = not_emacs_backup && with_extension "js"
-
-let is_markdown =
-  not_emacs_backup && (with_extension "md" || with_extension "markdown")
-
-let is_html = not_emacs_backup && with_extension "html"
-
-let is_image =
-  not_emacs_backup
-  && (with_extension "png"
-     || with_extension "svg"
-     || with_extension "jpg"
-     || with_extension "jpeg"
-     || with_extension "gif")
-
-let is_font =
-  not_emacs_backup
-  && (with_extension "eot"
-     || with_extension "svg"
-     || with_extension "ttf"
-     || with_extension "woff"
-     || with_extension "woff2")
-
-let is_related_to_favicon =
-  not_emacs_backup
-  && (with_extension "png" || with_extension "ico" || with_extension "manifest")
-
-let all = not_emacs_backup
+let one_of exts path = List.exists (fun ext -> Path.has_extension ext path) exts
+let is_markdown = one_of [ "md"; "markdown" ]
+let is_css = one_of [ "css" ]
+let is_javascript = one_of [ "js" ]
+let is_image = one_of [ "png"; "svg"; "jpg"; "jpeg"; "gif" ]
+let is_font = one_of [ "eot"; "svg"; "ttf"; "woff"; "woff2" ]
+let is_related_to_favicon = one_of [ "png"; "ico"; "webmanifest" ]
+let is_d2 = one_of [ "d2" ]

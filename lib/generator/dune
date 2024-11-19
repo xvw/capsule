@@ -1,3 +1,15 @@
 (library
  (name generator)
- (libraries preface yocaml yocaml_jingoo omd yocaml_yaml yocaml_syndication))
+ (public_name capsule.generator)
+ (libraries
+  capsule.std
+  yocaml
+  yocaml_yaml
+  yocaml_otoml
+  yocaml_jingoo
+  yocaml_cmarkit
+  yocaml_syndication
+  cmarkit)
+ (modules_without_implementation intf))
+
+(include_subdirs qualified)

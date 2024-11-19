@@ -1,8 +1,18 @@
 ---
-title: Expansion d'abréviations avec YASnippet
-creation_date: 2024-09-25
-description: Une très brève introduction à l'utilisation de YASnippet pour l'expansion d'abréviations.
-synopsis: 
+page_title: Expansion d'abréviations avec YASnippet
+description:
+  Une très brève introduction à l'utilisation de YASnippet pour 
+  l'expansion d'abréviations
+tags: [programmation, emacs, yas, snippet]
+section: outils
+published_at: 2024-09-25
+display_toc: true
+breadcrumb:
+  - title: Outils
+    url: /tools.html
+  - title: Emacs
+    url: /tools.html#index-emacs
+synopsis:
   Quand on programme (ou que l'on rédige), il est assez courant de devoir saisir
   des séquences récurrentes (du _boilerplate_). C'est probablement plus observable
   quand on écrit de code, où certaines constructions du langages, disposant de
@@ -11,21 +21,6 @@ synopsis:
   [YASnippet](https://github.com/joaotavora/yasnippet) (pour 
   _**Y**et **A**n other **S**nippet extension_), un système de _template_
   pour Emacs, permettant l'expansion d'abréviations, de manière structurée.
-toc: true
-tags: [programmation, emacs, yasnippet]
-breadcrumb:
-  - name: Programmation
-    href: /programming.html
-  - name: Notes
-    href: /programming.html#index-notes
-  - name: Emacs
-    href: /emacs.html
-  - name: Astuces
-    href: /emacs.html#index-astuces
-mastodon_thread:
-  instance: merveilles.town
-  user: xvw
-  id: "113199409470266941"
 ---
 
 Quand on écrit du code, où que l'on rédige des documents, il est assez
@@ -42,6 +37,7 @@ commencé à l'utiliser et j'ai été très impressionné par son ergonomie
 documentation](http://joaotavora.github.io/yasnippet/snippet-development.html)
 du greffon est très complète, mais un très rapide survol de quelques
 fonctionnalités que j'utilise.
+
 
 ### Un petit détour par `abbrev-mode`
 
@@ -64,6 +60,7 @@ point de vue, laborieuse.
 Heureusement, YASnippet permet de résoudre ce problème, d'une manière
 que je trouve convaincante. Voyons comment s'en servrir pour résoudre
 des petits cas pratiques.
+
 
 ## Installation et organisation des _snippets_
 

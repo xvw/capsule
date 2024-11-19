@@ -1,0 +1,31 @@
+{%- autoescape false -%}
+{{ yocaml_body }}
+{%- endautoescape -%}
+
+{%- if has_indexes -%}
+<section class="indexes">
+  {%- for index in indexes -%}
+  <div id="index-{{ index.id }}">
+    <h2>{{ index.name }}</h2>
+    {%- if index.has_synopsis -%}
+    <p>
+      {%- autoescape false -%}
+      {{ index.synopsis }}
+      {%- endautoescape -%}
+    </p>
+    {%- endif -%}
+    {%- if index.has_links -%}
+    <nav class="nav-enum">
+      <ul>
+        {%- for link in index.links -%}
+        <li>
+          <a href="{{ link.url.url }}">{{ link.title }}</a>
+        </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+    {%- endif -%}
+  </div>
+  {%- endfor -%}
+</section>
+{%- endif -%}

@@ -1,0 +1,89 @@
+<div class="journal-navigation">
+  {%- if has_pred -%}
+  <div class="pred"><a href="/journal/{{ pred }}">Entrées plus récentes</a></div>
+  {%- endif -%}
+  {%- if has_succ -%}
+  <div class="succ"><a href="/journal/{{ succ }}">Entrées plus anciennes</a></div>
+  {%- endif -%}
+</div> 
+
+{%- for entry in entries -%}
+<section class="journal-entry">
+
+  <div class="sidebar">
+    <time class="date-repr"
+          data-prefix="publié le"
+          datetime="{{ entry.input.datetime.repr.datetime }}">
+      {{entry.input.datetime.repr.datetime}}
+    </time>
+    {%- if entry.input.has_tags -%}
+    <nav class="nav-enum">
+      <h3>Tags</h3>
+      <ul class="without-padding">
+        {%- for tag in entry.input.tags -%}
+        <li class="tag">{{ tag }}</li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+    {%- endif -%}
+  </div>
+  
+  <div class="content">
+
+    {%- if entry.input.has_cover -%}
+    <img class="cover" alt="Cover" src="{{ entry.input.cover.url.url }}"/>
+    {%- endif -%}
+    
+    <article>
+      {%- autoescape false -%}
+      {{ entry.entry_content }}
+      {%- endautoescape -%}
+    </article>
+
+    <div class="details">
+      {%- if entry.input.has_kv -%}
+      <div class="kv">
+        {%- for elt in entry.input.kv -%}
+        <div>
+          <span>{{ elt.key }}</span>
+          <span>{{ elt.value }}</span>
+        </div>
+        {%- endfor -%}
+      </div>
+      {%- endif -%}
+      {%- if entry.input.has_indexes -%}
+      {%- for index in entry.input.indexes -%}
+      <div class="index">
+        <h3>{{index.name}}</h3>
+        {%- if index.has_synopsis -%}
+        {%- autoescape false -%}{{ index.synopsis }}{%- endautoescape -%}
+        {%- if index.has_links -%}
+        <nav class="nav-enum">
+          <ul>
+            {%- for link in index.links-%}
+            <li><a href="{{ link.url.url}}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+        {%- endif -%}
+        {%- endif -%}
+      </div>
+      {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{%- endfor -%}
+
+<div class="journal-navigation">
+  {%- if has_pred -%}
+  <div class="pred"><a href="/journal/{{ pred }}">Entrées plus récentes</a></div>
+  {%- endif -%}
+  {%- if has_succ -%}
+  <div class="succ"><a href="/journal/{{ succ }}">Entrées plus anciennes</a></div>
+  {%- endif -%}
+</div> 
+
+{%- autoescape false -%}
+{{ yocaml_body }}
+{%- endautoescape -%}
