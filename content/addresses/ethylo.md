@@ -28,6 +28,10 @@ breadcrumb:
   - title: Bruxelles
     url: /bars.html#index-bruxelles
 notes:
+  - when: 2024-12-1
+    message:
+      Un an après la fermeture et quelques mois après la réouverture,
+      l'Ethylo est [renommé](https://www.instagram.com/p/DDCKGTItEls/?img_index=1) **Fox Den** !
   - when: 2023-12-16
     message:
       Même si l'Ethylo était une superbe aventure, le concept décrit
@@ -41,8 +45,10 @@ notes:
 indexes:
   - name: Liens
     links:
+        - title: Site officiel
+          url: https://foxdenbar.be/
         - title: Instagram
-          url: https://www.instagram.com/ethylo_cocktailbar/
+          url: https://www.instagram.com/foxden_cocktailbar/
         - title: Facebook
           url: https://www.facebook.com/ethylococktailbar/
         - title: TripAdvisor
