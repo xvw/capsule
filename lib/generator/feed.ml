@@ -13,33 +13,33 @@ type t =
 [@@ocaml.warning "-69"]
 
 let from_source
-  (type a)
-  (module P : Yocaml.Required.DATA_PROVIDER)
-  (module D : Yocaml.Required.DATA_READABLE with type t = a)
-  ?(on = `Source)
-  ~where
-  ~to_entry
-  ~compute_link
-  path
+      (type a)
+      (module P : Yocaml.Required.DATA_PROVIDER)
+      (module D : Yocaml.Required.DATA_READABLE with type t = a)
+      ?(on = `Source)
+      ~where
+      ~to_entry
+      ~compute_link
+      path
   =
   let open Yocaml.Eff in
   let* files = read_directory ~on ~only:`Files ~where path in
   let+ elements =
     List.traverse
       (fun file ->
-        let url = compute_link file in
-        let+ metadata, _content =
-          read_file_with_metadata (module P) (module D) ~on file
-        in
-        to_entry ~file ~url metadata)
+         let url = compute_link file in
+         let+ metadata, _content =
+           read_file_with_metadata (module P) (module D) ~on file
+         in
+         to_entry ~file ~url metadata)
       files
   in
   elements
 ;;
 
 let journal_entries
-  (module P : Yocaml.Required.DATA_PROVIDER)
-  (module R : Intf.RESOLVER)
+      (module P : Yocaml.Required.DATA_PROVIDER)
+      (module R : Intf.RESOLVER)
   =
   let open Yocaml.Eff in
   let* files =
@@ -52,19 +52,19 @@ let journal_entries
   let+ elements =
     List.traverse
       (fun file ->
-        let url = R.Target.as_journal_entry file in
-        let+ metadata, content =
-          read_file_with_metadata
-            (module P)
-            (module Archetype.Journal_entry.Input)
-            ~on:`Source
-            file
-        in
-        let metadata =
-          Archetype.Journal_entry.replace_datetime ~file metadata
-        in
-        ( (metadata, content, file)
-        , Archetype.Journal_entry.Input.to_entry ~file ~url metadata ))
+         let url = R.Target.as_journal_entry file in
+         let+ metadata, content =
+           read_file_with_metadata
+             (module P)
+             (module Archetype.Journal_entry.Input)
+             ~on:`Source
+             file
+         in
+         let metadata =
+           Archetype.Journal_entry.replace_datetime ~file metadata
+         in
+         ( (metadata, content, file)
+         , Archetype.Journal_entry.Input.to_entry ~file ~url metadata ))
       files
   in
   elements |> Stdlib.List.split
@@ -73,16 +73,16 @@ let journal_entries
 let compute_map_from_tags source m =
   List.fold_left
     (fun m entry ->
-      List.fold_left
-        (fun m tag ->
-          M.update
-            tag
-            (function
-              | None -> Some [ entry ]
-              | Some xs -> Some (entry :: xs))
-            m)
-        m
-        (Model.Entry.tags_of entry))
+       List.fold_left
+         (fun m tag ->
+            M.update
+              tag
+              (function
+                | None -> Some [ entry ]
+                | Some xs -> Some (entry :: xs))
+              m)
+         m
+         (Model.Entry.tags_of entry))
     m
     source
 ;;
@@ -143,12 +143,12 @@ let make (module P : Yocaml.Required.DATA_PROVIDER) (module R : Intf.RESOLVER) =
 ;;
 
 let create_journal_feed
-  (module P : Yocaml.Required.DATA_PROVIDER)
-  (module R : Intf.RESOLVER)
-  on_synopsis
-  config
-  { journal_meta; _ }
-  cache
+      (module P : Yocaml.Required.DATA_PROVIDER)
+      (module R : Intf.RESOLVER)
+      on_synopsis
+      config
+      { journal_meta; _ }
+      cache
   =
   let by_page = Archetype.Config.journal_entries_per_page config in
   let entries = Std.List.split_by_size by_page journal_meta in
@@ -159,43 +159,43 @@ let create_journal_feed
       ~state:0
       entries
       (fun entries state cache ->
-        let index = state in
-        let deps = Archetype.Journal.deps_of entries in
-        let target = R.Target.as_journal_feed_page index in
-        let source = R.Source.journal_feed in
-        let length = len in
-        let+ cache =
-          Yocaml.Action.Static.write_file_with_metadata
-            (R.Target.promote target)
-            (let open Yocaml.Task in
-             R.track_common_deps
-             >>> Yocaml.Pipeline.track_files deps
-             >>> Yocaml.Pipeline.read_file_as_metadata
-                   (module P)
-                   (module Archetype.Journal.Input)
-                   source
-             >>> Yocaml.Task.empty_body ()
-             >>> Archetype.Journal.full_configure
-                   ~config
-                   ~source
-                   ~target
-                   ~kind:Model.Types.Article
-                   ~on_synopsis
-                   ~length
-                   ~entries
-                   ~index
-             >>> Yocaml_jingoo.Pipeline.as_template
-                   (module Archetype.Journal)
-                   (R.Source.template "journal-feed.html")
-             >>> Yocaml_jingoo.Pipeline.as_template
-                   (module Archetype.Journal)
-                   (R.Source.template "page-header.html")
-             >>> Yocaml_jingoo.Pipeline.as_template
-                   (module Archetype.Journal)
-                   (R.Source.template "layout.html"))
-            cache
-        in
-        cache, succ index)
+         let index = state in
+         let deps = Archetype.Journal.deps_of entries in
+         let target = R.Target.as_journal_feed_page index in
+         let source = R.Source.journal_feed in
+         let length = len in
+         let+ cache =
+           Yocaml.Action.Static.write_file_with_metadata
+             (R.Target.promote target)
+             (let open Yocaml.Task in
+              R.track_common_deps
+              >>> Yocaml.Pipeline.track_files deps
+              >>> Yocaml.Pipeline.read_file_as_metadata
+                    (module P)
+                    (module Archetype.Journal.Input)
+                    source
+              >>> Yocaml.Task.empty_body ()
+              >>> Archetype.Journal.full_configure
+                    ~config
+                    ~source
+                    ~target
+                    ~kind:Model.Types.Article
+                    ~on_synopsis
+                    ~length
+                    ~entries
+                    ~index
+              >>> Yocaml_jingoo.Pipeline.as_template
+                    (module Archetype.Journal)
+                    (R.Source.template "journal-feed.html")
+              >>> Yocaml_jingoo.Pipeline.as_template
+                    (module Archetype.Journal)
+                    (R.Source.template "page-header.html")
+              >>> Yocaml_jingoo.Pipeline.as_template
+                    (module Archetype.Journal)
+                    (R.Source.template "layout.html"))
+             cache
+         in
+         cache, succ index)
       cache
   in
   cache

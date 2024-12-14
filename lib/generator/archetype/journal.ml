@@ -48,14 +48,14 @@ let normalize { page; entries; length; index } =
 ;;
 
 let full_configure
-  ~config
-  ~source
-  ~target
-  ~kind
-  ~on_synopsis
-  ~length
-  ~entries
-  ~index
+      ~config
+      ~source
+      ~target
+      ~kind
+      ~on_synopsis
+      ~length
+      ~entries
+      ~index
   =
   Yocaml.Task.Static.on_metadata
     (Yocaml.Task.lift

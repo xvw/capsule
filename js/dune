@@ -1,8 +1,10 @@
 (executable
  (name capsule_js)
  (modes js)
- (preprocess (pps js_of_ocaml-ppx))
- (js_of_ocaml (flags :standard))
+ (preprocess
+  (pps js_of_ocaml-ppx))
+ (js_of_ocaml
+  (flags :standard))
  (promote
   (until-clean)
   (into "../hell/_build")

@@ -45,10 +45,10 @@ module Input = struct
     let* page = Raw.Input.validate obj in
     record
       (fun fields ->
-        let+ elements =
-          optional_or ~default:[] fields "elements" (list_of validate_elt)
-        in
-        { page; elements })
+         let+ elements =
+           optional_or ~default:[] fields "elements" (list_of validate_elt)
+         in
+         { page; elements })
       obj
   ;;
 end

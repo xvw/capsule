@@ -75,9 +75,9 @@ let process_misc_files (module R : Intf.RESOLVER) =
 ;;
 
 let layout_arrow
-  (type a)
-  (module A : Archetype.Types.ARCHETYPE with type t = a)
-  (module R : Intf.RESOLVER)
+      (type a)
+      (module A : Archetype.Types.ARCHETYPE with type t = a)
+      (module R : Intf.RESOLVER)
   =
   let open Yocaml.Task in
   Yocaml_jingoo.Pipeline.as_template
@@ -89,14 +89,14 @@ let layout_arrow
 ;;
 
 let page_arrow
-  (type a b)
-  (module A : Archetype.Types.ARCHETYPE with type t = a and type Input.t = b)
-  (module R : Intf.RESOLVER)
-  template
-  kind
-  config
-  source
-  target
+      (type a b)
+      (module A : Archetype.Types.ARCHETYPE with type t = a and type Input.t = b)
+      (module R : Intf.RESOLVER)
+      template
+      kind
+      config
+      source
+      target
   =
   let open Yocaml.Task in
   R.track_common_deps

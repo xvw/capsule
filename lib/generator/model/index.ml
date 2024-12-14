@@ -16,8 +16,8 @@ let sort_by links = function
       | "link-title" | "link-name" | "name" | "title" ->
         List.sort
           (fun a b ->
-            let f = if rev then -1 else 1 in
-            f * Link.compare_title a b)
+             let f = if rev then -1 else 1 in
+             f * Link.compare_title a b)
           links
       | _ -> if rev then List.rev links else links
     in

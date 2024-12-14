@@ -65,18 +65,18 @@ let validate =
 ;;
 
 let normalize
-  { display_name
-  ; first_name
-  ; last_name
-  ; avatar
-  ; website
-  ; custom_attributes
-  ; more_links
-  ; x_account
-  ; mastodon_account
-  ; github_account
-  ; more_accounts
-  }
+      { display_name
+      ; first_name
+      ; last_name
+      ; avatar
+      ; website
+      ; custom_attributes
+      ; more_links
+      ; x_account
+      ; mastodon_account
+      ; github_account
+      ; more_accounts
+      }
   =
   let open Yocaml.Data in
   let m_instance = Option.map fst mastodon_account

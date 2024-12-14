@@ -43,17 +43,17 @@ let validate =
 ;;
 
 let normalize
-  { title
-  ; repository
-  ; branch
-  ; software_license
-  ; content_license
-  ; owner
-  ; svg
-  ; main_url
-  ; default_cover
-  ; journal_entries_per_page
-  }
+      { title
+      ; repository
+      ; branch
+      ; software_license
+      ; content_license
+      ; owner
+      ; svg
+      ; main_url
+      ; default_cover
+      ; journal_entries_per_page
+      }
   =
   let open Yocaml.Data in
   record

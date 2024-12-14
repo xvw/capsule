@@ -27,9 +27,9 @@ module Make (K : Types.MODEL) (V : Types.MODEL) = struct
     list_of (fun x ->
       record
         (fun fields ->
-          let+ key = required fields "key" K.validate
-          and+ value = required fields "value" V.validate in
-          key, value)
+           let+ key = required fields "key" K.validate
+           and+ value = required fields "value" V.validate in
+           key, value)
         (as_record x))
   ;;
 

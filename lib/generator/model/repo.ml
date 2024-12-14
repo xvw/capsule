@@ -101,8 +101,8 @@ let validate =
 ;;
 
 let equal_of_user
-  { user_name = user_a; repository_name = repo_a }
-  { user_name = user_b; repository_name = repo_b }
+      { user_name = user_a; repository_name = repo_a }
+      { user_name = user_b; repository_name = repo_b }
   =
   String.equal user_a user_b && String.equal repo_a repo_b
 ;;
@@ -113,16 +113,16 @@ let equal a b =
     equal_of_user a b
   | ( Gitlab
         (Of_organization
-          { organization_name = org_a
-          ; project_name = proj_a
-          ; repository_name = repo_a
-          })
+           { organization_name = org_a
+           ; project_name = proj_a
+           ; repository_name = repo_a
+           })
     , Gitlab
         (Of_organization
-          { organization_name = org_b
-          ; project_name = proj_b
-          ; repository_name = repo_b
-          }) ) ->
+           { organization_name = org_b
+           ; project_name = proj_b
+           ; repository_name = repo_b
+           }) ) ->
     String.equal org_a org_b
     && String.equal proj_a proj_b
     && String.equal repo_a repo_b

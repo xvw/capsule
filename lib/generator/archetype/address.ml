@@ -19,12 +19,12 @@ module Input = struct
     let* page = Raw.Input.validate obj in
     record
       (fun fields ->
-        let+ country = required fields "country" string
-        and+ city = required fields "city" string
-        and+ zipcode = required fields "zipcode" string
-        and+ address = required fields "address" string
-        and+ osm_image = optional fields "osm_image" Model.Url.validate in
-        { page; country; city; zipcode; address; osm_image })
+         let+ country = required fields "country" string
+         and+ city = required fields "city" string
+         and+ zipcode = required fields "zipcode" string
+         and+ address = required fields "address" string
+         and+ osm_image = optional fields "osm_image" Model.Url.validate in
+         { page; country; city; zipcode; address; osm_image })
       obj
   ;;
 end
