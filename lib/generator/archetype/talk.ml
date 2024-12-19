@@ -1,11 +1,13 @@
 type t =
-  { kind : string
+  { title : string
+  ; name : string
+  ; kind : string
   ; date : Yocaml.Datetime.t
   ; city : string
   ; country : string
   ; lang : string
   ; tags : string list
-  ; conference : Model.Link.t
+  ; url : Model.Url.t option
   ; slides : Model.Url.t option
   ; video : Model.Url.t option
   ; links : Model.Link.t list
@@ -19,12 +21,14 @@ let neutral = Yocaml.Metadata.required entity_name
 let validate =
   let open Yocaml.Data.Validation in
   record (fun fields ->
-    let+ kind = optional_or ~default:"Conférence" fields "kind" string
+    let+ name = required fields "name" string
+    and+ title = required fields "title" string
+    and+ kind = optional_or ~default:"Conférence" fields "kind" string
     and+ date = required fields "date" Yocaml.Datetime.validate
     and+ city = required fields "city" string
     and+ country = required fields "country" string
     and+ lang = optional_or ~default:"fr" fields "lang" string
-    and+ conference = required fields "conference" Model.Link.validate
+    and+ url = optional fields "url" Model.Url.validate
     and+ slides = optional fields "slides" Model.Url.validate
     and+ video = optional fields "video" Model.Url.validate
     and+ links =
@@ -38,13 +42,15 @@ let validate =
         "kv"
         Model.Key_value.String.validate
     in
-    { kind
+    { name
+    ; title
+    ; kind
     ; date
     ; city
     ; country
     ; lang
     ; tags
-    ; conference
+    ; url
     ; slides
     ; video
     ; links
@@ -54,13 +60,15 @@ let validate =
 ;;
 
 let normalize
-      { kind
+      { name
+      ; title
+      ; kind
       ; date
       ; city
       ; country
       ; lang
       ; tags
-      ; conference
+      ; url
       ; slides
       ; video
       ; links
@@ -71,18 +79,21 @@ let normalize
   let open Model.Model_util in
   let open Yocaml.Data in
   record
-    [ "kind", string kind
+    [ "name", string name
+    ; "title", string title
+    ; "kind", string kind
     ; "date", Yocaml.Datetime.normalize date
     ; "city", string city
     ; "country", string country
     ; "lang", string lang
     ; "tags", list_of string tags
-    ; "conference", Model.Link.normalize conference
+    ; "url", option Model.Url.normalize url
     ; "slides", option Model.Url.normalize slides
     ; "video", option Model.Url.normalize video
     ; "links", (list_of Model.Link.normalize) links
     ; "kv", Model.Key_value.String.normalize kv
     ; "synopsis", option string synopsis
+    ; "has_url", exists_from_opt url
     ; "has_tags", exists_from_list tags
     ; "has_slides", exists_from_opt slides
     ; "has_video", exists_from_opt video

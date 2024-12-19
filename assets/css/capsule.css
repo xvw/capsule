@@ -150,7 +150,7 @@ body {
             }
         }
 
-         & > div:last-child {
+        & > div:last-child {
             flex: 6;
         }
     }
@@ -687,10 +687,50 @@ h6 {
 
         & > div:last-child {
             margin-bottom: 0;
-     }
+        }
 
         
     }
+}
+
+.inline-enum {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 0.5rem;
+    
+    & > div {
+        display: flex;
+        flex-direction: row;
+        gap: 0.2rem;
+        font-family: var(--font-sans-serif);
+
+        & > span {
+            padding: 0.1rem;
+        }
+
+        & > span:first-child {
+            text-align: right;
+            font-weight: 700;
+
+            &:after {
+                content: ":";
+            }
+        }
+
+        & > div:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.upcase {
+    text-transform: uppercase;
 }
 
 
@@ -722,6 +762,62 @@ h6 {
     }
 }
 
+.talk-list {
+
+    margin-top: 4rem;
+
+    
+    & > div {
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+
+        &:last-child > div:last-child > .talk:last-child {
+            border-bottom: 0px solid transparent;
+        }
+    }
+
+    & > div > div {
+        flex: 1;
+
+        &:first-child {
+            flex: 0;
+            color: var(--middle-color);
+        }
+    }
+
+    & .talk {
+        --gap: 1rem;
+        
+        border-bottom: 1px solid var(--middle-light-color);
+        margin-bottom: calc(var(--gap) * 3.2);
+        padding-bottom: var(--gap);
+        
+        & > h4 {
+            font-weight: 200;
+        }
+
+        & > nav.meta {
+            display: flex;
+            flex-direction: row;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+
+            & > a {
+                font-family: var(--font-sans-serif);
+            }
+        }
+
+        & > article {
+            margin-top: 1rem;
+            font-weight: 100;
+        }
+
+    }
+
+
+}
+
 
 .journal-navigation:empty {
     display:none;
@@ -741,8 +837,16 @@ time.date-repr::before {
     font-weight: 700;
 }
 
+.small-text {
+    font-size: 75%;
+}
+
 
 @media all and (max-width: 860px) {
+
+    .refutable {
+        display: none;
+    }
 
     body > footer {
         margin-top: 0.2rem;
@@ -803,4 +907,16 @@ time.date-repr::before {
         }
     }
 
-}
+    .talk-list {
+        & > div {
+            display: flex;
+            flex-direction: column;
+
+            & .talk {
+                & > nav.meta {
+                    flex-direction: column;
+                }
+            }
+        }
+
+    }
