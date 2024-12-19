@@ -26,6 +26,8 @@ indexes:
           url: /tools.html
         - title: Jeux vidéo
           url: /games.html
+        - title: Présentations
+          url: /speaking.html
   - name: Divers
     synopsis:
       Une collection de pages sans thématique particulière. 

@@ -123,6 +123,25 @@ let process_page (module R : Intf.RESOLVER) config source =
       >>> layout_arrow (module Archetype.Page) (module R))
 ;;
 
+let process_talks (module R : Intf.RESOLVER) config =
+  let module S = Archetype.Speaking.Make (Yocaml_yaml) (R) in
+  let target = R.Target.speaking in
+  let kind = Model.Types.Article in
+  Yocaml.Action.Static.write_file_with_metadata
+    (R.Target.promote target)
+    Yocaml.Task.(
+      Yocaml.Pipeline.track_file R.Source.talks
+      >>> page_arrow
+            (module S)
+            (module R)
+            "speaking.html"
+            kind
+            config
+            R.Source.speaking
+            target
+      >>> layout_arrow (module S) (module R))
+;;
+
 let process_address (module R : Intf.RESOLVER) config source =
   let target = R.Target.as_address source in
   let kind = Model.Types.Article in
@@ -276,6 +295,7 @@ let run (module R : Intf.RESOLVER) () =
   >>= process_indexes (module R) config
   >>= process_addresses (module R) config
   >>= process_galleries (module R) config
+  >>= process_talks (module R) config
   >>= process_journal_entries (module R) config
   >>= process_feed (module R) config context
   >>= Yocaml.Action.store_cache ~on:`Source R.Target.cache

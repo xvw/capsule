@@ -6,8 +6,8 @@ class t :
   -> description:string option
   -> synopsis:string
   -> section:string option
-  -> published_at:Yocaml.Archetype.Datetime.t option
-  -> updated_at:Yocaml.Archetype.Datetime.t option
+  -> published_at:Yocaml.Datetime.t option
+  -> updated_at:Yocaml.Datetime.t option
   -> tags:string list
   -> breadcrumb:Model.Link.t list
   -> indexes:Model.Indexes.t
