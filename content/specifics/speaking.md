@@ -3,7 +3,7 @@ page_title: Présentations
 synopsis:
   Depuis 2014, il m'arrive de _donner des présentations_ sur des sujets
   qui m'intéressent. Dans cette page, vous retrouverez une liste 
-  _plus ou moins hexaustive_ — certaines présentations, redondantes ou 
+  _plus ou moins exhaustive_ — certaines présentations, redondantes ou 
   internes à certaines entreprises ont été omises — des différentes 
   présentations que j'ai pu donner
   au fil des années. (En _vrai_, préparer des présentations me force parfois
@@ -17,7 +17,7 @@ display_toc: false
 ---
 
 Je suis toujours intéressé à l'idée de donner des présentations !
-N'hésitez pas à me contacter si vous seriez intéressé par une
-présentation. En ce moment, les sujets qui m'intéressent sont:
-**OCaml**, **Les systèmes de types**, **Le développement web**, **La
-programmation fonctionnelle** et **les modules**.
+N'hésitez pas à me contacter si vous êtes intéressé. En ce moment, mes
+sujets de prédilections sont: **OCaml**, **Les systèmes de types**,
+**Le développement web**, **La programmation fonctionnelle** et **les
+modules**.
