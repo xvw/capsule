@@ -70,10 +70,8 @@ let validate fields =
   and+ charset = optional_or ~default:"utf-8" fields "page_charset" string
   and+ section = optional fields "section" string
   and+ description = optional fields "description" string
-  and+ published_at =
-    optional fields "published_at" Yocaml.Archetype.Datetime.validate
-  and+ updated_at =
-    optional fields "updated_at" Yocaml.Archetype.Datetime.validate
+  and+ published_at = optional fields "published_at" Yocaml.Datetime.validate
+  and+ updated_at = optional fields "updated_at" Yocaml.Datetime.validate
   and+ synopsis = required fields "synopsis" string
   and+ tags = optional_or fields ~default:[] "tags" (list_of Slug.validate)
   and+ cover = optional fields "cover" Model.Cover.validate
@@ -126,13 +124,11 @@ let article_meta obj =
       ; from_option
           "og:article:published_time"
           (Option.map
-             (Format.asprintf "%a" Yocaml.Archetype.Datetime.pp)
+             (Format.asprintf "%a" Yocaml.Datetime.pp)
              obj#published_at)
       ; from_option
           "og:article:modified_time"
-          (Option.map
-             (Format.asprintf "%a" Yocaml.Archetype.Datetime.pp)
-             obj#updated_at)
+          (Option.map (Format.asprintf "%a" Yocaml.Datetime.pp) obj#updated_at)
       ; from_option "og:article:section" obj#section
       ]
     @ List.map
@@ -158,8 +154,8 @@ let normalize obj =
   ; "description", option string obj#description
   ; "synopsis", string obj#synopsis
   ; "section", option string obj#section
-  ; "published_at", option Yocaml.Archetype.Datetime.normalize obj#published_at
-  ; "updated_at", option Yocaml.Archetype.Datetime.normalize obj#updated_at
+  ; "published_at", option Yocaml.Datetime.normalize obj#published_at
+  ; "updated_at", option Yocaml.Datetime.normalize obj#updated_at
   ; "tags", list_of string obj#tags
   ; "breadcrumb", list_of Model.Link.normalize obj#breadcrumb
   ; "indexes", Model.Indexes.normalize obj#indexes

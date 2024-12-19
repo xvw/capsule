@@ -16,8 +16,8 @@ class type common = object ('a)
   method page_charset : string option
   method cover : Model.Cover.t option
   method description : string option
-  method published_at : Yocaml.Archetype.Datetime.t option
-  method updated_at : Yocaml.Archetype.Datetime.t option
+  method published_at : Yocaml.Datetime.t option
+  method updated_at : Yocaml.Datetime.t option
   method synopsis : string
   method section : string option
   method breadcrumb : Model.Link.t list

@@ -1,0 +1,74 @@
+<article class="synopsis">
+  {%- autoescape false -%}
+  {{ synopsis }}
+  {%- endautoescape -%}
+</article>
+
+<article>
+  {%- autoescape false -%}
+  {{ yocaml_body }}
+  {%- endautoescape -%}
+</article>
+
+
+{%- if has_talks -%}
+<section class="talk-list">
+  {%- for year in years -%}
+  {%- if year.has_talks -%}
+  <div>
+    <div>
+      <h2>{{ year.year}}</h2>
+    </div>
+    <div>
+      {%- for talk in year.talks -%}
+      <div class="talk">
+        <h4>{{ talk.name }}</h4>
+        <h3>{{ talk.title }}</h3>
+        <nav class="meta">
+          <time class="date-repr"
+                data-prefix="présenté le"
+                datetime="{{ talk.date.repr.datetime }}">
+            {{talk.date.repr.date}}
+          </time>
+          {%- if talk.has_url -%}
+          <a href="{{ talk.url.url }}">Événement</a>
+          {%- endif -%}
+          {%- if talk.has_slides -%}
+          <a href="{{ talk.slides.url }}">Support</a>
+          {%- endif -%}
+          {%- if talk.has_video -%}
+          <a href="{{ talk.video.url }}">Vidéo</a>
+          {%- endif -%}
+        </nav>
+        
+        <!-- {%- if talk.has_synopsis -%} -->
+        <!-- <article> -->
+        <!--   {%- autoescape false -%} -->
+        <!--   {{ talk.synopsis }} -->
+        <!--   {%- endautoescape -%} -->
+        <!-- </article> -->
+        <!-- {%- endif -%} -->
+
+        <div class="inline-enum small-text">
+          <div>
+            <span>Où</span>
+            <span>{{ talk.city}}, {{ talk.country }}</span>
+          </div>
+          <div>
+            <span>Type</span>
+            <span class="capitalize">{{ talk.kind}}</span>
+          </div>
+          <div>
+            <span>Langue</span>
+            <span class="upcase">{{ talk.lang}}</span>
+          </div>
+        </div>
+        
+      </div>
+      {%- endfor -%}
+    </div>
+  </div>
+  {%- endif -%}
+  {%- endfor -%}
+</section>
+{%- endif -%}
