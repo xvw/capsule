@@ -35,7 +35,7 @@ elements:
 
   - id: atlantis-6
     name: "La toile organique"
-    url: /images/atlantis-5.png
+    url: /images/atlantis-6.png
     url_tb: /images/atlantis-6-tb.png
     links:
       - title: NFT
