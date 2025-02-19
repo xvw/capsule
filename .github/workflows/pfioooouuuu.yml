@@ -17,9 +17,9 @@ jobs:
           node-version: 19
 
       - name: YOCaml
-        uses: ocaml/setup-ocaml@v2
+        uses: ocaml/setup-ocaml@v3
         with:
-          ocaml-compiler: 5.2.0
+          ocaml-compiler: 5.3.0
           opam-depext-flags: --with-test
 
       - run: (cd hell; npm install; npm run build)
