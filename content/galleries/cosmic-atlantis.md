@@ -31,7 +31,7 @@ elements:
     url_tb: /images/atlantis-7-tb.png
     links:
       - title: NFT
-        url: https://objkt.com/collection/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD/6
+        url: https://objkt.com/tokens/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD/6
 
   - id: atlantis-6
     name: "La toile organique"
@@ -39,7 +39,7 @@ elements:
     url_tb: /images/atlantis-6-tb.png
     links:
       - title: NFT
-        url: https://objkt.com/collection/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD/5
+        url: https://objkt.com/tokens/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD/5
 
   - id: atlantis-5
     name: "Une structure réfléchissante"
@@ -47,7 +47,7 @@ elements:
     url_tb: /images/atlantis-5-tb.png
     links:
       - title: NFT
-        url: https://objkt.com/collection/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD/4
+        url: https://objkt.com/tokens/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD/4
 
   - id: atlantis-4
     name: "Une structure effrayante"
@@ -55,7 +55,7 @@ elements:
     url_tb: /images/atlantis-4-tb.png
     links:
       - title: NFT
-        url: https://objkt.com/collection/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD/3
+        url: https://objkt.com/tokens/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD/3
 
   - id: atlantis-3
     name: "Prise de conscience"
@@ -63,7 +63,7 @@ elements:
     url_tb: /images/atlantis-3-tb.png
     links:
       - title: NFT
-        url: https://objkt.com/collection/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD/2
+        url: https://objkt.com/tokens/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD/2
         
   - id: atlantis-2
     name: "Seconde photo"
@@ -71,7 +71,7 @@ elements:
     url_tb: /images/atlantis-2-tb.png
     links:
       - title: NFT
-        url: https://objkt.com/collection/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD/1
+        url: https://objkt.com/tokens/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD/1
 
   - id: atlantis-1
     name: "Première photo"
@@ -79,7 +79,7 @@ elements:
     url_tb: /images/atlantis-1-tb.png
     links:
       - title: NFT
-        url: https://objkt.com/collection/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD/0
+        url: https://objkt.com/tokens/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD/0
 ---
 
 
