@@ -45,7 +45,10 @@
     {%- if has_elements -%}
     <section class="gallery">
       {%- for image in elements -%}
-      <div id="image-{{ image.id}}">
+      <div id="image-{{ image.id}}"
+           {%- if image.has_style -%}
+           style="{{ image.style }}"
+           {%- endif-%}>
         <a href="{{ image.url.url }}">
           <img alt="Image {{image.name}}" src="{{ image.url_tb.url }}"/>
         </a>

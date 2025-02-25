@@ -19,4 +19,14 @@ indexes:
           url: /galleries/cosmic-atlantis.html
         - title: Inktober 2023
           url: /galleries/never-ended-inktober-2023.html
+          
+  - name: Dans la rue
+    synopsis: 
+      J'aime les peintures, collages et pochoirs dans la rue. Parfois, 
+      je suis impressionné, parfois amusé. Ces galeries sont essentiellement 
+      des œuvres urbaines que j'ai pu prendre en photo dans différentes rues, 
+      organisées par ville.
+    links:
+        - title: Rouen
+          url: /galleries/rouen.html
 ---

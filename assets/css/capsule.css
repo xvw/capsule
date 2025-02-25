@@ -542,7 +542,7 @@ section.gallery {
     --gap: 0.5rem;
 
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--gap);
 
     & > div {
@@ -550,6 +550,10 @@ section.gallery {
         padding: 0.5rem;
         display: inline-block;
         font-size: 80%;
+
+        & > a > img {
+            width: 100%;
+        }
 
         & .title {
             font-weight: 700;
@@ -920,3 +924,13 @@ time.date-repr::before {
         }
 
     }
+}
+
+
+@media all and (max-width: 640px) {
+
+    section.gallery {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+}
