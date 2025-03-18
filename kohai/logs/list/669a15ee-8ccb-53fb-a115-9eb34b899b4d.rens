@@ -1,0 +1,5 @@
+<duration: 7200; id: "669a15ee-8ccb-53fb-a115-9eb34b899b4d";
+  label:
+   "Ajout des abstractions Functor, Applicative et Selective pour Yocaml.Task";
+  links: []; meta: []; project: "yocaml"; sector: "code";
+  start_date: "2024-02-13T10-00-00">
