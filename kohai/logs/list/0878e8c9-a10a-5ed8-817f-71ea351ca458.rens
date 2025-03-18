@@ -1,0 +1,5 @@
+<duration: 30000; id: "0878e8c9-a10a-5ed8-817f-71ea351ca458";
+  label:
+   "Réecriture de la gestion d'effets par le biais de modules (plutôt que d'effets)";
+  links: []; meta: []; project: "kohai"; sector: "code";
+  start_date: "2025-01-21T00-00-00">
