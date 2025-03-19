@@ -1,4 +1,4 @@
-<counter: 21;
+<counter: 23;
   description: "un outil de journalisation utilisable depuis emacs";
   name: "kohai">
 <counter: 0;
