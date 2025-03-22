@@ -2,7 +2,3 @@
   label: "Initiation du modèle de données (et du langage Rensai)";
   links: []; meta: []; project: "kohai"; sector: "code";
   start_date: "2025-01-28T00-00-00">
-<duration: null; index: 1;
-  label: "Intégration des rapports de Kohai dans Capsule"; links: [];
-  meta: []; project: "capsule"; sector: "code";
-  start_date: "2025-03-22T13-10-28">
