@@ -52,6 +52,8 @@ indexes:
           url: /feeds.html
         - title: Colophon
           url: /pages/colophon.html
+        - title: Liens et annuaires
+          url: /links.html
 ---
 
 Vous me trouverez sur [Mastodon](https://merveilles.town/@xvw), sur
