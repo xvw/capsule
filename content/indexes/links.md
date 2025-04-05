@@ -36,10 +36,23 @@ indexes:
         url: https://blog.clement.delafargue.name/
       - title: Kototama
         url: https://www.dialectical-computing.de/
-      - title: lthms
+      - title: Lthms
         url: https://soap.coffee/~lthms
       - title: Aurélien Dos Santos
         url: https://aureliendossantos.com/
       - title: Goulven Clec'h
         url: https://goulven-clech.dev/
+      - title: K0pernicus
+        url: https://carette.xyz/
+      - title: Arnaud Bailly
+        url: https://abailly.github.io/
+  - name: Communautés
+    synopsis: 
+      Communautés que je fréquente (ou du moins que je lis régulièrement).
+    sort: title 
+    links:
+      - title: OCaml (Discourse)
+        url: https://discuss.ocaml.org/
+      - title: Lobste.rs
+        url: https://lobste.rs/
 ---
