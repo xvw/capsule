@@ -1655,8 +1655,8 @@ digérer ce très long article, sur un sujet si dépassé !
 
 ### L'ultime mot de la fin
 
-Plus de vingt plus tard, une page se tourne. Il est difficile de me
-considérer comme un adulte sans avoir compris les règles du Tetra
+Plus de vingt ans plus tard, une page se tourne. Il est difficile de
+me considérer comme un adulte sans avoir compris les règles du Tetra
 Master. C'est chose faite ! Je peux maintenenant me concentrer sur des
 projets moins intéressants et moins formatteurs ! Blagues à part, j'ai
 eu beaucoup d'amusement à faire ce travail d'archéologie, de rédaction
