@@ -29,4 +29,6 @@ indexes:
     links:
         - title: Rouen
           url: /galleries/rouen.html
+        - title: New York
+          url: /galleries/nyc.html
 ---
