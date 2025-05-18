@@ -59,4 +59,5 @@ pin-depends: [
   ["nightmare_js-vdom.dev" "git+https://github.com/funkywork/nightmare.git"]
   ["rensai.dev" "git+https://github.com/xvw/kohai.git"]
   ["yocaml_rensai.dev" "git+https://github.com/xvw/kohai.git"]
+  ["yocaml_kohai.dev" "git+https://github.com/xvw/kohai.git"]  
 ]
