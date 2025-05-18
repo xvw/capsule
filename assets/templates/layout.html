@@ -87,6 +87,13 @@
                 {{ config.svg.rss.to_html }}
                 {%- endautoescape -%}
               </a>
+              {%- if config.owner.has_bluesky_account -%}
+              <a rel="me" href="https://bsky.app/profile/{{ config.owner.bluesky_account }}">
+                {%- autoescape false -%}
+                {{ config.svg.bluesky.to_html }}
+                {%- endautoescape -%}
+              </a>
+              {%- endif -%}
               {%- if config.owner.has_x_account -%}
               <a rel="me" href="https://x.com/{{ config.owner.x_account }}">
                 {%- autoescape false -%}

@@ -9,6 +9,7 @@ type t =
   ; x_account : string option
   ; mastodon_account : (Url.t * string) option
   ; github_account : string option
+  ; bluesky_account : string option
   ; more_accounts : Link.t list
   ; custom_attributes : Key_value.String.t
   ; more_links : Link.t list
@@ -37,6 +38,7 @@ let validate =
     and+ avatar = optional fields "avatar" Url.validate
     and+ website = optional fields "website" Link.validate
     and+ x_account = optional fields "x_account" string
+    and+ bluesky_account = optional fields "bluesky_account" string
     and+ mastodon_account = optional fields "mastodon_account" mastodon
     and+ github_account = optional fields "github_account" string
     and+ custom_attributes =
@@ -57,6 +59,7 @@ let validate =
     ; custom_attributes
     ; more_links
     ; x_account
+    ; bluesky_account
     ; mastodon_account
     ; github_account
     ; more_accounts
@@ -74,6 +77,7 @@ let normalize
       ; more_links
       ; x_account
       ; mastodon_account
+      ; bluesky_account
       ; github_account
       ; more_accounts
       }
@@ -88,6 +92,7 @@ let normalize
     ; "avatar", option Url.normalize avatar
     ; "website", option Link.normalize website
     ; "x_account", option string x_account
+    ; "bluesky_account", option string bluesky_account
     ; "mastodon_instance", option Url.normalize m_instance
     ; "mastodon_account", option string m_account
     ; "github_account", option string github_account
@@ -101,6 +106,7 @@ let normalize
     ; "has_more_accounts", exists_from_list more_accounts
     ; "has_github_account", exists_from_opt github_account
     ; "has_x_account", exists_from_opt x_account
+    ; "has_bluesky_account", exists_from_opt bluesky_account
     ; "has_mastodon_account", exists_from_opt mastodon_account
     ; "has_first_name", exists_from_opt first_name
     ; "has_last_name", exists_from_opt last_name
