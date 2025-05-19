@@ -41,7 +41,9 @@
 
   ;; Kohai dependencies
   rensai
+  kohai
   yocaml_rensai
+  yocaml_kohai
 
   ;; Generator dependencies
   cmarkit

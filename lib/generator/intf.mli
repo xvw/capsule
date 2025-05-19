@@ -30,6 +30,14 @@ module type RESOLVER = sig
     val talks : Yocaml.Path.t
     val speaking : Yocaml.Path.t
     val now : Yocaml.Path.t
+
+    module Kohai : sig
+      val root : Yocaml.Path.t
+      val state : Yocaml.Path.t
+      val logs : Yocaml.Path.t
+      val last_logs : Yocaml.Path.t
+      val log : Kohai_core.Uuid.t -> Yocaml.Path.t
+    end
   end
 
   module Target : sig

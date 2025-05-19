@@ -16,7 +16,9 @@ module Output : sig
     -> t
 
   val full_configure
-    :  config:Config.t
+    :  ?updated_at:Yocaml.Datetime.t
+    -> ?published_at:Yocaml.Datetime.t
+    -> config:Config.t
     -> source:Yocaml.Path.t
     -> target:Yocaml.Path.t
     -> kind:Model.Types.document_kind

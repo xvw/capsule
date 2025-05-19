@@ -58,13 +58,27 @@ module Output = struct
       (Model.Index.map_synopsis (Option.map f))
   ;;
 
+  let patch_date ?updated_at ?published_at o =
+    (o#patch_updated_at updated_at)#patch_published_at published_at
+  ;;
+
   let define_document_kind kind output = output#on_document_kind (fun _ -> kind)
 
-  let full_configure ~config ~source ~target ~kind ~on_synopsis:f input =
+  let full_configure
+        ?updated_at
+        ?published_at
+        ~config
+        ~source
+        ~target
+        ~kind
+        ~on_synopsis:f
+        input
+    =
     input
     |> configure ~config ~source ~target
     |> define_document_kind kind
     |> on_synopsis f
+    |> patch_date ?updated_at ?published_at
   ;;
 
   let table_of_content output = output#with_toc

@@ -1,0 +1,12 @@
+{%- autoescape false -%}
+{{ yocaml_body }}
+{%- endautoescape -%}
+
+
+{%- if has_logs -%}
+
+{%- else -%}
+<section class="indexes">
+  <p>Il n y a pas de <strong>Journaux</strong> pour cette période.</p>
+</section>
+{%- endif -%}

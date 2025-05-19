@@ -15,21 +15,23 @@ class t
   ~indexes
   ~display_toc
   ~notes =
-  object (_ : #Types.common)
+  object (self : #Types.common)
     val toc_value = None
     val description_value = description
     val synopsis_value = synopsis
     val indexes_value = indexes
     val document_kind_value = document_kind
     val temporal_notes = notes
+    val updated_at_value = updated_at
+    val published_at_value = published_at
     method document_kind = document_kind_value
     method page_title = title
     method page_charset = charset
     method cover = cover
     method description = description_value
     method section = section
-    method published_at = published_at
-    method updated_at = updated_at
+    method published_at = published_at_value
+    method updated_at = updated_at_value
     method synopsis = synopsis_value
     method tags = tags
     method breadcrumb = breadcrumb
@@ -46,6 +48,16 @@ class t
       {<temporal_notes = Model.Temporal_note.on_messages f temporal_notes>}
 
     method on_document_kind f = {<document_kind_value = f document_kind_value>}
+
+    method patch_updated_at nd =
+      match updated_at with
+      | Some _ -> self
+      | None -> {<updated_at_value = nd>}
+
+    method patch_published_at nd =
+      match published_at with
+      | Some _ -> self
+      | None -> {<published_at_value = nd>}
   end
 
 let validate_document_kind =

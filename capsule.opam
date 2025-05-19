@@ -25,7 +25,9 @@ depends: [
   "nightmare_js"
   "nightmare_js-vdom"
   "rensai"
+  "kohai"
   "yocaml_rensai"
+  "yocaml_kohai"
   "cmarkit"
   "mdx"
   "ppx_expect"
@@ -58,6 +60,7 @@ pin-depends: [
   ["nightmare_js.dev" "git+https://github.com/funkywork/nightmare.git"]
   ["nightmare_js-vdom.dev" "git+https://github.com/funkywork/nightmare.git"]
   ["rensai.dev" "git+https://github.com/xvw/kohai.git"]
+  ["kohai.dev" "git+https://github.com/xvw/kohai.git"]  
   ["yocaml_rensai.dev" "git+https://github.com/xvw/kohai.git"]
   ["yocaml_kohai.dev" "git+https://github.com/xvw/kohai.git"]  
 ]
