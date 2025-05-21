@@ -88,8 +88,19 @@ let normalize
       }
   =
   let open Yocaml.Data in
-  let projects = String_map.to_list projects
-  and sectors = String_map.to_list sectors in
+  let projects =
+    String_map.to_list projects
+    |> List.sort (fun (_, a) (_, b) -> Kohai_core.Duration.compare b a)
+  and sectors =
+    String_map.to_list sectors
+    |> List.sort (fun (_, a) (_, b) -> Kohai_core.Duration.compare b a)
+  and logs =
+    logs
+    |> List.sort (fun a b ->
+      let a = Kohai_model.Log.start_date a
+      and b = Kohai_model.Log.start_date b in
+      Kohai_core.Datetime.compare b a)
+  in
   Raw.Output.normalize page
   @ [ "logs", list_of Yocaml_kohai.Log.normalize logs
     ; "min_date", option Yocaml.Datetime.normalize min_date
