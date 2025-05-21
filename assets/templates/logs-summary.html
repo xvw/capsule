@@ -1,0 +1,80 @@
+{%- autoescape false -%}
+{{ yocaml_body }}
+{%- endautoescape -%}
+
+
+<section class="logs-summary">
+  
+  {%- if has_logs -%}
+
+  <p>
+    Journaux du <time>{{ min_date.repr.date }}</time> au
+    <time>{{ max_date.repr.date }}</time>, pour un total
+    de <time>~{{ total_duration.repr }}</time>.
+  </p>
+  
+  
+  <div class="global-view">
+    {%- if has_projects -%}
+    <div>
+      <h3>Projets</h3>
+      <div>
+        {%- for project in projects -%}
+        <div>
+          <span>{{ project.key }}</span>
+          <time>~{{ project.value.repr }}</time>
+        </div>
+        {%- endfor -%}
+      </div>
+    </div>
+    {%- endif -%}
+    <div>
+      <h3>Secteurs</h3>
+      <div>
+        {%- for sector in sectors -%}
+        <div>
+          <span>{{ sector.key }}</span>
+          <time>~{{ sector.value.repr }}</time>
+        </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  <!-- <section class="log-list"> -->
+
+  <!--   <h2>Derniers journaux</h2> -->
+    
+  <!--   {%- for log in logs -%} -->
+  <!--   <div> -->
+  <!--     <p>{{ log.label }}</p> -->
+  <!--     <div class="inline-enum"> -->
+  <!--       <div> -->
+  <!--         <span>Date</span> -->
+  <!--         <span><time>{{ log.start_date.repr.date }}<time></span> -->
+  <!--       </div> -->
+  <!--       <div> -->
+  <!--         <span>Durée</span> -->
+  <!--         <span><time>~{{ log.duration.repr }}<time></span> -->
+  <!--       </div> -->
+  <!--       <div> -->
+  <!--         <span>Secteur</span> -->
+  <!--         <span>{{ log.sector }}</span> -->
+  <!--       </div> -->
+  <!--       {%- if log.has_project -%} -->
+  <!--       <div> -->
+  <!--         <span>Projet</span> -->
+  <!--         <span>{{ log.project }}</span> -->
+  <!--       </div> -->
+  <!--       {%- endif -%} -->
+  <!--     </div> -->
+  <!--   </div> -->
+  <!--   {%- endfor -%} -->
+  <!-- </section> -->
+
+
+
+  {%- else -%}
+  <p>Il n y a pas de <strong>Journaux</strong> pour cette période.</p>
+  {%- endif -%}
+</section>

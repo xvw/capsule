@@ -9,5 +9,6 @@ val main_url_of : t -> Model.Url.t
 val default_cover_of : t -> Model.Cover.t option
 val resolve_cover : t -> Model.Cover.t option -> Model.Cover.t option
 val journal_entries_per_page : t -> int
+val merge_kohai_state : t -> Kohai_model.State.t -> t
 
 include Model.Types.NORMALIZABLE with type t := t

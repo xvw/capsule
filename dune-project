@@ -39,6 +39,12 @@
   nightmare_js
   nightmare_js-vdom
 
+  ;; Kohai dependencies
+  rensai
+  kohai
+  yocaml_rensai
+  yocaml_kohai
+
   ;; Generator dependencies
   cmarkit
  

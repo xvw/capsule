@@ -9,6 +9,7 @@ type t =
   ; owner : Model.Identity.t
   ; svg : Model.Svg.t list
   ; journal_entries_per_page : int
+  ; kohai_state : Kohai_model.State.t option
   }
 
 let entity_name = "Configuration"
@@ -39,6 +40,7 @@ let validate =
     ; default_cover
     ; main_url
     ; journal_entries_per_page
+    ; kohai_state = None
     })
 ;;
 
@@ -53,12 +55,14 @@ let normalize
       ; main_url
       ; default_cover
       ; journal_entries_per_page
+      ; kohai_state
       }
   =
   let open Yocaml.Data in
   record
     [ "main_title", string title
     ; "main_url", Model.Url.normalize main_url
+    ; "kohai_state", option Yocaml_kohai.State.normalize kohai_state
     ; "repository", Model.Repo.normalize repository
     ; "branch", string branch
     ; "journal_entries_per_page", int journal_entries_per_page
@@ -68,6 +72,7 @@ let normalize
     ; "svg", Model.Svg.normalize_list svg
     ; "default_cover", option Model.Cover.normalize default_cover
     ; "has_default_cover", Model.Model_util.exists_from_opt default_cover
+    ; "has_kohai_state", Model.Model_util.exists_from_opt kohai_state
     ]
 ;;
 
@@ -83,4 +88,13 @@ let journal_entries_per_page { journal_entries_per_page; _ } =
 
 let resolve_cover config cover =
   Option.map (Model.Cover.resolve (main_url_of config)) cover
+;;
+
+let merge_kohai_state config state =
+  let state =
+    match Kohai_model.State.big_bang_of state with
+    | Some _ -> Some state
+    | None -> None
+  in
+  { config with kohai_state = state }
 ;;

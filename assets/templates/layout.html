@@ -118,6 +118,24 @@
               <a href="/feeds.html">Autres flux</a>
             </nav>
           </section>
+          {%- if config.has_kohai_state -%}
+          <section>
+            <h3>Etats</h3>
+            <p>
+              <strong>
+                {{ config.kohai_state.number_of_logs }}
+                journaux
+              </strong>
+              pour une durée de
+              <strong>{{ config.kohai_state.duration.d }} jours</strong>,
+              <strong>{{ config.kohai_state.duration.h }} heures</strong>,
+              <strong>{{ config.kohai_state.duration.m }} minutes</strong> et
+              <strong>{{ config.kohai_state.duration.s }} secondes</strong>.
+              <br />
+              <a href="/now">Activité</a>
+            </p>
+          </section>
+          {%- endif -%}
         </div>
         <div>
           <div class="set svg-light">

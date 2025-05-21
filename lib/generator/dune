@@ -9,7 +9,11 @@
   yocaml_jingoo
   yocaml_cmarkit
   yocaml_syndication
-  cmarkit)
+  cmarkit
+  kohai.core
+  kohai.model
+  yocaml_kohai
+  yocaml_rensai)
  (modules_without_implementation intf))
 
 (include_subdirs qualified)

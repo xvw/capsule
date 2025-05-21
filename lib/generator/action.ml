@@ -256,6 +256,10 @@ let process_journal_entries (module R : Intf.RESOLVER) config =
     (process_journal_entry (module R) config)
 ;;
 
+let process_now_page (module R : Intf.RESOLVER) =
+  Log.create_now_page (module Yocaml_yaml) (module R) md_to_html
+;;
+
 let process_feed (module R : Intf.RESOLVER) config context =
   let open Yocaml.Eff in
   Feed.create_journal_feed
@@ -273,10 +277,20 @@ let process_feed (module R : Intf.RESOLVER) config context =
 ;;
 
 let fetch_config (module R : Intf.RESOLVER) =
-  Yocaml_otoml.Eff.read_file_as_metadata
-    (module Archetype.Config)
-    ~on:`Source
-    R.Source.configuration
+  let open Yocaml.Eff.Syntax in
+  let* config =
+    Yocaml_otoml.Eff.read_file_as_metadata
+      (module Archetype.Config)
+      ~on:`Source
+      R.Source.configuration
+  in
+  let+ kohai_state =
+    Yocaml_rensai.Eff.read_file_as_metadata
+      (module Yocaml_kohai.State)
+      ~on:`Source
+      R.Source.Kohai.state
+  in
+  Archetype.Config.merge_kohai_state config kohai_state
 ;;
 
 let run (module R : Intf.RESOLVER) () =
@@ -296,6 +310,7 @@ let run (module R : Intf.RESOLVER) () =
   >>= process_addresses (module R) config
   >>= process_galleries (module R) config
   >>= process_talks (module R) config
+  >>= process_now_page (module R) config
   >>= process_journal_entries (module R) config
   >>= process_feed (module R) config context
   >>= Yocaml.Action.store_cache ~on:`Source R.Target.cache

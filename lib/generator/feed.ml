@@ -10,7 +10,6 @@ type t =
       (Archetype.Journal_entry.Input.t * string * Yocaml.Path.t) list
   ; by_tags : Model.Entry.t list M.t
   }
-[@@ocaml.warning "-69"]
 
 let from_source
       (type a)
