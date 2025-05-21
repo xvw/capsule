@@ -2,7 +2,7 @@
   description:
    "le générateur de site, basé sur yocaml qui propulse mon site personnel";
   name: "capsule">
-<counter: 26;
+<counter: 38;
   description: "un outil de journalisation utilisable depuis emacs";
   name: "kohai">
 <counter: 0;
