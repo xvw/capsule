@@ -1,8 +1,8 @@
-<counter: 1;
+<counter: 3;
   description:
    "le générateur de site, basé sur yocaml qui propulse mon site personnel";
   name: "capsule">
-<counter: 38;
+<counter: 39;
   description: "un outil de journalisation utilisable depuis emacs";
   name: "kohai">
 <counter: 0;
