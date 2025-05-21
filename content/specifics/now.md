@@ -10,7 +10,7 @@ synopsis:
   Les données sont saisies par le biais de 
   [Kohai](https://github.com/xvw/kohai), un petit outil de saisie 
   de temps qui s'interface avec
-  [Emacs](https://https://www.gnu.org/software/emacs/).
+  [Emacs](https://www.gnu.org/software/emacs/).
 
 breadcrumb:
   - title: Meta
