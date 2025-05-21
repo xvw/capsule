@@ -98,3 +98,9 @@ let merge_kohai_state config state =
   in
   { config with kohai_state = state }
 ;;
+
+let kohai_state { kohai_state; _ } =
+  match kohai_state with
+  | Some ks -> ks
+  | None -> Kohai_model.State.big_bang ()
+;;

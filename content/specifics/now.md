@@ -1,7 +1,7 @@
 ---
 page_title: En ce moment
 description:
-  Une page qui recense mon activité.
+  Une page qui recense mon activité ponctuelle.
 synopsis: 
   Cette page est inspirée des pages
   [`now`](https://nownownow.com/about), initiée par [Derek

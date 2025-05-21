@@ -27,13 +27,15 @@ module Make (R : Intf.RESOLVABLE) = struct
     let specifics = Path.(content / "specifics")
     let speaking = Path.(specifics / "speaking.md")
     let now = Path.(specifics / "now.md")
+    let activity = Path.(specifics / "activity.md")
     let journal_feed = Path.(specifics / "journal.yml")
     let maps = Path.(content / "maps")
     let template file = Path.(templates / file)
 
     module Kohai = struct
       let root = kohai
-      let state = Path.(kohai / "state.rens")
+      let state_of p = Path.(p / "state.rens")
+      let state = state_of kohai
       let logs = Path.(kohai / "logs" / "list")
       let last_logs = Path.(kohai / "logs" / "last_logs.rens")
 
@@ -41,6 +43,9 @@ module Make (R : Intf.RESOLVABLE) = struct
         let uuid = Kohai_core.Uuid.to_string uuid in
         Path.(logs / uuid) |> Path.add_extension "rens"
       ;;
+
+      let sectors = Path.(kohai / "sectors")
+      let projects = Path.(kohai / "projects")
     end
 
     let deps = [ binary; configuration; Kohai.state ]
@@ -59,6 +64,7 @@ module Make (R : Intf.RESOLVABLE) = struct
     let tags = Path.(R.target / "tags")
     let speaking = Path.(R.target / "speaking.html")
     let now = Path.(R.target / "now" / "index.html")
+    let activity = Path.(R.target / "activity.html")
     let as_html file = file |> Path.change_extension "html"
     let as_index file = file |> as_html |> Path.move ~into:(Path.rel [])
     let as_page file = file |> as_html |> Path.move ~into:(Path.rel [ "pages" ])

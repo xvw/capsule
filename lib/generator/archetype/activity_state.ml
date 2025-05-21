@@ -17,8 +17,8 @@ type state =
   { min_date : Yocaml.Datetime.t option
   ; max_date : Yocaml.Datetime.t option
   ; total_duration : Kohai_core.Duration.t
-  ; sectors : Kohai_core.Duration.t String_map.t
-  ; projects : Kohai_core.Duration.t String_map.t
+  ; sectors : (Kohai_core.Duration.t * int) String_map.t
+  ; projects : (Kohai_core.Duration.t * int) String_map.t
   }
 
 let empty_state =
@@ -47,8 +47,8 @@ let min_date_of = cmp_date (fun a b -> if Yocaml.Datetime.(b > a) then a else b)
 let max_date_of = cmp_date (fun a b -> if Yocaml.Datetime.(b < a) then a else b)
 
 let may_add_dur duration = function
-  | None -> Some duration
-  | Some d -> Some (Kohai_core.Duration.add d duration)
+  | None -> Some (duration, 1)
+  | Some (d, i) -> Some (Kohai_core.Duration.add d duration, succ i)
 ;;
 
 let add_duration map duration key =
@@ -72,13 +72,43 @@ let update_state { min_date; max_date; total_duration; sectors; projects } log =
   }
 ;;
 
-let compute_state logs = List.fold_left update_state empty_state logs
+let compute_state_from_logs logs = List.fold_left update_state empty_state logs
+
+let collapse_state list =
+  List.fold_left
+    (fun acc (k, v) ->
+       let duration = Kohai_model.State.duration_of v in
+       let total = Kohai_model.State.number_of_logs_of v in
+       String_map.add k (duration, total) acc)
+    String_map.empty
+    list
+;;
+
+let compute_state_from_states config projects sectors =
+  let global_state = Config.kohai_state config in
+  { min_date =
+      global_state
+      |> Kohai_model.State.big_bang_of
+      |> Option.map Yocaml_kohai.Datetime.to_yocaml
+  ; max_date =
+      global_state
+      |> Kohai_model.State.end_of_world_of
+      |> Option.map Yocaml_kohai.Datetime.to_yocaml
+  ; total_duration = Kohai_model.State.duration_of global_state
+  ; sectors = collapse_state sectors
+  ; projects = collapse_state projects
+  }
+;;
 
 let normalize_indexes map =
   let open Yocaml.Data in
   map
-  |> list_of (fun (k, v) ->
-    record [ "key", string k; "value", Yocaml_kohai.Duration.normalize v ])
+  |> list_of (fun (k, (v, i)) ->
+    record
+      [ "key", string k
+      ; "value", Yocaml_kohai.Duration.normalize v
+      ; "logs", int i
+      ])
 ;;
 
 let normalize
@@ -90,10 +120,12 @@ let normalize
   let open Yocaml.Data in
   let projects =
     String_map.to_list projects
-    |> List.sort (fun (_, a) (_, b) -> Kohai_core.Duration.compare b a)
+    |> List.sort (fun (_, (a, _)) (_, (b, _)) ->
+      Kohai_core.Duration.compare b a)
   and sectors =
     String_map.to_list sectors
-    |> List.sort (fun (_, a) (_, b) -> Kohai_core.Duration.compare b a)
+    |> List.sort (fun (_, (a, _)) (_, (b, _)) ->
+      Kohai_core.Duration.compare b a)
   and logs =
     logs
     |> List.sort (fun a b ->
@@ -114,9 +146,33 @@ let normalize
     ]
 ;;
 
-let full_configure ~config ~source ~target ~kind ~on_synopsis =
+let configure_from_states ~config ~source ~target ~kind ~on_synopsis =
+  Yocaml.Task.lift
+    (fun ((projects, sectors, deps), (Input.{ page }, content)) ->
+       let state = compute_state_from_states config projects sectors in
+       let published_at = state.min_date in
+       let updated_at = state.max_date in
+       let meta =
+         { page =
+             Raw.Output.full_configure
+               ?published_at
+               ?updated_at
+               ~config
+               ~source
+               ~target
+               ~kind
+               ~on_synopsis
+               page
+         ; logs = []
+         ; state
+         }
+       in
+       (meta, content), deps)
+;;
+
+let configure_from_logs ~config ~source ~target ~kind ~on_synopsis =
   Yocaml.Task.lift (fun ((logs, deps), (Input.{ page }, content)) ->
-    let state = compute_state logs in
+    let state = compute_state_from_logs logs in
     let published_at = state.min_date in
     let updated_at = state.max_date in
     let meta =
