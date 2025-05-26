@@ -52,9 +52,8 @@ let get_states p =
          |> Option.value ~default:"unknown"
        in
        let+ state =
-         read_file_as_metadata
+         Yocaml_rensai.Eff.read_file_as_metadata
            ~on:`Source
-           (module Yocaml_rensai)
            (module Yocaml_kohai.State)
            p
        in
@@ -100,22 +99,10 @@ let build_activity_page
 let layout_arrow (module R : Intf.RESOLVER) =
   let open Yocaml.Task in
   Dynamic.on_content (Yocaml_cmarkit.to_html ())
-  >>> Dynamic.on_static
-        (Yocaml_jingoo.Pipeline.as_template
-           (module Archetype.Activity_state)
-           (R.Source.template "page.html"))
-  >>> Dynamic.on_static
-        (Yocaml_jingoo.Pipeline.as_template
-           (module Archetype.Activity_state)
-           (R.Source.template "logs-summary.html"))
-  >>> Dynamic.on_static
-        (Yocaml_jingoo.Pipeline.as_template
-           (module Archetype.Activity_state)
-           (R.Source.template "page-header.html"))
-  >>> Dynamic.on_static
-        (Yocaml_jingoo.Pipeline.as_template
-           (module Archetype.Activity_state)
-           (R.Source.template "layout.html"))
+  >>> Layout.as_dynamic
+        (module R)
+        (module Archetype.Activity_state)
+        [ "page.html"; "logs-summary.html"; "page-header.html"; "layout.html" ]
 ;;
 
 let create_now_page

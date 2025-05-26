@@ -46,6 +46,10 @@ module Make (R : Intf.RESOLVABLE) = struct
 
       let sectors = Path.(kohai / "sectors")
       let projects = Path.(kohai / "projects")
+
+      module Project = struct
+        let list = Path.(kohai / "list" / "projects.rens")
+      end
     end
 
     let deps = [ binary; configuration; Kohai.state ]

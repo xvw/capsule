@@ -183,15 +183,10 @@ let create_journal_feed
                     ~length
                     ~entries
                     ~index
-              >>> Yocaml_jingoo.Pipeline.as_template
+              >>> Layout.as_static
+                    (module R)
                     (module Archetype.Journal)
-                    (R.Source.template "journal-feed.html")
-              >>> Yocaml_jingoo.Pipeline.as_template
-                    (module Archetype.Journal)
-                    (R.Source.template "page-header.html")
-              >>> Yocaml_jingoo.Pipeline.as_template
-                    (module Archetype.Journal)
-                    (R.Source.template "layout.html"))
+                    [ "journal-feed.html"; "page-header.html"; "layout.html" ])
              cache
          in
          cache, succ index)
