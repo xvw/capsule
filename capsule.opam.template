@@ -1,4 +1,12 @@
 pin-depends: [
+  ["yocaml.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
+  ["yocaml_runtime.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
+  ["yocaml_eio.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
+  ["yocaml_cmarkit.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
+  ["yocaml_jingoo.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
+  ["yocaml_syndication.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
+  ["yocaml_yaml.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
+  ["yocaml_otoml.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
   ["nightmare.dev" "git+https://github.com/funkywork/nightmare.git"]
   ["nightmare-dream.dev" "git+https://github.com/funkywork/nightmare.git"]
   ["nightmare-tyxml.dev" "git+https://github.com/funkywork/nightmare.git"]

@@ -9,17 +9,17 @@ license: "GPL-3.0-or-later"
 homepage: "https://github.com/xvw/capsule"
 bug-reports: "https://github.com/xvw/capsule/issues"
 depends: [
+  "dune" {>= "3.16"}
   "ocaml" {>= "5.2.0"}
-  "dune" {>= "3.16" & >= "3.16.0"}
   "cmdliner"
   "fmt"
-  "yocaml" {>= "2.0.1"}
-  "yocaml_eio" {>= "2.0.1"}
-  "yocaml_cmarkit" {>= "2.0.1"}
-  "yocaml_jingoo" {>= "2.0.1"}
-  "yocaml_syndication" {>= "2.0.1"}
-  "yocaml_yaml" {>= "2.0.1"}
-  "yocaml_otoml" {>= "2.0.1"}
+  "yocaml"
+  "yocaml_eio"
+  "yocaml_cmarkit"
+  "yocaml_jingoo"
+  "yocaml_syndication"
+  "yocaml_yaml"
+  "yocaml_otoml"
   "nightmare"
   "nightmare-tyxml"
   "nightmare_js"
@@ -54,6 +54,14 @@ build: [
 ]
 dev-repo: "git+https://github.com/xvw/capsule.git"
 pin-depends: [
+  ["yocaml.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
+  ["yocaml_runtime.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
+  ["yocaml_eio.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
+  ["yocaml_cmarkit.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
+  ["yocaml_jingoo.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
+  ["yocaml_syndication.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
+  ["yocaml_yaml.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
+  ["yocaml_otoml.dev" "git+https://github.com/xhtmlboi/yocaml.git"]
   ["nightmare.dev" "git+https://github.com/funkywork/nightmare.git"]
   ["nightmare-dream.dev" "git+https://github.com/funkywork/nightmare.git"]
   ["nightmare-tyxml.dev" "git+https://github.com/funkywork/nightmare.git"]
