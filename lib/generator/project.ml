@@ -1,0 +1,70 @@
+let as_option ~path arr =
+  let open Yocaml.Task in
+  when_ (Yocaml.Pipeline.file_exists path) (arr >>| Option.some) (const None)
+;;
+
+let get_state (module R : Intf.RESOLVER) project =
+  let state = R.Source.Kohai.Project.state_of project in
+  as_option
+    ~path:state
+    (Yocaml_rensai.Pipeline.read_file_as_metadata
+       (module Yocaml_kohai.State)
+       state)
+;;
+
+let get_page
+      (module P : Yocaml.Required.DATA_PROVIDER)
+      (module R : Intf.RESOLVER)
+      project
+  =
+  let page = R.Source.Kohai.Project.page_of project in
+  as_option
+    ~path:page
+    (Yocaml.Pipeline.read_file_with_metadata
+       (module P)
+       (module Archetype.Project.Input)
+       page)
+;;
+
+let collapse (module R : Intf.RESOLVER) project_name project result =
+  let activity_url = Yocaml.Path.abs [ "activity.html" ] in
+  match result with
+  | None, None ->
+    (* Should never happen. *)
+    Archetype.Project.empty_project ~activity_url ~project_name ~project (), ""
+  | None, Some (meta, content) ->
+    ( Archetype.Project.project_without_state
+        ~activity_url
+        ~project_name
+        ~project
+        meta
+    , content )
+  | Some state, None ->
+    ( Archetype.Project.project_without_content
+        ~activity_url
+        ~project_name
+        ~project
+        state
+    , "" )
+  | Some state, Some (meta, content) ->
+    ( Archetype.Project.project ~activity_url ~project_name ~project state meta
+    , content )
+;;
+
+let get
+      (module P : Yocaml.Required.DATA_PROVIDER)
+      (module R : Intf.RESOLVER)
+      projects
+      project
+  =
+  let project_name = Yocaml.Path.basename project in
+  let project_item =
+    Option.bind project_name (fun key ->
+      Kohai_model.Described_item.Set.find key projects)
+  in
+  let open Yocaml.Task in
+  Yocaml.Pipeline.track_file R.Source.Kohai.Project.list
+  >>> get_state (module R) project
+  &&& get_page (module P) (module R) project
+  >>| collapse (module R) project_name project_item
+;;

@@ -41,9 +41,12 @@ module type RESOLVER = sig
       val sectors : Yocaml.Path.t
       val projects : Yocaml.Path.t
       val state_of : Yocaml.Path.t -> Yocaml.Path.t
+      val page_of : Yocaml.Path.t -> Yocaml.Path.t
 
       module Project : sig
         val list : Yocaml.Path.t
+        val state_of : Yocaml.Path.t -> Yocaml.Path.t
+        val page_of : Yocaml.Path.t -> Yocaml.Path.t
       end
     end
   end

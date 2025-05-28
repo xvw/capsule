@@ -6,7 +6,7 @@ module Input = struct
       ~title:input#page_title
       ~content_url:url
       ~tags:input#tags
-      ~summary:input#synopsis
+      ~summary:(Option.value ~default:"no summary" input#synopsis)
       ~file
       ~datetime:
         Std.Option.(
@@ -15,6 +15,56 @@ module Input = struct
   ;;
 
   let validate = Yocaml.Data.Validation.record Common.validate
+
+  let make
+        ?(title = "Untitled")
+        ?(document_kind = Model.Types.Article)
+        ?charset
+        ?cover
+        ?description
+        ?synopsis
+        ?section
+        ?published_at
+        ?updated_at
+        ?(tags = [])
+        ?(breadcrumb = [])
+        ?(indexes = Model.Indexes.empty)
+        ?(display_toc = false)
+        ?(notes = [])
+        ()
+    =
+    new Common.t
+      ~document_kind
+      ~title
+      ~charset
+      ~cover
+      ~description
+      ~synopsis
+      ~section
+      ~published_at
+      ~updated_at
+      ~tags
+      ~breadcrumb
+      ~indexes
+      ~display_toc
+      ~notes
+  ;;
+
+  let default_project_breadcrumb activity_url =
+    [ Model.Link.make "Activité" (Model.Url.from_path activity_url) ]
+  ;;
+
+  let empty_project ~activity_url ?(title = "untitled") () =
+    let synopsis = Format.asprintf "Description of `%s`" title in
+    let notes =
+      [ ( Yocaml.Datetime.dummy
+        , "La page a été créée pour d'obscures raisons (_des données sont \
+           probablement manquantes_)" )
+      ]
+    in
+    let breadcrumb = default_project_breadcrumb activity_url in
+    make ~title ~notes ~breadcrumb ~synopsis ~description:synopsis ()
+  ;;
 end
 
 module Output = struct

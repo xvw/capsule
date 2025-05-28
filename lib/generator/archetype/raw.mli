@@ -1,6 +1,26 @@
 module Input : sig
   class type t = Types.common
 
+  val make
+    :  ?title:string
+    -> ?document_kind:Model.Types.document_kind
+    -> ?charset:string
+    -> ?cover:Model.Cover.t
+    -> ?description:string
+    -> ?synopsis:string
+    -> ?section:string
+    -> ?published_at:Yocaml.Datetime.t
+    -> ?updated_at:Yocaml.Datetime.t
+    -> ?tags:string list
+    -> ?breadcrumb:Model.Link.t list
+    -> ?indexes:Model.Indexes.t
+    -> ?display_toc:bool
+    -> ?notes:Model.Temporal_note.t
+    -> unit
+    -> Common.t
+
+  val default_project_breadcrumb : Yocaml.Path.t -> Model.Link.t list
+  val empty_project : activity_url:Yocaml.Path.t -> ?title:string -> unit -> t
   val to_entry : file:Yocaml.Path.t -> url:Yocaml.Path.t -> t -> Model.Entry.t
   val validate : Yocaml.Data.t -> t Yocaml.Data.Validation.validated_value
 end

@@ -4,6 +4,7 @@ module Make (P : Yocaml.Required.DATA_PROVIDER) (R : Intf.RESOLVER) = struct
 
     let entity_name = "Speaking"
     let neutral = Yocaml.Metadata.required entity_name
+    let validate f = validate f
   end
 
   module IMap = Stdlib.Map.Make (Stdlib.Int)

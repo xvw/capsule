@@ -35,6 +35,7 @@ module Make (R : Intf.RESOLVABLE) = struct
     module Kohai = struct
       let root = kohai
       let state_of p = Path.(p / "state.rens")
+      let page_of p = Path.(p / "page.md")
       let state = state_of kohai
       let logs = Path.(kohai / "logs" / "list")
       let last_logs = Path.(kohai / "logs" / "last_logs.rens")
@@ -49,6 +50,8 @@ module Make (R : Intf.RESOLVABLE) = struct
 
       module Project = struct
         let list = Path.(kohai / "list" / "projects.rens")
+        let state_of = state_of
+        let page_of = page_of
       end
     end
 

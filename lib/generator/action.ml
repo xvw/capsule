@@ -297,9 +297,19 @@ let fetch_config (module R : Intf.RESOLVER) =
   Archetype.Config.merge_kohai_state config kohai_state
 ;;
 
+let fetch_projects (module R : Intf.RESOLVER) =
+  let open Yocaml.Eff in
+  let+ content = read_file ~on:`Source R.Source.Kohai.Project.list in
+  content
+  |> Lexing.from_string
+  |> Rensai.Lang.from_lexingbuf_to_list
+  |> Kohai_model.Described_item.Set.from_ast_list
+;;
+
 let run (module R : Intf.RESOLVER) () =
   let open Yocaml.Eff in
   let* config = fetch_config (module R) in
+  let* _projects = fetch_projects (module R) in
   let* context = Feed.make (module Yocaml_yaml) (module R) in
   Yocaml.Action.restore_cache ~on:`Source R.Target.cache
   >>= process_fonts (module R)

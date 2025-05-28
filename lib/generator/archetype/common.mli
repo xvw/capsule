@@ -4,7 +4,7 @@ class t :
   -> charset:string option
   -> cover:Model.Cover.t option
   -> description:string option
-  -> synopsis:string
+  -> synopsis:string option
   -> section:string option
   -> published_at:Yocaml.Datetime.t option
   -> updated_at:Yocaml.Datetime.t option

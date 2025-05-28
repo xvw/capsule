@@ -18,7 +18,7 @@ class type common = object ('a)
   method description : string option
   method published_at : Yocaml.Datetime.t option
   method updated_at : Yocaml.Datetime.t option
-  method synopsis : string
+  method synopsis : string option
   method section : string option
   method breadcrumb : Model.Link.t list
   method indexes : Model.Indexes.t
@@ -33,6 +33,8 @@ class type common = object ('a)
   method on_notes : (string -> string) -> 'a
   method patch_updated_at : Yocaml.Datetime.t option -> 'a
   method patch_published_at : Yocaml.Datetime.t option -> 'a
+  method add_breadcrumb : Model.Link.t list -> 'a
+  method compute_synopsis : string option -> 'a
 
   method on_document_kind :
     (Model.Types.document_kind -> Model.Types.document_kind) -> 'a

@@ -1,8 +1,10 @@
+{%- if has_synopsis-%}
 <article class="synopsis">
   {%- autoescape false -%}
   {{ synopsis }}
   {%- endautoescape -%}
 </article>
+{%- endif -%}
 
 {%- if has_toc -%}
 <section class="toc">

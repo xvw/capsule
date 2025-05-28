@@ -123,8 +123,8 @@ let normalize { kv; page; datetime } =
 
 let from_input ({ datetime; page = Input.{ tags; indexes; cover }; _ } as r) =
   let title = Input.title_of r in
-  let synopsis = Input.summary_of r in
-  let description = Some synopsis in
+  let synopsis = Some (Input.summary_of r) in
+  let description = synopsis in
   let charset = Some "utf-8" in
   let published_at = Some datetime in
   let page =

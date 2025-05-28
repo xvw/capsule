@@ -24,6 +24,7 @@ class t
     val temporal_notes = notes
     val updated_at_value = updated_at
     val published_at_value = published_at
+    val breadcrumb_value = breadcrumb
     method document_kind = document_kind_value
     method page_title = title
     method page_charset = charset
@@ -34,14 +35,14 @@ class t
     method updated_at = updated_at_value
     method synopsis = synopsis_value
     method tags = tags
-    method breadcrumb = breadcrumb
+    method breadcrumb = breadcrumb_value
     method indexes = indexes_value
     method display_toc = display_toc
     method toc = toc_value
     method notes = temporal_notes
     method with_toc new_toc = {<toc_value = new_toc>}
     method on_description f = {<description_value = f description_value>}
-    method on_synopsis f = {<synopsis_value = f synopsis_value>}
+    method on_synopsis f = {<synopsis_value = Option.map f synopsis_value>}
     method on_index f = {<indexes_value = Model.Indexes.map f indexes_value>}
 
     method on_notes f =
@@ -50,14 +51,24 @@ class t
     method on_document_kind f = {<document_kind_value = f document_kind_value>}
 
     method patch_updated_at nd =
-      match updated_at with
+      match self#updated_at with
       | Some _ -> self
       | None -> {<updated_at_value = nd>}
 
     method patch_published_at nd =
-      match published_at with
+      match self#published_at with
       | Some _ -> self
       | None -> {<published_at_value = nd>}
+
+    method add_breadcrumb b =
+      match self#breadcrumb with
+      | [] -> {<breadcrumb_value = b>}
+      | _ :: _ -> self
+
+    method compute_synopsis new_s =
+      let s = Std.Option.(self#synopsis <|> new_s)
+      and d = Std.Option.(self#description <|> new_s) in
+      {<synopsis_value = s; description_value = d>}
   end
 
 let validate_document_kind =
@@ -84,7 +95,7 @@ let validate fields =
   and+ description = optional fields "description" string
   and+ published_at = optional fields "published_at" Yocaml.Datetime.validate
   and+ updated_at = optional fields "updated_at" Yocaml.Datetime.validate
-  and+ synopsis = required fields "synopsis" string
+  and+ synopsis = optional fields "synopsis" string
   and+ tags = optional_or fields ~default:[] "tags" (list_of Slug.validate)
   and+ cover = optional fields "cover" Model.Cover.validate
   and+ breadcrumb =
@@ -164,7 +175,7 @@ let normalize obj =
   [ "page_title", string obj#page_title
   ; "page_charset", option string obj#page_charset
   ; "description", option string obj#description
-  ; "synopsis", string obj#synopsis
+  ; "synopsis", option string obj#synopsis
   ; "section", option string obj#section
   ; "published_at", option Yocaml.Datetime.normalize obj#published_at
   ; "updated_at", option Yocaml.Datetime.normalize obj#updated_at
@@ -174,6 +185,7 @@ let normalize obj =
   ; "cover", option Model.Cover.normalize obj#cover
   ; "notes", Model.Temporal_note.normalize obj#notes
   ; "toc", option string obj#toc
+  ; "has_synopsis", exists_from_opt obj#synopsis
   ; "has_tags", exists_from_list obj#tags
   ; "has_section", exists_from_opt obj#section
   ; "has_toc", bool (obj#display_toc && Option.is_some obj#toc)
