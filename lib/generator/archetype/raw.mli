@@ -19,11 +19,10 @@ module Input : sig
     -> unit
     -> Common.t
 
-  val default_project_breadcrumb : Yocaml.Path.t -> Model.Link.t list
+  val default_project_breadcrumb : Model.Link.t list
 
   val empty_project
     :  ?with_notice:bool
-    -> activity_url:Yocaml.Path.t
     -> ?synopsis:string
     -> ?title:string
     -> unit

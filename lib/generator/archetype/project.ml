@@ -24,10 +24,11 @@ let make_synopsis project_name project =
   let open Std.Option in
   project
   >>= Kohai_model.Described_item.description
+  >|= String.capitalize_ascii
   <|> (Format.asprintf "Présentation du projet `%s`" <$> project_name)
 ;;
 
-let empty_project ~activity_url ~project_name ~project () =
+let empty_project ~project_name ~project () =
   let title = make_title project_name project in
   let synopsis = make_synopsis project_name project in
   { license = None
@@ -35,12 +36,12 @@ let empty_project ~activity_url ~project_name ~project () =
   ; repo = None
   ; releases = Model.Key_value.Links.empty
   ; links = Model.Key_value.Links.empty
-  ; page = Raw.Input.empty_project ~activity_url ?title ?synopsis ()
+  ; page = Raw.Input.empty_project ?title ?synopsis ()
   ; state = None
   }
 ;;
 
-let project_without_state ~activity_url ~project_name ~project input =
+let project_without_state ~project_name ~project input =
   let synopsis =
     let open Std.Option in
     project
@@ -49,14 +50,13 @@ let project_without_state ~activity_url ~project_name ~project input =
   in
   { input with
     page =
-      (input.page#add_breadcrumb
-         (Raw.Input.default_project_breadcrumb activity_url))
+      (input.page#add_breadcrumb Raw.Input.default_project_breadcrumb)
         #compute_synopsis
         synopsis
   }
 ;;
 
-let project_without_content ~activity_url ~project_name ~project state =
+let project_without_content ~project_name ~project state =
   let title = make_title project_name project in
   let synopsis = make_synopsis project_name project in
   { license = None
@@ -64,24 +64,16 @@ let project_without_content ~activity_url ~project_name ~project state =
   ; repo = None
   ; releases = Model.Key_value.Links.empty
   ; links = Model.Key_value.Links.empty
-  ; page =
-      Raw.Input.empty_project
-        ~with_notice:false
-        ~activity_url
-        ?title
-        ?synopsis
-        ()
+  ; page = Raw.Input.empty_project ~with_notice:false ?title ?synopsis ()
   ; state = Some state
   }
-  |> project_without_state ~activity_url ~project_name ~project
+  |> project_without_state ~project_name ~project
 ;;
 
 let with_state state input = { input with state = Some state }
 
-let project ~activity_url ~project_name ~project state input =
-  input
-  |> project_without_state ~activity_url ~project_name ~project
-  |> with_state state
+let project ~project_name ~project state input =
+  input |> project_without_state ~project_name ~project |> with_state state
 ;;
 
 module Input = struct

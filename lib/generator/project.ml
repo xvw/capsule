@@ -27,28 +27,16 @@ let get_page
 ;;
 
 let collapse (module R : Intf.RESOLVER) project_name project result =
-  let activity_url = Yocaml.Path.abs [ "activity.html" ] in
   match result with
   | None, None ->
     (* Should never happen. *)
-    Archetype.Project.empty_project ~activity_url ~project_name ~project (), ""
+    Archetype.Project.empty_project ~project_name ~project (), ""
   | None, Some (meta, content) ->
-    ( Archetype.Project.project_without_state
-        ~activity_url
-        ~project_name
-        ~project
-        meta
-    , content )
+    Archetype.Project.project_without_state ~project_name ~project meta, content
   | Some state, None ->
-    ( Archetype.Project.project_without_content
-        ~activity_url
-        ~project_name
-        ~project
-        state
-    , "" )
+    Archetype.Project.project_without_content ~project_name ~project state, ""
   | Some state, Some (meta, content) ->
-    ( Archetype.Project.project ~activity_url ~project_name ~project state meta
-    , content )
+    Archetype.Project.project ~project_name ~project state meta, content
 ;;
 
 let get

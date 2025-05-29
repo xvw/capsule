@@ -50,17 +50,15 @@ module Input = struct
       ~notes
   ;;
 
-  let default_project_breadcrumb activity_url =
-    [ Model.Link.make "Activité" (Model.Url.from_path activity_url) ]
+  let default_project_breadcrumb =
+    [ Model.Link.make "Meta"
+      @@ Model.Url.from_path Yocaml.Path.(abs [ "#index-meta" ])
+    ; Model.Link.make "Activité"
+      @@ Model.Url.from_path Yocaml.Path.(abs [ "activity.html" ])
+    ]
   ;;
 
-  let empty_project
-        ?(with_notice = true)
-        ~activity_url
-        ?synopsis
-        ?(title = "untitled")
-        ()
-    =
+  let empty_project ?(with_notice = true) ?synopsis ?(title = "untitled") () =
     let notes =
       if with_notice
       then
@@ -70,7 +68,7 @@ module Input = struct
         ]
       else []
     in
-    let breadcrumb = default_project_breadcrumb activity_url in
+    let breadcrumb = default_project_breadcrumb in
     make ~title ~notes ~breadcrumb ?synopsis ?description:synopsis ()
   ;;
 end

@@ -9,5 +9,9 @@ synopsis:
   [Emacs](https://www.gnu.org/software/emacs/). 
   (Pour les derniers journaux, _l'activité courante_, rendez-vous 
   [ici](/now))
+  
+breadcrumb:
+  - title: Meta
+    url: /#index-meta
 display_toc: false
 ---
