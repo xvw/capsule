@@ -20,7 +20,15 @@ module Input : sig
     -> Common.t
 
   val default_project_breadcrumb : Yocaml.Path.t -> Model.Link.t list
-  val empty_project : activity_url:Yocaml.Path.t -> ?title:string -> unit -> t
+
+  val empty_project
+    :  ?with_notice:bool
+    -> activity_url:Yocaml.Path.t
+    -> ?synopsis:string
+    -> ?title:string
+    -> unit
+    -> t
+
   val to_entry : file:Yocaml.Path.t -> url:Yocaml.Path.t -> t -> Model.Entry.t
   val validate : Yocaml.Data.t -> t Yocaml.Data.Validation.validated_value
 end

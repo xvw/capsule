@@ -67,6 +67,12 @@ module Make (R : Intf.RESOLVABLE) = struct
     let js = Path.(R.target / "js")
     let fonts = Path.(R.target / "fonts")
     let images = Path.(R.target / "images")
+    let projects = Path.(R.target / "projects")
+
+    let project path =
+      path |> Path.change_extension "html" |> Path.move ~into:projects
+    ;;
+
     let maps = Path.(images / "maps")
     let tags = Path.(R.target / "tags")
     let speaking = Path.(R.target / "speaking.html")

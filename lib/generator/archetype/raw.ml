@@ -19,7 +19,7 @@ module Input = struct
   let make
         ?(title = "Untitled")
         ?(document_kind = Model.Types.Article)
-        ?charset
+        ?(charset = "utf-8")
         ?cover
         ?description
         ?synopsis
@@ -36,7 +36,7 @@ module Input = struct
     new Common.t
       ~document_kind
       ~title
-      ~charset
+      ~charset:(Some charset)
       ~cover
       ~description
       ~synopsis
@@ -54,16 +54,24 @@ module Input = struct
     [ Model.Link.make "Activité" (Model.Url.from_path activity_url) ]
   ;;
 
-  let empty_project ~activity_url ?(title = "untitled") () =
-    let synopsis = Format.asprintf "Description of `%s`" title in
+  let empty_project
+        ?(with_notice = true)
+        ~activity_url
+        ?synopsis
+        ?(title = "untitled")
+        ()
+    =
     let notes =
-      [ ( Yocaml.Datetime.dummy
-        , "La page a été créée pour d'obscures raisons (_des données sont \
-           probablement manquantes_)" )
-      ]
+      if with_notice
+      then
+        [ ( Yocaml.Datetime.dummy
+          , "La page a été créée pour d'obscures raisons (_des données sont \
+             probablement manquantes_)" )
+        ]
+      else []
     in
     let breadcrumb = default_project_breadcrumb activity_url in
-    make ~title ~notes ~breadcrumb ~synopsis ~description:synopsis ()
+    make ~title ~notes ~breadcrumb ?synopsis ?description:synopsis ()
   ;;
 end
 

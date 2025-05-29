@@ -20,14 +20,22 @@ let make_title project_name project =
   Kohai_model.Described_item.name <$> project <|> project_name
 ;;
 
+let make_synopsis project_name project =
+  let open Std.Option in
+  project
+  >>= Kohai_model.Described_item.description
+  <|> (Format.asprintf "Présentation du projet `%s`" <$> project_name)
+;;
+
 let empty_project ~activity_url ~project_name ~project () =
   let title = make_title project_name project in
+  let synopsis = make_synopsis project_name project in
   { license = None
   ; status = Unceasing
   ; repo = None
   ; releases = Model.Key_value.Links.empty
   ; links = Model.Key_value.Links.empty
-  ; page = Raw.Input.empty_project ~activity_url ?title ()
+  ; page = Raw.Input.empty_project ~activity_url ?title ?synopsis ()
   ; state = None
   }
 ;;
@@ -50,12 +58,19 @@ let project_without_state ~activity_url ~project_name ~project input =
 
 let project_without_content ~activity_url ~project_name ~project state =
   let title = make_title project_name project in
+  let synopsis = make_synopsis project_name project in
   { license = None
   ; status = Unceasing
   ; repo = None
   ; releases = Model.Key_value.Links.empty
   ; links = Model.Key_value.Links.empty
-  ; page = Raw.Input.empty_project ~activity_url ?title ()
+  ; page =
+      Raw.Input.empty_project
+        ~with_notice:false
+        ~activity_url
+        ?title
+        ?synopsis
+        ()
   ; state = Some state
   }
   |> project_without_state ~activity_url ~project_name ~project
@@ -143,10 +158,26 @@ let normalize { license; status; repo; releases; links; page; state } =
 let full_configure ~config ~source ~target ~kind ~on_synopsis =
   Yocaml.Task.Static.on_metadata
     (Yocaml.Task.lift
-     @@ fun ({ page; _ } as proj) ->
+     @@ fun ({ page; state; _ } as proj) ->
+     let published_at =
+       let open Std.Option in
+       let* state = state in
+       let+ d = Kohai_model.State.big_bang_of state in
+       Yocaml_kohai.Datetime.to_yocaml d
+     in
+     let updated_at =
+       let open Std.Option in
+       let* state = state in
+       let* d = published_at in
+       let* e = Kohai_model.State.end_of_world_of state in
+       let e = Yocaml_kohai.Datetime.to_yocaml e in
+       if Yocaml.Datetime.equal d e then None else Some e
+     in
      { proj with
        page =
          Raw.Output.full_configure
+           ?published_at
+           ?updated_at
            ~config
            ~source
            ~target

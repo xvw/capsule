@@ -256,6 +256,18 @@ let process_journal_entries (module R : Intf.RESOLVER) config =
     (process_journal_entry (module R) config)
 ;;
 
+let process_projects (module R : Intf.RESOLVER) config projects =
+  Yocaml.Action.batch
+    ~only:`Directories
+    R.Source.Kohai.projects
+    (Project.create_project_page
+       (module Yocaml_yaml)
+       (module R)
+       md_to_html
+       config
+       projects)
+;;
+
 let process_now_page (module R : Intf.RESOLVER) =
   Log.create_now_page (module Yocaml_yaml) (module R) md_to_html
 ;;
@@ -309,7 +321,7 @@ let fetch_projects (module R : Intf.RESOLVER) =
 let run (module R : Intf.RESOLVER) () =
   let open Yocaml.Eff in
   let* config = fetch_config (module R) in
-  let* _projects = fetch_projects (module R) in
+  let* projects = fetch_projects (module R) in
   let* context = Feed.make (module Yocaml_yaml) (module R) in
   Yocaml.Action.restore_cache ~on:`Source R.Target.cache
   >>= process_fonts (module R)
@@ -324,6 +336,7 @@ let run (module R : Intf.RESOLVER) () =
   >>= process_addresses (module R) config
   >>= process_galleries (module R) config
   >>= process_talks (module R) config
+  >>= process_projects (module R) config projects
   >>= process_now_page (module R) config
   >>= process_activity_page (module R) config
   >>= process_journal_entries (module R) config

@@ -64,6 +64,8 @@ module type RESOLVER = sig
     val speaking : Yocaml.Path.t
     val now : Yocaml.Path.t
     val activity : Yocaml.Path.t
+    val projects : Yocaml.Path.t
+    val project : Yocaml.Path.t -> Yocaml.Path.t
     val as_html : Yocaml.Path.t -> Yocaml.Path.t
     val as_page : Yocaml.Path.t -> Yocaml.Path.t
     val as_address : Yocaml.Path.t -> Yocaml.Path.t

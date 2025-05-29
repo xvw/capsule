@@ -1,4 +1,4 @@
-(** Tool for dealing with logs. *)
+(** Actions for dealing with logs. *)
 
 (** Create the now page. *)
 val create_now_page

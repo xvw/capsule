@@ -68,3 +68,37 @@ let get
   &&& get_page (module P) (module R) project
   >>| collapse (module R) project_name project_item
 ;;
+
+let layout_arrow (module R : Intf.RESOLVER) =
+  let open Yocaml.Task in
+  Yocaml_cmarkit.content_to_html_with_toc
+    ~strict:false
+    Archetype.Project.table_of_content
+  >>> Layout.as_static
+        (module R)
+        (module Archetype.Project)
+        [ "page.html"; "page-header.html"; "layout.html" ]
+;;
+
+let create_project_page
+      (module P : Yocaml.Required.DATA_PROVIDER)
+      (module R : Intf.RESOLVER)
+      on_synopsis
+      config
+      projects
+      project
+  =
+  let target = R.Target.project project in
+  Yocaml.Action.Static.write_file_with_metadata
+    (R.Target.promote target)
+    (let open Yocaml.Task in
+     R.track_common_deps
+     >>> get (module P) (module R) projects project
+     >>> Archetype.Project.full_configure
+           ~config
+           ~source:project
+           ~target
+           ~kind:Model.Types.Article
+           ~on_synopsis
+     >>> layout_arrow (module R))
+;;
