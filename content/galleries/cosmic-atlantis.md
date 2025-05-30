@@ -1,7 +1,7 @@
 ---
 page_title: Atlantide Cosmique
 published_at: 2023-11-24
-updated_at: 2024-01-29
+updated_at: 2025-05-30
 display_toc: false
 description: 
   Une galerie composée de trucs étranges dans l'espace (qui n'existent pas).
@@ -25,6 +25,13 @@ indexes:
         url: https://objkt.com/collection/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD
         
 elements:
+  - id: atlantis-8
+    name: "Encore une nouvelle structure"
+    url: /images/atlantis-8.png
+    url_tb: /images/atlantis-8-tb.png
+    links:
+      - title: NFT
+        url: https://objkt.com/tokens/KT1QfZyNheQKR7bD8S4UQnX9sbG1eNu2M4zD/7
   - id: atlantis-7
     name: "Une masse sombre"
     url: /images/atlantis-7.png
