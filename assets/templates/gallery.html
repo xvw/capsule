@@ -33,7 +33,7 @@
     {%- if has_cover -%}
     <img class="cover"
          alt="{%- if cover.alt -%} {{ cover.alt }} {%- else -%} Cover de {{ page_title }} {%- endif-%}"
-         src="{{ cover.url.url }}"/>
+         src="{{ cover.raw_url.url }}"/>
     {%- endif -%}
     <article>
       {%- autoescape false -%}

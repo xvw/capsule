@@ -15,6 +15,8 @@ indexes:
       je pratique peu ! Cette rubrique de mon site servira essentiellement
       à me motiver à dessiner de plus en plus.
     links:
+        - title: Des machines inutilement complexes
+          url: /galleries/machines.html
         - title: Atlantide Cosmique
           url: /galleries/cosmic-atlantis.html
         - title: Inktober 2023

@@ -1,5 +1,6 @@
 type t =
   { url : Url.t
+  ; raw_url : Url.t
   ; mime_type : string
   ; width : int option
   ; height : int option
@@ -27,7 +28,13 @@ let as_plain_url url =
   let open Yocaml.Data.Validation in
   let* url = Url.validate url in
   let+ ext = extract_extension url in
-  { url; mime_type = ext; width = None; height = None; alt = None }
+  { url
+  ; raw_url = url
+  ; mime_type = ext
+  ; width = None
+  ; height = None
+  ; alt = None
+  }
 ;;
 
 let validate =
@@ -39,10 +46,10 @@ let validate =
     and+ width = optional fields "width" int
     and+ height = optional fields "height" int
     and+ alt = optional fields "alt" string in
-    { url; mime_type; width; height; alt })
+    { url; raw_url = url; mime_type; width; height; alt })
 ;;
 
-let normalize { url; mime_type; width; height; alt } =
+let normalize { url; mime_type; width; height; alt; raw_url } =
   let open Yocaml.Data in
   record
     [ "url", Url.normalize url
@@ -50,10 +57,11 @@ let normalize { url; mime_type; width; height; alt } =
     ; "width", option int width
     ; "height", option int height
     ; "alt", option string alt
+    ; "raw_url", Url.normalize raw_url
     ]
 ;;
 
-let meta_for { url; mime_type; width; height; alt } =
+let meta_for { url; mime_type; width; height; alt; _ } =
   let url = Some (Url.to_string url) in
   [ Meta.from_option "og:image" url
   ; Meta.from_option "og:image:url" url
