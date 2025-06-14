@@ -318,6 +318,35 @@ let fetch_projects (module R : Intf.RESOLVER) =
   |> Kohai_model.Described_item.Set.from_ast_list
 ;;
 
+let english_index (module R : Intf.RESOLVER) config =
+  let source = R.Source.En.index in
+  let target = Yocaml.Path.(R.Target.En.root / "index.html") in
+  Yocaml.Action.Static.write_file_with_metadata
+    target
+    (let open Yocaml.Task in
+     R.track_common_deps
+     >>> Yocaml.Pipeline.track_file R.Source.En.articles
+     >>> Yocaml_yaml.Pipeline.read_file_with_metadata
+           (module Archetype.Page.Input)
+           source
+     >>> Archetype.Page.full_configure
+           ~config
+           ~source
+           ~target
+           ~on_synopsis:md_to_html
+           ~kind:Model.Types.Index
+     >>> Yocaml_cmarkit.content_to_html_with_toc
+           ~strict:false
+           Archetype.Page.table_of_content
+     >>> Yocaml.Pipeline.chain_templates
+           (module Yocaml_jingoo)
+           (module Archetype.Page)
+           [ R.Source.template "page.html"
+           ; R.Source.template "page-header-en.html"
+           ; R.Source.template "layout-en.html"
+           ])
+;;
+
 let run (module R : Intf.RESOLVER) () =
   let open Yocaml.Eff in
   let* config = fetch_config (module R) in
@@ -333,6 +362,7 @@ let run (module R : Intf.RESOLVER) () =
   >>= process_misc_files (module R)
   >>= process_pages (module R) config
   >>= process_indexes (module R) config
+  >>= english_index (module R) config
   >>= process_addresses (module R) config
   >>= process_galleries (module R) config
   >>= process_talks (module R) config

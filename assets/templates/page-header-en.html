@@ -1,0 +1,40 @@
+<h1>{{ page_title }}</h1>
+{%- if has_publication_date -%}
+<div class="set publication-date">
+  {%- if has_published_date -%}
+  <time class="date-repr"
+        data-prefix="published on"
+        datetime="{{ published_at.repr.datetime }}">
+    {{published_at.repr.date}}
+  </time>
+  {%- endif -%}
+  {%- if has_updated_date -%}
+  <time class="date-repr"
+        data-prefix="updated on"
+        datetime="{{ updated_at.repr.datetime }}">
+    {{updated_at.repr.date}}
+  </time>
+  {%- endif -%}
+</div>
+{%- endif -%}
+
+{%- if has_notes -%}
+<div class="temporal-notes">
+  {%- for note in notes -%}
+  <div>
+    <time datetime="{{ note.when.repr.datetime}}">
+      {{ note.when.repr.date }}
+    </time>
+    <div>
+        {%- autoescape false -%}
+        {{ note.message }}
+        {%- endautoescape -%}
+    </div>
+  </div>
+  {%- endfor -%}
+</div>
+{%- endif -%}
+
+{%- autoescape false -%}
+{{ yocaml_body }}
+{%- endautoescape -%}

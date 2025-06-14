@@ -32,6 +32,11 @@ module type RESOLVER = sig
     val now : Yocaml.Path.t
     val activity : Yocaml.Path.t
 
+    module En : sig
+      val index : Yocaml.Path.t
+      val articles : Yocaml.Path.t
+    end
+
     module Kohai : sig
       val root : Yocaml.Path.t
       val state : Yocaml.Path.t
@@ -74,6 +79,11 @@ module type RESOLVER = sig
     val as_diagram : Yocaml.Path.t -> Yocaml.Path.t
     val as_journal_entry : Yocaml.Path.t -> Yocaml.Path.t
     val as_journal_feed_page : int -> Yocaml.Path.t
+
+    module En : sig
+      val root : Yocaml.Path.t
+      val articles : Yocaml.Path.t
+    end
 
     module Atom : sig
       val pages : Yocaml.Path.t

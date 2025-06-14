@@ -1,0 +1,176 @@
+{%- set layout_title = config.main_title + " - " + page_title -%}
+<!doctype html>
+<html>
+  <head>
+    {%- if has_page_charset-%}
+    <meta charset="{{ page_charset }}">
+    {%- endif -%}
+    {%- for m in meta -%}
+    <meta name="{{ m.name }}" content="{{ m.content }}" />
+    {%- endfor -%}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/capsule.css" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    {%- if config.owner.has_x_account -%}
+    <link rel="me" href="https://x.com/{{ config.owner.x_account}}">
+    {%- endif -%}
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="canonical" href="{{ build_info.canonical_url.url }}">
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" />
+    <link rel="alternate" type="application/atom+xml" href="/pages.xml" />
+    <title>{{ layout_title }}</title>
+    <script src="/js/hell.js"></script>
+    <script src="/js/capsule_js.bc.js"></script>
+  </head>
+  <body>
+    <header>
+      <div id="header-content">
+        <div><h3><a href="/">xvw.lol</a></h3></div>
+        <div>
+          <nav class="set breadcrumb">
+            <a href="/">Index</a>
+            {%- for link in breadcrumb -%}
+            <a href="{{ link.url.url }}">{{ link.title }}</a>
+            {%- endfor -%}
+          </nav>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div id="main-content">
+        {%- autoescape false -%}{{ yocaml_body }}{%- endautoescape -%}
+      </div>
+    </main>
+    <footer>
+      <div id="footer-content">
+        <div>
+          <section>
+            <h3>Ring.muhokama.fun</h3>
+            <p>
+              This website if part of the
+              <a href="https://ring.muhokama.fun">Muhokama webring</a>.
+              I invite you to browse it!
+            </p>
+            <nav class="set">
+              <a class="btn" href="https://ring.muhokama.fun/u/xvw/pred">
+                predecessor
+              </a>
+              <a class="btn" href="https://ring.muhokama.fun/u/xvw/succ">
+                successor
+              </a>
+            </nav>
+          </section>
+          <section>
+            <h3>Diffusion</h3>
+            <p>
+              Generator's <a href="{{ config.repository.homepage.url}}">source code</a>
+              is released under the
+              <a href="{{ config.software_license.url.url }}">
+                {{ config.software_license.title }} license</a>
+             and the content is released (<i>unless mention</i>) under
+              <a href="{{ config.content_license.url.url }}">
+                {{ config.content_license.title }} license</a>.
+            </p>
+            <nav class="set">
+              <a class="btn" href="{{ build_info.repo_url.url }}">
+                page source
+              </a>
+            </nav>
+          </section>
+          <section>
+            <h3>Feeds</h3>
+            <nav class="set svg-light">
+              <a href="/atom.xml">
+                {%- autoescape false -%}
+                {{ config.svg.rss.to_html }}
+                {%- endautoescape -%}
+              </a>
+              {%- if config.owner.has_bluesky_account -%}
+              <a rel="me" href="https://bsky.app/profile/{{ config.owner.bluesky_account }}">
+                {%- autoescape false -%}
+                {{ config.svg.bluesky.to_html }}
+                {%- endautoescape -%}
+              </a>
+              {%- endif -%}
+              {%- if config.owner.has_x_account -%}
+              <a rel="me" href="https://x.com/{{ config.owner.x_account }}">
+                {%- autoescape false -%}
+                {{ config.svg.x.to_html }}
+                {%- endautoescape -%}
+              </a>
+              {%- endif -%}
+              {%- if config.owner.has_mastodon_account -%}
+              <a rel="me" href="{{ config.owner.mastodon_instance.url }}/@{{ config.owner.mastodon_account }}">
+                {%- autoescape false -%}
+                {{ config.svg.mastodon.to_html }}
+                {%- endautoescape -%}
+              </a>
+              {%- endif -%}
+              {%- if config.owner.has_github_account -%}
+              <a rel="me" href="https://github.com/{{ config.owner.github_account }}">
+                {%- autoescape false -%}
+                {{ config.svg.github.to_html }}
+                {%- endautoescape -%}
+              </a>
+              {%- endif -%}
+              <a href="/feeds.html">Other feeds (FR)</a>
+            </nav>
+          </section>
+          {%- if config.has_kohai_state -%}
+          <section>
+            <h3>States</h3>
+            <p>
+              <strong>
+                {{ config.kohai_state.number_of_logs }}
+                logs
+              </strong>
+              for a period of
+              <strong>{{ config.kohai_state.duration.d }} days</strong>,
+              <strong>{{ config.kohai_state.duration.h }} hours</strong>,
+              <strong>{{ config.kohai_state.duration.m }} minutes</strong> et
+              <strong>{{ config.kohai_state.duration.s }} seconds</strong>.
+              <br />
+              <a href="/activity.html">Activity (FR)</a>
+            </p>
+          </section>
+          {%- endif -%}
+        </div>
+        <div>
+          <div class="set svg-light">
+            <a href="https://ocaml.org">
+              {%- autoescape false -%}
+              {{ config.svg.ocaml.to_html }}
+              {%- endautoescape -%}
+            </a>
+            <span>Proudly generated by
+              <a href="https://github.com/xhtmlboi/yocaml">YOCaml
+            </a></span>
+          </div>
+          <div class="svg-cc-light">
+            <a href="{{ config.content_license.url.url }}">
+              {%- autoescape false -%}
+              {{ config.svg.cc1.to_html }}
+              {%- endautoescape -%}
+
+              {%- autoescape false -%}
+              {{ config.svg.cc2.to_html }}
+              {%- endautoescape -%}
+
+              {%- autoescape false -%}
+              {{ config.svg.cc3.to_html }}
+              {%- endautoescape -%}
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script>
+      nightmare_js.suspend(function () {
+          capsule_hljs.run();
+      });
+      nightmare_js.mount();
+    </script>
+  </body>
+</html>

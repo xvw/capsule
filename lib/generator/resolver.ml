@@ -32,6 +32,11 @@ module Make (R : Intf.RESOLVABLE) = struct
     let maps = Path.(content / "maps")
     let template file = Path.(templates / file)
 
+    module En = struct
+      let index = Path.(content / "en" / "index.md")
+      let articles = Path.(content / "en" / "articles")
+    end
+
     module Kohai = struct
       let root = kohai
       let state_of p = Path.(p / "state.rens")
@@ -104,6 +109,11 @@ module Make (R : Intf.RESOLVABLE) = struct
     let as_diagram file =
       file |> Path.change_extension "svg" |> Path.move ~into:images
     ;;
+
+    module En = struct
+      let root = Path.(R.target / "en")
+      let articles = Path.(R.target / "en" / "articles")
+    end
 
     module Atom = struct
       let general = Path.(R.target / "atom.xml")
