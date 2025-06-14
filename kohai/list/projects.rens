@@ -8,7 +8,7 @@
 <counter: 41;
   description: "un outil de journalisation utilisable depuis emacs";
   name: "kohai">
-<counter: 2;
+<counter: 6;
   description:
    "une bibliothèque pour gérer des pipelines de validation complexes";
   name: "pil">
