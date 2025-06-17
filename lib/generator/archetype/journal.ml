@@ -18,11 +18,11 @@ type t =
   ; index : int
   }
 
-let journal_entries (entry, content, path) =
+let journal_entries (entry, content, p) =
   let open Yocaml.Data in
   record
     [ "entry_content", string content
-    ; "path", string @@ Yocaml.Path.to_string path
+    ; "path", path p
     ; "input", Journal_entry.normalize_input entry
     ]
 ;;
