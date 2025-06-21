@@ -1,6 +1,6 @@
-<counter: 99; description: "catégorie relative à la programmation";
+<counter: 100; description: "catégorie relative à la programmation";
   name: "code">
-<counter: 0; description: "rédaction (blog, talk, etc)"; name: "ecriture">
+<counter: 1; description: "rédaction (blog, talk, etc)"; name: "ecriture">
 <counter: 5; description: "maintenance et releases de projets";
   name: "maintenance">
 <counter: 2; description: "catégorie au dessin et au graphisme";
