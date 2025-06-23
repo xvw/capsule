@@ -1,4 +1,4 @@
-<counter: 100; description: "catégorie relative à la programmation";
+<counter: 101; description: "catégorie relative à la programmation";
   name: "code">
 <counter: 1; description: "rédaction (blog, talk, etc)"; name: "ecriture">
 <counter: 5; description: "maintenance et releases de projets";
