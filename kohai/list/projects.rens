@@ -3,12 +3,12 @@
    "le générateur de site, basé sur yocaml qui propulse mon site personnel";
   name: "capsule">
 <counter: 0; description: "une reimplémentation de preface"; name: "frame">
-<counter: 24; description: "un codex de fonctionnalités pour yocaml";
+<counter: 25; description: "un codex de fonctionnalités pour yocaml";
   name: "kane">
 <counter: 41;
   description: "un outil de journalisation utilisable depuis emacs";
   name: "kohai">
-<counter: 6;
+<counter: 7;
   description:
    "une bibliothèque pour gérer des pipelines de validation complexes";
   name: "pil">
