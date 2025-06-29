@@ -714,6 +714,41 @@ section.origin {
     font-family: var(--font-sans-serif);
 }
 
+.articles-list {
+
+    padding: 0;
+    margin: 2rem 0;
+
+
+    
+    & > li {
+        list-style: none;
+        margin-bottom: 5rem;
+
+        &:first-child {
+            margin-top: 3.5rem;
+        }
+
+        &:last-child {
+            margin-bottom: 0.5rem;
+        }
+
+        & > a {
+            font-weight: 700;
+            font-family: var(--font-sans-serif);
+            text-decoration: none;
+            font-size: 110%;
+        }
+
+        & > p {
+            font-size: 80%;
+            margin: 0.5rem 0;
+            padding: 0.1rem;
+        }
+    }
+
+}
+
 .set {
 
     & > * {
@@ -783,6 +818,28 @@ section.origin {
         }
 
         
+    }
+}
+
+.inline-tags {
+    padding: 0;
+    list-style: none;
+
+    & > li {
+        display: inline-block;
+        margin-left: 0.5rem;
+        background-color: var(--light-color);
+        font-family: var(--font-mono);
+        font-size: 75%;
+        padding: 0.2rem 0.3rem;
+
+        &::before {
+            content: "#"
+        }
+
+        &:first-child {
+            margin-left: 0;
+        }
     }
 }
 

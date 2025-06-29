@@ -5,7 +5,9 @@ val make
   -> title:string
   -> ?synopsis:string
   -> ?tags:string list
-  -> unit
+  -> Yocaml.Path.t
   -> t
 
 val normalize : t -> Yocaml.Data.t
+val compare : t -> t -> int
+val sort : ?desc:bool -> t list -> t list

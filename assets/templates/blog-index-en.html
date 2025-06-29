@@ -1,0 +1,43 @@
+{%- autoescape false -%}
+{{ yocaml_body }}
+{%- endautoescape -%}
+
+<section class="indexes">
+  <h2>Essays and ramblings</h2>
+  <p>
+    Here is a list of articles/translations on various subjects, such
+    as <a href="https://ocaml.org">OCaml</a>.
+  </p>
+  {%- if has_articles -%}
+  <ul class="articles-list">
+    {%- for article in articles -%}
+    <li>
+      <time class="date-repr"
+            data-prefix="published on"
+            datetime="{{ article.publication_date.repr.datetime }}">
+        {{article.publication_date.repr.date}}
+      </time>
+      <br />
+      <a href="{{ article.path }}">{{ article.title }}</a>
+      {%- if article.has_synopsis -%}
+      <p>
+        {%- autoescape false -%}
+        {{ article.synopsis }}
+        {%- endautoescape -%}
+      </p>
+      {%- endif -%}
+      {%- if article.has_tags -%}
+      <ul class="inline-tags">
+        {%- for tag in article.tags -%}
+        <li>{{ tag }}</li>
+        {%- endfor -%}
+      </ul>
+      {%- endif -%}
+
+    </li>
+    {%- endfor -%}
+  </ul>
+  {%- else -%}
+  <p>There is no articles</p>
+  {%- endif -%}
+</section>

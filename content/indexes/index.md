@@ -62,5 +62,7 @@ Vous me trouverez sur [Mastodon](https://merveilles.town/@xvw), sur
 [Github](https://github.com/xvw), sur
 [X/Twitter](https://twitter.com/vdwxv), sur
 [BlueSky](https://bsky.app/profile/xvw.lol) (ou encore
-[ailleurs](/feeds.html)) et, dans la _vraie vie_, à **Nantes**, parfois
-à **Bruxelles** et de temps en temps à **Paris**.
+[ailleurs](/feeds.html)) et, dans la _vraie vie_, à **Nantes**,
+parfois à **Bruxelles** et de temps en temps à **Paris**. _You can
+also consult my [English page](/en/), which contains partial and clumsy
+translations of this site._

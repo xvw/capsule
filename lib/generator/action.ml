@@ -320,6 +320,34 @@ let fetch_projects (module R : Intf.RESOLVER) =
   |> Kohai_model.Described_item.Set.from_ast_list
 ;;
 
+let fetch_english_articles (module R : Intf.RESOLVER) =
+  Yocaml.Task.from_effect (fun page ->
+    let open Yocaml.Eff in
+    let on = `Source in
+    let* files =
+      read_directory
+        ~on
+        ~only:`Files
+        ~where:File.is_markdown
+        R.Source.En.articles
+    in
+    let+ articles =
+      List.traverse
+        (fun file ->
+           let path = R.Target.En.as_article file in
+           let url = Yocaml.Path.relocate ~into:Yocaml.Path.root path in
+           let+ meta, _ =
+             Yocaml_yaml.Eff.read_file_with_metadata
+               (module Archetype.Page.Input)
+               ~on
+               file
+           in
+           Archetype.Page.input_to_entry md_to_html meta url)
+        files
+    in
+    Archetype.En_blog.make page articles)
+;;
+
 let english_index (module R : Intf.RESOLVER) config =
   let source = R.Source.En.index in
   let target = Yocaml.Path.(R.Target.En.root / "index.html") in
@@ -340,11 +368,13 @@ let english_index (module R : Intf.RESOLVER) config =
      >>> Yocaml_cmarkit.content_to_html_with_toc
            ~strict:false
            Archetype.Page.table_of_content
+     >>> Yocaml.Task.Static.on_metadata (fetch_english_articles (module R))
      >>> Yocaml.Pipeline.chain_templates
            (module Yocaml_jingoo)
-           (module Archetype.Page)
+           (module Archetype.En_blog)
            [ R.Source.template "page.html"
            ; R.Source.template "page-header-en.html"
+           ; R.Source.template "blog-index-en.html"
            ; R.Source.template "layout-en.html"
            ])
 ;;

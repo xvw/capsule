@@ -12,12 +12,12 @@ module Input = struct
   ;;
 end
 
-let input_to_entry Input.{ page } =
+let input_to_entry f Input.{ page } path =
   let date = Std.Option.(page#published_at <|> page#updated_at) in
   let title = page#page_title in
-  let synopsis = page#synopsis in
+  let synopsis = page#synopsis |> Option.map f in
   let tags = page#tags in
-  Blog_entry.make ?date ~title ?synopsis ~tags ()
+  Blog_entry.make ?date ~title ?synopsis ~tags path
 ;;
 
 type t = { page : Raw.Output.t }
