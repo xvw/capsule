@@ -12,6 +12,14 @@ module Input = struct
   ;;
 end
 
+let input_to_entry Input.{ page } =
+  let date = Std.Option.(page#published_at <|> page#updated_at) in
+  let title = page#page_title in
+  let synopsis = page#synopsis in
+  let tags = page#tags in
+  Blog_entry.make ?date ~title ?synopsis ~tags ()
+;;
+
 type t = { page : Raw.Output.t }
 
 let normalize { page } = Raw.Output.normalize page

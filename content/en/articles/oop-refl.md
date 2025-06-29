@@ -363,11 +363,12 @@ method flatten : 'b. ('a, 'b list) eq -> 'b list =
 
 #### Adding a guarded method `sum`
 
-Maintenant que nous sommes capable de contraindre certaines méthodes,
-essayons d'ajouter une méthode `sum` qui produit la somme d'une liste
-d'entiers !  Premièrement ajoutons `sum` à notre interface. Cette
-fois, on veut contraindre notre paramètre de type à être `int`. Pour
-cela, il suffit de prendre `('a, int) eq` comme témoin d'égalité :
+Now that we’re able to constrain certain methods, let’s try adding a
+`sum` method that produces the sum of a list of integers! First, let’s
+add `sum` to our interface. This time, we want to constrain our type
+parameter to be `int`. To do that, we simply take `('a, int) eq` as a
+type equality witness:
+
 
 ```ocaml
 class type ['a] obj_list =
