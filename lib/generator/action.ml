@@ -347,6 +347,8 @@ let english_index (module R : Intf.RESOLVER) config =
            ])
 ;;
 
+(* let english_index (module R: Intf.RESOLVER) config source = *)
+
 let run (module R : Intf.RESOLVER) () =
   let open Yocaml.Eff in
   let* config = fetch_config (module R) in
