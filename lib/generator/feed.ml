@@ -2,6 +2,7 @@ module M = Map.Make (String)
 
 type t =
   { pages : Model.Entry.t list
+  ; english_pages : Model.Entry.t list
   ; addresses : Model.Entry.t list
   ; entries : Model.Entry.t list
   ; galleries : Model.Entry.t list
@@ -9,6 +10,7 @@ type t =
   ; journal_meta :
       (Archetype.Journal_entry.Input.t * string * Yocaml.Path.t) list
   ; by_tags : Model.Entry.t list M.t
+  ; by_english_tags : Model.Entry.t list M.t
   }
 
 let from_source
@@ -93,15 +95,17 @@ let sort_journal_meta (a, _, _) (b, _, _) =
   Archetype.Journal_entry.rev_compare_input a b
 ;;
 
-let build_context pages addresses galleries (jmeta, jentries) =
+let build_context pages addresses galleries english_pages (jmeta, jentries) =
   let entries = pages @ addresses @ galleries @ jentries in
   { pages = sort_entries pages
+  ; english_pages
   ; journal_entries = sort_entries jentries
   ; journal_meta = List.sort sort_journal_meta jmeta
   ; galleries = sort_entries galleries
   ; addresses = sort_entries addresses
   ; entries = sort_entries entries
   ; by_tags = M.empty |> compute_map_from_tags entries |> sort_map
+  ; by_english_tags = M.empty |> compute_map_from_tags english_pages |> sort_map
   }
 ;;
 
@@ -116,6 +120,16 @@ let make (module P : Yocaml.Required.DATA_PROVIDER) (module R : Intf.RESOLVER) =
       ~to_entry:Archetype.Page.Input.to_entry
       ~compute_link:R.Target.as_page
       R.Source.pages
+  in
+  let* english_pages =
+    from_source
+      (module P)
+      (module Archetype.Translated_page.Input)
+      ~on:`Source
+      ~where:File.is_markdown
+      ~to_entry:Archetype.Translated_page.Input.to_entry
+      ~compute_link:R.Target.En.as_article
+      R.Source.En.articles
   in
   let* addresses =
     from_source
@@ -138,7 +152,8 @@ let make (module P : Yocaml.Required.DATA_PROVIDER) (module R : Intf.RESOLVER) =
       R.Source.galleries
   in
   let* journal_entries = journal_entries (module P) (module R) in
-  return @@ build_context pages addresses galleries journal_entries
+  return
+  @@ build_context pages addresses galleries english_pages journal_entries
 ;;
 
 let create_journal_feed
@@ -239,6 +254,20 @@ let atom_for_pages (module R : Intf.RESOLVER) config { pages; _ } =
      >>> configure_feed config "pages" "Pages et articles")
 ;;
 
+let atom_for_english_articles
+      (module R : Intf.RESOLVER)
+      config
+      { english_pages; _ }
+  =
+  Yocaml.Action.Static.write_file
+    R.Target.Atom.En.articles
+    (let open Yocaml.Task in
+     Yocaml.Pipeline.track_file R.Source.En.articles
+     >>> R.track_common_deps
+     >>> const english_pages
+     >>> configure_feed config "articles" "English articles")
+;;
+
 let atom_for_addresses (module R : Intf.RESOLVER) config { addresses; _ } =
   Yocaml.Action.Static.write_file
     R.Target.Atom.addresses
@@ -279,4 +308,20 @@ let atom_for_tags (module R : Intf.RESOLVER) config { by_tags; _ } =
        >>> R.track_common_deps
        >>> const entries
        >>> configure_feed config ("tags/" ^ tag) ("Flux du tag " ^ tag)))
+;;
+
+let atom_for_english_tags
+      (module R : Intf.RESOLVER)
+      config
+      { by_english_tags; _ }
+  =
+  Yocaml.Action.batch_list (M.bindings by_english_tags) (fun (tag, entries) ->
+    let deps = List.map Model.Entry.file_of entries in
+    Yocaml.Action.Static.write_file
+      (R.Target.Atom.En.tag tag)
+      (let open Yocaml.Task in
+       Yocaml.Pipeline.track_files deps
+       >>> R.track_common_deps
+       >>> const entries
+       >>> configure_feed config ("tags/en/" ^ tag) ("Feed for tag " ^ tag)))
 ;;

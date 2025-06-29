@@ -126,6 +126,11 @@ module Make (R : Intf.RESOLVABLE) = struct
       let galleries = Path.(R.target / "galleries.xml")
       let journal = Path.(R.target / "journal.xml")
       let tag name = Path.(tags / name) |> Path.add_extension "xml"
+
+      module En = struct
+        let articles = Path.(R.target / "en" / "atom.xml")
+        let tag name = Path.(tags / "en" / name) |> Path.add_extension "xml"
+      end
     end
   end
 

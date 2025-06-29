@@ -93,6 +93,11 @@ module type RESOLVER = sig
       val galleries : Yocaml.Path.t
       val journal : Yocaml.Path.t
       val tag : string -> Yocaml.Path.t
+
+      module En : sig
+        val articles : Yocaml.Path.t
+        val tag : string -> Yocaml.Path.t
+      end
     end
   end
 end
