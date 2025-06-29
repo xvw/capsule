@@ -2,8 +2,8 @@
 page_title: Guarded methods in OCaml
 description: 
    Implementation of "guarded methods" using type equality witnesses
-tags: [programmation, type, oop, ocaml, gadt]
-section: programmation
+tags: [programming, type, oop, ocaml, gadt]
+section: programming
 published_at: 2025-06-29
 display_toc: true
 synopsis:
