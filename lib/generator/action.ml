@@ -347,7 +347,41 @@ let english_index (module R : Intf.RESOLVER) config =
            ])
 ;;
 
-(* let english_index (module R: Intf.RESOLVER) config source = *)
+let english_page (module R : Intf.RESOLVER) config source =
+  let target = R.Target.En.as_article source in
+  let kind = Model.Types.Article in
+  Yocaml.Action.Static.write_file_with_metadata
+    (R.Target.promote target)
+    Yocaml.Task.(
+      R.track_common_deps
+      >>> Yocaml_yaml.Pipeline.read_file_with_metadata
+            (module Archetype.Translated_page.Input)
+            source
+      >>> Archetype.Translated_page.full_configure
+            ~config
+            ~source
+            ~target
+            ~kind
+            ~on_synopsis:md_to_html
+      >>> Yocaml_cmarkit.content_to_html_with_toc
+            ~strict:false
+            Archetype.Translated_page.table_of_content
+      >>> Yocaml.Pipeline.chain_templates
+            (module Yocaml_jingoo)
+            (module Archetype.Translated_page)
+            [ R.Source.template "page.html"
+            ; R.Source.template "page-header-en.html"
+            ; R.Source.template "layout-en.html"
+            ])
+;;
+
+let english_pages (module R : Intf.RESOLVER) config =
+  Yocaml.Action.batch
+    ~only:`Files
+    ~where:File.is_markdown
+    R.Source.En.articles
+    (english_page (module R) config)
+;;
 
 let run (module R : Intf.RESOLVER) () =
   let open Yocaml.Eff in
@@ -364,7 +398,6 @@ let run (module R : Intf.RESOLVER) () =
   >>= process_misc_files (module R)
   >>= process_pages (module R) config
   >>= process_indexes (module R) config
-  >>= english_index (module R) config
   >>= process_addresses (module R) config
   >>= process_galleries (module R) config
   >>= process_talks (module R) config
@@ -373,5 +406,7 @@ let run (module R : Intf.RESOLVER) () =
   >>= process_activity_page (module R) config
   >>= process_journal_entries (module R) config
   >>= process_feed (module R) config context
+  >>= english_pages (module R) config
+  >>= english_index (module R) config
   >>= Yocaml.Action.store_cache ~on:`Source R.Target.cache
 ;;

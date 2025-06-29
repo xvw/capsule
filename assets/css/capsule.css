@@ -708,6 +708,12 @@ h6 {
     color: var(--middle-light-color);
 }
 
+section.origin {
+    margin: 1rem 0;
+    font-size: 80%;
+    font-family: var(--font-sans-serif);
+}
+
 .set {
 
     & > * {

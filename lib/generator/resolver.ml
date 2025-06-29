@@ -113,6 +113,10 @@ module Make (R : Intf.RESOLVABLE) = struct
     module En = struct
       let root = Path.(R.target / "en")
       let articles = Path.(R.target / "en" / "articles")
+
+      let as_article file =
+        file |> as_html |> Path.move ~into:(Path.rel [ "en"; "articles" ])
+      ;;
     end
 
     module Atom = struct

@@ -83,6 +83,7 @@ module type RESOLVER = sig
     module En : sig
       val root : Yocaml.Path.t
       val articles : Yocaml.Path.t
+      val as_article : Yocaml.Path.t -> Yocaml.Path.t
     end
 
     module Atom : sig

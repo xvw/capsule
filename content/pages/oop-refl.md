@@ -66,7 +66,7 @@ Comment décrire une méthode `flatten` qui pour une liste `[[1, 2, 3],
 contrainte au niveau de la classe on force notre liste à être "_tout
 le temps une liste de liste_" ce qui est très contraignant. Pour
 implémenter une telle méthode, on dispose de trois approches
-théoriques :
+théoriques.
 
 
 ### Déplacer la méthodes en dehors de la classe

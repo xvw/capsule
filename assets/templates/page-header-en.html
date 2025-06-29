@@ -35,6 +35,13 @@
 </div>
 {%- endif -%}
 
+{%- if has_origin -%}
+<section class="origin">
+  This article is a translation, the <a href="{{ origin.url }}">original version is
+  available here</a>.
+</section>
+{%- endif -%}
+
 {%- autoescape false -%}
 {{ yocaml_body }}
 {%- endautoescape -%}
