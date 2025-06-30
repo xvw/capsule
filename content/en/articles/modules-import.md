@@ -7,6 +7,7 @@ tags: [programming, ocaml, modules]
 section: programming
 published_at: 2025-06-30
 display_toc: true
+origin: /pages/modules-import.html
 synopsis:
   The [OCaml](https://ocaml.org) module system can be intimidating, and it 
   typically involves the use of many keywords—for example, `open` and `include`,
