@@ -1,4 +1,4 @@
-<counter: 12;
+<counter: 13;
   description:
    "le générateur de site, basé sur yocaml qui propulse mon site personnel";
   name: "capsule">
