@@ -488,8 +488,8 @@ faudra du _reverse engineering_ et de l'investigation !
 
 #### Initiation d'une partie
 
-Comme le jeu se joue à deux, où chaque joueur démarre avec cinq cartes, les deux
-prérequis sont :
+Comme le jeu se joue à deux, où chaque joueur démarre avec cinq
+cartes, les deux prérequis sont :
 
 - posséder 5 cartes (minimum) ;
 - trouver un adversaire.
@@ -586,7 +586,7 @@ couleur différente, on se retrouve face à plusieurs cas de figures :
   **offensive** et la carte ciblée est **défensive**.
 
 
-![Plateau de jeu](/images/tetra-basic-2.png)
+![Situation de battaille](/images/tetra-basic-2.png)
 
 Nous avions aussi lu, qu'en situation de bataille, c'est _la carte
 avec le plus grand nombre qui gagne_. Et ce qui est génial... c'est
@@ -651,7 +651,7 @@ _bataille_. C'est tout à fait ça, mais nous allons voir qu'il y a
 Comme de mon point de vue, il est _probablement impossible_ de déduire
 la relation entre ce fameux _identifiant_ (dans notre exemple, le
 fameux `1P23`), je vais être très explicite, il nous donne quatre
-informations sur la carte, de cette manière : `PTDM ` où :
+informations sur la carte, de cette manière : `PTDM` où :
 
 - `P` la **puissance offensive** de la carte, exprimée... en
   **hexadécimal**, de `0` à `F`, dans notre exemple, la valeur `1` ;
@@ -1081,7 +1081,6 @@ carte semble un peu surfait) qu'un `gobelin` peut avoir, au maximum
 `7` en attaque (toujour dans l'intervalle de `0`), `9` de défense
 physique et `4` de défense magique. Mais cependant, **tant qu'une
 carte n'a pas atteint ses limites, elle peut continuer à évoluer**.
-
 
 En effet, à chaque partie gagnée, chacune des cartes utilisée pendant
 la partie se verra **augmentée de `1` point une caractéristique

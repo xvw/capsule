@@ -220,13 +220,15 @@ let configure_feed config id title =
     Yocaml.Nel.singleton
       (config |> Archetype.Config.owner_of |> Model.Identity.to_person)
   and updated = Atom.updated_from_entries () in
-  Atom.from
-    ~subtitle
-    ~title
-    ~authors
-    ~updated
-    ~id:feed_id
-    (Model.Entry.to_atom ~base_url)
+  let open Yocaml.Task in
+  lift (List.sort Model.Entry.rev_compare)
+  >>> Atom.from
+        ~subtitle
+        ~title
+        ~authors
+        ~updated
+        ~id:feed_id
+        (Model.Entry.to_atom ~base_url)
 ;;
 
 let atom_for_entries (module R : Intf.RESOLVER) config { entries; _ } =

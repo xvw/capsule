@@ -292,32 +292,7 @@ body {
             
         }
 
-        & details {
-            padding: 0 0.5rem;
-            margin: 3rem 0;
-            position: relative;
-            
-            & > summary {
-                border-bottom: 0.3rem solid var(--light-color);
-                padding: 1rem 0;
-                user-select: none;
-                cursor: pointer;
-                position: sticky;
-                top: 0;
-                background-color: var(--bg-color);
-                font-family: var(--font-sans-serif);
-                font-weight: 600;
-            }
-            
-        }
-
-        & details > summary::before {
-            content: "Ouvrir ";
-        }
-
-        & details[open] > summary::before {
-            content: "Fermer ";
-        }
+       
 
         & .side-by-side {
             display: flex;
@@ -340,6 +315,47 @@ body {
     }
 
 }
+
+#main-content > article {
+    & details {
+        padding: 0 0.5rem;
+        margin: 3rem 0;
+        position: relative;
+        
+        & > summary {
+            border-bottom: 0.3rem solid var(--light-color);
+            padding: 1rem 0;
+            user-select: none;
+            cursor: pointer;
+            position: sticky;
+            top: 0;
+            background-color: var(--bg-color);
+            font-family: var(--font-sans-serif);
+            font-weight: 600;
+        }
+        
+    }    
+}
+
+.fr-content > article {
+    & details > summary::before {
+        content: "Ouvrir ";
+    }
+
+    & details[open] > summary::before {
+        content: "Fermer ";
+    }
+}
+
+.en-content > article {
+    & details > summary::before {
+        content: "Open ";
+    }
+    & details[open] > summary::before {
+        content: "Close ";
+    }
+}
+
 
 
 #footer-content {
