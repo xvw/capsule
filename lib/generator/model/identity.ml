@@ -28,43 +28,73 @@ let mastodon =
     instance, username)
 ;;
 
-let validate =
+let normalize_display_name first last =
+  let f = first.[0] in
+  Format.asprintf "%c. %s" (Char.uppercase_ascii f) last
+;;
+
+let validate_name value =
   let open Yocaml.Data.Validation in
-  let s = string & minimal_length ~length:String.length 2 in
-  record (fun fields ->
-    let+ display_name = required fields "display_name" s
-    and+ first_name = optional fields "first_name" s
-    and+ last_name = optional fields "last_name" s
-    and+ avatar = optional fields "avatar" Url.validate
-    and+ website = optional fields "website" Link.validate
-    and+ x_account = optional fields "x_account" string
-    and+ bluesky_account = optional fields "bluesky_account" string
-    and+ mastodon_account = optional fields "mastodon_account" mastodon
-    and+ github_account = optional fields "github_account" string
-    and+ custom_attributes =
-      optional_or
-        fields
-        ~default:Key_value.String.empty
-        "custom_attributes"
-        Key_value.String.validate
-    and+ more_links =
-      optional_or fields ~default:[] "more_links" (list_of Link.validate)
-    and+ more_accounts =
-      optional_or fields ~default:[] "more_accounts" (list_of Link.validate)
-    in
-    { display_name
-    ; first_name
-    ; last_name
-    ; website
-    ; custom_attributes
-    ; more_links
-    ; x_account
-    ; bluesky_account
-    ; mastodon_account
-    ; github_account
-    ; more_accounts
-    ; avatar
-    })
+  let s = string $ String.trim & minimal_length ~length:String.length 2 in
+  let* names =
+    record
+      (fun fields ->
+         let+ display_name = optional fields "display_name" s
+         and+ first_name = optional fields "first_name" s
+         and+ last_name = optional fields "last_name" s in
+         display_name, first_name, last_name)
+      value
+  in
+  match names with
+  | None, Some f, Some l -> Ok (normalize_display_name f l, Some f, Some l)
+  | Some a, f, l -> Ok (a, f, l)
+  | None, _, _ ->
+    (* Dirty hack here -_-. *)
+    record
+      (fun fields ->
+         required
+           fields
+           "display_name"
+           (triple string (option string) (option string)))
+      value
+;;
+
+let validate v =
+  let open Yocaml.Data.Validation in
+  let* display_name, first_name, last_name = validate_name v in
+  record
+    (fun fields ->
+       let+ avatar = optional fields "avatar" Url.validate
+       and+ website = optional fields "website" Link.validate
+       and+ x_account = optional fields "x_account" string
+       and+ bluesky_account = optional fields "bluesky_account" string
+       and+ mastodon_account = optional fields "mastodon_account" mastodon
+       and+ github_account = optional fields "github_account" string
+       and+ custom_attributes =
+         optional_or
+           fields
+           ~default:Key_value.String.empty
+           "custom_attributes"
+           Key_value.String.validate
+       and+ more_links =
+         optional_or fields ~default:[] "more_links" (list_of Link.validate)
+       and+ more_accounts =
+         optional_or fields ~default:[] "more_accounts" (list_of Link.validate)
+       in
+       { display_name
+       ; first_name
+       ; last_name
+       ; website
+       ; custom_attributes
+       ; more_links
+       ; x_account
+       ; bluesky_account
+       ; mastodon_account
+       ; github_account
+       ; more_accounts
+       ; avatar
+       })
+    v
 ;;
 
 let normalize
