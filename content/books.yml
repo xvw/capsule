@@ -1,0 +1,9 @@
+- key: "terre-des-hommes"
+  value:
+    title: "Terre des hommes"
+    kind: "novel"
+    year: 1939
+    editor: "Gallimard, Folio"
+    authors:
+      - first_name: "Antoine"
+        last_name: "de Saint-Exupéry"
