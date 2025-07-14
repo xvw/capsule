@@ -77,7 +77,7 @@ en trouve beaucoup et, à ma connaissance, les plus populaires
 d'opinions très arrêtées sur quel outil privilégier — même si, pour
 des raisons idéologiques, je devrais passer un peu plus de temps à
 jouer avec AnyType, qui a le très bon goût d'être **libre** et
-_local-first_. De plus, une grande partie de ce que je vais présenter
+_local\-first_. De plus, une grande partie de ce que je vais présenter
 dans cet article pourrait parfaitement fonctionner avec un logiciel
 _plus spécifique_, comme [Airtable](https://www.airtable.com/) par
 exemple ou encore avec une base de données relationnelle classique,
@@ -1061,7 +1061,7 @@ réglages _pertinents_ pour expérimenter de nouveaux cafés. De plus,
 l'exercice _de la documentation_ est vraiment un outil formidable pour
 _stabiliser ses connaissances_ et même si je reste encore très
 néophyte dans le monde du café, je pense que j'ai pu _plus apprendre_
-et progresser grâce à cetet indexation méticuleuse.
+et progresser grâce à cette indexation méticuleuse.
 
 En bref, je pense que dans beaucoup de disciplines, la construction
 d'indexes, de bases de connaissances ou de dictionnaire est une bonne
