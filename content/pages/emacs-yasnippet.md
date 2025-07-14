@@ -150,7 +150,7 @@ l'abréviation :
 
 En sauvegardant le fichier, l'expansion sera disponible et il sera
 possible de s'en servir de cette manière :
-![Exemple d'expansion](/images/yas-1.gif){ class=aered-centered-fig }
+![Exemple d'expansion](/images/yas-1.gif)
 
 Actuellement, notre abréviation ne fait pas beaucoup plus que ce qu'il
 était possible de faire avec `abbrev-mode`, mais c'est déjà un très
@@ -177,7 +177,7 @@ que `!struct` sera remplacé par `struct end`, le curseur se trouvera
 entre `struct` et `end`. Démonstration :
 
 ![Exemple d'expansion avec relocalisation du
-curseur](/images/yas-2.gif){ class=aered-centered-fig }
+curseur](/images/yas-2.gif)
 
 Dans notre exemple, on observe qu'une fois que `!struct` a été
 remplacé par `struct end`, le curseur se situe bel et bien entre les
@@ -211,8 +211,7 @@ permettant **la navigation entre les différents trous** du
 gabarit. Une fois que la saisie est finie, `TAB` déplacera le curseur
 à la fin de la substitution.
 
-![Exemple d'expansion avec navigation](/images/yas-3.gif){
-class=aered-centered-fig }
+![Exemple d'expansion avec navigation](/images/yas-3.gif)
 
 La définition de trous permet aussi l'association à des labels, pour
 rendre la lecture de la substitution plus facile :
@@ -224,8 +223,7 @@ rendre la lecture de la substitution plus facile :
 $1  <$2> $0
 ```
 
-![Exemple d'expansion avec navigation et labels](/images/yas-4.gif){
-class=aered-centered-fig }
+![Exemple d'expansion avec navigation et labels](/images/yas-4.gif)
 
 
 #### Répétitions et exécution de Lisp
@@ -260,8 +258,7 @@ le champ `date` est construit en définissant comme valeur par défaut
 l'expression Elisp `(current-time-string)`. Ensuite, on répète
 l'utilisation du trou `$1` pour pré-remplir le titre de niveau 1 :
 
-![Exemple d'expansion de prélude Markdown](/images/yas-5.gif){
-class=aered-centered-fig }
+![Exemple d'expansion de prélude Markdown](/images/yas-5.gif)
 
 L'exemple est déjà plus ambitieux (et potentiellement réaliste) que
 ceux que nous avions vu précédemment et, selon moi, démontre l'utilité
@@ -323,7 +320,7 @@ En ajoutant quelques abréviations supplémentaires, pour décrire `let`
 par exemple, on peut construire un _workflow_ d'écriture de code très
 interactive, de mon point de vue :
 
-![OCaml workflow](/images/yas-6.gif){ class=aered-centered-fig }
+![OCaml workflow](/images/yas-6.gif)
 
 Il est évidemment possible d'aller largement plus loin, et d'améliorer
 drastiquement l'ergonomie de nos gabarits. Le but de cette rubrique
