@@ -84,6 +84,15 @@ let normalize_kind k =
   Yocaml.Data.string r
 ;;
 
+let display_title title volume subtitle =
+  let title = String.capitalize_ascii title in
+  match volume, subtitle with
+  | Some t, Some s -> Format.asprintf "%s, T%02d - %s" title t s
+  | None, Some s -> Format.asprintf "%s - %s" title s
+  | Some t, None -> Format.asprintf "%s, T%02d" title t
+  | None, None -> title
+;;
+
 let normalize
       { title
       ; volume
@@ -99,6 +108,7 @@ let normalize
   let open Yocaml.Data in
   record
     [ "title", string title
+    ; "display_title", string (display_title title volume subtitle)
     ; "volume", option int volume
     ; "subtitle", option string subtitle
     ; "authors", list_of Identity.normalize (Yocaml.Nel.to_list authors)
