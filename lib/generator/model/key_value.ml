@@ -39,6 +39,11 @@ module Make (K : Types.COMPARABLE_MODEL) (V : Types.MODEL) = struct
   ;;
 
   let has_elements x = (not (M.is_empty x)) |> Yocaml.Data.bool
+  let find kv k = M.find_opt k kv
+
+  let exists kv k =
+    k |> find kv |> Option.fold ~none:false ~some:(fun _ -> true)
+  ;;
 end
 
 module String_model = struct

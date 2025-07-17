@@ -142,6 +142,24 @@ let process_talks (module R : Intf.RESOLVER) config =
       >>> layout_arrow (module S) (module R))
 ;;
 
+let process_readings (module R : Intf.RESOLVER) config =
+  let module S = Archetype.Readings.Make (Yocaml_yaml) (R) in
+  let target = R.Target.readings in
+  let kind = Model.Types.Article in
+  Yocaml.Action.Static.write_file_with_metadata
+    (R.Target.promote target)
+    Yocaml.Task.(
+      page_arrow
+        (module S)
+        (module R)
+        "readings.html"
+        kind
+        config
+        R.Source.readings
+        target
+      >>> layout_arrow (module S) (module R))
+;;
+
 let process_address (module R : Intf.RESOLVER) config source =
   let target = R.Target.as_address source in
   let kind = Model.Types.Article in
@@ -433,6 +451,7 @@ let run (module R : Intf.RESOLVER) () =
   >>= process_addresses (module R) config
   >>= process_galleries (module R) config
   >>= process_talks (module R) config
+  >>= process_readings (module R) config
   >>= process_projects (module R) config projects
   >>= process_now_page (module R) config
   >>= process_activity_page (module R) config

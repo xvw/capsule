@@ -46,3 +46,6 @@ let period_of r =
   let Yocaml.Datetime.{ year; month; _ } = date_of r in
   year, month
 ;;
+
+let year_of r = r |> period_of |> fst
+let book_of { book; _ } = book

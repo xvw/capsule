@@ -34,8 +34,8 @@ module type KEY_VALUE = sig
   val to_list : t -> (key * value) list
   val empty : t
   val has_elements : t -> Yocaml.Data.t
-  (* val exists : key -> bool *)
-  (* val find : key -> value option *)
+  val find : t -> key -> value option
+  val exists : t -> key -> bool
 
   include MODEL with type t := t
 end
