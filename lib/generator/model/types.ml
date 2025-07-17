@@ -19,6 +19,12 @@ module type MODEL = sig
   include VALIDABLE with type t := t
 end
 
+module type COMPARABLE_MODEL = sig
+  include MODEL
+
+  val compare : t -> t -> int
+end
+
 module type KEY_VALUE = sig
   type t
   type key
@@ -28,6 +34,8 @@ module type KEY_VALUE = sig
   val to_list : t -> (key * value) list
   val empty : t
   val has_elements : t -> Yocaml.Data.t
+  (* val exists : key -> bool *)
+  (* val find : key -> value option *)
 
   include MODEL with type t := t
 end

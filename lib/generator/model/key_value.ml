@@ -1,17 +1,21 @@
 open Model_util
 
-module Make (K : Types.MODEL) (V : Types.MODEL) = struct
+module Make (K : Types.COMPARABLE_MODEL) (V : Types.MODEL) = struct
+  module M = Stdlib.Map.Make (K)
+
   type key = K.t
   type value = V.t
-  type t = (key * value) list
+  type t = value M.t
 
-  let from_list x = x
-  let to_list x = x
-  let empty = []
+  let from_list = M.of_list
+  let to_list = M.to_list
+  let empty = M.empty
 
-  let normalize =
+  let normalize kv =
     let open Yocaml.Data in
-    list_of (fun (key, value) ->
+    kv
+    |> to_list
+    |> list_of (fun (key, value) ->
       record [ "key", K.normalize key; "value", V.normalize value ])
   ;;
 
@@ -31,9 +35,10 @@ module Make (K : Types.MODEL) (V : Types.MODEL) = struct
            and+ value = required fields "value" V.validate in
            key, value)
         (as_record x))
+    $ from_list
   ;;
 
-  let has_elements = exists_from_list
+  let has_elements x = (not (M.is_empty x)) |> Yocaml.Data.bool
 end
 
 module String_model = struct
@@ -44,6 +49,8 @@ module String_model = struct
   let validate =
     Yocaml.Data.Validation.(string & minimal_length ~length:String.length 1)
   ;;
+
+  let compare = String.compare
 end
 
 module By_string = Make (String_model)

@@ -29,6 +29,9 @@ module type RESOLVER = sig
     val template : string -> Yocaml.Path.t
     val talks : Yocaml.Path.t
     val speaking : Yocaml.Path.t
+    val books : Yocaml.Path.t
+    val readings : Yocaml.Path.t
+    val readings_list : Yocaml.Path.t
     val now : Yocaml.Path.t
     val activity : Yocaml.Path.t
 
@@ -67,6 +70,7 @@ module type RESOLVER = sig
     val pages : Yocaml.Path.t
     val maps : Yocaml.Path.t
     val speaking : Yocaml.Path.t
+    val readings : Yocaml.Path.t
     val now : Yocaml.Path.t
     val activity : Yocaml.Path.t
     val projects : Yocaml.Path.t

@@ -1,4 +1,4 @@
-module Make (K : Types.MODEL) (V : Types.MODEL) :
+module Make (K : Types.COMPARABLE_MODEL) (V : Types.MODEL) :
   Types.KEY_VALUE with type key = K.t and type value = V.t
 
 module By_string (V : Types.MODEL) :
