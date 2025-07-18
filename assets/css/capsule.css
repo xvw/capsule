@@ -928,7 +928,7 @@ section.origin {
     }
 }
 
-.talk-list {
+.year-list {
 
     margin-top: 4rem;
 
@@ -952,10 +952,59 @@ section.origin {
         }
     }
 
+    & .reading,
     & .talk {
         --gap: 1rem;
-        
         border-bottom: 1px solid var(--middle-light-color);
+        padding-bottom: var(--gap);
+    }
+
+    & > div:last-child > div > .reading:last-child {
+        border-style: none;
+    }
+
+    & .reading {
+
+        display: flex;
+        flex-direction: row;
+        margin-bottom: calc(var(--gap) * 1);
+
+        & > .month,
+        & > .kind {
+            flex: 1;
+            font-family: var(--font-mono);
+            
+        }
+
+        & > .kind {
+            align-self: center;
+        }
+
+        & > .month {
+            text-align: right;
+            font-weight: 900;
+        }
+
+        & > .content {
+            flex: 6;
+            margin: 0 var(--gap);
+
+            & h3 {
+                margin: 0;
+                padding: 0;
+                font-family: var(--font-sans-serif);
+                font-size: 110%;
+            }
+
+            & span.authors,
+            & time.year {
+                font-size: 90%;
+            }
+        }
+        
+    }
+
+    & .talk {
         margin-bottom: calc(var(--gap) * 3.2);
         padding-bottom: var(--gap);
         

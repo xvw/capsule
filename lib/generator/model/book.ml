@@ -106,12 +106,16 @@ let normalize
       }
   =
   let open Yocaml.Data in
+  let authors = Yocaml.Nel.to_list authors in
   record
     [ "title", string title
     ; "display_title", string (display_title title volume subtitle)
     ; "volume", option int volume
     ; "subtitle", option string subtitle
-    ; "authors", list_of Identity.normalize (Yocaml.Nel.to_list authors)
+    ; "authors", list_of Identity.normalize authors
+    ; ( "authors_repr"
+      , string
+          (Std.List.textual_enum ~last:"et" Identity.display_name_of authors) )
     ; "kind", normalize_kind kind
     ; "publication_year", int publication_year
     ; "edition", option string edition

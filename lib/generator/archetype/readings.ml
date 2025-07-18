@@ -34,21 +34,24 @@ module Make (P : Yocaml.Required.DATA_PROVIDER) (R : Intf.RESOLVER) = struct
           R.Source.readings_list
     >>| (fun (books, readings) ->
     List.fold_left
-      (fun (i, map) reading ->
+      (fun ((i, mindate, maxdate), map) reading ->
          let book = Model.Reading.book_of reading
+         and date = Model.Reading.date_of reading
          and year = Model.Reading.year_of reading in
          match Books.find books book with
          | Some book ->
            let elt = book, reading in
-           ( succ i
+           ( ( succ i
+             , Std.Datetime.min_opt mindate date
+             , Std.Datetime.max_opt maxdate date )
            , IMap.update
                (year :> int)
                (function
                  | None -> Some (1, [ elt ])
                  | Some (x, xs) -> Some (succ x, elt :: xs))
                map )
-         | None -> i, map)
-      (0, IMap.empty)
+         | None -> (i, mindate, maxdate), map)
+      ((0, None, None), IMap.empty)
       readings)
     >>> Task.(
           second
@@ -76,8 +79,11 @@ module Make (P : Yocaml.Required.DATA_PROVIDER) (R : Intf.RESOLVER) = struct
     lift (Raw.Output.full_configure ~config ~source ~target ~kind ~on_synopsis)
     >>| (fun page -> page, ())
     >>> second index
-    >>| (fun (page, (number_of_readings, readings)) ->
-    { page; number_of_readings; readings })
+    >>| (fun (page, ((number_of_readings, published_at, updated_at), readings)) ->
+    { page = page |> Raw.Output.patch_date ?published_at ?updated_at
+    ; number_of_readings
+    ; readings
+    })
     |> Static.on_metadata
   ;;
 

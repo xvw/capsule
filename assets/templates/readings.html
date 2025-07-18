@@ -9,3 +9,31 @@
   {{ yocaml_body }}
   {%- endautoescape -%}
 </article>
+
+{%- if has_readings -%}
+<section class="year-list">
+  {%- for year in years -%}
+  {%- if year.has_readings -%}
+  <div>
+    <div><h2>{{ year.year }}</h2></div>
+    <div>
+      {%- for r in year.readings -%}
+      <div class="reading">
+        <div class="month">{{ r.reading.month }}</div>
+
+        <div class="content">
+          <h3>{{ r.book.display_title}}</h3>
+          <span class="authors">{{ r.book.authors_repr}}</span>
+          <time datetime="{{ r.book.publication_year }}" class="year">
+            ({{ r.book.publication_year }})
+          </time>
+        </div>
+        <div class="kind">{{ r.book.kind }}</div>
+      </div>
+      {%- endfor -%}
+    </div>
+  </div>
+  {%- endif -%}
+  {%- endfor -%}
+</section>
+{%- endif -%}

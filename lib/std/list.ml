@@ -19,3 +19,25 @@ let split_by_size size list =
   in
   aux [] list
 ;;
+
+let textual_join sep to_string list =
+  let rec aux r acc = function
+    | [] -> ""
+    | [ x ] ->
+      acc
+      ^ sep
+          (to_string x)
+          (match r with
+           | `First -> `First
+           | _ -> `Last)
+    | x :: xs -> aux `Regular (acc ^ sep (to_string x) r) xs
+  in
+  aux `First "" list
+;;
+
+let textual_enum ?(last = "and") =
+  textual_join (fun elt -> function
+    | `First -> elt
+    | `Regular -> ", " ^ elt
+    | `Last -> " " ^ last ^ " " ^ elt)
+;;

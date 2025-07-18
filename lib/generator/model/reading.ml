@@ -36,6 +36,7 @@ let normalize { book; rereading; date; comment } =
     [ "book", string book
     ; "rereading", bool rereading
     ; "date", Yocaml.Datetime.normalize date
+    ; "month", Std.Datetime.normalize_month date
     ; "comment", option string comment
     ]
 ;;

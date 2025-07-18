@@ -57,4 +57,10 @@ module Output : sig
   val define_document_kind : Model.Types.document_kind -> t -> t
   val table_of_content : t -> string option -> t
   val normalize : t -> (string * Yocaml.Data.t) list
+
+  val patch_date
+    :  ?updated_at:Yocaml.Datetime.t
+    -> ?published_at:Yocaml.Datetime.t
+    -> t
+    -> t
 end

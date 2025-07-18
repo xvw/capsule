@@ -36,6 +36,8 @@ indexes:
       ou d'illustrations), ou encore des articles divers 
       — orphelins d'une catégorie parente.
     links:
+        - title: Lectures
+          url: /readings.html
         - title: Galeries
           url: /galleries.html
         - title: Sur le café

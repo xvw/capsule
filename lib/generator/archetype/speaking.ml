@@ -10,18 +10,21 @@ module Make (P : Yocaml.Required.DATA_PROVIDER) (R : Intf.RESOLVER) = struct
   module IMap = Stdlib.Map.Make (Stdlib.Int)
 
   let index talks =
-    let i, map =
+    let i, mind, maxd, map =
       List.fold_left
-        (fun (i, map) talk ->
+        (fun (i, mindate, maxdate, map) talk ->
+           let date = Talk.date_of talk in
            let year = Talk.year_of talk in
            ( succ i
+           , Std.Datetime.min_opt mindate date
+           , Std.Datetime.max_opt maxdate date
            , IMap.update
                year
                (function
                  | None -> Some (1, [ talk ])
                  | Some (x, xs) -> Some (succ x, talk :: xs))
                map ))
-        (0, IMap.empty)
+        (0, None, None, IMap.empty)
         talks
     in
     let map =
@@ -35,7 +38,7 @@ module Make (P : Yocaml.Required.DATA_PROVIDER) (R : Intf.RESOLVER) = struct
                Yocaml.Datetime.compare b a)
             talks ))
     in
-    i, map
+    i, mind, maxd, map
   ;;
 
   type t =
@@ -61,8 +64,13 @@ module Make (P : Yocaml.Required.DATA_PROVIDER) (R : Intf.RESOLVER) = struct
              Talk.collapse_content metadata (on_synopsis content))
           files
       in
-      let number_of_talks, talks = index talks in
-      { page; talks; number_of_talks })
+      let number_of_talks, mindate, maxdate, talks = index talks in
+      { page =
+          page
+          |> Raw.Output.patch_date ?updated_at:maxdate ?published_at:mindate
+      ; talks
+      ; number_of_talks
+      })
   ;;
 
   let full_configure ~config ~source ~target ~kind ~on_synopsis =

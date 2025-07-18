@@ -175,3 +175,5 @@ let to_person p =
     ?uri:(Option.map (fun link -> link |> Link.url |> Url.to_string) p.website)
     (render_name p)
 ;;
+
+let display_name_of { display_name; _ } = display_name
