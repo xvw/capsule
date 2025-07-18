@@ -172,13 +172,19 @@ let meta obj =
 let normalize obj =
   let open Model.Model_util in
   let open Yocaml.Data in
+  let published_at = obj#published_at in
+  let updated_at =
+    if Option.equal Yocaml.Datetime.equal published_at obj#updated_at
+    then None
+    else obj#updated_at
+  in
   [ "page_title", string obj#page_title
   ; "page_charset", option string obj#page_charset
   ; "description", option string obj#description
   ; "synopsis", option string obj#synopsis
   ; "section", option string obj#section
-  ; "published_at", option Yocaml.Datetime.normalize obj#published_at
-  ; "updated_at", option Yocaml.Datetime.normalize obj#updated_at
+  ; "published_at", option Yocaml.Datetime.normalize published_at
+  ; "updated_at", option Yocaml.Datetime.normalize updated_at
   ; "tags", list_of string obj#tags
   ; "breadcrumb", list_of Model.Link.normalize obj#breadcrumb
   ; "indexes", Model.Indexes.normalize obj#indexes
@@ -195,8 +201,8 @@ let normalize obj =
   ; "has_breadcrumb", exists_from_list obj#breadcrumb
   ; "has_indexes", exists_from_list obj#indexes
   ; "has_notes", exists_from_list obj#notes
-  ; "has_published_date", exists_from_opt obj#published_at
-  ; "has_updated_date", exists_from_opt obj#updated_at
+  ; "has_published_date", exists_from_opt published_at
+  ; "has_updated_date", exists_from_opt updated_at
   ; ( "has_publication_date"
     , bool (Option.is_some obj#published_at || Option.is_some obj#updated_at) )
   ]
