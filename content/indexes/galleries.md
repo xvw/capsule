@@ -33,4 +33,6 @@ indexes:
           url: /galleries/rouen.html
         - title: New York
           url: /galleries/nyc.html
+        - title: Lyon
+          url: /galleries/lyon.html
 ---
