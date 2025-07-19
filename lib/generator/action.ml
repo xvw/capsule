@@ -43,14 +43,6 @@ let process_d2_diagrams (module R : Intf.RESOLVER) =
     Yocaml.Action.exec_cmd command target)
 ;;
 
-let process_js (module R : Intf.RESOLVER) =
-  Yocaml.Action.batch
-    ~only:`Files
-    ~where:File.is_javascript
-    R.Source.js
-    (Yocaml.Action.copy_file ~into:R.Target.js)
-;;
-
 let process_css (module R : Intf.RESOLVER) =
   Yocaml.Action.Static.write_file
     R.Target.css
@@ -444,7 +436,6 @@ let run (module R : Intf.RESOLVER) () =
   >>= process_images (module R)
   >>= process_d2_diagrams (module R)
   >>= process_maps (module R)
-  >>= process_js (module R)
   >>= process_misc_files (module R)
   >>= process_pages (module R) config
   >>= process_indexes (module R) config
