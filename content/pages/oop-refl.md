@@ -284,7 +284,7 @@ _scope_ garantit qu'ils sont équivalents. Par exemple :
 ```ocaml
 type other_int = int
 let _ : (int, other_int) eq = Refl
-(* Dès lors, on possède une preuve que [int = other_int]. *)_
+(* Dès lors, on possède une preuve que [int = other_int]. *)
 ```
 
 Cet exemple est assez artificiel car ici, le compilateur sait

@@ -59,7 +59,7 @@ let get
 
 let layout_arrow (module R : Intf.RESOLVER) =
   let open Yocaml.Task in
-  Yocaml_cmarkit.content_to_html_with_toc
+  Markdown.content_to_html_with_toc
     ~strict:false
     Archetype.Project.table_of_content
   >>> Layout.as_static

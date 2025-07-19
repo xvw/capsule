@@ -1,7 +1,3 @@
-let md_to_html ?strict ?(safe = true) content =
-  content |> Cmarkit.Doc.of_string ?strict |> Cmarkit_html.of_doc ~safe
-;;
-
 let process_fonts (module R : Intf.RESOLVER) =
   Yocaml.Action.batch
     ~only:`Files
@@ -93,8 +89,13 @@ let page_arrow
   let open Yocaml.Task in
   R.track_common_deps
   >>> Yocaml_yaml.Pipeline.read_file_with_metadata (module A.Input) source
-  >>> A.full_configure ~config ~source ~target ~kind ~on_synopsis:md_to_html
-  >>> Yocaml_cmarkit.content_to_html_with_toc ~strict:false A.table_of_content
+  >>> A.full_configure
+        ~config
+        ~source
+        ~target
+        ~kind
+        ~on_synopsis:Markdown.string_to_html
+  >>> Markdown.content_to_html_with_toc ~strict:false A.table_of_content
   >>> Yocaml_jingoo.Pipeline.as_template (module A) (R.Source.template template)
 ;;
 
@@ -273,17 +274,20 @@ let process_projects (module R : Intf.RESOLVER) config projects =
     (Project.create_project_page
        (module Yocaml_yaml)
        (module R)
-       md_to_html
+       Markdown.string_to_html
        config
        projects)
 ;;
 
 let process_now_page (module R : Intf.RESOLVER) =
-  Log.create_now_page (module Yocaml_yaml) (module R) md_to_html
+  Log.create_now_page (module Yocaml_yaml) (module R) Markdown.string_to_html
 ;;
 
 let process_activity_page (module R : Intf.RESOLVER) =
-  Log.create_activity_page (module Yocaml_yaml) (module R) md_to_html
+  Log.create_activity_page
+    (module Yocaml_yaml)
+    (module R)
+    Markdown.string_to_html
 ;;
 
 let process_feed (module R : Intf.RESOLVER) config context =
@@ -291,7 +295,7 @@ let process_feed (module R : Intf.RESOLVER) config context =
   Feed.create_journal_feed
     (module Yocaml_yaml)
     (module R)
-    md_to_html
+    Markdown.string_to_html
     config
     context
   >=> Feed.atom_for_entries (module R) config context
@@ -352,7 +356,7 @@ let fetch_english_articles (module R : Intf.RESOLVER) =
                ~on
                file
            in
-           Archetype.Page.input_to_entry md_to_html meta url)
+           Archetype.Page.input_to_entry Markdown.string_to_html meta url)
         files
     in
     Archetype.En_blog.make page articles)
@@ -373,9 +377,9 @@ let english_index (module R : Intf.RESOLVER) config =
            ~config
            ~source
            ~target
-           ~on_synopsis:md_to_html
+           ~on_synopsis:Markdown.string_to_html
            ~kind:Model.Types.Index
-     >>> Yocaml_cmarkit.content_to_html_with_toc
+     >>> Markdown.content_to_html_with_toc
            ~strict:false
            Archetype.Page.table_of_content
      >>> Yocaml.Task.Static.on_metadata (fetch_english_articles (module R))
@@ -404,8 +408,8 @@ let english_page (module R : Intf.RESOLVER) config source =
             ~source
             ~target
             ~kind
-            ~on_synopsis:md_to_html
-      >>> Yocaml_cmarkit.content_to_html_with_toc
+            ~on_synopsis:Markdown.string_to_html
+      >>> Markdown.content_to_html_with_toc
             ~strict:false
             Archetype.Translated_page.table_of_content
       >>> Yocaml.Pipeline.chain_templates

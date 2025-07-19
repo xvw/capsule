@@ -25,6 +25,7 @@ depends: [
   "yocaml_rensai"
   "yocaml_kohai"
   "cmarkit"
+  "hilite" {>= "0.5.0"}
   "mdx"
   "ppx_expect"
   "utop" {with-dev-setup}

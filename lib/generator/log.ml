@@ -98,7 +98,7 @@ let build_activity_page
 
 let layout_arrow (module R : Intf.RESOLVER) =
   let open Yocaml.Task in
-  Dynamic.on_content (Yocaml_cmarkit.to_html ())
+  Dynamic.on_content (Markdown.to_html ())
   >>> Layout.as_dynamic
         (module R)
         (module Archetype.Activity_state)
