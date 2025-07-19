@@ -13,6 +13,7 @@ type t =
   { title : string
   ; volume : int option
   ; subtitle : string option
+  ; isbn : Isbn.t option
   ; authors : Identity.t Yocaml.Nel.t
   ; kind : kind
   ; publication_year : int
@@ -58,6 +59,7 @@ let validate =
     and+ publication_year = required fields "year" int
     and+ edition = optional fields "edition" string
     and+ editor = required fields "editor" string
+    and+ isbn = optional fields "isbn" Isbn.validate
     and+ comment = optional fields "comment" string in
     { title
     ; volume
@@ -68,6 +70,7 @@ let validate =
     ; edition
     ; editor
     ; comment
+    ; isbn
     })
 ;;
 
@@ -106,6 +109,7 @@ let normalize
       ; edition
       ; editor
       ; comment
+      ; isbn
       }
   =
   let open Yocaml.Data in
@@ -124,9 +128,11 @@ let normalize
     ; "edition", option string edition
     ; "editor", string editor
     ; "comment", option string comment
+    ; "isbn", option Isbn.normalize isbn
     ; "has_volume", Model_util.exists_from_opt volume
     ; "has_subtitle", Model_util.exists_from_opt subtitle
     ; "has_edition", Model_util.exists_from_opt edition
     ; "has_comment", Model_util.exists_from_opt comment
+    ; "has_isbn", Model_util.exists_from_opt isbn
     ]
 ;;

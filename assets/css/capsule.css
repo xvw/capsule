@@ -1000,6 +1000,18 @@ section.origin {
             & time.year {
                 font-size: 90%;
             }
+
+            & a.isbn {
+                font-family: var(--font-mono);
+                text-decoration: none;
+                font-size: 80%;
+
+                &:before {
+                    content: "ISBN";
+                    font-family: var(--font-sans-serif);
+                    font-weight: 600;
+                }
+            }
         }
         
     }

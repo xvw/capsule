@@ -27,6 +27,12 @@
           <time datetime="{{ r.book.publication_year }}" class="year">
             ({{ r.book.publication_year }})
           </time>
+          {%- if r.book.has_isbn -%}
+          <br/>
+          <a class="isbn" href="{{ r.book.isbn.target.url }}">
+            {{ r.book.isbn.repr }}
+          </a>
+          {%- endif -%}
         </div>
         <div class="kind">{{ r.book.kind }}</div>
       </div>
