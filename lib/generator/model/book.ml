@@ -6,6 +6,7 @@ type kind =
   | Comic
   | Technical
   | Zine
+  | Manual
   | Misc of string
 
 type t =
@@ -42,6 +43,7 @@ let validate_kind =
   | "comic" | "bd" | "strip" -> Comic
   | "technical" | "tech" -> Technical
   | "zine" | "magazine" | "newspaper" -> Zine
+  | "manual" -> Manual
   | s -> Misc s
 ;;
 
@@ -79,6 +81,7 @@ let normalize_kind k =
     | Comic -> "BD"
     | Technical -> "Technique"
     | Zine -> "Zine"
+    | Manual -> "Manuel"
     | Misc s -> String.capitalize_ascii s
   in
   Yocaml.Data.string r

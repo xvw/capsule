@@ -7,3 +7,14 @@
     authors:
       - first_name: "Antoine"
         last_name: "de Saint-Exupéry"
+
+- key: "vermis"
+  value:
+    title: "Vermis"
+    volume: 1
+    subtitle: "Donjons Oubliés & Forêts Interdites"
+    kind: "manual"
+    year: 2025
+    editor: "Huber Editions"
+    authors:
+      - display_name: "Plastiboo"
