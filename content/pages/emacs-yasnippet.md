@@ -70,7 +70,7 @@ nécéssaire de l'installer. Pour ma part, j'utilise la macro
 permet de décrire déclarativement ma configuration (et qui, depuis `>=
 29`, est disponible par défaut) :
 
-```scheme
+```lisp
 (use-package yasnippet
   :config
   (setq yas-snippet-dirs '("~/scame/snippets"))

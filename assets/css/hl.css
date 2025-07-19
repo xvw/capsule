@@ -1,3 +1,13 @@
+pre > code {
+    color: #333;
+    background: #fff;
+    padding: 1rem;
+    display: block;
+    overflow-x: auto;
+}
+
+
+span[class*="storage-modifier"],
 span[class*="name-tag"],
 span[class*="stanza"],
 span[class*="keyword"] {
@@ -10,15 +20,18 @@ span[class*="constant"] {
     font-weight: 600;
 }
 
+span[class*="name-function"],
 span[class*="function-binding"] {
   color: #000;
 }
 
+span[class*="storage-type"],
 span[class*="variable"] {
   color: #777;
   font-style: italic;
 }
 
+span[class*="inherited-class"],
 span[class*="atom"],
 span[class*="support"] {
     color: #111;

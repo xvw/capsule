@@ -7,6 +7,9 @@ let tm =
     ; Hilite.Grammars.opam
     ; Hilite.Grammars.diff
     ; Tm.haskell
+    ; Tm.java
+    ; Tm.kotlin
+    ; Tm.lisp
     ]
     |> List.iter (fun g ->
       g |> TmLanguage.of_yojson_exn |> TmLanguage.add_grammar t)
@@ -14,7 +17,7 @@ let tm =
   t
 ;;
 
-let of_doc ?(safe = true) content =
+let of_doc ?(safe = false) content =
   content
   |> Hilite_markdown.transform ~skip_unknown_languages:true ~tm
   |> Cmarkit_html.of_doc ~safe
@@ -24,14 +27,14 @@ let string_to_html ?strict ?safe content =
   content |> Cmarkit.Doc.of_string ?strict |> of_doc ?safe
 ;;
 
-let to_html ?(strict = true) ?(safe = false) () =
+let to_html ?(strict = false) ?(safe = false) () =
   Yocaml.Task.lift (fun content ->
     content
     |> Cmarkit.Doc.of_string ~heading_auto_ids:true ~strict
     |> of_doc ~safe)
 ;;
 
-let to_html_with_toc ?(strict = true) ?(safe = false) () =
+let to_html_with_toc ?(strict = false) ?(safe = false) () =
   let open Yocaml.Task in
   Yocaml_cmarkit.to_doc ~strict ()
   >>> Yocaml_cmarkit.table_of_contents
