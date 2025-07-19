@@ -31,12 +31,6 @@
   yocaml_syndication
   yocaml_yaml
   yocaml_otoml
-   
-  ;; Nightmare dependencies
-  nightmare
-  nightmare-tyxml
-  nightmare_js
-  nightmare_js-vdom
 
   ;; Kohai dependencies
   rensai
