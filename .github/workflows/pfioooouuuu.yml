@@ -11,18 +11,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Hell
-        uses: actions/setup-node@v3
-        with:
-          node-version: 19
-
       - name: YOCaml
         uses: ocaml/setup-ocaml@v3
         with:
           ocaml-compiler: 5.3.0
           opam-depext-flags: --with-test
 
-      - run: (cd hell; npm install; npm run build)
       - run: curl -fsSL https://d2lang.com/install.sh | sh -s --
       - run: opam install . --deps-only --with-doc --with-test
       - run: opam exec -- dune build --profile=release
