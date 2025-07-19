@@ -6,6 +6,7 @@ let tm =
     ; Hilite.Grammars.dune
     ; Hilite.Grammars.opam
     ; Hilite.Grammars.diff
+    ; Tm.haskell
     ]
     |> List.iter (fun g ->
       g |> TmLanguage.of_yojson_exn |> TmLanguage.add_grammar t)

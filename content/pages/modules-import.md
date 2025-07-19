@@ -96,7 +96,6 @@ end
 </div>
 
 
-
 Comme vous pouvez le remarquer, l'implémentation — et _de facto_, la
 signature — du module n'est pas très intéressant, il ne servira qu'a
 illustrer mon propos.  Ce que l'on voudra, c'est utiliser, dans un

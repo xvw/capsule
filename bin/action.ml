@@ -37,6 +37,22 @@ let with_message source target f () =
   f ()
 ;;
 
+let name_from_file file =
+  file
+  |> Filename.basename
+  |> Filename.remove_extension
+  |> String.map (function
+    | ('a' .. 'z' | 'A' .. 'Z' | '0' .. '9') as c -> c
+    | _ -> '_')
+;;
+
+let run_pp_syntax file =
+  let json = Yojson.Basic.from_file file in
+  let yojs = Yojson.Basic.show json in
+  let binding = "\nlet " ^ name_from_file file ^ " = \n" in
+  print_endline (binding ^ yojs)
+;;
+
 let run_build log_level target source configuration_file =
   let module Resolver =
     Generator.Resolver.Make (struct
@@ -105,11 +121,27 @@ let watch =
   Cmdliner.Cmd.v info term
 ;;
 
+let pp_syntax =
+  let doc = "Run a pretty-printer on a given syntax in JSON." in
+  let info = Cmdliner.Cmd.info "pp-syntax" ~version ~doc ~exits ~man in
+  let file =
+    Cmdliner.Arg.(
+      required
+        (pos
+           0
+           (some non_dir_file)
+           None
+           (info [] ~docv:"FILE" ~doc:"A syntax to be pretty printed")))
+  in
+  let term = Cmdliner.Term.(const run_pp_syntax $ file) in
+  Cmdliner.Cmd.v info term
+;;
+
 let index =
   let doc = "xvw.lol" in
   let info =
     Cmdliner.Cmd.info "dune exec bin/capsule.exe --" ~version ~doc ~man
   in
   let default = Cmdliner.Term.(ret (const (`Help (`Pager, None)))) in
-  Cmdliner.Cmd.group info ~default [ build; watch ]
+  Cmdliner.Cmd.group info ~default [ build; watch; pp_syntax ]
 ;;

@@ -3,6 +3,7 @@
  (public_name capsule.generator)
  (libraries
   capsule.std
+  capsule.tm
   yocaml
   yocaml_yaml
   yocaml_otoml
