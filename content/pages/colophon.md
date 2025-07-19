@@ -180,6 +180,7 @@ cette dernière et YOCaml. Pour ce site, j'utilise ces différents _greffons_ :
 - [Yocaml_cmarkit](https://ocaml.org/p/yocaml_cmarkit/latest) : pour
   la transformation de
   [Markdown](https://fr.wikipedia.org/wiki/Markdown) à HTML.
+- [Hilite](https://github.com/patricoferris/hilite) pour la coloration syntaxique.
 
 
 #### Infrastructure
@@ -197,10 +198,7 @@ nouvelle version de la branche
 
 Le site web est assez sobre concernant les technologies _front-end_ mise en
 œuvre, essentiellement parce que je ne suis pas très _aux faits_ des nouvelles
-technologies web. Par contre, pour garantir une certaine forme d'interactivité
-(par exemple pour le développement des applications embarquées ou pour la
-gestion des commentaires), j'utilise **un peu** de JavaScript, cependant, la
-désactivation de ce dernier permet tout de même la navigation.
+technologies web.
 
 ##### CSS et intégration
 
@@ -222,78 +220,6 @@ grilles](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout) qui,
 logiquement, pour décrire des grilles, est largement plus confortable que
 [Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout/Basic_concepts_of_flexbox).
 
-##### Coloration syntaxique
-
-J'utilise la bibliothèque [Highlight.js](https://highlightjs.org/) avec le thème
-[Grayscale](https://github.com/highlightjs/highlight.js/blob/5bcb6c66133706ea84cfd3cfd7492b3e5321ca85/src/styles/grayscale.css)
-(très légèrement modifé pour s'adapter au visuel global de l'application).
-
-Le choix d'une bibliothèque JavaScript pour assurer la coloration syntaxique est
-**de la pure fainéantise**. Même s'il y a des priorités plus importantes, je
-garde en tête le projet [Hilite](https://ocaml.org/p/hilite/latest) pour colorer
-les blocs de codes à la construction du site, et réduire la nécéssité d'une
-bibliothèque tiers aussi grande.
-
-##### Nightmare
-
-[Nightmare](https://github.com/funkywork/nightmare) est une collection d'embryon
-de bibliothèques permettant de construire des applications _client/serveur_ et
-développé à [The Funkyworkers](https://github.com/funkywork) (dont je suis
-_co-fondateur_). Mon site utilise **la partie cliente**, qui est compilée en
-JavaScript grâce à l'excellent
-[Js\_of\_ocaml](https://ocsigen.org/js_of_ocaml/latest/manual/overview), me
-permettant d'écrire le moins de JavaScript possible, et spécifiquement ces
-différentes bibliothèques :
-
-- `Nightmare` : qui offre des abstractions génériques (pour le client et le
-  serveur) comme, par exemple, l'abstraction sur la définition d'URL.
-  
-- `Nightmare_js` : qui fourni des outils et des _liaisons_ pour interagir
-  facilement avec JavaScript (par exemple une liaison avec l'API
-  [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API), qui
-  repose sur la description d'URL de `Nightmare`).
-  
-- `nightmare_vdom` : qui fournit une glue entre
-  [Tyxml](https://ocaml.org/p/tyxml/latest), une bibliothèque pour décrire des
-  noeuds HTML avec une vérification statique des types, et
-  [vdom](https://ocaml.org/p/vdom/latest), qui est une implémentation d'un [DOM
-  virtual](https://en.wikipedia.org/wiki/Virtual_DOM), en OCaml, offrant la
-  capacité de structurer une application par le biais de [Machine de
-  Moore](https://en.wikipedia.org/wiki/Moore_machine) (que l'on appelle, depuis
-  quelques années, [La Elm
-  Architecture](https://guide.elm-lang.org/architecture/)).
-
-Ces différentes bibliothèques me permettent d'embarquer des
-_applications riches. Et, comme le site fait office d'incubateur pour
-YOCaml, c'est aussi le cas pour les différentes bibliothèques qui
-constituent Nightmare.
-
-#### Commentaires
-
-> Cette fonctionnalité n'est pas encore développée dans la nouvelle
-> version du site.
-
-Une des difficultés quand on construit un site statique, c'est que l'on perd des
-fonctionnalités d'interactivité. Par exemple, les commentaires sur les articles.
-Une solution acceptée dans le monde des sites statiques est d'utiliser un
-service tiers pour palier ces manque d'interactivité. On appelle ça la
-[JamStack](https://jamstack.org/) et il existe beaucoup de services permettant
-de résoudre le problème des commentaires.
-
-Comme je l'avais expliqué dans [une entrée de
-journal](/journal/2023-11-14_15-20-50.html), je ne voulais pas dépendre d'un
-service pouvant, potentiellement faire du _tracking_ sans mon accord, j'ai donc
-décidé de construire le support des commentaires sur base de réponses à des fils
-de conversations [Mastodon](https://merveilles.town/getting-started). La
-solution est limitée car elle ne me permet pas de faire de modérations, mais
-pour le moment, elle me suffit largement. Je pourrais imaginer une modération
-statique (en invalidant certains identifiants de messages au niveau d'une page),
-mais, pour le moment, n'ayant pas eu à déplorer des commentaires déplacés, je ne
-pense pas que ça soit nécéssaire.
-
-L'application utilise `nightmare_vdom`, ce qui est un peu _overkill_ car il n y
-a pas d'interactivité et un seul composant, mais ça me permet de bénéficier de
-combinateurs pour décrire une UI.
 
 #### Conclusion sur la pile technologique
 
@@ -312,12 +238,12 @@ d'implémenter à peu près ce dont j'ai envie.
 
 ### Développement et production de contenu
 
-En plus de la _génération concrète_ du site, j'utilise des bibliothèques et des
-logiciels pour faciliter le développement de l'application et la production de
-contenu. Le code source et les différentes pages sont écrites avec
-[Doom-Emacs](https://github.com/doomemacs/doomemacs) (une configuration
-_moderne_ pour l'éditeur [Emacs](https://www.gnu.org/software/emacs/), que
-j'utilise depuis près d'une quinzaine d'années).
+En plus de la _génération concrète_ du site, j'utilise des
+bibliothèques et des logiciels pour faciliter le développement de
+l'application et la production de contenu. Le code source et les
+différentes pages sont écrites avec l'éditeur
+[Emacs](https://www.gnu.org/software/emacs/), que j'utilise depuis
+près d'une quinzaine d'années.
 
 #### Développement
 
@@ -337,10 +263,6 @@ relatifs au développement de projets OCaml :
 - [Odoc](https://ocaml.github.io/odoc/) : comme générateur de documentation.
 - [mdx](https://github.com/realworldocaml/mdx) : pour écrire des _tests_ dans un
   style _literate_ (dans de la documentation ou des documents Markown),
-
-[Npm](https://www.npmjs.com/) et [Webpack](https://webpack.js.org/)
-pour gérer les dépendances JavaScript (en l'occurence, uniquement
-`Highlight.js`).
 
 #### Éléments visuels
 
