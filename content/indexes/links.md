@@ -46,6 +46,8 @@ indexes:
         url: https://carette.xyz/
       - title: Arnaud Bailly
         url: https://abailly.github.io/
+      - title: Seb Ferrer
+        url: https://blog.kimi.ovh/
   - name: Communautés
     synopsis: 
       Communautés que je fréquente (ou du moins que je lis régulièrement).
