@@ -1164,4 +1164,33 @@ time.date-repr::before {
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .year-list {
+
+        & > div {
+            flex-direction: column;
+        }
+
+        & .talk {
+            & nav.meta {
+                flex-direction: column;
+            }
+        }
+
+        & .reading {
+            flex-direction: column;
+
+            & .content {
+                margin: 1rem 0;
+            }
+
+            & .kind,
+            & .month {
+                text-align: left;
+                align-self: flex-start;
+            }
+        }
+
+        
+    }
+
 }
