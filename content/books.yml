@@ -20,3 +20,14 @@
     editor: "Huber Editions"
     authors:
       - display_name: "Plastiboo"
+
+- key: "goldorak"
+  value:
+    isbn: "978-2-37697-374-4"
+    title: "Tout savoir sur Goldorak et les robots géants"
+    kind: "essay"
+    year: 2024
+    editor: "Ynnis Editions, Focus"
+    authors:
+      - first_name: "Bounthavy"
+        last_name: "Suvilay"
