@@ -18,7 +18,7 @@
   name: "preface">
 <counter: 0; description: "un webring pour les amateurs du web indépendant";
   name: "ring-muhokama">
-<counter: 35;
+<counter: 37;
   description:
    "une bibliothèque ocaml pour construire des générateurs de sites statiques";
   name: "yocaml">
