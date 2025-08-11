@@ -48,6 +48,8 @@ indexes:
         url: https://abailly.github.io/
       - title: Seb Ferrer
         url: https://blog.kimi.ovh/
+      - title: Siegfried Ehret
+        url: https://ehret.me/
   - name: Communautés
     synopsis: 
       Communautés que je fréquente (ou du moins que je lis régulièrement).
