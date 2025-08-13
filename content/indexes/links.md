@@ -59,4 +59,6 @@ indexes:
         url: https://discuss.ocaml.org/
       - title: Lobste.rs
         url: https://lobste.rs/
+      - title: Hacker News
+        url: https://news.ycombinator.com/
 ---
