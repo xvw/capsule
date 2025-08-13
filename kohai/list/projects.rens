@@ -1,4 +1,4 @@
-<counter: 25;
+<counter: 26;
   description:
    "le générateur de site, basé sur yocaml qui propulse mon site personnel";
   name: "capsule">
@@ -18,7 +18,7 @@
   name: "preface">
 <counter: 0; description: "un webring pour les amateurs du web indépendant";
   name: "ring-muhokama">
-<counter: 42;
+<counter: 43;
   description:
    "une bibliothèque ocaml pour construire des générateurs de sites statiques";
   name: "yocaml">
