@@ -220,7 +220,7 @@ si, historiquement, c'était vrai, les motivations apportées par les
 utilisateurs industriels justifient le titre "_An industrial-strength
 functional programming language with an emphasis on expressiveness and
 safety_". La _Keynote_ d'ouverture du [OCaml Workshop
-2021](https://ocaml.org/workshops/ocaml-workshop-2021) de [Xavier
+2021](https://ocaml.org/conferences/ocaml-workshop-2021) de [Xavier
 Leroy](https://xavierleroy.org/), "[_25 Years Of
 OCaml_](https://watch.ocaml.org/w/tU8wR9EcAcyFHHVcX4GS46)" présente
 une frise chronologique exhaustive de la conception continue de OCaml,
@@ -351,7 +351,7 @@ servent pas encore d'outils de _design_ expressifs.
 
 Dans l'utilisation de systèmes de types de plus en plus riches, **la
 Maison Blanche** a récemment publié un
-[communiqué](https://www.whitehouse.gov/wp-content/uploads/2024/02/Final-ONCD-Technical-Report.pdf)
+[communiqué](https://bidenwhitehouse.archives.gov/oncd/briefing-room/2024/02/26/press-release-technical-report/)
 qui insiste sur l'importance de la _memory safety_ dans la conception
 de programmes et ... _plébiscite_ l'utilisation du langage
 [Rust](https://www.rust-lang.org) (historiquement [écrit en
@@ -544,7 +544,6 @@ est nécessaire :
   l'expression de sommes assez verbeuses (et, de mon point de vue,
   difficile à raisonner).
   
-
 - Des **types exponentiels** : qui permettent de décrire des fonctions
   qui permettent d'exprimer des types pour des fonctions d'ordre
   supérieur (que l'on peut passer en argument ou renvoyer).
@@ -681,9 +680,9 @@ _injectées à postériori_ — rendant, notamment, le changement de
 contextes, pour des tests unitaires par exemple, trivialement
 implémentables.
 
-OCaml dispose de deux outils facilitant cette inversion, et pouvant
-être utiles dans des contextes différents. Et nous allons nous
-inspirer de l'exemples très populaires du télétype pour montrer
+OCaml dispose (_au moins_) de deux outils facilitant cette inversion,
+et pouvant être utiles dans des contextes différents. Et nous allons
+nous inspirer de l'exemples très populaires du télétype pour montrer
 comment inverser les dépendances :
 
 ```ocaml
@@ -741,7 +740,6 @@ de fournir une implémentation qui journalise l'ensemble des opérations
 appelées (et qui _mock_ l'appel de `read_line`, pour fixer le résultat
 renvoyé). Cela rend l'expression de tests unitaires _testant la
 logique métier_ très facile à implémenter.
-
 
 L'action de passer une implémentation concrète en argument à notre
 fonction consiste à **interpréter le programme**.
@@ -1488,6 +1486,13 @@ de Merlin pour réduire la maintenance des clients alternatifs (Emacs
 et Vim), ne nous souciant plus que des requêtes et actions spécifiques
 à OCaml (et ne faisant donc, logiquement, pas partie du protocole).
 
+Actuellement, la [plateforme OCaml pour Visual Studio
+Code](https://marketplace.visualstudio.com/items?itemName=ocamllabs.ocaml-platform)
+et [OCaml-eglot](https://github.com/tarides/ocaml-eglot) sont les deux
+implémentations canoniques (qui étendent le protocole LSP pour OCaml),
+respectivement pour VSCode et Emacs. Nous somme en train de penser
+l'implémentation du plugin NeoVim.
+
 Un peu comme pour Dune, l'état de l'outillage est, à mon sens,
 excellent, et la feuille de route est motivante ! Cependant, comme
 c'est **mon travail**, il est probable que je sois biaisé.
@@ -1510,7 +1515,7 @@ fonctionnalités très intéressantes :
   [Sherlodoc](https://doc.sherlocode.com/))
 - l'inclusion du code source (rédigé dans la documentation ou des
   modules documentés)
-- l'implémentation de _dérivers_ permettant de générer des grands
+- l'implémentation de _drivers_ permettant de générer des grands
   ensembles de documentation (utilisé pour implémenter [la
   documentation de tous les paquets présents sur
   OPAM](https://ocaml.org/packages))
@@ -1529,7 +1534,9 @@ langage [Elixir](https://elixir-lang.org/),
 fonctionnalités), et à titre personnel, j'aimerais que OCaml converge
 vers cet exemple. En revanche, il faut reconnaitre que la
 documentation générée par Odoc est supérieure à beaucoup de
-documentation d'autres langages.
+documentation d'autres langages. De plus, de part la nature fortemment
+modulaire du langage, un bon générateur de documentation supportant
+efficacement les _cross-references_ est un sacré exploit !
 
 
 ### Bibliothèques disponibles
