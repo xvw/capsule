@@ -1887,7 +1887,7 @@ Sans forme de polymorphisme ad-hoc (via des classes, des traits ou des
 implicites), permettant de décrire une contrainte sur nos opérateurs :
 `op :: Num a => a -> a -> a` ? Une proposition que j'ai souvent lu sur
 internet serait d'utiliser _la même triche_ que pour l'opérateur `=`,
-dont le type est `val (=) : 'a -> 'a -> 'a`. Ça ne fonctionne pas,
+dont le type est `val (=) : 'a -> 'a -> bool`. Ça ne fonctionne pas,
 parce que alors que l'on peut espérer que _tout soit comparable_ (dans
 le pire des cas, on peut renvoyer `false`), comment généraliser, par
 exemple, une addition ?

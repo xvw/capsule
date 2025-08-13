@@ -1653,7 +1653,7 @@ Without some form of ad-hoc polymorphism (via classes, traits, or
 implicits) to describe a constraint on our operators, e.g., `op :: Num
 a => a -> a -> a`, what can we do? A suggestion I’ve often seen online
 is to use _the same trick_ as with the `=` operator, whose type is
-`val (=) : 'a -> 'a -> 'a -> bool`. That doesn’t work, because while
+`val (=) : 'a -> 'a -> bool`. That doesn’t work, because while
 we can hope that _everything is comparable_ (at worst, we can return
 `false`), how can we generalize something like addition?
 
