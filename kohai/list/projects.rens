@@ -3,7 +3,7 @@
    "le générateur de site, basé sur yocaml qui propulse mon site personnel";
   name: "capsule">
 <counter: 0; description: "une reimplémentation de preface"; name: "frame">
-<counter: 25; description: "un codex de fonctionnalités pour yocaml";
+<counter: 26; description: "un codex de fonctionnalités pour yocaml";
   name: "kane">
 <counter: 41;
   description: "un outil de journalisation utilisable depuis emacs";
@@ -18,7 +18,7 @@
   name: "preface">
 <counter: 2; description: "un webring pour les amateurs du web indépendant";
   name: "ring-muhokama">
-<counter: 44;
+<counter: 46;
   description:
    "une bibliothèque ocaml pour construire des générateurs de sites statiques";
   name: "yocaml">
