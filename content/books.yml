@@ -31,3 +31,25 @@
     authors:
       - first_name: "Bounthavy"
         last_name: "Suvilay"
+
+- key: "ingenieurs-chaos"
+  value:
+    isbn: "978-2-07-301924-0"
+    title: "Les ingénieurs du chaos"
+    kind: "essay"
+    year: 2019
+    editor: "Gallimard, Folio Actuel"
+    authors:
+      - display_name: "Giuliano da Empoli"
+
+- key: "capital-ideologie-bd"
+  value:
+    isbn: "978-2-02-146957-8"
+    title: "Capital & Idéologie"
+    kind: "bd"
+    year: 2022
+    editor: "Seuil, La revue dessinée"
+    authors:
+      - display_name: "Thomas Piketty"
+      - display_name: "Claire Alet"
+      - display_name: "Benjamin Adam"
