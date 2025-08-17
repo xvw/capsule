@@ -16,7 +16,7 @@
   description:
    "une bibliothèque qui propose des abstractions inspirée de la théorie des catégorie pour ocaml";
   name: "preface">
-<counter: 0; description: "un webring pour les amateurs du web indépendant";
+<counter: 1; description: "un webring pour les amateurs du web indépendant";
   name: "ring-muhokama">
 <counter: 43;
   description:
