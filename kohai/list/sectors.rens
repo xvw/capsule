@@ -3,5 +3,5 @@
 <counter: 15; description: "rédaction (blog, talk, etc)"; name: "ecriture">
 <counter: 9; description: "maintenance et releases de projets";
   name: "maintenance">
-<counter: 8; description: "catégorie au dessin et au graphisme";
+<counter: 12; description: "catégorie au dessin et au graphisme";
   name: "visuel">
