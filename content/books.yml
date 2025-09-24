@@ -53,3 +53,21 @@
       - display_name: "Thomas Piketty"
       - display_name: "Claire Alet"
       - display_name: "Benjamin Adam"
+
+- key: "communications-8"
+  value:
+    isbn: "978-2-02-005837-7"
+    title: "Communications, 8 - l'analyse structurale du récit"
+    kind: "essay"
+    year: 1966
+    editor: "Seuil, Points"
+    authors:
+      - display_name: "Roland Barthes"
+      - display_name: "Algirdas Julien Greimas"
+      - display_name: "Claude Bremond"
+      - display_name: "Umberto Eco"
+      - display_name: "Jules Gritti"
+      - display_name: "Violette Morin"
+      - display_name: "Christian Metz"
+      - display_name: "Tzvetan Todorov"
+      - display_name: "Gérard Genette"
