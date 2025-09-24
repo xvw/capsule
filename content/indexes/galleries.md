@@ -21,6 +21,8 @@ indexes:
           url: /galleries/cosmic-atlantis.html
         - title: Inktober 2023
           url: /galleries/never-ended-inktober-2023.html
+        - title: Illustrations non triées
+          url: /galleries/misc.html
           
   - name: Dans la rue
     synopsis: 
