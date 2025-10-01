@@ -16,6 +16,10 @@
   description:
    "une bibliothèque qui propose des abstractions inspirée de la théorie des catégorie pour ocaml";
   name: "preface">
+<counter: 2;
+  description:
+   "un framework d'injection de dépendances en ocaml basé sur les objets et une monade reader";
+  name: "primavera">
 <counter: 2; description: "un webring pour les amateurs du web indépendant";
   name: "ring-muhokama">
 <counter: 51;
