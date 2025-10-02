@@ -50,6 +50,73 @@ indexes:
         url: https://blog.kimi.ovh/
       - title: Siegfried Ehret
         url: https://ehret.me/
+      - title: Olivier Nicole
+        url: https://otini.chnik.fr/
+      - title: Yann van der Cruyssen
+        url: https://nurykabe.com/
+      - title: Maxime Chillemi
+        url: https://maximechillemi.com/
+      - title: Nicolas Turlais
+        url: https://nicolasturlais.com/
+      - title: Biloumaster
+        url: https://biloumaster.fr/
+        
+  - name: Inspirations
+    synopsis:
+      Les sites que je trouve inspirants, jolis, rigolos ou _plagiables_ —
+      les sites de la rubriques **Amis** sont évidemment des inspirations, ils
+      ne seront donc pas dupliqués dans cette section.
+    sort: title
+    links:
+      - title: Decapod314
+        url: http://decapode314.free.fr/
+      - title: Okmij/ftp
+        url: https://okmij.org/ftp/
+      - title: Controlistes
+        url: https://controlistes.fr/
+      - title: 333333.icu
+        url: https://333333.icu/index.html
+      - title: Jon Sterling
+        url: https://www.jonmsterling.com
+      - title: Gwern
+        url: https://gwern.net/
+      - title: Hundred Rabbits
+        url: https://100r.co/site/home.html
+      - title: マリウス
+        url: https://マリウス.com/
+      - title: Robur Blog
+        url: https://blog.robur.coop/index.html
+      - title: Geoffrey Litt
+        url: https://www.geoffreylitt.com/
+      - title: Anil Madhavapeddy
+        url: https://anil.recoil.org/about
+      - title: RatFactor
+        url: https://ratfactor.com/
+      - title: Helvetica Blanc
+        url: https://helveticablanc.com/
+      - title: Ritual Dust
+        url: https://ritualdust.com/
+      - title: Josh
+        url: https://avanier.dev/
+      - title: Aeriform
+        url: https://www.aeriform.io/
+      - title: Nomand
+        url: https://nomand.co/site/home.html
+      - title: Gosha
+        url: https://gosha.net/
+      - title: Sixey.es
+        url: https://sixey.es/
+      - title: Copiona
+        url: https://copiona.com/
+      - title: Matilde Park
+        url: https://matildepark.ca/
+      - title: Alessia Bellisario
+        url: https://aless.co/
+      - title: Nuel
+        url: https://nuel.pw/
+      - title: Sunil's Garden
+        url: https://garden.sunils.in/
+        
   - name: Communautés
     synopsis: 
       Communautés que je fréquente (ou du moins que je lis régulièrement).

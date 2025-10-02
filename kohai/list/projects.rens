@@ -1,4 +1,4 @@
-<counter: 28;
+<counter: 29;
   description:
    "le générateur de site, basé sur yocaml qui propulse mon site personnel";
   name: "capsule">
@@ -16,7 +16,7 @@
   description:
    "une bibliothèque qui propose des abstractions inspirée de la théorie des catégorie pour ocaml";
   name: "preface">
-<counter: 2;
+<counter: 3;
   description:
    "un framework d'injection de dépendances en ocaml basé sur les objets et une monade reader";
   name: "primavera">
