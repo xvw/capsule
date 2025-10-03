@@ -999,7 +999,7 @@ multi-paradigmes_ de OCaml permet de centraliser son apprentissage
 dans un seul langage. À ma connaissance, dans la jungle de langages
 _partiellement populaires_, seul Scala semble couvrir autant de
 sujets, même si, de mon point de vue, son modèle objet est,
-essentiellement par soucis d'interopérabilité avec les autres langages
+essentiellement par souci d'interopérabilité avec les autres langages
 de la JVM, largement moins intéressant.
 
 
@@ -1021,8 +1021,8 @@ personne désireuse d'approfondir ses connaissances en OCaml.
 Pour conclure, OCaml offre un outillage, au niveau du langage, varié
 et riche pour l'apprentissage de la programmation, la construction de
 programmes industriels respectant des standards mais aussi
-l'implémentation [structure de données
-complexes](https://github.com/art-w/deque) et [d'abstractions issu de
+l'implémentation de [structures de données
+complexes](https://github.com/art-w/deque) et [d'abstractions issues de
 la théorie des catégories](https://github.com/xvw/preface) comme un
 noyau fonctionnel, des traits impératifs, un système de types inférés
 riche et expressif (permettant l'expression de types algébriques,
