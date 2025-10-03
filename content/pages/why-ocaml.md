@@ -709,7 +709,7 @@ signatures et les structures rend l'inversion de dépendances
 évidente. Par exemple, pour reprendre notre exemple, voici comment, en
 utilisant des [_first-class
 modules_](https://ocaml.org/manual/firstclassmodules.html), il est
-**très facile** de dépendre d'un ensemble d'interaction abstrait. On
+**très facile** de dépendre d'un ensemble d'interactions abstraites. On
 commence par décrire la représentation abstraite des interactions
 possibles :
 
