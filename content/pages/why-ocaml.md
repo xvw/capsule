@@ -676,7 +676,7 @@ injecter au moyen de **fonctionnalités offertes par le langage**. Dans
 les grandes lignes, le principe d'inversion des dépendances consiste à
 décrire des treillis de dépendance au moyen **d'abstractions** et non
 **d'implémentations**. De cette manière, les dépendances peuvent-être
-_injectées à postériori_ — rendant, notamment, le changement de
+_injectées a posteriori_ — rendant, notamment, le changement de
 contextes, pour des tests unitaires par exemple, trivialement
 implémentables.
 
@@ -709,7 +709,7 @@ signatures et les structures rend l'inversion de dépendances
 évidente. Par exemple, pour reprendre notre exemple, voici comment, en
 utilisant des [_first-class
 modules_](https://ocaml.org/manual/firstclassmodules.html), il est
-**très facile** de dépendre d'un ensemble d'interaction abstrait. On
+**très facile** de dépendre d'un ensemble d'interactions abstraites. On
 commence par décrire la représentation abstraite des interactions
 possibles :
 
@@ -791,7 +791,7 @@ let program () =
   Effect.perform (Print_endline ("Hello " ^ name))
 ```
 
-Il est ensuite possible d'interpréter, à postériori, notre programme
+Il est ensuite possible d'interpréter, a posteriori, notre programme
 en utilisant une construction similaire au filtrage par motif pour
 donner un sens spécifique à chaque effet.
 
@@ -999,7 +999,7 @@ multi-paradigmes_ de OCaml permet de centraliser son apprentissage
 dans un seul langage. À ma connaissance, dans la jungle de langages
 _partiellement populaires_, seul Scala semble couvrir autant de
 sujets, même si, de mon point de vue, son modèle objet est,
-essentiellement par soucis d'interopérabilité avec les autres langages
+essentiellement par souci d'interopérabilité avec les autres langages
 de la JVM, largement moins intéressant.
 
 
@@ -1021,15 +1021,15 @@ personne désireuse d'approfondir ses connaissances en OCaml.
 Pour conclure, OCaml offre un outillage, au niveau du langage, varié
 et riche pour l'apprentissage de la programmation, la construction de
 programmes industriels respectant des standards mais aussi
-l'implémentation [structure de données
-complexes](https://github.com/art-w/deque) et [d'abstractions issu de
+l'implémentation de [structures de données
+complexes](https://github.com/art-w/deque) et [d'abstractions issues de
 la théorie des catégories](https://github.com/xvw/preface) comme un
 noyau fonctionnel, des traits impératifs, un système de types inférés
 riche et expressif (permettant l'expression de types algébriques,
 facilitant l'expression de domaines clairs), un langage de modules
 comme outil d'abstraction, de réutilisabilité et de définition
 d'unités de compilation, un modèle objet, la possibilité d'exprimer
-des effets que l'on peut propager et interpréter _à postériori_ et
+des effets que l'on peut propager et interpréter _a posteriori_ et
 d'autres fonctionnalités avancées. Ne serait-ce que pour _appréhender
 des concepts avancés de programmation_, OCaml est un **excellent
 candidat** — c'est d'ailleurs pour ça que OCaml est une inspiration
