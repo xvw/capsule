@@ -1,3 +1,7 @@
+<counter: 2;
+  description:
+   "un autre générateur de site statique, moins corporate que capsule";
+  name: "alter">
 <counter: 29;
   description:
    "le générateur de site, basé sur yocaml qui propulse mon site personnel";
