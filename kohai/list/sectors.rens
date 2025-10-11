@@ -1,6 +1,6 @@
 <counter: 155; description: "catégorie relative à la programmation";
   name: "code">
-<counter: 19; description: "rédaction (blog, talk, etc)"; name: "ecriture">
+<counter: 21; description: "rédaction (blog, talk, etc)"; name: "ecriture">
 <counter: 13; description: "maintenance et releases de projets";
   name: "maintenance">
 <counter: 1; description: "secteur relatif à la musique"; name: "musique">
