@@ -40,7 +40,7 @@
 
   ;; Generator dependencies
   cmarkit
-  yojson
+  (yojson (>= 3.0.0))
   (hilite (>= 0.5.0))
  
   mdx ;; maybe because I probably want to use `mdx` in some articles

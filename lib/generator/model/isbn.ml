@@ -7,9 +7,10 @@ let validate =
   let open Yocaml.Data.Validation in
   string
   & (fun given ->
-    String.fold_left
+    Stdlib.String.fold_left
       (fun acc -> function
-         | '0' .. '9' as c -> Result.map (fun acc -> acc ^ String.make 1 c) acc
+         | '0' .. '9' as c ->
+           Result.map (fun acc -> acc ^ Stdlib.String.make 1 c) acc
          | '-' | '_' | ' ' | ':' | '\t' -> acc
          | _ -> fail_with ~given "Invalid ISBN")
       (Ok "")
@@ -18,7 +19,7 @@ let validate =
       ~pp:Format.pp_print_string
       ~message:(Format.asprintf "[%s] has not the right size")
       (fun given ->
-         let len = String.length given in
+         let len = Stdlib.String.length given in
          Int.equal len 10 || Int.equal len 13)
 ;;
 

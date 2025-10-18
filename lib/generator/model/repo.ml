@@ -74,19 +74,19 @@ let normalize repo =
 
 let from_string given =
   let open Yocaml.Data.Validation in
-  match String.split_on_char '/' given with
+  match Stdlib.String.split_on_char '/' given with
   | prov :: user_name :: repository_name :: ([ "" ] | []) ->
-    let prov = String.lowercase_ascii prov in
+    let prov = Stdlib.String.lowercase_ascii prov in
     let usrd = { user_name; repository_name } in
-    if String.equal "github" prov
+    if Stdlib.String.equal "github" prov
     then Ok (Github usrd)
-    else if String.equal "gitlab" prov
+    else if Stdlib.String.equal "gitlab" prov
     then Ok (Gitlab (Of_user usrd))
     else fail_with ~given ("invalid kind " ^ prov)
   | prov :: organization_name :: project_name :: repository_name :: ([ "" ] | [])
     ->
-    let prov = String.lowercase_ascii prov in
-    if String.equal "gitlab" prov
+    let prov = Stdlib.String.lowercase_ascii prov in
+    if Stdlib.String.equal "gitlab" prov
     then
       Ok
         (Gitlab
@@ -97,7 +97,7 @@ let from_string given =
 
 let validate =
   let open Yocaml.Data.Validation in
-  string $ String.trim & from_string
+  string $ Stdlib.String.trim & from_string
 ;;
 
 let equal_of_user

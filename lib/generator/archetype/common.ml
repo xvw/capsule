@@ -75,7 +75,7 @@ let validate_document_kind =
   let open Yocaml.Data.Validation in
   string
   & fun x ->
-  match String.(trim @@ lowercase_ascii x) with
+  match Stdlib.String.(trim @@ lowercase_ascii x) with
   | "index" -> Ok Model.Types.Index
   | "article" -> Ok Model.Types.Article
   | _ -> fail_with ~given:x "Invalid document kind"

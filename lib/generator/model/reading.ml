@@ -13,7 +13,7 @@ let validate_period =
   Yocaml.Datetime.validate
   / (string
      & fun given ->
-     match String.split_on_char '/' given with
+     match Stdlib.String.split_on_char '/' given with
      | [ year; month ] ->
        let dt = year ^ "-" ^ month ^ "-01" in
        Yocaml.Datetime.validate (Yocaml.Data.string dt)

@@ -34,8 +34,8 @@ let validate_identity =
 let validate_kind =
   let open Yocaml.Data.Validation in
   string
-  $ String.trim
-  $ String.lowercase_ascii
+  $ Stdlib.String.trim
+  $ Stdlib.String.lowercase_ascii
   $ function
   | "novel" | "roman" -> Novel
   | "short_stories" | "short" | "shortstories" -> Short_stories

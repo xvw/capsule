@@ -52,7 +52,8 @@ module String_model = struct
   let normalize = Yocaml.Data.string
 
   let validate =
-    Yocaml.Data.Validation.(string & minimal_length ~length:String.length 1)
+    Yocaml.Data.Validation.(
+      string & minimal_length ~length:Stdlib.String.length 1)
   ;;
 
   let compare = String.compare

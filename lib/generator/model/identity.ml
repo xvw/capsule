@@ -23,7 +23,7 @@ let mastodon =
       required
         fields
         "username"
-        (string & minimal_length ~length:String.length 2)
+        (string & minimal_length ~length:Stdlib.String.length 2)
     in
     instance, username)
 ;;
@@ -35,7 +35,9 @@ let normalize_display_name first last =
 
 let validate_name value =
   let open Yocaml.Data.Validation in
-  let s = string $ String.trim & minimal_length ~length:String.length 2 in
+  let s =
+    string $ Stdlib.String.trim & minimal_length ~length:Stdlib.String.length 2
+  in
   let* names =
     record
       (fun fields ->
