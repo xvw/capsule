@@ -9,7 +9,7 @@
 <counter: 0; description: "une reimplémentation de preface"; name: "frame">
 <counter: 26; description: "un codex de fonctionnalités pour yocaml";
   name: "kane">
-<counter: 41;
+<counter: 42;
   description: "un outil de journalisation utilisable depuis emacs";
   name: "kohai">
 <counter: 7;
