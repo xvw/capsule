@@ -1,4 +1,4 @@
-<counter: 12;
+<counter: 13;
   description:
    "un autre générateur de site statique, moins corporate que capsule";
   name: "alter">
@@ -12,6 +12,8 @@
 <counter: 42;
   description: "un outil de journalisation utilisable depuis emacs";
   name: "kohai">
+<counter: 1; description: "une tentative d'encyclopédie avec yocaml";
+  name: "mnemosyne">
 <counter: 7;
   description:
    "une bibliothèque pour gérer des pipelines de validation complexes";
