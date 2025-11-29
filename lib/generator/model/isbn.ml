@@ -20,7 +20,7 @@ let validate =
       ~message:(Format.asprintf "[%s] has not the right size")
       (fun given ->
          let len = Stdlib.String.length given in
-         Int.equal len 10 || Int.equal len 13)
+         Stdlib.Int.equal len 10 || Stdlib.Int.equal len 13)
 ;;
 
 let isbn_repr_10 offset isbn =

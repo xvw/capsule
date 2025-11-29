@@ -1,3 +1,7 @@
-<duration: null; index: 0; label: "Test de la bibliothèque standard";
+<duration: null; index: 0;
+  label: "Mise à jour de YOCaml et ajout de présentations manquantes";
+  links: []; meta: []; project: "capsule"; sector: "maintenance";
+  start_date: "2025-11-29T12-30-00">
+<duration: null; index: 1; label: "Test de la bibliothèque standard";
   links: []; meta: []; project: "mnemosyne"; sector: "code";
   start_date: "2025-11-29T12-46-07">
