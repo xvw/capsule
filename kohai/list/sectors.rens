@@ -1,8 +1,11 @@
-<counter: 161; description: "catégorie relative à la programmation";
+<counter: 162; description: "catégorie relative à la programmation";
   name: "code">
 <counter: 22; description: "rédaction (blog, talk, etc)"; name: "ecriture">
 <counter: 13; description: "maintenance et releases de projets";
   name: "maintenance">
 <counter: 1; description: "secteur relatif à la musique"; name: "musique">
+<counter: 1;
+  description: "secteur relatif à la recherche et aux expériences";
+  name: "recherches">
 <counter: 12; description: "catégorie au dessin et au graphisme";
   name: "visuel">
