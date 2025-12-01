@@ -2,7 +2,7 @@
   description:
    "un autre générateur de site statique, moins corporate que capsule";
   name: "alter">
-<counter: 31;
+<counter: 32;
   description:
    "le générateur de site, basé sur yocaml qui propulse mon site personnel";
   name: "capsule">
@@ -12,7 +12,7 @@
 <counter: 42;
   description: "un outil de journalisation utilisable depuis emacs";
   name: "kohai">
-<counter: 3; description: "une tentative d'encyclopédie avec yocaml";
+<counter: 6; description: "une tentative d'encyclopédie avec yocaml";
   name: "mnemosyne">
 <counter: 7;
   description:
