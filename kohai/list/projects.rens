@@ -12,7 +12,7 @@
 <counter: 42;
   description: "un outil de journalisation utilisable depuis emacs";
   name: "kohai">
-<counter: 6; description: "une tentative d'encyclopédie avec yocaml";
+<counter: 7; description: "une tentative d'encyclopédie avec yocaml";
   name: "mnemosyne">
 <counter: 7;
   description:
