@@ -12,6 +12,9 @@
 <counter: 42;
   description: "un outil de journalisation utilisable depuis emacs";
   name: "kohai">
+<counter: 1;
+  description: "matériel pour les workshops de l'événement lambdanantes";
+  name: "ln">
 <counter: 11; description: "une tentative d'encyclopédie avec yocaml";
   name: "mnemosyne">
 <counter: 7;
