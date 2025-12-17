@@ -15,7 +15,7 @@
 <counter: 1;
   description: "matériel pour les workshops de l'événement lambdanantes";
   name: "ln">
-<counter: 13; description: "une tentative d'encyclopédie avec yocaml";
+<counter: 14; description: "une tentative d'encyclopédie avec yocaml";
   name: "mnemosyne">
 <counter: 7;
   description:
@@ -31,7 +31,7 @@
   name: "primavera">
 <counter: 2; description: "un webring pour les amateurs du web indépendant";
   name: "ring-muhokama">
-<counter: 51;
+<counter: 52;
   description:
    "une bibliothèque ocaml pour construire des générateurs de sites statiques";
   name: "yocaml">
