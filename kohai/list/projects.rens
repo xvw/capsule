@@ -15,7 +15,7 @@
 <counter: 1;
   description: "matériel pour les workshops de l'événement lambdanantes";
   name: "ln">
-<counter: 14; description: "une tentative d'encyclopédie avec yocaml";
+<counter: 16; description: "une tentative d'encyclopédie avec yocaml";
   name: "mnemosyne">
 <counter: 7;
   description:
