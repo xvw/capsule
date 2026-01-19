@@ -25,7 +25,7 @@
   description:
    "une bibliothèque pour gérer des pipelines de validation complexes";
   name: "pil">
-<counter: 0;
+<counter: 1;
   description:
    "une bibliothèque qui propose des abstractions inspirée de la théorie des catégorie pour ocaml";
   name: "preface">
