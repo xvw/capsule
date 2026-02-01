@@ -39,6 +39,8 @@ and pp_record_error ppf = function
       error
       Yocaml.Data.pp
       given
+  | Yocaml.Data.Validation.Invalid_subrecord err ->
+    Format.fprintf ppf "invalid subrecord: %a" pp_value_error err
 ;;
 
 let print_validated_value pp_ok x =
