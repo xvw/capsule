@@ -6,7 +6,7 @@
   description:
    "le générateur de site, basé sur yocaml qui propulse mon site personnel";
   name: "capsule">
-<counter: 1;
+<counter: 2;
   description:
    "administration relative à l'organisation cargocut, et au développement du site";
   name: "cargocut">
