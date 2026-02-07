@@ -29,7 +29,7 @@
   description:
    "une bibliothèque qui propose des abstractions inspirée de la théorie des catégorie pour ocaml";
   name: "preface">
-<counter: 5;
+<counter: 6;
   description:
    "un framework d'injection de dépendances en ocaml basé sur les objets et une monade reader";
   name: "primavera">

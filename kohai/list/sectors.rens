@@ -1,7 +1,7 @@
 <counter: 196; description: "catégorie relative à la programmation";
   name: "code">
 <counter: 28; description: "rédaction (blog, talk, etc)"; name: "ecriture">
-<counter: 18; description: "maintenance et releases de projets";
+<counter: 19; description: "maintenance et releases de projets";
   name: "maintenance">
 <counter: 1; description: "secteur relatif à la musique"; name: "musique">
 <counter: 1;
