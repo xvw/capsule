@@ -35,7 +35,7 @@
   name: "primavera">
 <counter: 2; description: "un webring pour les amateurs du web indépendant";
   name: "ring-muhokama">
-<counter: 72;
+<counter: 73;
   description:
    "une bibliothèque ocaml pour construire des générateurs de sites statiques";
   name: "yocaml">
