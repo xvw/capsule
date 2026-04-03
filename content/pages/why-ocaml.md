@@ -1173,7 +1173,7 @@ comme [Idris](https://www.idris-lang.org/) ou
 [Nim](https://nim-lang.org/). Cependant, _à l'époque_, j'étais très
 impressionné par le fait que OCaml puisse, _depuis le moment où j'ai
 commencé à l'utiliser_, compiler vers JavaScript (en plus). A cette
-épqoue, je ne connaissais que [Haxe](https://haxe.org/) qui proposait
+époque, je ne connaissais que [Haxe](https://haxe.org/) qui proposait
 plusieurs cibles de compilation, si différentes (d'ailleurs, Haxe est
 [écrit en OCaml](https://github.com/HaxeFoundation/haxe)).
 
@@ -1583,7 +1583,7 @@ essentiellement sur 3 sujets :
 
 - **le développement web** (fortement porté par Mirage, Ocsigen et des
   projets indépendants, comme
-  [Dream](https://aantron.github.io/dream/),
+  [Dream](https://camlworks.github.io/dream/),
   [YOCaml](https://github.com/xhtmlboi/yocaml) et bien
   [d'autres](https://ocaml.org/packages/search?q=web))
 - **le développement de [Blockchain](https://tezos.com/)** et par
