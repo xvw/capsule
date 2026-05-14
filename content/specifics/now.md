@@ -11,6 +11,8 @@ synopsis:
   [Kohai](https://github.com/xvw/kohai), un petit outil de saisie 
   de temps qui s'interface avec
   [Emacs](https://www.gnu.org/software/emacs/).
+  (Pour la synthèse générale de _mon activité_, rendez-vous 
+  [ici](/activity.html))
 
 breadcrumb:
   - title: Meta
