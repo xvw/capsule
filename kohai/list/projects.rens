@@ -35,7 +35,7 @@
   name: "primavera">
 <counter: 2; description: "un webring pour les amateurs du web indépendant";
   name: "ring-muhokama">
-<counter: 11; description: "ma configuration emacs"; name: "scame">
+<counter: 12; description: "ma configuration emacs"; name: "scame">
 <counter: 1; description: "une tentative de theme personnel pour emacs";
   name: "xvwbeam">
 <counter: 77;
