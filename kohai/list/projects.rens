@@ -2,6 +2,8 @@
   description:
    "un autre générateur de site statique, moins corporate que capsule";
   name: "alter">
+<counter: 1; description: "implémentation ocaml de apache biscuit";
+  name: "biscuit">
 <counter: 33;
   description:
    "le générateur de site, basé sur yocaml qui propulse mon site personnel";

@@ -4,6 +4,8 @@
 <counter: 33; description: "maintenance et releases de projets";
   name: "maintenance">
 <counter: 1; description: "secteur relatif à la musique"; name: "musique">
+<counter: 1; description: "session de pair programming";
+  name: "pair-programming">
 <counter: 1;
   description: "secteur relatif à la recherche et aux expériences";
   name: "recherches">
