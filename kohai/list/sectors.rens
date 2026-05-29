@@ -1,4 +1,4 @@
-<counter: 206; description: "catégorie relative à la programmation";
+<counter: 207; description: "catégorie relative à la programmation";
   name: "code">
 <counter: 39; description: "rédaction (blog, talk, etc)"; name: "ecriture">
 <counter: 33; description: "maintenance et releases de projets";
@@ -6,7 +6,7 @@
 <counter: 1; description: "secteur relatif à la musique"; name: "musique">
 <counter: 1; description: "session de pair programming";
   name: "pair-programming">
-<counter: 1;
+<counter: 2;
   description: "secteur relatif à la recherche et aux expériences";
   name: "recherches">
 <counter: 12; description: "catégorie au dessin et au graphisme";
