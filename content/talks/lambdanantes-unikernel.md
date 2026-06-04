@@ -7,5 +7,5 @@ kind: Workshop
 country: France
 tags: [ocaml, mirage, unikernel, service]
 url: https://mobilizon.fr/events/cabe649a-a126-4e41-aa84-701d7944f818
-slides: https://github.com/xvw/mkernel-empty-project/blob/main/support/slides.pdf
+slides: https://xvw.lol/talks//ln-workshop-4-ocaml-unikernel/slides.pdf
 ---
