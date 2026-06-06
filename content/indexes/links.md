@@ -60,6 +60,10 @@ indexes:
         url: https://nicolasturlais.com/
       - title: Biloumaster
         url: https://biloumaster.fr/
+      - title: Benjamin Thuillier
+        url: https://gilwath.com/
+      - title: Thomas Gazagnaire
+        url: https://gazagnaire.org
         
   - name: Inspirations
     synopsis:
