@@ -40,7 +40,7 @@
 <counter: 12; description: "ma configuration emacs"; name: "scame">
 <counter: 1; description: "une tentative de theme personnel pour emacs";
   name: "xvwbeam">
-<counter: 83;
+<counter: 84;
   description:
    "une bibliothèque ocaml pour construire des générateurs de sites statiques";
   name: "yocaml">
