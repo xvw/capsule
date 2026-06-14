@@ -6,7 +6,7 @@
 <counter: 1; description: "secteur relatif à la musique"; name: "musique">
 <counter: 1; description: "session de pair programming";
   name: "pair-programming">
-<counter: 2;
+<counter: 3;
   description: "secteur relatif à la recherche et aux expériences";
   name: "recherches">
 <counter: 12; description: "catégorie au dessin et au graphisme";
