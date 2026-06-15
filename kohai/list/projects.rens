@@ -4,7 +4,7 @@
   name: "alter">
 <counter: 1; description: "implémentation ocaml de apache biscuit";
   name: "biscuit">
-<counter: 33;
+<counter: 35;
   description:
    "le générateur de site, basé sur yocaml qui propulse mon site personnel";
   name: "capsule">
