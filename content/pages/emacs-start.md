@@ -240,9 +240,11 @@ J'ai parfois dû faire des détours par d'autres éditeurs, comme
 Studio](https://visualstudio.microsoft.com/) (_#NET oblige_), et il
 m'est arrivé d'expérimenter des alternatives. Cependant, le temps et
 les habitudes avaient fait leur nid, **je reviens toujours
-invariablement à Emacs** (la mémoire musculaire). Des années plus
-tard, je ne regrette absolument pas ce choix, pris pour des raisons
-_ad hoc_ et chaotiques. Je suis un utilisateur d'Emacs !
+invariablement à Emacs** (la mémoire musculaire et
+[Bastien](https://github.com/BastienDuplessier) me ramenait souvent à
+la raison). Des années plus tard, je ne regrette absolument pas ce
+choix, pris pour des raisons _ad hoc_ et chaotiques. Je suis un
+utilisateur d'Emacs !
 
 C'était un article un _peu plus long que prévu_, avec beaucoup de
 détours et pas beaucoup d'informations utiles. Si vous êtes arrivé
