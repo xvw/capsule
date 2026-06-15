@@ -1,7 +1,7 @@
 ---
 page_title: Emacs, comment tout a démarré (pour moi)
 description:
-  Une présentation de pourquoi, et de comment, j'ai commencer à utiliser Emacs
+  Une présentation de pourquoi, et de comment, j'ai commencé à utiliser Emacs
 tags: [programmation, emacs, decouverte]
 section: outils
 published_at: 2026-06-15
@@ -37,17 +37,17 @@ qu'une restitution approximative des raisons _historiques_ qui m'ont
 fait choisir Emacs et non une tentative de conversation.
 
 > Je n'ai absolument rien contre les autres éditeurs. Même si mon
-activité professionnelle m'amène à travailler sur le support éditeur
-du langage OCaml, et que j'ai parfois été chagriné par les difficultés
-que l'on peut rencontrer en étendant [Visual > Studio
-Code](https://code.visualstudio.com/), je n'entretiens aucune
-hostilité particulière à leur égard. De même, bien que je tâche de
-privilégier les logiciels libres dans la mesure du possible, je ne
-suis malheureusement pas très au fait des questions de licences, des
-différentes philosophies ou, plus généralement, de tout ce qui touche
-au monde [GNU](https://en.wikipedia.org/wiki/GNU). Mon choix d'Emacs
-n'est donc pas politique, mais pragmatique, comme nous essaierons de
-le voir dans cet article.
+> activité professionnelle m'amène à travailler sur le support éditeur
+> du langage OCaml, et que j'ai parfois été chagriné par les
+> difficultés que l'on peut rencontrer en étendant [Visual Studio
+> Code](https://code.visualstudio.com/), je n'entretiens aucune
+> hostilité particulière à leur égard. De même, bien que je tâche de
+> privilégier les logiciels libres dans la mesure du possible, je ne
+> suis malheureusement pas très au fait des questions de licences, des
+> différentes philosophies ou, plus généralement, de tout ce qui
+> touche au monde [GNU](https://en.wikipedia.org/wiki/GNU). Mon choix
+> d'Emacs n'est donc pas politique, mais pragmatique, comme nous
+> essaierons de le voir dans cet article.
 
 
 ## Ma préhistoire
