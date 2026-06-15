@@ -162,7 +162,7 @@ programmation.
 
 C'était très motivant de découvrir ces autres langages, cependant,
 j'étais assez frustré de me rendre compte que je ne comprenais
-rien. J'ai donc décidé de me former à le plus de langages possible, en
+rien. J'ai donc décidé de me former au plus de langages possible, en
 espérant que cela me permettrait d'améliorer mon PHP et, surtout, de
 choisir le langage idéal en fonction des problèmes rencontrés, en
 essayant d'éviter de tomber dans la [Loi de
