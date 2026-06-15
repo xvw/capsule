@@ -19,6 +19,8 @@ indexes:
       très longtemps. Exaspéré par ma maladresse, j'ai décidé de collecter
       des notes pour améliorer mon usage.
     links:
+        - title: Comment tout a démarré (pour moi)
+          url: /pages/emacs-start.html
         - title: Occur + argument universel
           url: /pages/emacs-occurs-long-line.html
         - title: OCaml, Merlin et Destruct
