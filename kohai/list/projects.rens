@@ -13,6 +13,10 @@
    "administration relative à l'organisation cargocut, et au développement du site";
   name: "cargocut">
 <counter: 0; description: "une reimplémentation de preface"; name: "frame">
+<counter: 2;
+  description:
+   "un gestionnaire de tâches (qui sert de showcase sur des logiciels à la cargo cut)";
+  name: "hebdromadaire">
 <counter: 26; description: "un codex de fonctionnalités pour yocaml";
   name: "kane">
 <counter: 43;
