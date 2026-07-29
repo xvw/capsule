@@ -78,7 +78,9 @@ let layout_arrow
 
 let page_arrow
       (type a b)
-      (module A : Archetype.Types.ARCHETYPE with type t = a and type Input.t = b)
+      (module A : Archetype.Types.ARCHETYPE
+        with type t = a
+         and type Input.t = b)
       (module R : Intf.RESOLVER)
       template
       kind

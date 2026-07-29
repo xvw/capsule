@@ -54,8 +54,7 @@ let run_pp_syntax file =
 ;;
 
 let run_build log_level target source configuration_file =
-  let module Resolver =
-    Generator.Resolver.Make (struct
+  let module Resolver = Generator.Resolver.Make (struct
       let source, target = source, target
       let configuration_file = configuration_file
     end)
@@ -69,8 +68,7 @@ let run_build log_level target source configuration_file =
 ;;
 
 let run_watch port log_level target source configuration_file =
-  let module Resolver =
-    Generator.Resolver.Make (struct
+  let module Resolver = Generator.Resolver.Make (struct
       let source, target = source, target
       let configuration_file = configuration_file
     end)
