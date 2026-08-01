@@ -5,7 +5,7 @@ date: 2018-10-29
 city: Lyon
 country: France
 tags: [scala, ocaml, effect]
-url: https://scala.io/
+url: https://www.scala.io/
 slides: https://xvw.lol/talks/scalaio18-effects/slides.pdf
 video: https://www.youtube.com/watch?v=j2JGoQ9NZe8
 ---
