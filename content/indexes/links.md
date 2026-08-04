@@ -16,6 +16,8 @@ indexes:
       relation amicale est _potentiellement_ **unidirectionnelle**.
     sort: title
     links:
+      - title: Lorie Den Os
+        url: https://www.tahanea.net/
       - title: XHTMLBoy
         url: https://xhtmlboi.github.io
       - title: Grim
