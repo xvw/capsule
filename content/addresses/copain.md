@@ -27,6 +27,15 @@ breadcrumb:
   - title: Bruxelles
     url: /bars.html#index-bruxelles
     
+notes:
+  - when: 2026-01-31
+    message:
+      La direction de Copain a changé, les propriétaires sont partis vers 
+      d'autres projets ([Yoka Tomo](https://yokatomo.brussels/fr), 
+      [Groseille](https://groseille.brussels/fr),
+      [Waaïn Kameraden](https://www.waainkameraden.brussels/)). 
+      Cependant, le concept est resté le même.
+    
 indexes:
   - name: Liens
     links:
