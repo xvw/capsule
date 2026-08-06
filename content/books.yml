@@ -72,3 +72,43 @@
       - display_name: "Tzvetan Todorov"
       - display_name: "Gérard Genette"
 
+- key: "abara"
+  value:
+    isbn: "978-2-344-05518-2"
+    title: "ABARA"
+    kind: "bd"
+    year: 2005
+    editor: "Glénat"
+    authors:
+      - display_name: "Tsutomu Nihei"
+
+- key: "tower-dungeon-1"
+  value:
+    isbn: "978-2-344-06796-3"
+    title: "Tower Dungeon - 1"
+    kind: "bd"
+    year: 2025
+    editor: "Glénat"
+    authors:
+      - display_name: "Tsutomu Nihei"
+
+- key: "edena"
+  value:
+    isbn: "978-2-203-24512-9"
+    title: "Le monde d'Edena"
+    kind: "bd"
+    year: 1985
+    editor: "Casterman"
+    authors:
+      - display_name: "Mœbius"
+
+- key: "sur-les-chemins-noirs"
+  value:
+    isbn: "978-2-07-312100-4"
+    title: "Sur les chemins noirs"
+    kind: novel
+    year: 2025
+    editor: "Gallimard"
+    authors:
+      - display_name: "Sylvain Tesson"
+      - display_name: "François Schuiten"
