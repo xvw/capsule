@@ -33,6 +33,12 @@
             {{ r.book.isbn.repr }}
           </a>
           {%- endif -%}
+          <br />
+          <span class="re-reading {% if not r.reading.rereading %}is-new{%- endif -%}">
+            {%- if not r.reading.rereading -%}
+            Nouvelle lecture
+            {%- endif -%}
+          </span>
         </div>
         <div class="kind">{{ r.book.kind }}</div>
       </div>
