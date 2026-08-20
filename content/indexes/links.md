@@ -122,6 +122,10 @@ indexes:
         url: https://nuel.pw/
       - title: Sunil's Garden
         url: https://garden.sunils.in/
+      - title: Mekt
+        url: https://www.mek.gallery/
+      - title: Departure Mono
+        url: https://departuremono.com/
         
   - name: Communautés
     synopsis: 
