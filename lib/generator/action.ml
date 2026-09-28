@@ -6,6 +6,14 @@ let process_fonts (module R : Intf.RESOLVER) =
     (Yocaml.Action.copy_file ~into:R.Target.fonts)
 ;;
 
+let process_papers (module R : Intf.RESOLVER) =
+  Yocaml.Action.batch
+    ~only:`Files
+    ~where:File.is_pdf
+    R.Source.papers
+    (Yocaml.Action.copy_file ~into:R.Target.papers)
+;;
+
 let process_images (module R : Intf.RESOLVER) =
   let copy_image = Yocaml.Action.copy_file ~into:R.Target.images in
   let batch source =
@@ -440,6 +448,7 @@ let run (module R : Intf.RESOLVER) () =
   >>= process_fonts (module R)
   >>= process_css (module R)
   >>= process_images (module R)
+  >>= process_papers (module R)
   >>= process_d2_diagrams (module R)
   >>= process_maps (module R)
   >>= process_misc_files (module R)

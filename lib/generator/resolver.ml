@@ -16,6 +16,7 @@ module Make (R : Intf.RESOLVABLE) = struct
     let fonts = Path.(assets / "fonts")
     let images = Path.(assets / "images")
     let diagrams = Path.(content / "diagrams")
+    let papers = Path.(content / "papers")
     let d2 = Path.(diagrams / "d2")
     let content_images = Path.(content / "images")
     let indexes = Path.(content / "indexes")
@@ -76,11 +77,13 @@ module Make (R : Intf.RESOLVABLE) = struct
     let fonts = Path.(R.target / "fonts")
     let images = Path.(R.target / "images")
     let projects = Path.(R.target / "projects")
+    let papers = Path.(R.target / "papers")
 
     let project path =
       path |> Path.change_extension "html" |> Path.move ~into:projects
     ;;
 
+    let paper path = path |> Path.move ~into:papers
     let maps = Path.(images / "maps")
     let tags = Path.(R.target / "tags")
     let speaking = Path.(R.target / "speaking.html")

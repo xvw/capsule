@@ -34,6 +34,7 @@ module type RESOLVER = sig
     val readings_list : Yocaml.Path.t
     val now : Yocaml.Path.t
     val activity : Yocaml.Path.t
+    val papers : Yocaml.Path.t
 
     module En : sig
       val index : Yocaml.Path.t
@@ -74,6 +75,8 @@ module type RESOLVER = sig
     val now : Yocaml.Path.t
     val activity : Yocaml.Path.t
     val projects : Yocaml.Path.t
+    val papers : Yocaml.Path.t
+    val paper : Yocaml.Path.t -> Yocaml.Path.t
     val project : Yocaml.Path.t -> Yocaml.Path.t
     val as_html : Yocaml.Path.t -> Yocaml.Path.t
     val as_page : Yocaml.Path.t -> Yocaml.Path.t
